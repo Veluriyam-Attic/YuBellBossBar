@@ -1,4 +1,4 @@
-using Humanizer;
+Ôªøusing Humanizer;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
@@ -34,20 +34,20 @@ namespace YuBellBossBar.Content
 
                 Vector2 postion = Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2((float)BarConfig.Instance.BarPostionX, -(float)BarConfig.Instance.BarPostionY - 40f);
 
-                #region ±ﬂøÚ
-                #region «∞∂À
+                #region ËæπÊ°Ü
+                #region ÂâçÁ´Ø
                 Vector2 postionStart = postion + new Vector2(-((BarConfig.Instance.BarLong / 2) + 90f), -30);
                 Main.spriteBatch.Draw(ModContent.Request<Texture2D>("YuBellBossBar/Texture/HealthBarStart").Value, postionStart, Color.White);
                 #endregion
 
-                #region ∫Û∂À
-                // ∫Û∂À
+                #region ÂêéÁ´Ø
+                // ÂêéÁ´Ø
                 Vector2 postionEnd = postion + new Vector2(((BarConfig.Instance.BarLong / 2) - 30f), -30);
                 Main.spriteBatch.Draw(ModContent.Request<Texture2D>("YuBellBossBar/Texture/HealthBarEnd").Value, postionEnd, Color.White);
                 #endregion
 
-                #region ÷–∂Œ
-                // ’‚¿Ô «÷–º‰
+                #region ‰∏≠ÊÆµ
+                // ËøôÈáåÊòØ‰∏≠Èó¥
                 for (float postionX = (postionStart.X - postion.X + 120f); postionX < (postionEnd.X - postion.X); postionX += 10)
                 {
                     Main.spriteBatch.Draw(ModContent.Request<Texture2D>("YuBellBossBar/Texture/HealthBarMiddle").Value, postion + new Vector2(postionX, -30), Color.White);
@@ -55,7 +55,7 @@ namespace YuBellBossBar.Content
                 #endregion
                 #endregion
 
-                #region Boss¥ÛÕ∑Ã˘
+                #region BossÂ§ßÂ§¥Ë¥¥
                 try
                 {
                     Texture2D BossHead = TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()].Value;
@@ -71,31 +71,31 @@ namespace YuBellBossBar.Content
                 }
                 #endregion
 
-                #region ªÊ÷∆—™Ãı
+                #region ÁªòÂà∂Ë°ÄÊù°
 
 
                 #endregion
 
-                #region  ˝æ›œ‘ æ
+                #region Êï∞ÊçÆÊòæÁ§∫
                 float postionDate = -40f;
 
                 BigProgressBarHelper.DrawHealthText(spriteBatch, Rectangle.Empty, postion + new Vector2(0f, 3f), npc.life, npc.lifeMax);
 
                 if (BarConfig.Instance.MoreDate)
                 {
-                    //…À∫¶
+                    //‰º§ÂÆ≥
                     string damage = Language.GetTextValue("Mods.YuBellBossBar.Damage");
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, (damage + npc.damage.ToString()), postion + new Vector2(-150f - (damage.Length / 2), postionDate), Color.White);
 
-                    //∑¿”˘
+                    //Èò≤Âæ°
                     string defense = Language.GetTextValue("Mods.YuBellBossBar.Defense");
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, (defense + npc.defense.ToString()), postion + new Vector2(-300f - (defense.Length / 2), postionDate), Color.White);
 
-                    //…À∫¶ºı√‚
+                    //‰º§ÂÆ≥ÂáèÂÖç
                     string damagereduction = Language.GetTextValue("Mods.YuBellBossBar.DamageReduction");
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, (damagereduction + npc.takenDamageMultiplier.ToString()), postion + new Vector2(150f - (damagereduction.Length / 2), postionDate), Color.White);
 
-                    //ƒø±Í
+                    //ÁõÆÊ†á
                     string target = Language.GetTextValue("Mods.YuBellBossBar.Target");
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, (target + Main.player[npc.target].name), postion + new Vector2(300f - (target.Length / 2), postionDate), Color.White);
                 }
