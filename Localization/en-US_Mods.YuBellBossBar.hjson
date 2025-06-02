@@ -1,0 +1,26 @@
+Name: Yet血条
+Damage: 伤害:
+Defense: 防御:
+DamageReduction: 伤害减免:
+Target: 目标:
+
+Configs: {
+	BarConfig: {
+		DisplayName: 血条配置
+
+		BarLong: {
+			Label: 血条长度
+			Tooltip: 允许你决定血条的长度
+		}
+
+		BarPostionY: {
+			Label: 血条竖直位置
+			Tooltip: 允许你自定义血条的竖直位置
+		}
+
+		BarPostionX: {
+			Label: 血条横向位置
+			Tooltip: 允许你自定义血条的横向位置
+		}
+	}
+}
