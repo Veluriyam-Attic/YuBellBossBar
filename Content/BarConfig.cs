@@ -1,10 +1,6 @@
 ﻿global using YuBellBossBar.Content;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria.ModLoader.Config;
 
 namespace YuBellBossBar.Content
@@ -20,19 +16,38 @@ namespace YuBellBossBar.Content
 
         public override ConfigScope Mode => ConfigScope.ClientSide;
 
-        [DefaultValue(800f)]
-        [Range(0f,1600f)]
+        [Header($"PostionHeader")]
+
+        [DefaultValue(800)]
+        [Range(int.MinValue,int.MaxValue)]
         public int BarLong;
 
-        [DefaultValue(0f)]
-        [Range(-30f, 1200f)]
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
         public int BarPostionY;
 
-        [DefaultValue(0f)]
-        [Range(2000f, 2000f)]
+        [DefaultValue(0)]
+        [Range(int.MinValue, int.MaxValue)]
         public int BarPostionX;
 
+        [Header($"InfoHeader")]
+
         [DefaultValue(true)]
-        public bool MoreDate;
+        public bool MoreInfo;
+
+        [Header($"StyleHeader")]
+
+        [DefaultValue(true)]
+        public bool DrawLastBar;
+
+        [DefaultValue(5)]
+        [Range(0,int.MaxValue)]
+        public int LastBarDecreaseSpeed;
+
+        [DefaultValue(true)]
+        public bool UseGoldBar;
+
+        [DefaultValue(false)]
+        public bool ForceUseDefaultBar;
     }
 }
