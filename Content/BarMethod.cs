@@ -153,7 +153,9 @@ namespace YuBellBossBar.Content
                     new Vector2((float)FillStart, (float)postion.Y - (float)HalfHeight),
                     deepbarcolor * fillalpha
                     );
+
                 }
+
 
                 float percent = ((float)npc.life / (float)npc.lifeMax);
 
@@ -172,6 +174,9 @@ namespace YuBellBossBar.Content
                     barcolor * fillalpha
                     );
                 }
+
+                
+
 
                 if (BarPlayer.LastHit != 5)
                 {

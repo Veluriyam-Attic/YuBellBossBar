@@ -1,4 +1,6 @@
-﻿using Terraria;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using Terraria;
 using Terraria.ModLoader;
 
 namespace YuBellBossBar.Content
@@ -15,6 +17,8 @@ namespace YuBellBossBar.Content
             {
                 BarPlayer.LastHit = 5;
             }
+
+            Texture2D Fill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
         }
     }
     
