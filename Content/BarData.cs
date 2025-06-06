@@ -38,11 +38,11 @@ namespace YuBellBossBar.Content
 
         public static Dictionary<int, Color> BarColor = new Dictionary<int, Color>()
         {
-            
+
         };
 
         // Main NPC Should be BarNPCContain[0]
-        public static Dictionary<int, int[]> BarNPCContain = new Dictionary<int, int[]>() 
+        public static Dictionary<int, int[]> BarNPCContain = new Dictionary<int, int[]>()
         {
             // Golem
             {
@@ -59,5 +59,16 @@ namespace YuBellBossBar.Content
 
         public static Dictionary<int, bool[]> Condition = new Dictionary<int, bool[]>();
 
+        public static Dictionary<int, int[]> Position = new Dictionary<int, int[]>()
+        {
+            { NPCID.EaterofWorldsHead , new int[] { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }},
+            { NPCID.BrainofCthulhu , new int[] { NPCID.BrainofCthulhu, NPCID.Creeper } },
+            { NPCID.SkeletronHead , new int[] { NPCID.SkeletronHead, NPCID.SkeletronHand } },
+            { NPCID.SkeletronPrime ,  new int[] { NPCID.SkeletronPrime, NPCID.PrimeSaw, NPCID.PrimeVice, NPCID.PrimeCannon, NPCID.PrimeLaser }},
+            { NPCID.Golem , new int[] { NPCID.Golem, NPCID.GolemFistLeft, NPCID.GolemFistRight, NPCID.GolemHead, NPCID.GolemHeadFree } },
+            { NPCID.MartianSaucer , new int[] { NPCID.MartianSaucerCore, NPCID.MartianSaucerTurret, NPCID.MartianSaucerCannon } },
+            { NPCID.PirateShip , new int[] { NPCID.PirateShip, NPCID.PirateShipCannon } },
+            { NPCID.MoonLordHead , new int[] { NPCID.MoonLordHead, NPCID.MoonLordHand, NPCID.MoonLordCore } }
+        };
     }
 }
