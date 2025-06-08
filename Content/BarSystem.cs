@@ -27,9 +27,10 @@ namespace YuBellBossBar.Content
 
         public override void Load()
         {
+            BarData.BarTexture.Clear();
             BarData.BarTexture = new Dictionary<int, Texture2D[]>(){
                 {
-                -1,
+                int.MaxValue,
                [
                     ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarStart_Exp").Value,
                     ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarMiddle_Exp").Value,
@@ -40,316 +41,7 @@ namespace YuBellBossBar.Content
             },
 
             {
-                -2,
-               [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.KingSlime,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/KingSlimeHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/KingSlimeMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/KingSlimeEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/KingSlimeFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.EyeofCthulhu,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/CthEyeHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/BrainMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/CthEyeEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/CthEyeFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.EaterofWorldsHead,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/EOCHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/EOCMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/EOCEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/EOCFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.BrainofCthulhu ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/BrainHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/BrainMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/BrainEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/BrainFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.QueenBee,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenBeeHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenBeeMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenBeeEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenBeeFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.SkeletronHead ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SkeletronHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SkeletronMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SkeletronEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SkeletronFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.Deerclops,
-                [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.WallofFlesh,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DemonBarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DemonBarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DemonBarEnd").Value,
-                    null,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.QueenSlimeBoss,
-                [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.Retinazer,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarEnd").Value,
-                    null,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.Spazmatism,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarEnd").Value,
-                    null,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.TheDestroyer,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarEnd").Value,
-                    null,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.SkeletronPrime ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MechBarEnd").Value,
-                    null,
-                    TextureAssets.NpcHeadBoss[18].Value
-                    ]
-            },
-
-            {
-                NPCID.Plantera,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/PlantBarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/PlantBarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/PlantBarEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/PlantBarFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.Golem ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/GolemHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/GolemMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/GolemEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/GolemFill").Value,
-                    TextureAssets.NpcHeadBoss[5].Value
-                    ]
-            },
-
-            {
-                NPCID.HallowBoss,
-                [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.DukeFishron,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DukeHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DukeMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DukeEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DukeFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.CultistBoss,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/CultistHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/CultistMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/CultistEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/CultistFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.MoonLordHead ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MoonLordBarStart_Exp").Value,
-                    null,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MoonLordBarEnd_EXP").Value,
-                    null,
-                    TextureAssets.NpcHeadBoss[8].Value
-                    ]
-            },
-
-            {
-                NPCID.MartianSaucer ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MartianHead").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MartianMid").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MartianEndEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/MartianFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.PirateShip  ,
-                [
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.DD2OgreT2 ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SmBarStart_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2SmBarFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.DD2OgreT3 ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.DD2DarkMageT1 ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SmBarStart_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2SmBarFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.DD2DarkMageT3 ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                NPCID.DD2Betsy ,
-                [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarStart").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarMiddle").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarEnd").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DD2BarFill").Value,
-                    null
-                    ]
-            },
-
-
-            {
-                -1,
-               [
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarStart_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarMiddle_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarEnd_Exp").Value,
-                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value,
-                    null
-                    ]
-            },
-
-            {
-                -2,
+                int.MinValue,
                [
                     ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarStart").Value,
                     ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarMiddle").Value,
@@ -646,6 +338,7 @@ namespace YuBellBossBar.Content
             }
             };
 
+            BarData.BarColor.Clear();
             BarData.BarColor = new Dictionary<int, Color?>()
         {
             // 史王
@@ -731,6 +424,7 @@ namespace YuBellBossBar.Content
             Color.White }
         };
 
+            BarData.BarNPCContain.Clear();
             BarData.BarNPCContain = new Dictionary<int, int[]>()
         {
             // 史王
@@ -814,8 +508,9 @@ namespace YuBellBossBar.Content
             // 双足翼龙
             { NPCID.DD2Betsy,
             [NPCID.DD2Betsy] }
-        };
+                        };
 
+            BarData.BossMaxHealth.Clear();
             BarData.BossMaxHealth = new Dictionary<int, int>()
         {
             // 史王
@@ -901,6 +596,7 @@ namespace YuBellBossBar.Content
             0 }
         };
 
+            BarData.BossNowHealth.Clear();
             BarData.BossNowHealth = new Dictionary<int, int>()
         {
             // 史王
@@ -986,6 +682,7 @@ namespace YuBellBossBar.Content
             0 }
         };
 
+            BarData.BossName.Clear();
             BarData.BossName = new Dictionary<int, string>()
         {
             // 史王
@@ -1071,6 +768,7 @@ namespace YuBellBossBar.Content
             Lang.GetNPCName(NPCID.DD2Betsy).ToString() }
         };
 
+            BarData.CutLength.Clear();
             BarData.CutLength = new Dictionary<int, int[]>()
         {
             // 史王
@@ -1155,7 +853,8 @@ namespace YuBellBossBar.Content
             //{ NPCID.DD2Betsy,
             //0 }
         };
-            
+
+            BarData.Midwidth.Clear();
             BarData.Midwidth = new Dictionary<int, bool>()
         {
             // 史王

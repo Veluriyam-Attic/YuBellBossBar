@@ -140,6 +140,10 @@ namespace YuBellBossBar.Content
             {
                 if (BarData.BarTexture.Keys.Contains(npcType) && !(BarConfig.Instance.ForceUseDefaultBar))
                 {
+                    var x = BarData.BarTexture[50];
+                    var y = x[3];
+                    var z = y;
+
                     Main.NewText("True!");
                     Main.NewText("NPC Type is :" + npcType);
                     Texture2D[] NowBarArray = BarData.BarTexture[npcType];
@@ -152,19 +156,19 @@ namespace YuBellBossBar.Content
                     BossHead = NowBarArray[4];
                     if (BarStart == null)
                     {
-                        BarStart = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? -1 : -2][0];
+                        BarStart = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? int.MinValue : int.MaxValue][0];
                     }
                     if (BarMid == null)
                     {
-                        BarMid = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? -1 : -2][1];
+                        BarMid = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? int.MinValue : int.MaxValue][1];
                     }
                     if (BarEnd == null)
                     {
-                        BarEnd = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? -1 : -2][2];
+                        BarEnd = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? int.MinValue : int.MaxValue][2];
                     }
                     if (BarFill == null)
                     {
-                        BarFill = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? -1 : -2][3];
+                        BarFill = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? int.MinValue : int.MaxValue][3];
                     }
                     if (BossHead == null)
                     {
@@ -267,8 +271,7 @@ namespace YuBellBossBar.Content
                 (
                 ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value,
                 FillStartPosition,
-                new Rectangle(0, 0, FillStart, Fill
-                .Height),
+                new Rectangle(0, 0, FillStart, Fill.Height),
                 barFillColor,
                 0,
                 Vector2.Zero,
