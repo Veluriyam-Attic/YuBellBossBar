@@ -1,7 +1,11 @@
-﻿using Microsoft.Xna.Framework.Graphics;
+﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+using System.Linq;
 using Terraria;
-using Terraria.DataStructures;
+using Terraria.Enums;
+using Terraria.GameContent;
 using Terraria.GameContent.UI.BigProgressBar;
+using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
@@ -21,26 +25,13 @@ namespace YuBellBossBar.Content
             {
                 return;
             }
+            if (currentBar is CommonBossBigProgressBar)
             {
                 NPC npc = Main.npc[info.npcIndexToAimAt];
 
-                npc.BossBar = currentBar;
-
-                BarMethod.DrawBar(
-                    96,
-                    30,
-                    79,
-                    31,
-                    npc);
+                Main.spriteBatch.Draw(ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value, Main.MouseScreen, null, Color.Purple, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
+                BarMethod.DrawBar(npc);
             }
-        }
-    }
-
-    public class BellBar : ModBossBar
-    {
-        public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
-        {
-            return true;
         }
     }
 }
