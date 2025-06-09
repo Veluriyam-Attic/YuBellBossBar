@@ -3,54 +3,55 @@ Damage: 伤害:
 Defense: 防御:
 DamageReduction: 伤害减免:
 Target: 目标:
+WorldText: Check Yet Boss Health Bar's Mod Configuration！
 
 Configs: {
 	BarConfig: {
-		DisplayName: 血条配置
+		DisplayName: Health Bar Config
 
 		Headers: {
-			PostionHeader: 位置
-			InfoHeader: 信息
-			StyleHeader: 样式
+			PostionHeader: Position
+			InfoHeader: Info
+			StyleHeader: Style
 		}
 
 		BarLong: {
-			Label: 血条长度
-			Tooltip: 允许你决定血条的长度
+			Label: Health Bar Long
+			Tooltip: Allow you to edit your Boss Health Bar Long
 		}
 
 		BarPostionY: {
-			Label: 血条竖直位置
-			Tooltip: 允许你自定义血条的竖直位置
+			Label: Boss Health Bar Position Y
+			Tooltip: Allow you to edit your Boss Health Bar Position Y
 		}
 
 		BarPostionX: {
-			Label: 血条横向位置
-			Tooltip: 允许你自定义血条的横向位置
+			Label: Boss Health Bar Position X
+			Tooltip: Allow you to edit your Boss Health Bar Position X
 		}
 
 		MoreInfo: {
-			Label: 更多信息
-			Tooltip: 显示当前Boss的防御、伤害、伤害减免和目标
+			Label: Show More Info
+			Tooltip: Display Defense , Damage , Target
 		}
 
 		DrawLastBar: {
-			Label: 显示连续攻击开始时血条位置
+			Label: Show the past Boss Health Bar Position
 			Tooltip: ""
 		}
 
 		UseGoldBar: {
-			Label: 使用金色版本的血条
+			Label: Use Gold Style Boss Health Bar
 			Tooltip: ""
 		}
 
 		LastBarDecreaseSpeed: {
-			Label: 连续攻击结束时回退血条开始时血条速度
+			Label: speed of past Boss Health Bar
 			Tooltip: ""
 		}
 
 		ForceUseDefaultBar: {
-			Label: 强制使用默认血条
+			Label: Force Use Default Boss Health Bar
 			Tooltip: ""
 		}
 	}

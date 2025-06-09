@@ -12,7 +12,7 @@ namespace YuBellBossBar.Content
     public class BarData
     {
         // 开始，中间，结束，填充，头
-        public static Dictionary<int, Texture2D[]> BarTexture = new Dictionary<int, Texture2D[]>();
+        public static Dictionary<int, Asset<Texture2D>[]> BarTexture = new Dictionary<int, Asset<Texture2D>[]>();
 
         // 绘制的颜色
         public static Dictionary<int, Color?> BarColor = new Dictionary<int, Color?>();

@@ -25,11 +25,9 @@ namespace YuBellBossBar.Content
             {
                 return;
             }
-            if (currentBar is CommonBossBigProgressBar)
             {
                 NPC npc = Main.npc[info.npcIndexToAimAt];
 
-                Main.spriteBatch.Draw(ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value, Main.MouseScreen, null, Color.Purple, 0, Vector2.Zero, 1, SpriteEffects.None, 0);
                 BarMethod.DrawBar(npc);
             }
         }

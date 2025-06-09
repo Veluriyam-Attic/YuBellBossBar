@@ -1,0 +1,58 @@
+Name: Yet血条
+Damage: 伤害:
+Defense: 防御:
+DamageReduction: 伤害减免:
+Target: 目标:
+WorldText: 请查看Yet Boss Health Bar的模组配置！
+
+Configs: {
+	BarConfig: {
+		DisplayName: 血条配置
+
+		Headers: {
+			PostionHeader: 位置
+			InfoHeader: 信息
+			StyleHeader: 样式
+		}
+
+		BarLong: {
+			Label: 血条长度
+			Tooltip: 允许你决定血条的长度
+		}
+
+		BarPostionY: {
+			Label: 血条竖直位置
+			Tooltip: 允许你自定义血条的竖直位置
+		}
+
+		BarPostionX: {
+			Label: 血条横向位置
+			Tooltip: 允许你自定义血条的横向位置
+		}
+
+		MoreInfo: {
+			Label: 更多信息
+			Tooltip: 显示当前Boss的防御、伤害、伤害减免和目标
+		}
+
+		DrawLastBar: {
+			Label: 显示连续攻击开始时血条位置
+			Tooltip: ""
+		}
+
+		UseGoldBar: {
+			Label: 使用金色版本的血条
+			Tooltip: ""
+		}
+
+		LastBarDecreaseSpeed: {
+			Label: 连续攻击结束时回退血条开始时血条速度
+			Tooltip: ""
+		}
+
+		ForceUseDefaultBar: {
+			Label: 强制使用默认血条
+			Tooltip: ""
+		}
+	}
+}

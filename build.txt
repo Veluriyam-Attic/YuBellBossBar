@@ -1,3 +1,6 @@
 displayName = Yet Another Boss Health Bar - Update by 虞悖
 author = 虞悖
 version = 0.1
+side = Both
+hideResources = true
+hideCode = true
