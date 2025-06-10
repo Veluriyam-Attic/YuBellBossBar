@@ -73,7 +73,7 @@ namespace YuBellBossBar.Content
                 DrawBarFrame(Start, Mid, End, StartStartPosition, EndStartPosition, FillStartPosition, MidStartPosition, Head, HeadWidth, HeadHeight, truetype, alpha);
                 DrawBarInfo(Info, postion, barFillColor, alpha);
                 DrawMoreInfo(npc);
-
+                //Main.NewText(npc.type);
             }
             catch (Exception)
             {
@@ -577,11 +577,16 @@ namespace YuBellBossBar.Content
                 Main.spriteBatch.Draw(Start, StartStartPosition, Color.White * alpha);
                 Main.spriteBatch.Draw(End, EndStartPosition, Color.White * alpha);
 
-                Main.spriteBatch.Draw(
+                if(Head != null)
+                {
+                    Main.spriteBatch.Draw(
                     Head,
                     StartStartPosition + new Vector2(HeadWidth - (Head.Width / 2), HeadHeight - (Head.Height / 2)),
                     Color.White * alpha
                     );
+                }
+
+                
             }
             catch
             {
