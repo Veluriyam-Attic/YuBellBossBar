@@ -2,8 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.GameContent;
@@ -988,6 +986,92 @@ namespace YuBellBossBar.Content
             { NPCID.DD2Betsy,
             false}
         };
+
+            BarData.CanDraw.Clear();
+            BarData. CanDraw= new Dictionary<int, bool>()
+        {
+            // 史王
+            { NPCID.KingSlime,
+            true },
+            // 克眼
+            { NPCID.EyeofCthulhu,
+            true },
+            // 世吞
+            { NPCID.EaterofWorldsHead ,
+            true},
+            // 克脑
+            { NPCID.BrainofCthulhu ,
+            true },
+            // 蜂王
+            { NPCID.QueenBee,
+            true },
+            // 骷髅王
+            { NPCID.SkeletronHead ,
+            true },
+            // 独眼巨鹿
+            { NPCID.Deerclops,
+            true},
+            // 血肉墙
+            { NPCID.WallofFlesh,
+            true },
+            // 史莱姆皇后
+            { NPCID.QueenSlimeBoss,
+            true },
+            // 双子魔眼
+                // 激光眼
+                { NPCID.Retinazer,
+                true},
+                // 魔焰眼
+                { NPCID.Spazmatism,
+                true },
+            // 毁灭者
+            { NPCID.TheDestroyer,
+            true},
+            // 机械骷髅王
+            { NPCID.SkeletronPrime ,
+            true},
+            // 世纪之花
+            { NPCID.Plantera,
+            true},
+            // 石巨人
+            { NPCID.Golem ,
+            true },
+            // 光女
+            { NPCID.HallowBoss,
+            true },
+            // 猪鲨
+            { NPCID.DukeFishron,
+            true},
+            // 拜月教
+            { NPCID.CultistBoss,
+            true},
+            // 月总
+            { NPCID.MoonLordHead ,
+            true},
+            // 火星人
+            { NPCID.MartianSaucer ,
+            true },
+            // 荷兰人飞盗船
+            { NPCID.PirateShip ,
+            true},
+            // 食人魔
+                // T2
+                { NPCID.DD2OgreT2,
+                true},
+                // T3
+                { NPCID.DD2OgreT3,
+                true},
+            // 黑暗魔法师
+                // T1
+                { NPCID.DD2DarkMageT1,
+                true},
+                // T3
+                { NPCID.DD2DarkMageT3,
+                true},
+            // 双足翼龙
+            { NPCID.DD2Betsy,
+            true}
+        };
         }
     }
 
@@ -1010,12 +1094,9 @@ namespace YuBellBossBar.Content
     {
         public override void OnKill(NPC npc)
         {
-            foreach(var npcs in Main.npc)
+            if (npc.boss)
             {
-                if (npcs.boss)
-                {
-                    return;
-                }
+                return;
             }
             BarData.BossMaxHealth.Clear();
             BarData.BossNowHealth.Clear();
@@ -1023,7 +1104,7 @@ namespace YuBellBossBar.Content
 
         public override void OnSpawn(NPC npc, IEntitySource source)
         {
-            if(npc.type == NPCID.MoonLordHead)
+            if (npc.type == NPCID.MoonLordHead)
             {
                 npc.life -= 1;
             }

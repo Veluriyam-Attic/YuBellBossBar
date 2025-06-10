@@ -29,5 +29,7 @@ namespace YuBellBossBar.Content
         public static Dictionary<int, int[]> CutLength = new Dictionary<int, int[]>();
 
         public static Dictionary<int, bool> Midwidth = new Dictionary<int, bool>();
+
+        public static Dictionary<int, bool> CanDraw = new Dictionary<int, bool>();
     }
 }

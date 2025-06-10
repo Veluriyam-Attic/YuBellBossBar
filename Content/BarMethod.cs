@@ -8,17 +8,13 @@ using System.Linq;
 using ReLogic.Content;
 using System;
 using Terraria.ID;
-using Newtonsoft.Json.Serialization;
 using Terraria.Localization;
 
 namespace YuBellBossBar.Content
 {
     public class BarMethod
     {
-        public static void DrawBar
-            (
-            NPC npc
-            )
+        public static void DrawBar(NPC npc)
         {
             try
             {
@@ -64,21 +60,13 @@ namespace YuBellBossBar.Content
                 Vector2 MidEndPosition = EndStartPosition - new Vector2(Fill.Width - FillStart, 0);
                 float alpha = CheckDown(StartStartPosition, End, EndStartPosition);
 
-
-                //Main.NewText("Health now!" + Health);
-                //Main.NewText(Main.screenPosition.X.ToString() + "  " + Main.MouseScreen.X.ToString());
-                //Main.NewText("Loaded!");
-
-
                 DrawFill(FillStartPosition, EndStartPosition, Fill, FillStart, (Color)barFillColor, percent, EndWidth, alpha, truetype);
                 DrawBarFrame(Start, Mid, End, StartStartPosition, EndStartPosition, FillStartPosition, MidStartPosition, Head, HeadWidth, HeadHeight, truetype, alpha);
                 DrawBarInfo(Info, postion, barFillColor, alpha,npc,Name);
-                DrawMoreInfo(npc);
-                //Main.NewText(npc.type);
+                DrawMoreInfo(npc,StartStartPosition,EndStartPosition,postion,Fill,End);
             }
             catch (Exception)
             {
-                //Main.NewText("Exception!");
                 return;
             }
         }
@@ -147,7 +135,6 @@ namespace YuBellBossBar.Content
             }
             catch (Exception)
             {
-                //Console.WriteLine("The NPC Array is NOW conforming!");
                 return npcType;
             }
         }
@@ -159,11 +146,9 @@ namespace YuBellBossBar.Content
                 if (BarData.BarTexture.Keys.Contains(npcType) && !(BarConfig.Instance.ForceUseDefaultBar))
                 {
                     Asset<Texture2D>[] NowBarArray = BarData.BarTexture[npcType];
-                    //Console.WriteLine("1!");
 
                     if (NowBarArray != null)
                     {
-                        //Console.WriteLine("2!");
                         if (NowBarArray[0] != null) 
                         {
                             BarStart = NowBarArray[0].Value;
@@ -207,7 +192,6 @@ namespace YuBellBossBar.Content
                     }
                     else
                     {
-                        //Console.WriteLine("1 - 1!");
                         Asset<Texture2D>[] DefaultTexture;
                         BarData.BarTexture.TryGetValue(BarConfig.Instance.UseGoldBar ? int.MaxValue : int.MinValue, out DefaultTexture);
 
@@ -223,8 +207,6 @@ namespace YuBellBossBar.Content
                 }
                 else
                 {
-
-                    //Console.WriteLine("Flase!");
                     Asset<Texture2D>[] DefaultTexture;
                     BarData.BarTexture.TryGetValue(BarConfig.Instance.UseGoldBar ? int.MaxValue : int.MinValue, out DefaultTexture);
 
@@ -240,8 +222,6 @@ namespace YuBellBossBar.Content
             }
             catch (Exception)
             {
-                //Main.NewText("The Texture Array is NOT conforming!");
-                //Console.WriteLine("Yeah!");
                 return;
                 BarStart = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
                 BarMid = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
@@ -275,7 +255,6 @@ namespace YuBellBossBar.Content
             }
             catch (Exception)
             {
-                //Main.NewText("Can't Get Bar Color!");
                 return Color.White;
             }
         }
@@ -296,7 +275,6 @@ namespace YuBellBossBar.Content
         {
             try
             {
-
                 if (BarData.CutLength.Keys.Contains(npc) && !BarConfig.Instance.ForceUseDefaultBar)
                 {
                     StartWidth = BarData.CutLength[npc][0];
@@ -316,7 +294,6 @@ namespace YuBellBossBar.Content
             }
             catch
             {
-
                 return;
             }
         }
@@ -326,7 +303,6 @@ namespace YuBellBossBar.Content
 
         public static void DrawFill(Vector2 FillStartPosition, Vector2 EndStartPosition, Texture2D Fill, int FillStart, Color barFillColor, float percent, int EndWidth, float alpha, int type)
         {
-
             Vector2 postion = Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2((float)BarConfig.Instance.BarPostionX, -(float)BarConfig.Instance.BarPostionY - 40f);
 
             float FillX = EndWidth - Fill.Width;
@@ -633,7 +609,7 @@ namespace YuBellBossBar.Content
             }
         }
 
-        public static void DrawMoreInfo(NPC npc)
+        public static void DrawMoreInfo(NPC npc,Vector2 StartStartPosition,Vector2 EndStartPosition,Vector2 postion,Texture2D Fill,Texture2D End)
         {
             if (BarConfig.Instance.MoreInfo)
             {
@@ -642,39 +618,39 @@ namespace YuBellBossBar.Content
                 Texture2D Target = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Info/Target").Value;
                 Texture2D CalDR = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Info/CalDR").Value;
                 Texture2D FarDR = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Info/FarDR").Value;
-                Vector2 position = new Vector2(30f, (float)Main.ScreenSize.ToVector2D().Y / 2f);
 
                 {
-                    Vector2 defense = new Vector2(position.X,position.Y - 90f);
-                    Vector2 detext = new Vector2(FontAssets.MouseText.Value.MeasureString(npc.defense.ToString()).X / 2, FontAssets.MouseText.Value.MeasureString(npc.defense.ToString()).Y / 3);
-                    Main.spriteBatch.Draw(Defense, defense - new Vector2(Defense.Width / 2,Defense.Height / 2), Color.White);
+                    Vector2 defense = new Vector2(StartStartPosition.X + Defense.Width, StartStartPosition.Y - (Defense.Height / 2));
+                    Vector2 detext = new Vector2( -5f , FontAssets.MouseText.Value.MeasureString(npc.defense.ToString()).Y / 3);
 
+                    Main.spriteBatch.Draw(Defense, new Vector2(StartStartPosition.X, StartStartPosition.Y - Defense.Height), Color.White);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(1,1), Color.Black);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(-1,1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(-1, -1), Color.
+                        Black);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(1,-1), Color.Black);
-                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(-1,-1), Color.Black);
 
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext, Color.White);
                 }
 
                 {
-                    Vector2 damage = new Vector2(position.X, position.Y - 60f);
-                    Vector2 datext = new Vector2(FontAssets.MouseText.Value.MeasureString(npc.damage.ToString()).X / 2, FontAssets.MouseText.Value.MeasureString(npc.damage.ToString()).Y / 3);
-                    Main.spriteBatch.Draw(Damage, damage - new Vector2(Damage.Width / 2, Damage.Height / 2), Color.White);
+                    Vector2 damage = new Vector2(EndStartPosition.X + End.Width - Damage.Width - 10f,EndStartPosition.Y - (Damage.Height / 2));
+                    Vector2 datext = new Vector2(FontAssets.MouseText.Value.MeasureString(npc.damage.ToString()).X, FontAssets.MouseText.Value.MeasureString(npc.damage.ToString()).Y / 3);
+                    Main.spriteBatch.Draw(Damage,new Vector2(EndStartPosition.X + End.Width - Damage.Width,EndStartPosition.Y - Damage.Height ),Color.White);
 
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext + new Vector2(1, 1), Color.Black);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext + new Vector2(-1, 1), Color.Black);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext + new Vector2(1, -1), Color.Black);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext + new Vector2(-1, -1), Color.Black);
 
-                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext, Color.White);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(),damage - datext, Color.White);
                 }
 
                 {
-                    Vector2 target = new Vector2(position.X, position.Y - 30f);
+                    Vector2 target = new Vector2(postion.X, postion.Y-((Fill.Height + Target.Height) / 2));
                     Vector2 tatext = new Vector2(FontAssets.MouseText.Value.MeasureString(Main.player[npc.target].name).X / 2, FontAssets.MouseText.Value.MeasureString(Main.player[npc.target].name).Y / 3);
-                    Main.spriteBatch.Draw(Target, target - new Vector2(Target.Width / 2, Target.Height / 2), Color.White);
 
+                    Main.spriteBatch.Draw(Target, target + new Vector2(-(Target.Width / 2), -Target.Width / 2), Color.White);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Main.player[npc.target].name, target - tatext + new Vector2(1, 1), Color.Black);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Main.player[npc.target].name, target - tatext + new Vector2(-1, 1), Color.Black);
                     Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Main.player[npc.target].name, target - tatext + new Vector2(1, -1), Color.Black);

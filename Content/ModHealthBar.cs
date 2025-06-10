@@ -27,7 +27,10 @@ namespace YuBellBossBar.Content
             }
             {
                 NPC npc = Main.npc[info.npcIndexToAimAt];
-
+                if(BarData.CanDraw.Keys.Contains(npc.type) && !BarData.CanDraw[npc.type])
+                {
+                    return;
+                }
                 BarMethod.DrawBar(npc);
             }
         }
