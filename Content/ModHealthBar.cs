@@ -1,11 +1,6 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Linq;
+﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.Enums;
-using Terraria.GameContent;
 using Terraria.GameContent.UI.BigProgressBar;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 
