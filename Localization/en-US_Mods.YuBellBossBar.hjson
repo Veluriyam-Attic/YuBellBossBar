@@ -1,9 +1,10 @@
-Name: Yet血条
-Damage: 伤害:
-Defense: 防御:
-DamageReduction: 伤害减免:
-Target: 目标:
-WorldText: Check Yet Boss Health Bar's Mod Configuration！
+Name: Yet Another Boss Health Bar
+WorldText:
+	'''
+	Check Yet Boss Health Bar's Mod Configuration!
+	Choose Yet Another Boss Health Bar to Enable!
+	'''
+Invincible: Invincible
 
 Configs: {
 	BarConfig: {

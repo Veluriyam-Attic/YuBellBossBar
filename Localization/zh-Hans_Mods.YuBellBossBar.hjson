@@ -1,9 +1,10 @@
 Name: Yet血条
-Damage: 伤害:
-Defense: 防御:
-DamageReduction: 伤害减免:
-Target: 目标:
-WorldText: 请查看Yet Boss Health Bar的模组配置！
+WorldText:
+	'''
+	请查看Yet Boss Health Bar的模组配置！
+	在设置中选择Yet血条以启用！
+	'''
+Invincible: 无敌
 
 Configs: {
 	BarConfig: {

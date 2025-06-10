@@ -16,11 +16,7 @@ namespace YuBellBossBar.Content
             Mod thisbar;
             ModLoader.TryGetMod("YuBellBossBar",out thisbar);
             Mod fargosouls;
-            if (!ModLoader.TryGetMod("FargowiltasSouls",out fargosouls))
-            {
-                return;
-            }
-            else
+            if (ModLoader.TryGetMod("FargowiltasSouls",out fargosouls))
             {
                 ModLoader.TryGetMod("FargowiltasSouls", out fargosouls);
                 thisbar.Call("BellBarAddColor",fargosouls.Find<ModNPC>("DeviBoss").Type , (Color?)new Color(255, 0, 147));

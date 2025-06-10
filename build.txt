@@ -1,5 +1,5 @@
 displayName = Yet Another Boss Health Bar - Update by 虞悖
 author = 虞悖
-version = 0.1.1.2
+version = 0.1.1.3
 side = Both
 weakReferences = FargowiltasSouls,CalamityMod

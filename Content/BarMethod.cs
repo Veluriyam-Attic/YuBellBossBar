@@ -9,6 +9,7 @@ using ReLogic.Content;
 using System;
 using Terraria.ID;
 using Newtonsoft.Json.Serialization;
+using Terraria.Localization;
 
 namespace YuBellBossBar.Content
 {
@@ -51,7 +52,7 @@ namespace YuBellBossBar.Content
                 GetValues(truetype, ref StartWidth, ref HeadWidth, ref HeadHeight, ref EndWidth, ref FillStart);
 
                 string Name = GetBossName(npc.type);
-                string Info = Name + ":" + Health.ToString() + "/" + MaxHealth.ToString() + ":" + string.Format("{0:f2}", (percent * 100)) + "%";
+                string Info = Name + " : " + Health.ToString() + "/" + MaxHealth.ToString() + " : [" + string.Format("{0:f2}", (percent * 100)) + "%]";
 
                 Color barFillColor = (Color)GetFillColor(truetype, Health, MaxHealth);
 
@@ -71,7 +72,7 @@ namespace YuBellBossBar.Content
 
                 DrawFill(FillStartPosition, EndStartPosition, Fill, FillStart, (Color)barFillColor, percent, EndWidth, alpha, truetype);
                 DrawBarFrame(Start, Mid, End, StartStartPosition, EndStartPosition, FillStartPosition, MidStartPosition, Head, HeadWidth, HeadHeight, truetype, alpha);
-                DrawBarInfo(Info, postion, barFillColor, alpha);
+                DrawBarInfo(Info, postion, barFillColor, alpha,npc,Name);
                 DrawMoreInfo(npc);
                 //Main.NewText(npc.type);
             }
@@ -595,14 +596,28 @@ namespace YuBellBossBar.Content
 
         }
 
-        public static void DrawBarInfo(string Info, Vector2 postion, Color color, float alpha)
+        public static void DrawBarInfo(string Info, Vector2 postion, Color color, float alpha,NPC npc,string Name)
         {
-            Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Info).X / 2, FontAssets.MouseText.Value.MeasureString(Info).Y / 3);
-            Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(1, 1), Color.Black * alpha);
-            Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(-1, 1), Color.Black * alpha);
-            Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(-1, -1), Color.Black * alpha);
-            Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(1, -1), Color.Black * alpha);
-            Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion, Color.White * alpha);
+            if (!npc.dontTakeDamage)
+            {
+                Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Info).X / 2, FontAssets.MouseText.Value.MeasureString(Info).Y / 3);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(1, 1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(-1, 1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(-1, -1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(1, -1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion, Color.White * alpha);
+            }
+            else
+            {
+                string Invincible = "["+Name + " : " + Language.GetTextValue($"Mods.YuBellBossBar.Invincible") + "]";
+                Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Invincible).X / 2, FontAssets.MouseText.Value.MeasureString(Invincible).Y / 3);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion + new Vector2(1, 1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion + new Vector2(-1, 1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion + new Vector2(-1, -1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion + new Vector2(1, -1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion, Color.White * alpha);
+            }
+
         }
 
         public static float CheckDown(Vector2 StartStartPosition, Texture2D End, Vector2 EndStartPosition)
