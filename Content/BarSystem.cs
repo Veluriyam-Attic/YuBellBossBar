@@ -1086,7 +1086,10 @@ namespace YuBellBossBar.Content
 
         public override void OnEnterWorld()
         {
-            Main.NewText(Language.GetTextValue($"Mods.YuBellBossBar.WorldText"));
+            if (BarConfig.Instance.WorldInfo)
+            {
+                Main.NewText(Language.GetTextValue($"Mods.YuBellBossBar.WorldText"));
+            }           
         }
     }
 

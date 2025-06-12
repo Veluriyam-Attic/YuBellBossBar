@@ -55,5 +55,10 @@ Configs: {
 			Label: 强制使用默认血条
 			Tooltip: ""
 		}
+
+		WorldInfo: {
+			Label: 提示信息
+			Tooltip: 开关进入世界时左下角的提示讯息
+		}
 	}
 }

@@ -35,6 +35,9 @@ namespace YuBellBossBar.Content
         [DefaultValue(true)]
         public bool MoreInfo;
 
+        [DefaultValue(true)]
+        public bool WorldInfo;
+
         [Header($"StyleHeader")]
 
         [DefaultValue(true)]

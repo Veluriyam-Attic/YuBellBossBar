@@ -55,5 +55,10 @@ Configs: {
 			Label: Force Use Default Boss Health Bar
 			Tooltip: ""
 		}
+
+		WorldInfo: {
+			Label: 提示信息
+			Tooltip: 开关进入世界时左下角的提示讯息
+		}
 	}
 }
