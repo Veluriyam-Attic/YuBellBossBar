@@ -142,10 +142,10 @@ namespace YuBellBossBar.Content
             {
                 NPCID.QueenSlimeBoss,
                 [
-                    null,
-                    null,
-                    null,
-                    null,
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenSlimeStart"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenSlimeMid"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenSlimeEnd"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenSlimeFill"),
                     null
                     ]
             },
