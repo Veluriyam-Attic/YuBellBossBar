@@ -310,7 +310,7 @@ namespace YuBellBossBar.Content
             if (BarConfig.Instance.DrawLastBar)
             {
 
-                bool a = (type == NPCID.DD2OgreT2 || type == NPCID.DD2OgreT3 || type == NPCID.DD2DarkMageT1 || type == NPCID.DD2DarkMageT3 || type == NPCID.DD2Betsy);
+                bool a = (type == NPCID.DD2OgreT2 || type == NPCID.DD2OgreT3 || type == NPCID.DD2DarkMageT1 || type == NPCID.DD2DarkMageT3 || type == NPCID.DD2Betsy || type == NPCID.HallowBoss);
                 if (!a)
                 {
                     Main.spriteBatch.Draw
