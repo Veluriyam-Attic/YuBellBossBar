@@ -219,10 +219,10 @@ namespace YuBellBossBar.Content
             {
                 NPCID.HallowBoss,
                 [
-                    null,
-                    null,
-                    null,
-                    null,
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/ELStart"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/ELMid"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/ELEnd"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/ELFill"),
                     null
                     ]
             },
