@@ -1,0 +1,13 @@
+[h1]这是一个Boss血条Mod[/h1]
+
+从1.3的[Yet Another Boss Health Bar]模组更新而来
+
+下次更新: 完善ModCall
+
+[h2]致谢!!![/h2]
+Flashkirby, Devil Slime, ROH, Tigerzzz
+
+[h2]反馈[/h2]
+Email: 3412615165@qq.com
+Discord: zhzhaidou_
+QQ群: 909428503

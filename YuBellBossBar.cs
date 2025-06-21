@@ -1,40 +1,102 @@
 using Microsoft.Xna.Framework.Graphics;
-using System;
 using Terraria.ModLoader;
+using Microsoft.Xna.Framework;
+using ReLogic.Content;
 
 namespace YuBellBossBar
 {
-	public class YuBellBossBar : Mod
-	{
+    public class YuBellBossBar : Mod
+    {
         public override object Call(params object[] args)
         {
-            if (args[0] is Texture2D && args[1] is Texture2D && args[2] is Texture2D && args[3] is int && args[4] is int && args[5] is int)
+            switch (args[0])
             {
-                if(args[0] == null || args[1] == null || args[2] == null || args[3] == null || args[4] == null || args[5] == null)
-                {
-                    return "Value Can't be NULL";
-                }
+                case "BellBarAddColor":
+                    {
+                        int? key = args[1] as int?;
+                        Color? color = args[2] as Color?;
+                        if (key == null || color == null)
+                        {
+                            return null;
+                        }
+                        BarData.BarColor.TryAdd((int)key, color);
+                        return null;
+                    }
 
-                try
-                {
-                    Texture2D BarStart = args[0] as Texture2D;
-                    Texture2D BarMid = args[1] as Texture2D;
-                    Texture2D BarEnd = args[2] as Texture2D;
-                    int? StartX = args[3] as int?;
-                    int? StartY = args[4] as int?;
-                    int? npcType = args[5] as int?;
+                case "BellBarAddCotain":
+                    {
+                        int? key = args[1] as int?;
+                        int[] cotain = args[2] as int[];
+                        if (key == null || cotain == null)
+                        {
+                            return null;
+                        }
+                        BarData.BarNPCContain.TryAdd((int)key, cotain);
+                        return null;
+                    }
 
-                    BarMethod.InputInfo(BarStart, BarMid, BarEnd, (int)StartX, (int)StartY, (int)npcType);
+                case "BellBarAddTexture":
+                    {
+                        int? key = args[1] as int?;
+                        Asset<Texture2D>[] texture = args[2] as Asset<Texture2D>[];
+                        if (key == null || texture == null)
+                        {
+                            return null;
+                        }
+                        BarData.BarTexture.TryAdd((int)key, texture);
+                        return null;
+                    }
+
+                case "BellBarAddName":
+                    {
+                        int? key = args[1] as int?;
+                        string name = args[2] as string;
+                        if (key == null || name == null)
+                        {
+                            return null;
+                        }
+                        BarData.BossName.TryAdd((int)key, name);
+                        return null;
+                    }
+
+                case "BellBarAddCut":
+                    {
+                        int? key = args[1] as int?;
+                        int[] cut = args[2] as int[];
+                        if (key == null || cut == null)
+                        {
+                            return null;
+                        }
+                        BarData.CutLength.TryAdd((int)key, cut);
+                        return null;
+                    }
+
+                case "BellBarAddDuplicate":
+                    {
+                        int? key = args[1] as int?;
+                        bool? dup = args[2] as bool?;
+                        if (key == null || dup == null)
+                        {
+                            return null;
+                        }
+                        BarData.Midwidth.TryAdd((int)key, (bool)dup);
+                        return null;
+                    }
+
+                case "BellBarAddCan":
+                    {
+                        int? key = args[1] as int?;
+                        bool? can = args[2] as bool?;
+                        if (key == null || can == null)
+                        {
+                            return null;
+                        }
+                        BarData.CanDraw.TryAdd((int)key, (bool)can);
+                        return null;
+                    }
+
+                default:
                     return null;
-                }
-                catch (Exception)
-                {
-                    return "There's a Exception!";
-                }
-            }
-            else
-            {
-                return "Value Error!";
             }
         }
     }

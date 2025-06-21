@@ -19,7 +19,7 @@ namespace YuBellBossBar.Content
         [Header($"PostionHeader")]
 
         [DefaultValue(800)]
-        [Range(int.MinValue,int.MaxValue)]
+        [Range(400,int.MaxValue)]
         public int BarLong;
 
         [DefaultValue(0)]
@@ -34,6 +34,9 @@ namespace YuBellBossBar.Content
 
         [DefaultValue(true)]
         public bool MoreInfo;
+
+        [DefaultValue(true)]
+        public bool WorldInfo;
 
         [Header($"StyleHeader")]
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.Localization;
 using Terraria.ModLoader;
@@ -23,24 +22,12 @@ namespace YuBellBossBar.Content
             }
             {
                 NPC npc = Main.npc[info.npcIndexToAimAt];
-
-                npc.BossBar = currentBar;
-
-                BarMethod.DrawBar(
-                    96,
-                    30,
-                    79,
-                    31,
-                    npc);
+                if(BarData.CanDraw.Keys.Contains(npc.type) && !BarData.CanDraw[npc.type])
+                {
+                    return;
+                }
+                BarMethod.DrawBar(npc);
             }
-        }
-    }
-
-    public class BellBar : ModBossBar
-    {
-        public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
-        {
-            return true;
         }
     }
 }

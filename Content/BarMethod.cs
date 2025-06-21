@@ -1,196 +1,77 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Graphics;
-using System;
-using System.Collections.Generic;
 using Terraria;
 using Terraria.GameContent;
-using Terraria.ID;
 using Terraria.ModLoader;
+using System.Linq;
+using ReLogic.Content;
+using System;
+using Terraria.ID;
+using Terraria.Localization;
 
 namespace YuBellBossBar.Content
 {
     public class BarMethod
     {
-
-        public static Vector2 lastpostion = Vector2.Zero;
-        public static Vector2 drawpostion = Vector2.Zero;
-        public static Vector2 endpostion = Vector2.Zero;
-
-        public static void InputInfo(Texture2D BarStart, Texture2D BarMid, Texture2D BarEnd, int StartX, int EndX, int npcType)
+        public static void DrawBar(NPC npc)
         {
-            
-        }
-
-        public static void DrawBar
-            (
-            int StartX,
-            int EndX,
-            int HeadX,
-            int HeadY,
-            NPC npc
-            )
-        {
-            Texture2D BarStart = null;
-            Texture2D BarMid = null;
-            Texture2D BarEnd = null;
-            Texture2D Fill = null;
-
             try
             {
-                #region GetValues
-                GetBarTexture(ref BarStart, ref BarMid, ref BarEnd, ref Fill, npc);
+                int npctype = npc.type;
+
+                int truetype = GetNPC(npctype);
+
+                Texture2D Start = null;
+                Texture2D Mid = null;
+                Texture2D End = null;
+                Texture2D Fill = null;
+                Texture2D Head = null;
+                GetTexture(truetype, ref Start, ref Mid, ref End, ref Fill, ref Head, npc);
+
                 Vector2 postion = Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2((float)BarConfig.Instance.BarPostionX, -(float)BarConfig.Instance.BarPostionY - 40f);
-                int HalfBarLong = BarConfig.Instance.BarLong / 2;
-                int HalfHeight = BarMid.Height / 2;
-                Vector2 postionStart = postion - new Vector2(HalfBarLong + StartX, HalfHeight);
-                Vector2 postionEnd = postion - new Vector2(EndX - HalfBarLong, HalfHeight);
-                Texture2D BossHead = GetHeadTexture(npc);
-                float alpha = CheckCursorOnBar(postionStart, postionEnd + new Vector2(BarEnd.Width, HalfHeight * 2), Main.MouseWorld, BarEnd);
-                #endregion
-                #region Draw
-                DrawBarFill(postion, postionStart, postionEnd, Fill, HalfBarLong, HalfHeight, npc, alpha);
-                DrawBarFrame(postionStart, BarStart, postionEnd, BarMid, postion, HalfHeight, BarEnd, alpha);
-                DrawBarBossHead(BossHead, postionStart, HeadX, HeadY, alpha);
-                float NameLength = DrawBossNameAndHealth(npc, postion, alpha);
-                if (NameLength == -1)
-                {
-                    return;
-                }
-                DrawBarInfo(postion, npc, NameLength);
-                #endregion
+
+                GetMaxHealth(truetype);
+                int MaxHealth;
+                BarData.BossMaxHealth.TryGetValue(truetype, out MaxHealth);
+                int Health;
+                BarData.BossNowHealth.TryGetValue(truetype, out Health);
+                float percent = (float)Health / (float)MaxHealth;
+
+
+                int StartWidth = 0;
+                int HeadWidth = 0;
+                int HeadHeight = 0;
+                int EndWidth = 0;
+                int FillStart = 0;
+                int npckey = 0;
+                GetValues(truetype, ref StartWidth, ref HeadWidth, ref HeadHeight, ref EndWidth, ref FillStart);
+
+                string Name = GetBossName(npc.type);
+                string Info = Name + " : " + Health.ToString() + "/" + MaxHealth.ToString() + " : [" + string.Format("{0:f2}", (percent * 100)) + "%]";
+
+                Color barFillColor = (Color)GetFillColor(truetype, Health, MaxHealth);
+
+                Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Info).X / 2, FontAssets.MouseText.Value.MeasureString(Info).Y / 3);
+                Vector2 FillStartPosition = postion - new Vector2(BarConfig.Instance.BarLong / 2, Fill.Height / 2);
+                Vector2 StartStartPosition = FillStartPosition - new Vector2(StartWidth, 0);
+                Vector2 EndStartPosition = postion + new Vector2(BarConfig.Instance.BarLong / 2 - EndWidth, -(Fill.Height / 2));
+                Vector2 MidStartPosition = StartStartPosition + new Vector2(Start.Width, 0);
+                Vector2 MidEndPosition = EndStartPosition - new Vector2(Fill.Width - FillStart, 0);
+                float alpha = CheckDown(StartStartPosition, End, EndStartPosition);
+
+                DrawFill(FillStartPosition, EndStartPosition, Fill, FillStart, (Color)barFillColor, percent, EndWidth, alpha, truetype);
+                DrawBarFrame(Start, Mid, End, StartStartPosition, EndStartPosition, FillStartPosition, MidStartPosition, Head, HeadWidth, HeadHeight, truetype, alpha);
+                DrawBarInfo(Info, postion, barFillColor, alpha,npc,Name);
+                DrawMoreInfo(npc,StartStartPosition,EndStartPosition,postion,Fill,End);
             }
             catch (Exception)
             {
-                Main.NewText("There's a Exception! Show it to 虞悖(Yu Bell)!");
+                return;
             }
         }
 
-        #region Draw Method
-        public static void DrawBarFrame(Vector2 postionStart, Texture2D BarStart, Vector2 postionEnd, Texture2D BarMid, Vector2 postion, int HalfHeight, Texture2D BarEnd, float alpha)
-        {
-
-            for (float MidStart = postionStart.X + BarStart.Width; MidStart < postionEnd.X; MidStart += BarMid.Width)
-            {
-                Main.spriteBatch.Draw(BarMid, new Vector2(MidStart, postion.Y - HalfHeight), new Color(255, 255, 255) * alpha);
-            }
-            Main.spriteBatch.Draw(BarStart, postionStart, new Color(255, 255, 255) * alpha);
-            Main.spriteBatch.Draw(BarEnd, postionEnd, new Color(255, 255, 255) * alpha);
-        }
-
-        public static void DrawBarBossHead(Texture2D BossHead, Vector2 postionStart, int HeadX, int HeadY, float alpha)
-        {
-            Main.spriteBatch.Draw(
-                BossHead,
-                postionStart + new Vector2(HeadX, HeadY) - new Vector2(BossHead.Width / 2, BossHead.Height / 2),
-                new Color(255, 255, 255) * alpha);
-        }
-
-        public static void DrawBarInfo(Vector2 postion, NPC npc, float NameLength)
-        {
-            if (BarConfig.Instance.MoreInfo)
-            {
-                //int FifthBarLong = BarConfig.Instance.BarLong / 5;
-
-                //string damage = Language.GetTextValue("Mods.YuBellBossBar.Damage");
-                //Main.spriteBatch.DrawString(FontAssets.MouseText.Value, (damage + npc.damage.ToString()), postion + new Vector2(-NameLength - (damage.Length / 2) - 20f, 0), Color.Red);
-
-                //string defense = Language.GetTextValue("Mods.YuBellBossBar.Defense");
-                //Main.spriteBatch.DrawString(FontAssets.MouseText.Value, (defense + npc.defense.ToString()), postion + new Vector2(-NameLength - (damage.Length / 2) - 20f, 0), new Color(192, 192, 192));
-
-                //string damagereduction = Language.GetTextValue("Mods.YuBellBossBar.DamageReduction");
-                //Main.spriteBatch.DrawString(FontAssets.MouseText.Value, (damagereduction + string.Format("{0:f2}", (1 - npc.takenDamageMultiplier) * 100)) + "%", postion + new Vector2(FifthBarLong - (damagereduction.Length / 2), 0), Color.Pink);
-
-                //string target = Language.GetTextValue("Mods.YuBellBossBar.Target");
-                //Main.spriteBatch.DrawString(FontAssets.MouseText.Value, (target + Main.player[npc.target].name), postion + new Vector2((FifthBarLong * 2) - (target.Length / 2), 0), Color.Orange);
-            }
-        }
-
-        public static float DrawBossNameAndHealth(NPC npc, Vector2 postion, float alpha)
-        {
-            if (npc.life < 0)
-            {
-                return -1;
-            }
-            string NameAndHealth =
-                npc.FullName.ToString() + ":" +
-                npc.life.ToString() + "/" + npc.lifeMax.ToString() + ":"
-                + string.Format("{0:f2}", (((float)npc.life / (float)npc.lifeMax) * 100)) + "%";
-            Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(NameAndHealth).X / 2, FontAssets.MouseText.Value.MeasureString(NameAndHealth).Y / 3);
-
-            Main.spriteBatch.DrawString(FontAssets.MouseText.Value, NameAndHealth, postion - Namepostion, new Color(255, 255, 255));
-
-            return FontAssets.MouseText.Value.MeasureString(NameAndHealth).X;
-        }
-
-        public static void DrawBarFill(Vector2 postion, Vector2 postionStart, Vector2 postionEnd, Texture2D Fill, int HalfBarLong, int HalfHeight, NPC npc, float alpha, Color? color = null)
-        {
-            Color barcolor;
-
-            if (color == null)
-            {
-                barcolor = GetBarColor(npc.life, npc.lifeMax, alpha);
-            }
-            else
-            {
-                barcolor = (Color)color;
-            }
-            Color deepbarcolor = new Color(barcolor.R, barcolor.G, barcolor.B);
-
-            if (BarConfig.Instance.DrawLastBar)
-            {
-                float fillalpha = alpha * alpha * alpha * alpha * alpha;
-
-                for
-                (
-                float FillStart = (float)(postion.X - (float)HalfBarLong - Fill.Width);
-                FillStart < lastpostion.X;
-                FillStart++)
-                {
-                    Main.spriteBatch.Draw
-                    (
-                    Fill,
-                    new Vector2((float)FillStart, (float)postion.Y - (float)HalfHeight),
-                    deepbarcolor * fillalpha
-                    );
-                }
-
-                float percent = ((float)npc.life / (float)npc.lifeMax);
-
-                for
-                    (
-                    float FillStart = (float)(postion.X - (float)HalfBarLong - Fill.Width);
-                    FillStart < (float)((postion.X - (float)HalfBarLong - Fill.Width) + ((float)HalfBarLong * 2) * percent);
-                    FillStart++)
-                {
-                    drawpostion = new Vector2((float)FillStart, (float)postion.Y - (float)HalfHeight);
-
-                    Main.spriteBatch.Draw
-                    (
-                    Fill,
-                    drawpostion,
-                    barcolor * fillalpha
-                    );
-                }
-
-                if (BarPlayer.LastHit != 5)
-                {
-                    if (lastpostion.X > endpostion.X)
-                    {
-                        lastpostion.X -= (float)BarConfig.Instance.LastBarDecreaseSpeed;
-                    }
-                    if (lastpostion.X <= endpostion.X)
-                    {
-                        lastpostion.X = endpostion.X;
-                    }
-                }
-                else if (BarPlayer.LastHit == 5)
-                {
-                    endpostion = drawpostion;
-                }
-            }
-        }
-        public static Color GetBarColor(int Health, int MaxHealth, float alpha)
+        public static Color GetDefaultBarColor(int Health, int MaxHealth)
         {
             float num = (float)Health / (float)MaxHealth;
             if (num > 1f)
@@ -237,74 +118,547 @@ namespace YuBellBossBar.Content
             return new Color((byte)num5, (byte)num6, (byte)num7, (byte)num8);
         }
 
-        public static NPC GetNPC(NPC npc)
+        public static int GetNPC(int npcType)
         {
-            return npc;
-        }
-
-        public static Texture2D GetHeadTexture(NPC npc)
-        {
-            Texture2D BossHead;
-            switch (npc.type)
+            try
             {
-                case NPCID.Golem:
-                    {
-                        BossHead = ModContent.Request<Texture2D>($"Terraria/Images/NPC_Head_Boss_5").Value;
-                        break;
-                    }
-
-                default:
-                    {
-                        BossHead = TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()].Value;
-                        break;
-                    }
-            }
-
-            return BossHead;
-        }
-
-        public static void GetBarTexture(ref Texture2D BarStart, ref Texture2D BarMid, ref Texture2D BarEnd, ref Texture2D Fill, NPC npc)
-        {
-            if (!BarConfig.Instance.ForceUseDefaultBar)
-            {
-                Fill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
-                if (BarConfig.Instance.UseGoldBar)
+                foreach (var npcs in BarData.BarNPCContain.Keys)
                 {
-                    BarStart = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarStart_Exp").Value;
-                    BarMid = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarMiddle_Exp").Value;
-                    BarEnd = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarEnd_Exp").Value;
+                    int[] npc;
+                    BarData.BarNPCContain.TryGetValue(npcs, out npc);
+                    if (npc.Contains(npcType))
+                    {
+                        return npcs;
+                    }
+                }
+                return npcType;
+            }
+            catch (Exception)
+            {
+                return npcType;
+            }
+        }
+
+        public static void GetTexture(int npcType, ref Texture2D BarStart, ref Texture2D BarMid, ref Texture2D BarEnd, ref Texture2D BarFill, ref Texture2D BossHead, NPC npc)
+        {
+            try
+            {
+                if (BarData.BarTexture.Keys.Contains(npcType) && !(BarConfig.Instance.ForceUseDefaultBar))
+                {
+                    Asset<Texture2D>[] NowBarArray = BarData.BarTexture[npcType];
+
+                    if (NowBarArray != null)
+                    {
+                        if (NowBarArray[0] != null) 
+                        {
+                            BarStart = NowBarArray[0].Value;
+                        }
+                        else
+                        {
+                            BarStart = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? int.MaxValue : int.MinValue][0].Value;
+                        }
+                        if (NowBarArray[1] != null)
+                        {
+                            BarMid = NowBarArray[1].Value;
+                        }
+                        else
+                        {
+                            BarMid = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? int.MaxValue : int.MinValue][1].Value;
+                        }
+                        if (NowBarArray[2] != null)
+                        {
+                            BarEnd = NowBarArray[2].Value;
+                        }
+                        else
+                        {
+                            BarEnd = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? int.MaxValue : int.MinValue][2].Value;
+                        }
+                        if (NowBarArray[3] != null)
+                        {
+                            BarFill = NowBarArray[3].Value;
+                        }
+                        else
+                        {
+                            BarFill = BarData.BarTexture[BarConfig.Instance.UseGoldBar ? int.MaxValue : int.MinValue][3].Value;
+                        }
+                        if (NowBarArray[4] != null)
+                        {
+                            BossHead = NowBarArray[4].Value;
+                        }
+                        else
+                        {
+                            BossHead = TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()].Value;
+                        }
+                    }
+                    else
+                    {
+                        Asset<Texture2D>[] DefaultTexture;
+                        BarData.BarTexture.TryGetValue(BarConfig.Instance.UseGoldBar ? int.MaxValue : int.MinValue, out DefaultTexture);
+
+                        BarStart = DefaultTexture[0].Value;
+                        BarMid = DefaultTexture[1].Value;
+                        BarEnd = DefaultTexture[2].Value;
+                        BarFill = DefaultTexture[3].Value;
+                        BossHead = TextureAssets.NpcHeadBoss[Main.npc[npcType].GetBossHeadTextureIndex()].Value;
+
+                        return;
+                    }
+
                 }
                 else
                 {
-                    BarStart = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarStart").Value;
-                    BarMid = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarMiddle").Value;
-                    BarEnd = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarEnd").Value;
-                    Fill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
+                    Asset<Texture2D>[] DefaultTexture;
+                    BarData.BarTexture.TryGetValue(BarConfig.Instance.UseGoldBar ? int.MaxValue : int.MinValue, out DefaultTexture);
+
+
+                    BarStart = DefaultTexture[0].Value;
+                    BarMid = DefaultTexture[1].Value;
+                    BarEnd = DefaultTexture[2].Value;
+                    BarFill = DefaultTexture[3].Value;
+                    BossHead = TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()].Value;
+
+                    return;
                 }
+            }
+            catch (Exception)
+            {
+                return;
+                BarStart = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
+                BarMid = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
+                BarEnd = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
+                BarFill = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
+                BossHead = TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()].Value;
+            }
+        }
+
+        public static Color? GetFillColor(int npcType, int health, int maxhealth)
+        {
+            try
+            {
+                Color? outValue;
+                if (BarData.BarColor.Keys.Contains(npcType))
+                {
+                    BarData.BarColor.TryGetValue(npcType, out outValue);
+                    if (outValue != null)
+                    {
+                        return outValue;
+                    }
+                    else
+                    {
+                        return GetDefaultBarColor(health, maxhealth);
+                    }
+                }
+                else
+                {
+                    return GetDefaultBarColor(health, maxhealth);
+                }
+            }
+            catch (Exception)
+            {
+                return Color.White;
+            }
+        }
+
+        public static string GetBossName(int npc)
+        {
+            if (BarData.BossName.Keys.Contains(npc))
+            {
+                return BarData.BossName[npc];
             }
             else
             {
-                Fill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill").Value;
-                if (BarConfig.Instance.UseGoldBar)
-                {
-                    BarStart = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarStart_Exp").Value;
-                    BarMid = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarMiddle_Exp").Value;
-                    BarEnd = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarEnd_Exp").Value;
-                }
-                else
-                {
-                    BarStart = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarStart").Value;
-                    BarMid = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarMiddle").Value;
-                    BarEnd = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarEnd").Value;
-                }
+                return Lang.GetNPCName(npc).ToString();
             }
         }
 
-        public static float CheckCursorOnBar(Vector2 Startposition, Vector2 Endposition, Vector2 Cursorposition, Texture2D BarEnd)
+        public static void GetValues(int npc, ref int StartWidth, ref int HeadWidth, ref int HeadHeight, ref int EndWidth, ref int FillStart)
         {
-            bool CanDecrease = Collision.CheckAABBvAABBCollision(Main.screenPosition + Startposition, new Vector2(Endposition.X - Startposition.X + BarEnd.Width, BarEnd.Height), Main.MouseWorld, Vector2.One);
-            return CanDecrease ? 0.4F : 1F;
+            try
+            {
+                if (BarData.CutLength.Keys.Contains(npc) && !BarConfig.Instance.ForceUseDefaultBar)
+                {
+                    StartWidth = BarData.CutLength[npc][0];
+                    HeadWidth = BarData.CutLength[npc][1];
+                    HeadHeight = BarData.CutLength[npc][2];
+                    EndWidth = BarData.CutLength[npc][3];
+                    FillStart = BarData.CutLength[npc][4];
+                }
+                else
+                {
+                    StartWidth = BarData.CutLength[int.MinValue][0];
+                    HeadWidth = BarData.CutLength[int.MinValue][1];
+                    HeadHeight = BarData.CutLength[int.MinValue][2];
+                    EndWidth = BarData.CutLength[int.MinValue][3];
+                    FillStart = BarData.CutLength[int.MinValue][4];
+                }
+            }
+            catch
+            {
+                return;
+            }
         }
-        #endregion
+
+        public static float lastpostion = 0;
+        public static float endpostion = 0;
+
+        public static void DrawFill(Vector2 FillStartPosition, Vector2 EndStartPosition, Texture2D Fill, int FillStart, Color barFillColor, float percent, int EndWidth, float alpha, int type)
+        {
+            Vector2 postion = Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2((float)BarConfig.Instance.BarPostionX, -(float)BarConfig.Instance.BarPostionY - 40f);
+
+            float FillX = EndWidth - Fill.Width;
+
+            if (BarConfig.Instance.DrawLastBar)
+            {
+
+                bool a = (type == NPCID.DD2OgreT2 || type == NPCID.DD2OgreT3 || type == NPCID.DD2DarkMageT1 || type == NPCID.DD2DarkMageT3 || type == NPCID.DD2Betsy);
+                if (!a)
+                {
+                    Main.spriteBatch.Draw
+                    (
+                    Fill,
+                    FillStartPosition,
+                    new Rectangle(0, 0, FillStart, Fill.Height),
+                    barFillColor * alpha * 0.7f,
+                    0,
+                    Vector2.Zero,
+                    new Vector2((lastpostion - FillStartPosition.X) / FillStart, 1f),
+                    SpriteEffects.None
+                    , 0
+                    );
+                    Main.spriteBatch.Draw
+                    (
+                    Fill,
+                    new Vector2(lastpostion, FillStartPosition.Y),
+                    null,
+                    barFillColor * alpha * 0.7f,
+                    0,
+                    Vector2.Zero,
+                    1f,
+                    SpriteEffects.None
+                    , 0
+                    );
+                }
+                else
+                {
+
+                    Main.spriteBatch.Draw
+                    (
+                    Fill,
+                    FillStartPosition,
+                    new Rectangle(0, 0, FillStart, Fill.Height),
+                    barFillColor * alpha * 0.7f,
+                    0,
+                    Vector2.Zero,
+                    new Vector2((lastpostion - FillStartPosition.X + Fill.Width - FillStart) / FillStart, 1f),
+                    SpriteEffects.None
+                    , 0
+                    );
+                    Main.spriteBatch.Draw
+                    (
+                    Fill,
+                    new Vector2(lastpostion, FillStartPosition.Y),
+                    new Rectangle(FillStart, 0, Fill.Width - FillStart, Fill.Height),
+                    barFillColor * alpha * 0.7f,
+                    0,
+                    Vector2.Zero,
+                    1f,
+                    SpriteEffects.None
+                    , 0
+                    );
+                }
+                if (BarPlayer.LastHit != 5)
+                {
+                    if (lastpostion > endpostion)
+                    {
+                        lastpostion -= (float)BarConfig.Instance.LastBarDecreaseSpeed;
+                    }
+                    if (lastpostion <= endpostion)
+                    {
+                        lastpostion = endpostion;
+                    }
+                }
+                else if (BarPlayer.LastHit == 5)
+                {
+                    endpostion = FillStartPosition.X - Fill.Width + ((EndStartPosition.X + (float)FillX - FillStartPosition.X + Fill.Width) * percent);
+                }
+            }
+
+            
+
+            bool condition = (type == NPCID.DD2OgreT2 || type == NPCID.DD2OgreT3 || type == NPCID.DD2DarkMageT1 || type == NPCID.DD2DarkMageT3 || type == NPCID.DD2Betsy);
+            if (!condition)
+            {
+                Main.spriteBatch.Draw
+                (
+                Fill,
+                FillStartPosition - new Vector2(Fill.Width, 0),
+                new Rectangle(0, 0, FillStart, Fill.Height),
+                barFillColor * alpha,
+                0,
+                Vector2.Zero,
+                new Vector2((EndStartPosition.X + (float)FillX - FillStartPosition.X + Fill.Width) * percent / FillStart, 1f),
+                SpriteEffects.None
+                , 0
+                );
+
+                Main.spriteBatch.Draw
+                (
+                Fill,
+                new Vector2(FillStartPosition.X - Fill.Width + ((EndStartPosition.X + (float)FillX - FillStartPosition.X + Fill.Width) * percent), FillStartPosition.Y),
+                null,
+                barFillColor * alpha,
+                0,
+                Vector2.Zero,
+                1f,
+                SpriteEffects.None
+                , 0
+                );
+            }
+            else
+            {
+                Main.spriteBatch.Draw
+                (
+                Fill,
+                FillStartPosition,
+                new Rectangle(0, 0, FillStart, Fill.Height),
+                barFillColor * alpha,
+                0,
+                Vector2.Zero,
+                new Vector2((EndStartPosition.X + (float)FillX - FillStartPosition.X + Fill.Width) * percent / FillStart, 1f),
+                SpriteEffects.None
+                , 0
+                );
+
+                Main.spriteBatch.Draw
+                (
+                Fill,
+                new Vector2(FillStartPosition.X - Fill.Width + FillStart + ((EndStartPosition.X + (float)FillX - FillStartPosition.X + Fill.Width) * percent), FillStartPosition.Y),
+                new Rectangle(FillStart,0,Fill.Width -FillStart,Fill.Height),
+                barFillColor * alpha,
+                0,
+                Vector2.Zero,
+                1f,
+                SpriteEffects.None
+                , 0
+                );
+            }
+
+        }
+
+
+        public static void GetMaxHealth(int type)
+        {
+
+            int sumhealth = 0;
+            int nowhealth = 0;
+            sumhealth = 0;
+            //foreach (int eachnpc in BarData.BarNPCContain.Keys)
+            try
+            {
+                //sumhealth = 0;
+                foreach (NPC npcs in Main.npc)
+                {
+                    if (BarData.BarNPCContain.Keys.Contains(type))
+                    {
+                        if (BarData.BarNPCContain[type].Contains(npcs.type) && npcs.type != NPCID.MoonLordHead && npcs.type != NPCID.MoonLordHand)
+                        {
+                            sumhealth += npcs.lifeMax;
+                            if (npcs.life >= 0)
+                            {
+                                nowhealth += npcs.life;
+                            }
+                            if (BarData.BossMaxHealth[type] <= sumhealth)
+                            {
+                                BarData.BossMaxHealth[type] = sumhealth;
+                            }
+                            BarData.BossNowHealth[type] = nowhealth;
+                        }
+                        else if(BarData.BarNPCContain[type].Contains(npcs.type) && ( npcs.type == NPCID.MoonLordHand || npcs.type == NPCID.MoonLordHead) && npcs.life < npcs.lifeMax)
+                        {
+                            sumhealth += npcs.lifeMax;
+                            if (npcs.life >= 0)
+                            {
+                                nowhealth += npcs.life;
+                            }
+                            if (BarData.BossMaxHealth[type] <= sumhealth)
+                            {
+                                BarData.BossMaxHealth[type] = sumhealth;
+                            }
+                            BarData.BossNowHealth[type] = nowhealth;
+                        }
+
+                        else
+                        {
+
+                            BarData.BossMaxHealth.TryAdd(type, npcs.lifeMax);
+                            BarData.BossNowHealth.TryAdd(type, npcs.life);
+
+                        }
+                    }
+                    else
+                    {
+                        BarData.BarNPCContain.Add(type, [type]);
+                        BarData.BossMaxHealth.TryAdd(type, npcs.lifeMax);
+                        BarData.BossNowHealth.TryAdd(type, npcs.life);
+                    }
+                }
+                //Main.NewText(nowhealth);
+            }
+            catch
+            {
+                //Main.NewText("Yeah!");
+                return;
+            }
+
+            //Main.NewText("Health:" + x + " / Health now;" + BarData.BossNowHealth[type] + " /npc:" + type.ToString() + " /return:" + x.ToString());
+            return;
+        }
+
+        public static void DrawBarFrame(Texture2D Start, Texture2D Mid, Texture2D End, Vector2 StartStartPosition, Vector2 EndStartPosition, Vector2 FillStartPosition, Vector2 MidStartPosition, Texture2D Head, int HeadWidth, int HeadHeight, int type, float alpha)
+        {
+            bool boolen;
+            try
+            {
+                BarData.Midwidth.TryGetValue(type, out boolen);
+                if (boolen)
+                {
+                    for (float i = MidStartPosition.X; i < EndStartPosition.X; i += Mid.Width)
+                    {
+                        Main.spriteBatch.Draw(
+                            Mid,
+                            new Vector2(i, MidStartPosition.Y),
+                            sourceRectangle: null,
+                            Color.White * alpha,
+                             0,
+                            Vector2.Zero,
+                             1f,
+                            SpriteEffects.None,
+                            0
+                            );
+                    }
+                }
+                else
+                {
+                    Main.spriteBatch.Draw(
+                    Mid,
+                    MidStartPosition,
+                    null,
+                    Color.White * alpha,
+                    0,
+                    Vector2.Zero,
+                     new Vector2((EndStartPosition.X - StartStartPosition.X - (float)Start.Width) / (float)Mid.Width, 1f),
+                    SpriteEffects.None, 0
+                    );
+                }
+
+                Main.spriteBatch.Draw(Start, StartStartPosition, Color.White * alpha);
+                Main.spriteBatch.Draw(End, EndStartPosition, Color.White * alpha);
+
+                if(Head != null)
+                {
+                    Main.spriteBatch.Draw(
+                    Head,
+                    StartStartPosition + new Vector2(HeadWidth - (Head.Width / 2), HeadHeight - (Head.Height / 2)),
+                    Color.White * alpha
+                    );
+                }
+
+                
+            }
+            catch
+            {
+                return;
+            }
+
+        }
+
+        public static void DrawBarInfo(string Info, Vector2 postion, Color color, float alpha,NPC npc,string Name)
+        {
+            if (!npc.dontTakeDamage)
+            {
+                Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Info).X / 2, FontAssets.MouseText.Value.MeasureString(Info).Y / 3);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(1, 1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(-1, 1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(-1, -1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion + new Vector2(1, -1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Info, postion - Namepostion, Color.White * alpha);
+            }
+            else
+            {
+                string Invincible = "["+Name + " : " + Language.GetTextValue($"Mods.YuBellBossBar.Invincible") + "]";
+                Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Invincible).X / 2, FontAssets.MouseText.Value.MeasureString(Invincible).Y / 3);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion + new Vector2(1, 1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion + new Vector2(-1, 1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion + new Vector2(-1, -1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion + new Vector2(1, -1), Color.Black * alpha);
+                Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Invincible, postion - Namepostion, Color.White * alpha);
+            }
+
+        }
+
+        public static float CheckDown(Vector2 StartStartPosition, Texture2D End, Vector2 EndStartPosition)
+        {
+
+            if (!(Collision.CheckAABBvAABBCollision(Main.MouseScreen, Vector2.One, StartStartPosition, new Vector2(EndStartPosition.X + End.Width - StartStartPosition.X, EndStartPosition.Y + End.Height - StartStartPosition.Y))))
+            {
+                return 1f;
+            }
+            else
+            {
+                return 0.5f;
+            }
+        }
+
+        public static void DrawMoreInfo(NPC npc,Vector2 StartStartPosition,Vector2 EndStartPosition,Vector2 postion,Texture2D Fill,Texture2D End)
+        {
+            if (BarConfig.Instance.MoreInfo)
+            {
+                Texture2D Defense = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Info/Defense").Value;
+                Texture2D Damage = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Info/Damage").Value;
+                Texture2D Target = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Info/Target").Value;
+                Texture2D CalDR = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Info/CalDR").Value;
+                Texture2D FarDR = ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Info/FarDR").Value;
+
+                {
+                    Vector2 defense = new Vector2(StartStartPosition.X + Defense.Width, StartStartPosition.Y - (Defense.Height / 2));
+                    Vector2 detext = new Vector2( -5f , FontAssets.MouseText.Value.MeasureString(npc.defense.ToString()).Y / 3);
+
+                    Main.spriteBatch.Draw(Defense, new Vector2(StartStartPosition.X, StartStartPosition.Y - Defense.Height), Color.White);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(1,1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(-1,1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(-1, -1), Color.
+                        Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext + new Vector2(1,-1), Color.Black);
+
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.defense.ToString(), defense - detext, Color.White);
+                }
+
+                {
+                    Vector2 damage = new Vector2(EndStartPosition.X + End.Width - Damage.Width - 10f,EndStartPosition.Y - (Damage.Height / 2));
+                    Vector2 datext = new Vector2(FontAssets.MouseText.Value.MeasureString(npc.damage.ToString()).X, FontAssets.MouseText.Value.MeasureString(npc.damage.ToString()).Y / 3);
+                    Main.spriteBatch.Draw(Damage,new Vector2(EndStartPosition.X + End.Width - Damage.Width,EndStartPosition.Y - Damage.Height ),Color.White);
+
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext + new Vector2(1, 1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext + new Vector2(-1, 1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext + new Vector2(1, -1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(), damage - datext + new Vector2(-1, -1), Color.Black);
+
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, npc.damage.ToString(),damage - datext, Color.White);
+                }
+
+                {
+                    Vector2 target = new Vector2(postion.X, postion.Y-((Fill.Height + Target.Height) / 2));
+                    Vector2 tatext = new Vector2(FontAssets.MouseText.Value.MeasureString(Main.player[npc.target].name).X / 2, FontAssets.MouseText.Value.MeasureString(Main.player[npc.target].name).Y / 3);
+
+                    Main.spriteBatch.Draw(Target, target + new Vector2(-(Target.Width / 2), -Target.Width / 2), Color.White);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Main.player[npc.target].name, target - tatext + new Vector2(1, 1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Main.player[npc.target].name, target - tatext + new Vector2(-1, 1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Main.player[npc.target].name, target - tatext + new Vector2(1, -1), Color.Black);
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Main.player[npc.target].name, target - tatext + new Vector2(-1, -1), Color.Black);
+
+                    Main.spriteBatch.DrawString(FontAssets.MouseText.Value, Main.player[npc.target].name, target - tatext, Color.White);
+                }
+            }
+        }
     }
 }
