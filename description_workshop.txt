@@ -1,4 +1,4 @@
-[h1]THis is a Health Bar Mod[/h1]
+[h1]This is a Health Bar Mod[/h1]
 
 Updated From 1.3 [Yet Another Boss Health Bar]
 
