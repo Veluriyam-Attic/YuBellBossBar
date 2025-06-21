@@ -837,7 +837,7 @@ namespace YuBellBossBar.Content
             [80,52,28,4,1] },
             // 史莱姆皇后
             { NPCID.QueenSlimeBoss,
-            [96,80,30,30,1] },
+            [84,57,29,26,1] },
             // 双子魔眼
                 // 激光眼
                 { NPCID.Retinazer,
@@ -859,7 +859,7 @@ namespace YuBellBossBar.Content
             [56,25,30,24,1] },
             // 光女
             { NPCID.HallowBoss,
-            [96,80,30,30,1] },
+            [102,69,39,20,1] },
             // 猪鲨
             { NPCID.DukeFishron,
             [72,45,30,30,1]},
