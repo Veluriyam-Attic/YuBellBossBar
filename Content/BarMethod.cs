@@ -48,7 +48,8 @@ namespace YuBellBossBar.Content
                 GetValues(truetype, ref StartWidth, ref HeadWidth, ref HeadHeight, ref EndWidth, ref FillStart);
 
                 string Name = GetBossName(npc.type);
-                string Info = Name + " : " + Health.ToString() + "/" + MaxHealth.ToString() + " : [" + string.Format("{0:f2}", (percent * 100)) + "%]";
+                string PerHP = " : [" + string.Format("{0:f2}", (percent * 100)) + "%]";
+                string Info = Name + " : " + Health.ToString() + "/" + MaxHealth.ToString() + (BarConfig.Instance.ShowHealthPercentage? PerHP : "");
 
                 Color barFillColor = (Color)GetFillColor(truetype, Health, MaxHealth);
 
@@ -236,7 +237,7 @@ namespace YuBellBossBar.Content
             try
             {
                 Color? outValue;
-                if (BarData.BarColor.Keys.Contains(npcType))
+                if (BarData.BarColor.Keys.Contains(npcType) && !BarConfig.Instance.ForceUseDefaultBar)
                 {
                     BarData.BarColor.TryGetValue(npcType, out outValue);
                     if (outValue != null)
@@ -304,13 +305,13 @@ namespace YuBellBossBar.Content
         public static void DrawFill(Vector2 FillStartPosition, Vector2 EndStartPosition, Texture2D Fill, int FillStart, Color barFillColor, float percent, int EndWidth, float alpha, int type)
         {
             Vector2 postion = Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2((float)BarConfig.Instance.BarPostionX, -(float)BarConfig.Instance.BarPostionY - 40f);
-
+            
             float FillX = EndWidth - Fill.Width;
 
             if (BarConfig.Instance.DrawLastBar)
             {
 
-                bool a = (type == NPCID.DD2OgreT2 || type == NPCID.DD2OgreT3 || type == NPCID.DD2DarkMageT1 || type == NPCID.DD2DarkMageT3 || type == NPCID.DD2Betsy);
+                bool a = (type == NPCID.DD2OgreT2 || type == NPCID.DD2OgreT3 || type == NPCID.DD2DarkMageT1 || type == NPCID.DD2DarkMageT3 || type == NPCID.DD2Betsy || type != NPCID.Deerclops || type != NPCID.HallowBoss);
                 if (!a)
                 {
                     Main.spriteBatch.Draw
@@ -325,18 +326,18 @@ namespace YuBellBossBar.Content
                     SpriteEffects.None
                     , 0
                     );
-                    Main.spriteBatch.Draw
-                    (
-                    Fill,
-                    new Vector2(lastpostion, FillStartPosition.Y),
-                    null,
-                    barFillColor * alpha * 0.7f,
-                    0,
-                    Vector2.Zero,
-                    1f,
-                    SpriteEffects.None
-                    , 0
-                    );
+                        Main.spriteBatch.Draw
+                        (
+                        Fill,
+                        new Vector2(lastpostion, FillStartPosition.Y),
+                        null,
+                        barFillColor * alpha * 0.7f,
+                        0,
+                        Vector2.Zero,
+                        1f,
+                        SpriteEffects.None
+                        , 0
+                        );
                 }
                 else
                 {
@@ -353,18 +354,18 @@ namespace YuBellBossBar.Content
                     SpriteEffects.None
                     , 0
                     );
-                    Main.spriteBatch.Draw
-                    (
-                    Fill,
-                    new Vector2(lastpostion, FillStartPosition.Y),
-                    new Rectangle(FillStart, 0, Fill.Width - FillStart, Fill.Height),
-                    barFillColor * alpha * 0.7f,
-                    0,
-                    Vector2.Zero,
-                    1f,
-                    SpriteEffects.None
-                    , 0
-                    );
+                        Main.spriteBatch.Draw
+                        (
+                        Fill,
+                        new Vector2(lastpostion, FillStartPosition.Y),
+                        new Rectangle(FillStart, 0, Fill.Width - FillStart, Fill.Height),
+                        barFillColor * alpha * 0.7f,
+                        0,
+                        Vector2.Zero,
+                        1f,
+                        SpriteEffects.None
+                        , 0
+                        );
                 }
                 if (BarPlayer.LastHit != 5)
                 {
@@ -385,7 +386,7 @@ namespace YuBellBossBar.Content
 
             
 
-            bool condition = (type == NPCID.DD2OgreT2 || type == NPCID.DD2OgreT3 || type == NPCID.DD2DarkMageT1 || type == NPCID.DD2DarkMageT3 || type == NPCID.DD2Betsy);
+            bool condition = (type == NPCID.DD2OgreT2 || type == NPCID.DD2OgreT3 || type == NPCID.DD2DarkMageT1 || type == NPCID.DD2DarkMageT3 || type == NPCID.DD2Betsy || type != NPCID.Deerclops || type != NPCID.HallowBoss);
             if (!condition)
             {
                 Main.spriteBatch.Draw
@@ -400,19 +401,22 @@ namespace YuBellBossBar.Content
                 SpriteEffects.None
                 , 0
                 );
-
-                Main.spriteBatch.Draw
-                (
-                Fill,
-                new Vector2(FillStartPosition.X - Fill.Width + ((EndStartPosition.X + (float)FillX - FillStartPosition.X + Fill.Width) * percent), FillStartPosition.Y),
-                null,
-                barFillColor * alpha,
-                0,
-                Vector2.Zero,
-                1f,
-                SpriteEffects.None
-                , 0
-                );
+               
+                if(type != NPCID.Deerclops && type != NPCID.HallowBoss)
+                {
+                    Main.spriteBatch.Draw
+                    (
+                    Fill,
+                    new Vector2(FillStartPosition.X - Fill.Width + ((EndStartPosition.X + (float)FillX - FillStartPosition.X + Fill.    Width) * percent), FillStartPosition.Y),
+                    null,
+                    barFillColor * alpha,
+                    0,
+                    Vector2.Zero,
+                    1f,
+                    SpriteEffects.None
+                    , 0
+                    );
+                }
             }
             else
             {
@@ -520,7 +524,7 @@ namespace YuBellBossBar.Content
             try
             {
                 BarData.Midwidth.TryGetValue(type, out boolen);
-                if (boolen)
+                if (boolen && !BarConfig.Instance.ForceUseDefaultBar)
                 {
                     for (float i = MidStartPosition.X; i < EndStartPosition.X; i += Mid.Width)
                     {

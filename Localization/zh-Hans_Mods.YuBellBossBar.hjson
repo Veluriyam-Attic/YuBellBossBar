@@ -60,5 +60,10 @@ Configs: {
 			Label: 提示信息
 			Tooltip: 开关进入世界时左下角的提示讯息
 		}
+
+		ShowHealthPercentage: {
+			Label: 显示百分比生命值
+			Tooltip: ""
+		}
 	}
 }

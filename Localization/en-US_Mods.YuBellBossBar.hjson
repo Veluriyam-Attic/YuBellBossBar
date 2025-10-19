@@ -57,8 +57,13 @@ Configs: {
 		}
 
 		WorldInfo: {
-			Label: 提示信息
-			Tooltip: 开关进入世界时左下角的提示讯息
+			Label: Show On Enter World Info
+			Tooltip: ""
+		}
+
+		ShowHealthPercentage: {
+			Label: Show percentage of HP
+			Tooltip: ""
 		}
 	}
 }

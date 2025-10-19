@@ -52,5 +52,8 @@ namespace YuBellBossBar.Content
 
         [DefaultValue(false)]
         public bool ForceUseDefaultBar;
+
+        [DefaultValue(true)]
+        public bool ShowHealthPercentage;
     }
 }

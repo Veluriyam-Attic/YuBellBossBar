@@ -1,13 +1,15 @@
-[h1]这是一个Boss血条Mod[/h1]
+[h1]This is a Health Bar Mod[/h1]
 
-从1.3的[Yet Another Boss Health Bar]模组更新而来
+Updated From 1.3 [Yet Another Boss Health Bar]
 
-下次更新: 完善ModCall
+[h1] I'll rework this mod when I finish Gaokao.
 
-[h2]致谢!!![/h2]
-Flashkirby, Devil Slime, ROH, Tigerzzz
+Next Update: Rework all code.
 
-[h2]反馈[/h2]
+[h2]Thanks!!![/h2]
+Flashkirby, Devil Slime, ROH, SupremePermafrost,Tigerzzz
+
+[h2]Feedback[/h2]
 Email: 3412615165@qq.com
 Discord: zhzhaidou_
-QQ群: 909428503
+QQ Group: 909428503

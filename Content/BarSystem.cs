@@ -120,10 +120,10 @@ namespace YuBellBossBar.Content
             {
                 NPCID.Deerclops,
                 [
-                    null,
-                    null,
-                    null,
-                    null,
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DeerclopsHead"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DeerclopsMid"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DeerclopsEnd"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/DeerclopsFill"),
                     null
                     ]
             },
@@ -142,10 +142,10 @@ namespace YuBellBossBar.Content
             {
                 NPCID.QueenSlimeBoss,
                 [
-                    null,
-                    null,
-                    null,
-                    null,
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenSlimeHead"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenSlimeMid"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenSlimeEnd"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/QueenSlimeFill"),
                     null
                     ]
             },
@@ -219,10 +219,10 @@ namespace YuBellBossBar.Content
             {
                 NPCID.HallowBoss,
                 [
-                    null,
-                    null,
-                    null,
-                    null,
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/EOLHead"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/EOLMid"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/EOLEnd"),
+                    ModContent.Request<Texture2D>($"YuBellBossBar/Texture/Vanilla/EOLFill"),
                     null
                     ]
             },
@@ -383,13 +383,13 @@ namespace YuBellBossBar.Content
             new Color(240, 240, 159) },
             // 独眼巨鹿
             { NPCID.Deerclops,
-            null },
+            Color.White },
             // 血肉墙
             { NPCID.WallofFlesh,
             null },
             // 史莱姆皇后
             { NPCID.QueenSlimeBoss,
-            null },
+            Color.White },
             // 双子魔眼
                 // 激光眼
                 { NPCID.Retinazer,
@@ -411,7 +411,7 @@ namespace YuBellBossBar.Content
             Color.White },
             // 光女
             { NPCID.HallowBoss,
-            null },
+            Color.White },
             // 猪鲨
             { NPCID.DukeFishron,
             new Color(255, 255, 255)},
@@ -831,13 +831,13 @@ namespace YuBellBossBar.Content
             [52,25,30,30,1] },
             // 独眼巨鹿
             { NPCID.Deerclops,
-            [96,80,30,30,1]},
+            [84,52,34,10,52]},
             // 血肉墙
             { NPCID.WallofFlesh,
             [80,52,28,4,1] },
             // 史莱姆皇后
             { NPCID.QueenSlimeBoss,
-            [96,80,30,30,1] },
+            [84,57,29,26,1] },
             // 双子魔眼
                 // 激光眼
                 { NPCID.Retinazer,
@@ -859,7 +859,7 @@ namespace YuBellBossBar.Content
             [56,25,30,24,1] },
             // 光女
             { NPCID.HallowBoss,
-            [96,80,30,30,1] },
+            [84,69,39,20,36] },
             // 猪鲨
             { NPCID.DukeFishron,
             [72,45,30,30,1]},
@@ -924,7 +924,7 @@ namespace YuBellBossBar.Content
             false },
             // 独眼巨鹿
             { NPCID.Deerclops,
-            false},
+            true},
             // 血肉墙
             { NPCID.WallofFlesh,
             false },
