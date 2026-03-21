@@ -1,7 +1,13 @@
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.ModLoader;
+
+using Humanizer;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
+using System;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using Terraria;
+using Terraria.ModLoader;
 
 namespace YuBellBossBar
 {
@@ -98,6 +104,10 @@ namespace YuBellBossBar
                 default:
                     return null;
             }
+        }
+
+        public override void Load()
+        {
         }
     }
 }

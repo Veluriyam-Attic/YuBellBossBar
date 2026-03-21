@@ -7,10 +7,10 @@
 	<PropertyGroup>
 		
 	</PropertyGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\VeluriyamLib\VeluriyamLib.csproj" />
+	</ItemGroup>
 
 	<!-- References -->
-	<ItemGroup>
-		
-	</ItemGroup>
 
 </Project>

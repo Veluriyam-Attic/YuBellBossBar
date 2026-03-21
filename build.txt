@@ -3,3 +3,4 @@ author = 虞悖
 version = 0.1.1.9
 side = Both
 weakReferences = FargowiltasSouls,CalamityMod
+modReferences = VeluriyamLib

@@ -1091,6 +1091,11 @@ namespace YuBellBossBar.Content
                 Main.NewText(Language.GetTextValue($"Mods.YuBellBossBar.WorldText"));
             }           
         }
+
+        public override void PostUpdate()
+        {
+            Main.NewText(NPC.GetEaterOfWorldsSegmentsCount());
+        }
     }
 
     public class BarNPC : GlobalNPC

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.GameContent.UI.BigProgressBar;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using VeluriyamLib.Content.BaseClass;
 
 namespace YuBellBossBar.Content
 {
@@ -13,6 +14,11 @@ namespace YuBellBossBar.Content
         public override string DisplayName => Language.GetTextValue("Mods.YuBellBossBar.Name");
 
         public override bool PreventDraw => true;
+
+        public override void Update(IBigProgressBar currentBar, ref BigProgressBarInfo info)
+        {
+            Main.NewText(info.npcIndexToAimAt + Lang.GetNPCNameValue(Main.npc[info.npcIndexToAimAt].type));
+        }
 
         public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
         {
