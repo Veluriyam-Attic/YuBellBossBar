@@ -1,4 +1,5 @@
-Browser on workshop! 
-Thanks:Flashkirby, Devil Slime, ROH, Tigerzzz
-在创意工坊查看!
-致谢:Flashkirby, Devil Slime, ROH, Tigerzzz
+This mod is a modification of the FKBossHealthBar port on the workshop
+Change the style in the Interface settings
+
+Sprites done by the original team. Sprite updates done by Umbra and Shinji
+Code done by the original team. Heavily modified by TheBoatsoon
