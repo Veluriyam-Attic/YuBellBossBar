@@ -3,7 +3,7 @@ using Terraria.DataStructures;
 using Terraria.ModLoader;
 
 //the name of the mod is a joke
-namespace BestBossBarMod.Content;
+namespace YuBellBossBar.Content;
 
 public class BarNPC : GlobalNPC
 {

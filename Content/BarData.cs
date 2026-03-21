@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 
 //the name of the mod is a joke
-namespace BestBossBarMod.Content;
+namespace YuBellBossBar.Content;
 
 public class BarData
 {

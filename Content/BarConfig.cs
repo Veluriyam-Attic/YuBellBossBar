@@ -2,7 +2,7 @@ using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
 //the name of the mod is a joke
-namespace BestBossBarMod.Content;
+namespace YuBellBossBar.Content;
 
 public class BarConfig : ModConfig
 {

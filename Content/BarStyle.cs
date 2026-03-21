@@ -12,13 +12,13 @@ using Terraria.ModLoader;
 using Terraria.ModLoader.UI.ModBrowser;
 
 //the name of the mod is a joke
-namespace BestBossBarMod.Content;
+namespace YuBellBossBar.Content;
 
 public class BarStyle : ModBossBarStyle
 {
 	public static int npcnum;
 
-	public override string DisplayName => "FKBossHealthBar Updated";
+	public override string DisplayName => Language.GetTextValue("Mods.YuBellBossBar.Name");
 
 	public override bool PreventDraw => true;
 

@@ -8,7 +8,7 @@ using Terraria.ID;
 using Terraria.ModLoader;
 
 //the name of the mod is a joke
-namespace BestBossBarMod.Content;
+namespace YuBellBossBar.Content;
 
 public class BarSystem : ModSystem
 {
@@ -20,12 +20,12 @@ public class BarSystem : ModSystem
             universeEdge.TryFind("IcewurmHead", out ModNPC frostwurm);
             BarData.BarTexture.Add(frostwurm.Type, new Asset<Texture2D>[6]
             {
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/FrostwurmHead", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/FrostwurmMid", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/FrostwurmEnd", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/FrostwurmFill", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/FrostwurmHead", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/FrostwurmMid", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/FrostwurmEnd", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/FrostwurmFill", (AssetRequestMode)2),
                 null,
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/FrostwurmBackground", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/FrostwurmBackground", (AssetRequestMode)2),
             });
 
 			BarData.BarColor.Add(frostwurm.Type, Color.White);
@@ -41,12 +41,12 @@ public class BarSystem : ModSystem
             universeEdge.TryFind("AngeredVinewormJaw", out ModNPC hypermetalConstruct);
             BarData.BarTexture.Add(hypermetalConstruct.Type, new Asset<Texture2D>[6]
             {
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/HypermetalHead", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/HypermetalMid", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/HypermetalEnd", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/HypermetalFill", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/HypermetalHead", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/HypermetalMid", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/HypermetalEnd", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/HypermetalFill", (AssetRequestMode)2),
                 null,
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/UniverseEdge/HypermetalBackground", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/UniverseEdge/HypermetalBackground", (AssetRequestMode)2),
             });
 
             BarData.BarColor.Add(hypermetalConstruct.Type, Color.White);
@@ -61,10 +61,10 @@ public class BarSystem : ModSystem
             tremor.TryFind("EvilCorn", out ModNPC evilCorn);
             BarData.BarTexture.Add(evilCorn.Type, new Asset<Texture2D>[6]
             {
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/Tremor/EvilCornHead", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/Tremor/EvilCornMid", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/Tremor/EvilCornEnd", (AssetRequestMode)2),
-                ModContent.Request<Texture2D>("BestBossBarMod/Texture/Modded/Tremor/EvilCornFill", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/Tremor/EvilCornHead", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/Tremor/EvilCornMid", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/Tremor/EvilCornEnd", (AssetRequestMode)2),
+                ModContent.Request<Texture2D>("YuBellBossBar/Texture/Modded/Tremor/EvilCornFill", (AssetRequestMode)2),
                 null,
                 null,
             });
@@ -79,345 +79,345 @@ public class BarSystem : ModSystem
 		Dictionary<int, Asset<Texture2D>[]> dictionary = new Dictionary<int, Asset<Texture2D>[]>();
         dictionary.Add(int.MaxValue - 1, new Asset<Texture2D>[6]
 {
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarStart_Mas", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarMiddle_Mas", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarEnd_Mas", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarStart_Mas", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarMiddle_Mas", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarEnd_Mas", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
             null,
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
 });
         dictionary.Add(int.MaxValue, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarStart_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarMiddle_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarEnd_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarStart_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarMiddle_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarEnd_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
 			null,
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
         });
 		dictionary.Add(int.MinValue, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
 			null,
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/HealthBarFill", (AssetRequestMode)2),
         });
 		dictionary.Add(50, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/KingSlimeHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/KingSlimeMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/KingSlimeEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/KingSlimeFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/KingSlimeHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/KingSlimeMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/KingSlimeEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/KingSlimeFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(4, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/CthEyeHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/CthEyeMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/CthEyeEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/CthEyeFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/CthEyeHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/CthEyeMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/CthEyeEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/CthEyeFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(13, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EOCHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EOCMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EOCEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EOCFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EOCHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EOCMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EOCEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EOCFill", (AssetRequestMode)2),
 			TextureAssets.NpcHeadBoss[2],
 			null,
 		});
 		dictionary.Add(266, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/BrainHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/BrainMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/BrainEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/BrainFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/BrainHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/BrainMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/BrainEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/BrainFill", (AssetRequestMode)2),
 			TextureAssets.NpcHeadBoss[23],
 			null,
 		});
 		dictionary.Add(222, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/QueenBeeHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/QueenBeeMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/QueenBeeEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/QueenBeeFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/QueenBeeHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/QueenBeeMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/QueenBeeEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/QueenBeeFill", (AssetRequestMode)2),
 			null,
 			null
 		});
 		dictionary.Add(35, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SkeletronHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SkeletronMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SkeletronEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SkeletronFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SkeletronHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SkeletronMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SkeletronEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SkeletronFill", (AssetRequestMode)2),
 			null,
 			null
 		});
 		dictionary.Add(668, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DeerclopsHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DeerclopsMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DeerclopsEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DeerclopsFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DeerclopsHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DeerclopsMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DeerclopsEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DeerclopsFill", (AssetRequestMode)2),
 			null,
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DeerclopsBackground", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DeerclopsBackground", (AssetRequestMode)2),
         });
 		dictionary.Add(113, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DemonBarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DemonBarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DemonBarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DemonBarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DemonBarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DemonBarEnd", (AssetRequestMode)2),
 			null,
 			null,
 			null,
 		});
 		dictionary.Add(657, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/QueenSlimeHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/QueenSlimeMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/QueenSlimeEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/QueenSlimeFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/QueenSlimeHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/QueenSlimeMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/QueenSlimeEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/QueenSlimeFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(125, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarEnd", (AssetRequestMode)2),
 			null,
 			null,
 			null,
 		});
 		dictionary.Add(126, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarEnd", (AssetRequestMode)2),
 			null,
 			null,
 			null,
 		});
 		dictionary.Add(134, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarEnd", (AssetRequestMode)2),
 			null,
 			null,
 			null,
 		});
 		dictionary.Add(127, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MechBarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MechBarEnd", (AssetRequestMode)2),
 			null,
 			TextureAssets.NpcHeadBoss[18],
 			null,
 		});
 		dictionary.Add(262, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/PlantBarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/PlantBarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/PlantBarEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/PlantBarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/PlantBarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/PlantBarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/PlantBarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/PlantBarFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(245, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/GolemHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/GolemMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/GolemEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/GolemFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/GolemHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/GolemMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/GolemEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/GolemFill", (AssetRequestMode)2),
 			TextureAssets.NpcHeadBoss[5],
 			null,
 		});
 		dictionary.Add(636, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EmpressHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EmpressMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EmpressEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EmpressFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EmpressHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EmpressMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EmpressEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EmpressFill", (AssetRequestMode)2),
 			null,
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EmpressDayBackground", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EmpressDayBackground", (AssetRequestMode)2),
         });
 		dictionary.Add(370, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DukeHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DukeMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DukeEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DukeFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DukeHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DukeMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DukeEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DukeFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(439, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/CultistHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/CultistMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/CultistEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/CultistFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/CultistHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/CultistMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/CultistEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/CultistFill", (AssetRequestMode)2),
 			TextureAssets.NpcHeadBoss[24],
 			null,
 		});
 		dictionary.Add(NPCID.MoonLordHead, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordSmallHead", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordSmallMid", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordSmallEnd", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordSmallFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordSmallHead", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordSmallMid", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordSmallEnd", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordSmallFill", (AssetRequestMode)2),
             TextureAssets.NpcHeadBoss[8],
 			null,
 		});
 		dictionary.Add(NPCID.MoonLordHand, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordSmallHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordSmallMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordSmallEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordSmallFill", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MLEye", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordSmallHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordSmallMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordSmallEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordSmallFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MLEye", (AssetRequestMode)2),
 			null,
 		});
 		dictionary.Add(NPCID.MoonLordCore, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordHead", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordMid", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordEnd", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordFill", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MLHeart", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MoonLordBackground", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordHead", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordMid", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordEnd", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MLHeart", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MoonLordBackground", (AssetRequestMode)2),
         });
 		dictionary.Add(NPCID.MartianSaucerCore, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MartianHead", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MartianMid", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MartianEndEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/MartianFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MartianHead", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MartianMid", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MartianEndEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/MartianFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(491, new Asset<Texture2D>[6]);
 		dictionary.Add(576, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2SmBarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2SmBarFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(577, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(564, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2SmBarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2SmBarFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(565, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 		dictionary.Add(551, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarStart", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarMiddle", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarEnd", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/DD2BarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarStart", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarMiddle", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarEnd", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/DD2BarFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
 
 		dictionary.Add(NPCID.SkeletronHand, new Asset<Texture2D>[6]
 		{
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-			ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+			ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
 			null,
 			null,
 		});
         dictionary.Add(NPCID.GolemFistLeft, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
             null,
 			null,
 		});
         dictionary.Add(NPCID.GolemFistRight, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
             null,
 			null,
 		});
         dictionary.Add(NPCID.BloodNautilus, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
             null,
 			null,
 		});
         dictionary.Add(NPCID.PrimeCannon, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
             null,
 			null,
 		});
         dictionary.Add(NPCID.PrimeSaw, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
             null,
 			null,
 		});
         dictionary.Add(NPCID.PrimeVice, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
             null,
 			null,
 		});
         dictionary.Add(NPCID.PrimeLaser, new Asset<Texture2D>[6]
 		{
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
-            ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarStart_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarMiddle_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarEnd_Exp", (AssetRequestMode)2),
+            ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/SmBarFill", (AssetRequestMode)2),
             null,
 			null,
 		});

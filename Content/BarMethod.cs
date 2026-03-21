@@ -11,7 +11,7 @@ using Terraria.Localization;
 using Terraria.ModLoader;
 
 //the name of the mod is a joke
-namespace BestBossBarMod.Content;
+namespace YuBellBossBar.Content;
 
 public class BarMethod
 {
@@ -244,8 +244,8 @@ public class BarMethod
 
                     if (npcType == NPCID.HallowBoss && !Main.dayTime)
 					{
-						BarFill = ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EmpressNightFill").Value;
-                        BarBackground = ModContent.Request<Texture2D>("BestBossBarMod/Texture/Vanilla/EmpressNightBackground").Value;
+						BarFill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EmpressNightFill").Value;
+                        BarBackground = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Vanilla/EmpressNightBackground").Value;
                     }
 
                 }
@@ -448,11 +448,11 @@ public class BarMethod
 	{
 		if (BarConfig.Instance.MoreInfo)
 		{
-			Texture2D Defense = ModContent.Request<Texture2D>("BestBossBarMod/Texture/Info/Defense", (AssetRequestMode)2).Value;
-			Texture2D Damage = ModContent.Request<Texture2D>("BestBossBarMod/Texture/Info/Damage", (AssetRequestMode)2).Value;
-			Texture2D Target = ModContent.Request<Texture2D>("BestBossBarMod/Texture/Info/Target", (AssetRequestMode)2).Value;
-			_ = ModContent.Request<Texture2D>("BestBossBarMod/Texture/Info/CalDR", (AssetRequestMode)2).Value;
-			_ = ModContent.Request<Texture2D>("BestBossBarMod/Texture/Info/FarDR", (AssetRequestMode)2).Value;
+			Texture2D Defense = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Info/Defense", (AssetRequestMode)2).Value;
+			Texture2D Damage = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Info/Damage", (AssetRequestMode)2).Value;
+			Texture2D Target = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Info/Target", (AssetRequestMode)2).Value;
+			_ = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Info/CalDR", (AssetRequestMode)2).Value;
+			_ = ModContent.Request<Texture2D>("YuBellBossBar/Texture/Info/FarDR", (AssetRequestMode)2).Value;
 			Vector2 defense = new Vector2(StartStartPosition.X + (float)Defense.Width - 60, StartStartPosition.Y + 20);
 			Vector2 detext = new Vector2(-5f, FontAssets.MouseText.Value.MeasureString(npc.defense.ToString()).Y / 3f);
 			Main.spriteBatch.Draw(Defense, new Vector2(StartStartPosition.X - 30, StartStartPosition.Y + 20 - Defense.Height / 2), Color.White);
