@@ -1,56 +1,74 @@
-﻿global using YuBellBossBar.Content;
-using System;
 using System.ComponentModel;
 using Terraria.ModLoader.Config;
 
-namespace YuBellBossBar.Content
+//the name of the mod is a joke
+namespace BestBossBarMod.Content;
+
+public class BarConfig : ModConfig
 {
-    public class BarConfig : ModConfig
-    {
-        public static BarConfig Instance;
+	public static BarConfig Instance;
 
-        public override void OnLoaded()
-        {
-            Instance = this;
-        }
+	[Header("PostionHeader")]
+	[DefaultValue(800)]
+	[Range(400, int.MaxValue)]
+	public int BarLong;
 
-        public override ConfigScope Mode => ConfigScope.ClientSide;
+	[DefaultValue(0)]
+	[Range(int.MinValue, int.MaxValue)]
+	public int BarPostionY;
 
-        [Header($"PostionHeader")]
+	[DefaultValue(0)]
+	[Range(int.MinValue, int.MaxValue)]
+	public int BarPostionX;
 
-        [DefaultValue(800)]
-        [Range(400,int.MaxValue)]
-        public int BarLong;
+	[Header("InfoHeader")]
+	[DefaultValue(true)]
+	public bool MoreInfo;
 
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        public int BarPostionY;
+	[DefaultValue(true)]
+	public bool WorldInfo;
 
-        [DefaultValue(0)]
-        [Range(int.MinValue, int.MaxValue)]
-        public int BarPostionX;
+    [DefaultValue(true)]
+    public bool ShowBossBarsWithNoHead;
 
-        [Header($"InfoHeader")]
+    [DefaultValue(true)]
+    public bool ShowInvincibleBosses;
 
-        [DefaultValue(true)]
-        public bool MoreInfo;
+    [DefaultValue(5)]
+    [Range(1, int.MaxValue)]
+    public int NumberOfBossBars;
 
-        [DefaultValue(true)]
-        public bool WorldInfo;
+    [DefaultValue(5)]
+    [Range(1, int.MaxValue)]
+    public int TransparencyBarDecreaseTime;
 
-        [Header($"StyleHeader")]
+    [Header("StyleHeader")]
+	[DefaultValue(true)]
+	public bool DrawLastBar;
 
-        [DefaultValue(true)]
-        public bool DrawLastBar;
+	[DefaultValue(5)]
+    [Range(1, int.MaxValue)]
+    public int LastBarDecreaseSpeed;
 
-        [DefaultValue(5)]
-        [Range(0,int.MaxValue)]
-        public int LastBarDecreaseSpeed;
+	[DefaultValue(true)]
+	public bool UseGoldBar;
 
-        [DefaultValue(true)]
-        public bool UseGoldBar;
+	[DefaultValue(false)]
+	public bool ForceUseDefaultBar;
 
-        [DefaultValue(false)]
-        public bool ForceUseDefaultBar;
-    }
+	[DefaultValue(true)]
+	public bool ShowHealthPercentage;
+
+    [DefaultValue(true)]
+    public bool SquishHealthBarsTogether;
+
+    [DefaultValue(true)]
+    public bool DrawBarBackgrounds;
+
+    public override ConfigScope Mode => ConfigScope.ClientSide;
+
+	public override void OnLoaded()
+	{
+		BarConfig.Instance = this;
+	}
 }
