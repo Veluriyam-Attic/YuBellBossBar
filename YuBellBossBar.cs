@@ -1,17 +1,11 @@
-
-using Humanizer;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
-using System;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using Terraria;
-using Terraria.ModLoader;
-
-namespace YuBellBossBar
+namespace YuBellBossBar;
+public class YuBellBossBar : Mod
 {
-    public class YuBellBossBar : Mod
-    {}
+    internal static void Tool(string text) => Main.spriteBatch.DrawString(FontAssets.MouseText.Value, "   Jerk off is the best activity!" + text, Main.MouseScreen, Color.White);
 
+    public override void Load()
+    {
+        /// 初始时清除所有数
+        Array.Clear(YAB.BarCount,0,VBarConfig.Instance.BarCount);
+    }
 }
