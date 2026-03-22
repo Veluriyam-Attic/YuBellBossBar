@@ -16,7 +16,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
     public override string DisplayName => Language.GetTextValue("Mods.YuBellBossBar.Name");
 
-    public override bool PreventDraw => true;
+    public override bool PreventDraw => false;
 
     public override void OnSelected() => Selected = true;
 

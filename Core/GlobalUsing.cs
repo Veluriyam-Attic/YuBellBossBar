@@ -14,3 +14,4 @@ global using Terraria.ModLoader.Config;
 global using YuBellBossBar.Content;
 global using YuBellBossBar.DrawMethod;
 global using YAB = YuBellBossBar.Content.YetAnotherBossHealthBarSytle;
+global using YuBellBossBar.Core;
