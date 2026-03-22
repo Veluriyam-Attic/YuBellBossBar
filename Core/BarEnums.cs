@@ -1,15 +1,70 @@
 ﻿namespace YuBellBossBar.Core;
 internal enum BarFillStyles
 {
+    /// <summary>
+    /// <br/>最基础的自动延伸,也就是原Mod常用的
+    /// <br/>The most basic auto extend, which is commonly used in the original mod.
+    /// </summary>
     Extend = 0,
+    /// <summary>
+    /// <br/>自动填充整个血条,当血量减少时,会依旧绘制血量满时所绘制的部分,只不过是不再绘制依旧损失的血量部分
+    /// <br/>automatically fill the entire bar, when the health decreases, it will still draw the part that is drawn when the health is full, except that it will no longer draw the part that is still lost health.
+    /// </summary>
     FillAll = 1,
+    /// <summary>
+    /// <br/>自动填充部分血条,当血量减少时,会自动把当前血条的部分填充满
+    /// <br/>automatically fill part of the bar, when the health decreases, it will automatically fill part of the current bar.
+    /// </summary>
     FillPartial = 2,
+    /// <summary>
+    /// <br/>单纯的重复绘制血条,当血量减少时会取消绘制一部分
+    /// <br/>Simply repeat the drawing of the bar, when the health decreases, it will cancel the drawing of a part.
+    /// </summary>
     Dulplicate = 3,
+    /// <summary>
+    /// <br/>完全自定义,完全由用户决定如何绘制血条
+    /// <br/>Completely custom, completely determined by the user how to draw the bar.
+    /// </summary>
     Custom = 4,
+}
+
+internal enum BarFrameStyles
+{
+    /// <summary>
+    /// <br/>延伸拉长边框,最常用
+    /// <br/>Extend the stretched border, the most commonly used.
+    /// </summary>
+    Extend = 0,
+    /// <summary>
+    /// <br/>不断重复某一个特定图案
+    /// <br/>Continuously repeat a specific pattern.
+    /// </summary>
+    Dulplicate = 1,
+}
+
+internal enum  Animation
+{
+    /// <summary>
+    /// <br/>不是动画,只绘制一帧
+    /// <br/>Not animated, only draw one frame.
+    /// </summary>
+    Nope = 0,
+    /// <summary>
+    /// <br/>是动画,绘制多帧
+    /// </summary>
+    Yep = 1,
 }
 
 internal enum BarFillColor
 {
+    /// <summary>
+    /// <br/>血条填充时绘制的颜色为原版,如果使用此颜色请使用灰度图
+    /// <br/>The color drawn when the bar is filled is the vanilla version, if you use this color, please use a grayscale image.
+    /// </summary>
     Vanilla = 0,
+    /// <summary>
+    /// <br/>血条填充时绘制颜色为自定义颜色
+    /// <br/>The color drawn when the bar is filled is a custom color.
+    /// </summary>
     Custom = 1,
 }

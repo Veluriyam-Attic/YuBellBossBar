@@ -5,7 +5,7 @@ public class YuBellBossBar : Mod
 
     public override void Load()
     {
-        /// 初始时清除所有数
+        // 初始时清除所有数
         Array.Clear(YAB.BarCount,0,VBarConfig.Instance.BarCount);
     }
 }

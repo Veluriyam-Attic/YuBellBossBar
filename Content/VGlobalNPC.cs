@@ -6,7 +6,7 @@ internal class VGlobalNPC : GlobalNPC
 
     public override void OnSpawn(NPC npc, IEntitySource source)
     {
-        /// 如果不同时满足以下条件则不添加血条
+        // 如果不同时满足以下条件则不添加血条
         if (!npc.boss) return;
         if (!YAB.Selected) return;
 

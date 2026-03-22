@@ -1,2 +1,12 @@
 Name: Yet Another Boss Health Bar
-Configs.VBarConfig.DisplayName: V Bar Config
+
+Configs: {
+	VBarConfig: {
+		DisplayName: V Bar Config
+
+		BarCount: {
+			Label: Bar Count
+			Tooltip: ""
+		}
+	}
+}
