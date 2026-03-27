@@ -2,58 +2,66 @@
 
 internal class VGlobalBar : GlobalBossBar
 {
+    // lifemax
     public static Dictionary<int, float> lifemaxs = new Dictionary<int, float>();
+    // the max value of life
+    public static Dictionary<int, float> maxlifes = new Dictionary<int, float>();
 
     public override bool PreDraw(SpriteBatch spriteBatch, NPC npc, ref BossBarDrawParams drawParams)
     {
         if (YAB.Selected)
         {
+            bool containskey = lifemaxs.ContainsKey(npc.type) && maxlifes.ContainsKey(npc.type);
 
-            // 用来防止血量上限没有当前血量大的情况
-            // Used to prevent the situation where the current life is greater than the life max
+            if (!containskey)
             {
-                // 如果血量大于血量上限
-                // If the current life is greater than the life max
-                if (drawParams.Life >= drawParams.LifeMax)
-                    // 在词典添加血量上限,以npc.type为索引
-                    // If the current life is greater than or equal to the life max, add the current life as the life max in the dictionary with npc.type as the index
-                    lifemaxs.TryAdd(npc.type, drawParams.Life);
-                // 否则
-                // Otherwise
-                else
-                    // 在词典添加血量上限,以npc.type为索引
-                    // add the current life max in the dictionary with npc.type as the index
-                    lifemaxs.TryAdd(npc.type, drawParams.LifeMax);
-
-                // 先试图获取一下血量上限
-                // Try to get the life max from the dictionary first
-                lifemaxs.TryGetValue(npc.type, out float lifemax);
-
-                // 如果血量大于血量上限并且从词典获得到的血量上限不为0
-                // 必须要写这步.不然血条会闪
-                // if the current life is greater than the life max and the life max obtained from the dictionary is not 0, update the life max in the dictionary to the current life
-                // This step must be written, otherwise the health bar will flash
-                if (drawParams.Life > lifemax && lifemax != 0)
-                    // 词典中血量上限就改为当前血量
-                    // Update the life max in the dictionary to the current life
-                    lifemaxs[npc.type] = drawParams.Life;
-
-                // 对drawParams的血量上限赋值为当前记录的最大血量上限
-                // Assign the life max of drawParams to the current recorded maximum life max
-                lifemaxs.TryGetValue(npc.type, out drawParams.LifeMax);
+                lifemaxs.TryAdd(npc.type, drawParams.LifeMax);
+                maxlifes.TryAdd(npc.type, drawParams.Life);
             }
 
+            if (CalamityBarHealth.CalamityLoaded)
             {
-                // 如果参数词典中已经有这个npc.type的参数了就更新一下,没有的话就添加一个
-                // if the parameter dictionary already has the parameters for this npc.type, update it; if not, add a new one
-                if (VBarData.BarParams.Keys.Contains(npc.type))
-                    VBarData.BarParams[npc.type] = new VBarParams(ref drawParams);
-                else
-                    VBarData.BarParams.Add(npc.type, new VBarParams(ref drawParams));
+                if (CalamityBarHealth.OneToMany.ContainsKey(npc.type))
+                {
+                    // 反射获取灾厄Boss血条的数值
+                    // Use reflection to get the values of Calamity Mod's boss bar
+                    (long?, long?, long?) values = CalamityBarHealth.DoSomeReflection(npc.whoAmI, npc.type);
+                    drawParams.Life = (float)values.Item1;
+                    drawParams.LifeMax = (float)values.Item3;
+
+                    // 用来解决多体节在词典中数值不同步的特殊情况
+                    // Used to solve the special case where multiple segments have different values in the dictionary
+                    {
+                        // 改为最初的血量上限
+                        if (maxlifes[npc.type] < drawParams.Life)
+                            maxlifes[npc.type] = drawParams.Life;
+
+                        int[] typeArrary = CalamityBarHealth.OneToMany[npc.type];
+
+                        // 同步所有体节在词典中的数值
+                        float maxValueOfLifemax = typeArrary.Where(key => lifemaxs.ContainsKey(key)).Select(key => lifemaxs[key]).DefaultIfEmpty(float.MinValue).Max();
+                        float maxValueOfLife = typeArrary.Where(key => maxlifes.ContainsKey(key)).Select(key => maxlifes[key]).DefaultIfEmpty(float.MinValue).Max();
+
+                        if (maxValueOfLifemax != float.MinValue && maxlifes.ContainsKey(npc.type))
+                        {
+                            foreach (int type in typeArrary)
+                            {
+                                lifemaxs[type] = maxValueOfLifemax;
+                                maxlifes[type] = maxValueOfLife;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (maxlifes[npc.type] < drawParams.Life)
+                    maxlifes[npc.type] = drawParams.Life;
             }
 
+            drawParams.LifeMax = maxlifes[npc.type];
 #if DEBUG
-            YuBellBossBar.Tool(VBarData.BarParams[npc.type].drawParams.Life + "/" + VBarData.BarParams[npc.type].drawParams.LifeMax + "/" + npc.realLife);
+            Main.NewText("   Jerk off is the best activity!" + drawParams.Life + "/" + drawParams.LifeMax + "/" + npc.realLife);
             return true;
 #else
             return false;
@@ -62,4 +70,3 @@ internal class VGlobalBar : GlobalBossBar
         return true;
     }
 }
-
