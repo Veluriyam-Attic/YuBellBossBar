@@ -1,6 +1,6 @@
 ﻿namespace YuBellBossBar.Content;
 
-public class VBarPlayer : ModPlayer
+public class BarPlayer : ModPlayer
 {
     public static event Action RemoveIndexs;
 

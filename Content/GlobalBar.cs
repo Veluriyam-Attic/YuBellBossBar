@@ -1,6 +1,6 @@
 ﻿namespace YuBellBossBar.Content;
 
-internal class VGlobalBar : GlobalBossBar
+internal class GlobalBar : GlobalBossBar
 {
     // lifemax
     public static Dictionary<int, float> lifemaxs = new Dictionary<int, float>();

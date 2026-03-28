@@ -108,6 +108,7 @@ internal struct BarDraws
     public event Action<SpriteBatch, Vector2> CustomDrawEvent = null;
 
     #region 实例构造器 Instance Constructor
+#pragma warning disable CS1573
     /// <param name="initiator">barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
     public BarDraws(TextureType type, Asset<Texture2D> texture,Action<BarFillStyles,BarFillColor,Color,BarFrameStyles,ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope,int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
     {

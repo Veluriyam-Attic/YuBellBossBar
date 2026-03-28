@@ -1,10 +1,10 @@
 ﻿namespace YuBellBossBar.Content;
 
-public class VBarConfig : ModConfig
+public class BarConfig : ModConfig
 {
     public override ConfigScope Mode => ConfigScope.ClientSide;
 
-    public static VBarConfig Instance;
+    public static BarConfig Instance;
 
     public override void OnLoaded() => Instance = this;
 

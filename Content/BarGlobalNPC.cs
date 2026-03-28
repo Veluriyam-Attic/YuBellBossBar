@@ -1,6 +1,6 @@
 ﻿namespace YuBellBossBar.Content;
 
-internal class VGlobalNPC : GlobalNPC
+internal class BarGlobalNPC : GlobalNPC
 {
     public override bool InstancePerEntity => true;
 
@@ -15,9 +15,8 @@ internal class VGlobalNPC : GlobalNPC
     {
 
         if (npc.BossBar != null && YAB.Selected)
-            VBarData.BarParams.Remove(npc.whoAmI);
 
-        VBarPlayer.RemoveIndexs += () =>
+        BarPlayer.RemoveIndexs += () =>
         {
             // 如果没有Boss在场就移除索引
             // 一定要在这里判断,要不然就会导致死的时候场上还有Boss就永远不可能运行代码了
@@ -28,9 +27,8 @@ internal class VGlobalNPC : GlobalNPC
                 // 移除所有索引
                 // Remove all indexs
 
-                VGlobalBar.lifemaxs.Clear();
-                VGlobalBar.maxlifes.Clear();
-                VBarData.BarParams.Clear();
+                GlobalBar.lifemaxs.Clear();
+                GlobalBar.maxlifes.Clear();
 #if DEBUG
                 Main.NewText("Removed All Index!" + npc.type);
 #endif

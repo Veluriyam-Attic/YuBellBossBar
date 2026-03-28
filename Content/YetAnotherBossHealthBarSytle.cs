@@ -6,7 +6,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
     /// <br/>用来决定绘制哪些血条
     /// <br/>Be used to check which boss's bar should be drawn
     /// </summary>
-    internal static int[] BarCount = new int[VBarConfig.Instance.BarCount];
+    internal static int[] BarCount = new int[BarConfig.Instance.BarCount];
 
     /// <summary>
     /// <br/>用来判断是否启用来这个Boss血条样式
