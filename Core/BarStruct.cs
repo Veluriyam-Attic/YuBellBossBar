@@ -48,10 +48,15 @@ internal struct BarTextures
     public List<BarDraws> extraTexturesBelowFill = new List<BarDraws>();
     public List<BarDraws> extraTexturesBetweenFillAndFrame = new List<BarDraws>();
     public List<BarDraws> extraTexturesBetweenFrameAndHeadEnd = new List<BarDraws>();
-    public List<BarDraws> extraTexturesBetweenHeadEndAndInfo = new List<BarDraws>();
+    public List<BarDraws> extraTexturesBetweenHeadEndAndIcon = new List<BarDraws>();
+    public List<BarDraws> extraTexturesBetweenIconAndInfo = new List<BarDraws>();
     public List<BarDraws> extraTexturesUponInfo = new List<BarDraws>();
 
     #region 实例构造器 Instance Constructor
+    /// <summary>
+    /// <br/><see langword="TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/>是基础贴图,必有且仅有一个
+    /// <br/><see langword="TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/> are the basic textures, there must be one and only one of each.
+    /// </summary>
     public BarTextures(Dictionary<TextureType,BarDraws> bardraws)
     {
         foreach (TextureType type in bardraws.Keys)
@@ -69,26 +74,29 @@ internal struct BarTextures
                 case TextureType.ExtraBetweenFrameAndHeadEnd:
                     this.extraTexturesBetweenFrameAndHeadEnd.Add(bardraws[type]);
                     break;
-                case TextureType.ExtraBetweenHeadEndAndInfo:
-                    this.extraTexturesBetweenHeadEndAndInfo.Add(bardraws[type]);
+                case TextureType.ExtraBetweenHeadEndAndIcon:
+                    this.extraTexturesBetweenHeadEndAndIcon.Add(bardraws[type]);
+                    break;
+                case TextureType.ExtraBetweenIconAndInfo:
+                    this.extraTexturesBetweenIconAndInfo.Add(bardraws[type]);
                     break;
                 case TextureType.ExtraUponInfo:
                     this.extraTexturesUponInfo.Add(bardraws[type]);
                     break;
                 case TextureType.Fill:
-                    this.baseTextures.Add(TextureType.Fill, bardraws[type]);
+                    this.baseTextures.TryAdd(TextureType.Fill, bardraws[type]);
                     break;
                 case TextureType.Frame:
-                    this.baseTextures.Add(TextureType.Frame, bardraws[type]);
+                    this.baseTextures.TryAdd(TextureType.Frame, bardraws[type]);
                     break;
                 case TextureType.Head:
-                    this.baseTextures.Add(TextureType.Head, bardraws[type]);
+                    this.baseTextures.TryAdd(TextureType.Head, bardraws[type]);
                     break;
                 case TextureType.Tail:
-                    this.baseTextures.Add(TextureType.Tail, bardraws[type]);
+                    this.baseTextures.TryAdd(TextureType.Tail, bardraws[type]);
                     break;
                 case TextureType.Info:
-                    this.baseTextures.Add(TextureType.Info, bardraws[type]);
+                    this.baseTextures.TryAdd(TextureType.Info, bardraws[type]);
                     break;
             }
         }

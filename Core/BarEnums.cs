@@ -42,6 +42,10 @@ internal enum BarFrameStyles
     Dulplicate = 1,
 }
 
+/// <summary>
+/// <br/>增加可读性用的
+/// <br/>Added for readability
+/// </summary>
 internal enum  BarAnimation
 {
     /// <summary>
@@ -72,30 +76,35 @@ internal enum BarFillColor
 internal enum ExtraDrawStyles
 {
     /// <summary>
+    /// <br/>单纯的绘制一遍
+    /// <br/>Simply draw once.
+    /// </summary>
+    Single = 0,
+    /// <summary>
     /// <br/>最基础的自动延伸,也就是原Mod常用的
     /// <br/>The most basic auto extend, which is commonly used in the original mod.
     /// </summary>
-    Extend = 0,
+    Extend = 1,
     /// <summary>
     /// <br/>自动填充整个血条,当血量减少时,会依旧绘制血量满时所绘制的部分,只不过是不再绘制依旧损失的血量部分
     /// <br/>automatically fill the entire bar, when the health decreases, it will still draw the part that is drawn when the health is full, except that it will no longer draw the part that is still lost health.
     /// </summary>
-    FillAll = 1,
+    FillAll = 2,
     /// <summary>
     /// <br/>自动填充部分血条,当血量减少时,会自动把当前血条的部分填充满
     /// <br/>automatically fill part of the bar, when the health decreases, it will automatically fill part of the current bar.
     /// </summary>
-    FillPartial = 2,
+    FillPartial = 3,
     /// <summary>
     /// <br/>单纯的重复绘制血条,当血量减少时会取消绘制一部分
     /// <br/>Simply repeat the drawing of the bar, when the health decreases, it will cancel the drawing of a part.
     /// </summary>
-    Dulplicate = 3,
+    Dulplicate = 4,
     /// <summary>
     /// <br/>完全自定义,完全由用户决定如何绘制血条
     /// <br/>Completely custom, completely determined by the user how to draw the bar.
     /// </summary>
-    Custom = 4,
+    Custom = 5,
 }
 
 internal enum TextureType
@@ -108,14 +117,7 @@ internal enum TextureType
     ExtraBelowFill = 5,
     ExtraBetweenFillAndFrame = 6,
     ExtraBetweenFrameAndHeadEnd = 7,
-    ExtraBetweenHeadEndAndInfo = 8,
-    ExtraUponInfo = 9,
-}
-
-internal enum ExtraBarDrawsChooser
-{
-    barFillStyles = 0,
-    barFrameStyles = 1,
-    barFillColor = 2,
-    extraStyles = 3,
+    ExtraBetweenHeadEndAndIcon = 8,
+    ExtraBetweenIconAndInfo = 9,
+    ExtraUponInfo = 10,
 }
