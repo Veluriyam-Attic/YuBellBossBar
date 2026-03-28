@@ -1,6 +1,4 @@
-﻿using YuBellBossBar.DrawMethod;
-
-namespace YuBellBossBar.Core;
+﻿namespace YuBellBossBar.Core;
 internal struct VBarParams
 {
     public int npctype;
@@ -30,22 +28,11 @@ internal struct VBarParams
     /// </summary>
     public BarTextures barTextures;
 
-    public VBarParams(NPC npc)
+    /// <param name="initiator">npctype, npcwhoami, life, lifemax, maxlife, pastlife, drawParams</param>
+    public VBarParams(BarTextures barTextures,Action<int,int,float,float,float,float,BossBarDrawParams> initiator)
     {
-        this.npctype = npc.type;
-        this.npcwhoami = npc.whoAmI;
-    }
-
-    public VBarParams(int npctype)
-    {
-        this.npctype = npctype;
-    }
-
-
-    public VBarParams(int npctype, int npcwhoami)
-    {
-        this.npctype = npctype;
-        this.npcwhoami = npcwhoami;
+        this.barTextures = barTextures;
+        initiator?.Invoke(npctype, npcwhoami, life, lifemax, maxlife, pastlife, drawParams);
     }
 }
 
@@ -138,6 +125,7 @@ internal struct BarDraws
     public event Action<SpriteBatch, Vector2> CustomDrawEvent = null;
 
     #region 实例构造器 Instance Constructor
+    /// <param name="initiator">barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
     public BarDraws(TextureType type, Asset<Texture2D> texture,Action<BarFillStyles,BarFillColor,Color,BarFrameStyles,ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope,int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
     {
         this.textureType = type;

@@ -8,7 +8,7 @@ internal class VGlobalNPC : GlobalNPC
     {
         if(npc.BossBar != null && YAB.Selected)
         {
-            VBarData.BarParams.TryAdd(npc.whoAmI,new VBarParams(npc));
+            VBarData.BarParams.TryAdd(npc.whoAmI,new VBarParams());
         }
     }
 
