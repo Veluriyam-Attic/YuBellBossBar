@@ -14,6 +14,7 @@ internal static class VBarData
 
     public static void InstanceBuildInContent()
     {
+        #region 金色风格 Gloden Style
         buildiincontent.Add(int.MaxValue,
             new BarTextures(
                 int.MaxValue,
@@ -42,6 +43,6 @@ internal static class VBarData
                 }
             )
         );
-
+        #endregion
     }
 }
