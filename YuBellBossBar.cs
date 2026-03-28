@@ -33,6 +33,9 @@ public class YuBellBossBar : Mod
                 CalamityBarHealth.constructor = CalamityBarHealth.bossHPUI.GetConstructor(new Type[] { typeof(int), typeof(string) });
                 CalamityBarHealth.updateMethod = CalamityBarHealth.bossHPUI.GetMethod("Update");
             }
+
+            FieldInfo SpecialBarDic = typeof(BigProgressBarSystem).GetField("_bossBarsByNpcNetId",BindingFlags.NonPublic | BindingFlags.Instance);
+            VBarData._bossBarsByNpcNetId = SpecialBarDic.GetValue(SpecialBarDic) as Dictionary<int, IBigProgressBar>;
         }
     }
 }

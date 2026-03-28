@@ -4,8 +4,20 @@ internal class VGlobalNPC : GlobalNPC
 {
     public override bool InstancePerEntity => true;
 
+    public override void AI(NPC npc)
+    {
+        if(npc.BossBar != null && YAB.Selected)
+        {
+            VBarData.BarParams.TryAdd(npc.whoAmI,new VBarParams(npc));
+        }
+    }
+
     public override void OnKill(NPC npc)
     {
+
+        if (npc.BossBar != null && YAB.Selected)
+            VBarData.BarParams.Remove(npc.whoAmI);
+
         VBarPlayer.RemoveIndexs += () =>
         {
             // 如果没有Boss在场就移除索引

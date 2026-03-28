@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace YuBellBossBar.ModCross;
+﻿namespace YuBellBossBar.ModCross;
 
 internal class CalamityBarHealth
 {
