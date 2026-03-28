@@ -111,3 +111,11 @@ internal enum TextureType
     ExtraBetweenHeadEndAndInfo = 8,
     ExtraUponInfo = 9,
 }
+
+internal enum ExtraBarDrawsChooser
+{
+    barFillStyles = 0,
+    barFrameStyles = 1,
+    barFillColor = 2,
+    extraStyles = 3,
+}

@@ -12,6 +12,6 @@ internal static class VBarData
 
     public static void InstanceBuildInContent()
     {
-
+        buildiincontent.Add(NPCID.KingSlime, new VBarParams()); 
     }
 }

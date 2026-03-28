@@ -1,18 +1,17 @@
 ﻿namespace YuBellBossBar.Core;
-
-// TODO: 这个结构体是用来存储Boss血条的参数的,还未完成
-// TODO: This struct is used to store the parameters of the boss bar, and it is not completed yet
 internal struct VBarParams
 {
     public int npctype;
     public int npcwhoami;
 
     public float life;
+
     /// <summary>
     /// <br/>血量上限
     /// <br/>this npc's life's max value
     /// </summary>
     public float lifemax;
+
     /// <summary>
     /// <br/>出现过的最高血量
     /// <br/>the max value of life since this npc be spawned
@@ -35,9 +34,16 @@ internal struct VBarParams
         this.npcwhoami = npc.whoAmI;
     }
 
-    public VBarParams(BarTextures barTextures)
+    public VBarParams(int npctype)
     {
-        this.barTextures = barTextures;
+        this.npctype = npctype;
+    }
+
+
+    public VBarParams(int npctype, int npcwhoami)
+    {
+        this.npctype = npctype;
+        this.npcwhoami = npcwhoami;
     }
 }
 
@@ -47,7 +53,8 @@ internal struct VBarParams
 /// </summary>
 internal struct BarTextures
 {
-    public Dictionary<TextureType,BarDraws> baseTextures = new Dictionary<TextureType, BarDraws>();
+    // Fill,Frame,Head,Tail,Info是基础贴图,必有且仅有一个
+    public Dictionary<TextureType, BarDraws> baseTextures = new Dictionary<TextureType, BarDraws>();
 
     public List<BarDraws> extraTexturesBelowFill = new List<BarDraws>();
     public List<BarDraws> extraTexturesBetweenFillAndFrame = new List<BarDraws>();
@@ -55,9 +62,11 @@ internal struct BarTextures
     public List<BarDraws> extraTexturesBetweenHeadEndAndInfo = new List<BarDraws>();
     public List<BarDraws> extraTexturesUponInfo = new List<BarDraws>();
 
-    public BarTextures(TextureType type,BarDraws bardraws)
+    #region 实例构造器 Instance Constructor
+    public BarTextures(TextureType type, BarDraws bardraws)
     {
-        switch(type){
+        switch (type)
+        {
             default:
                 break;
             case TextureType.ExtraBelowFill:
@@ -76,22 +85,23 @@ internal struct BarTextures
                 this.extraTexturesUponInfo.Add(bardraws);
                 break;
             case TextureType.Fill:
-                this.baseTextures.Add(TextureType.Fill,bardraws);
+                this.baseTextures.Add(TextureType.Fill, bardraws);
                 break;
             case TextureType.Frame:
-                this.baseTextures.Add(TextureType.Frame,bardraws);
+                this.baseTextures.Add(TextureType.Frame, bardraws);
                 break;
             case TextureType.Head:
-                this.baseTextures.Add(TextureType.Head,bardraws);
+                this.baseTextures.Add(TextureType.Head, bardraws);
                 break;
             case TextureType.Tail:
-                this.baseTextures.Add(TextureType.Tail,bardraws);
+                this.baseTextures.Add(TextureType.Tail, bardraws);
                 break;
             case TextureType.Info:
-                this.baseTextures.Add(TextureType.Info,bardraws);
+                this.baseTextures.Add(TextureType.Info, bardraws);
                 break;
         }
     }
+    #endregion
 }
 
 /// <summary>
@@ -102,6 +112,10 @@ internal struct BarDraws
 {
     public Asset<Texture2D> texture;
 
+    public int frameCount = 1;
+
+    public BarAnimation barAnimation;
+
     public Vector2 certerPosition;
 
     public TextureType textureType;
@@ -110,18 +124,46 @@ internal struct BarDraws
 
     public BarFrameStyles barFrameStyles;
 
-    public BarAnimation barAnimation;
-
     public BarFillColor barFillColor;
 
     public ExtraDrawStyles extraStyles;
 
-    public event Action<SpriteBatch,Vector2> CustomDrawEvent;
+    public event Action<SpriteBatch, Vector2> CustomDrawEvent = null;
 
-    public BarDraws(Vector2 position,TextureType type,Asset<Texture2D> texture)
+    #region 实例构造器 Instance Constructor
+    public BarDraws(TextureType type, Asset<Texture2D> texture, int[] chooser = null, BarAnimation animation = BarAnimation.Nope, int framecount = 1,Action<SpriteBatch, Vector2> action = null)
     {
         this.textureType = type;
-        this.certerPosition = position;
         this.texture = texture;
+        this.CustomDrawEvent += action;
+        barAnimation = animation;
+        this.frameCount = framecount;
+        try
+        {
+            switch (type)
+            {
+                default:
+                    break;
+                case TextureType.Fill:
+                    barFillColor = (BarFillColor)chooser[0];
+                    barFillStyles = (BarFillStyles)chooser[1];
+                    break;
+                case TextureType.Frame:
+                    barFrameStyles = (BarFrameStyles)chooser[0];
+                    break;
+                case TextureType.Head:
+                    break;
+                case TextureType.Tail:
+                    break;
+                case TextureType.Info:
+                    break;
+            }
+        }
+        #pragma warning disable CS0168
+        catch (Exception e)
+        {
+            Utils.ShowFancyErrorMessage(Language.GetTextValue("Mods.YuBellBossBar.Exception.InputError",Language.GetTextValue("Mod.YuBellBossBar.Exception.OnSelectEnums")), 60);
+        }
     }
+    #endregion
 }
