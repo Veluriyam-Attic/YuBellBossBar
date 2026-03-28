@@ -1,4 +1,6 @@
-﻿namespace YuBellBossBar.Core;
+﻿using YuBellBossBar.DrawMethod;
+
+namespace YuBellBossBar.Core;
 internal struct VBarParams
 {
     public int npctype;
@@ -63,42 +65,45 @@ internal struct BarTextures
     public List<BarDraws> extraTexturesUponInfo = new List<BarDraws>();
 
     #region 实例构造器 Instance Constructor
-    public BarTextures(TextureType type, BarDraws bardraws)
+    public BarTextures(Dictionary<TextureType,BarDraws> bardraws)
     {
-        switch (type)
+        foreach (TextureType type in bardraws.Keys)
         {
-            default:
-                break;
-            case TextureType.ExtraBelowFill:
-                this.extraTexturesBelowFill.Add(bardraws);
-                break;
-            case TextureType.ExtraBetweenFillAndFrame:
-                this.extraTexturesBetweenFillAndFrame.Add(bardraws);
-                break;
-            case TextureType.ExtraBetweenFrameAndHeadEnd:
-                this.extraTexturesBetweenFrameAndHeadEnd.Add(bardraws);
-                break;
-            case TextureType.ExtraBetweenHeadEndAndInfo:
-                this.extraTexturesBetweenHeadEndAndInfo.Add(bardraws);
-                break;
-            case TextureType.ExtraUponInfo:
-                this.extraTexturesUponInfo.Add(bardraws);
-                break;
-            case TextureType.Fill:
-                this.baseTextures.Add(TextureType.Fill, bardraws);
-                break;
-            case TextureType.Frame:
-                this.baseTextures.Add(TextureType.Frame, bardraws);
-                break;
-            case TextureType.Head:
-                this.baseTextures.Add(TextureType.Head, bardraws);
-                break;
-            case TextureType.Tail:
-                this.baseTextures.Add(TextureType.Tail, bardraws);
-                break;
-            case TextureType.Info:
-                this.baseTextures.Add(TextureType.Info, bardraws);
-                break;
+            switch (type)
+            {
+                default:
+                    break;
+                case TextureType.ExtraBelowFill:
+                    this.extraTexturesBelowFill.Add(bardraws[type]);
+                    break;
+                case TextureType.ExtraBetweenFillAndFrame:
+                    this.extraTexturesBetweenFillAndFrame.Add(bardraws[type]);
+                    break;
+                case TextureType.ExtraBetweenFrameAndHeadEnd:
+                    this.extraTexturesBetweenFrameAndHeadEnd.Add(bardraws[type]);
+                    break;
+                case TextureType.ExtraBetweenHeadEndAndInfo:
+                    this.extraTexturesBetweenHeadEndAndInfo.Add(bardraws[type]);
+                    break;
+                case TextureType.ExtraUponInfo:
+                    this.extraTexturesUponInfo.Add(bardraws[type]);
+                    break;
+                case TextureType.Fill:
+                    this.baseTextures.Add(TextureType.Fill, bardraws[type]);
+                    break;
+                case TextureType.Frame:
+                    this.baseTextures.Add(TextureType.Frame, bardraws[type]);
+                    break;
+                case TextureType.Head:
+                    this.baseTextures.Add(TextureType.Head, bardraws[type]);
+                    break;
+                case TextureType.Tail:
+                    this.baseTextures.Add(TextureType.Tail, bardraws[type]);
+                    break;
+                case TextureType.Info:
+                    this.baseTextures.Add(TextureType.Info, bardraws[type]);
+                    break;
+            }
         }
     }
     #endregion
@@ -126,44 +131,23 @@ internal struct BarDraws
 
     public BarFillColor barFillColor;
 
+    public Color fillColor = Color.White;
+
     public ExtraDrawStyles extraStyles;
 
     public event Action<SpriteBatch, Vector2> CustomDrawEvent = null;
 
     #region 实例构造器 Instance Constructor
-    public BarDraws(TextureType type, Asset<Texture2D> texture, int[] chooser = null, BarAnimation animation = BarAnimation.Nope, int framecount = 1,Action<SpriteBatch, Vector2> action = null)
+    public BarDraws(TextureType type, Asset<Texture2D> texture,Action<BarFillStyles,BarFillColor,Color,BarFrameStyles,ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope,int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
     {
         this.textureType = type;
         this.texture = texture;
-        this.CustomDrawEvent += action;
+        this.CustomDrawEvent += customDraw;
         barAnimation = animation;
         this.frameCount = framecount;
-        try
-        {
-            switch (type)
-            {
-                default:
-                    break;
-                case TextureType.Fill:
-                    barFillColor = (BarFillColor)chooser[0];
-                    barFillStyles = (BarFillStyles)chooser[1];
-                    break;
-                case TextureType.Frame:
-                    barFrameStyles = (BarFrameStyles)chooser[0];
-                    break;
-                case TextureType.Head:
-                    break;
-                case TextureType.Tail:
-                    break;
-                case TextureType.Info:
-                    break;
-            }
-        }
-        #pragma warning disable CS0168
-        catch (Exception e)
-        {
-            Utils.ShowFancyErrorMessage(Language.GetTextValue("Mods.YuBellBossBar.Exception.InputError",Language.GetTextValue("Mod.YuBellBossBar.Exception.OnSelectEnums")), 60);
-        }
+        // 在默认构造器逻辑之后调用,来服务委托中潜在的修改
+        // Call after the default constructor logic to serve potential modifications in the delegate
+        initiator?.Invoke(barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles);
     }
     #endregion
 }
