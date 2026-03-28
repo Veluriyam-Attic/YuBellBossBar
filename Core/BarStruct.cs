@@ -2,25 +2,6 @@
 internal struct VBarParams
 {
     public int npctype;
-    public int npcwhoami;
-
-    public float life;
-
-    /// <summary>
-    /// <br/>血量上限
-    /// <br/>this npc's life's max value
-    /// </summary>
-    public float lifemax;
-
-    /// <summary>
-    /// <br/>出现过的最高血量
-    /// <br/>the max value of life since this npc be spawned
-    /// </summary>
-    public float maxlife;
-
-    public float pastlife;
-
-    public BossBarDrawParams drawParams;
 
     /// <summary>
     /// <br/>贴图和如何绘制贴图都在这里了
@@ -28,11 +9,11 @@ internal struct VBarParams
     /// </summary>
     public BarTextures barTextures;
 
-    /// <param name="initiator">npctype, npcwhoami, life, lifemax, maxlife, pastlife, drawParams</param>
-    public VBarParams(BarTextures barTextures,Action<int,int,float,float,float,float,BossBarDrawParams> initiator)
+#pragma warning disable CS1573
+    public VBarParams(int npctype ,BarTextures barTextures)
     {
+        this.npctype = npctype;
         this.barTextures = barTextures;
-        initiator?.Invoke(npctype, npcwhoami, life, lifemax, maxlife, pastlife, drawParams);
     }
 }
 
@@ -54,8 +35,8 @@ internal struct BarTextures
 
     #region 实例构造器 Instance Constructor
     /// <summary>
-    /// <br/><see langword="TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/>是基础贴图,必有且仅有一个
-    /// <br/><see langword="TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/> are the basic textures, there must be one and only one of each.
+    /// <br/><see langword="TextureType.Icon,TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/>是基础贴图,必有且仅有一个
+    /// <br/><see langword="TextureType.Icon,TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/> are the basic textures, there must be one and only one of each.
     /// </summary>
     public BarTextures(Dictionary<TextureType,BarDraws> bardraws)
     {
@@ -65,6 +46,28 @@ internal struct BarTextures
             {
                 default:
                     break;
+                #region 基础贴图 Basic Textures
+                case TextureType.Icon:
+                    this.baseTextures.TryAdd(TextureType.Icon, bardraws[type]);
+                    break;
+                case TextureType.Fill:
+                    this.baseTextures.TryAdd(TextureType.Fill, bardraws[type]);
+                    break;
+                case TextureType.Frame:
+                    this.baseTextures.TryAdd(TextureType.Frame, bardraws[type]);
+                    break;
+                case TextureType.Head:
+                    this.baseTextures.TryAdd(TextureType.Head, bardraws[type]);
+                    break;
+                case TextureType.Tail:
+                    this.baseTextures.TryAdd(TextureType.Tail, bardraws[type]);
+                    break;
+                case TextureType.Info:
+                    this.baseTextures.TryAdd(TextureType.Info, bardraws[type]);
+                    break;
+                #endregion
+
+                #region 额外贴图 Extra Textures
                 case TextureType.ExtraBelowFill:
                     this.extraTexturesBelowFill.Add(bardraws[type]);
                     break;
@@ -83,21 +86,7 @@ internal struct BarTextures
                 case TextureType.ExtraUponInfo:
                     this.extraTexturesUponInfo.Add(bardraws[type]);
                     break;
-                case TextureType.Fill:
-                    this.baseTextures.TryAdd(TextureType.Fill, bardraws[type]);
-                    break;
-                case TextureType.Frame:
-                    this.baseTextures.TryAdd(TextureType.Frame, bardraws[type]);
-                    break;
-                case TextureType.Head:
-                    this.baseTextures.TryAdd(TextureType.Head, bardraws[type]);
-                    break;
-                case TextureType.Tail:
-                    this.baseTextures.TryAdd(TextureType.Tail, bardraws[type]);
-                    break;
-                case TextureType.Info:
-                    this.baseTextures.TryAdd(TextureType.Info, bardraws[type]);
-                    break;
+                #endregion
             }
         }
     }

@@ -109,6 +109,7 @@ internal enum ExtraDrawStyles
 
 internal enum TextureType
 {
+    Icon = -1,
     Fill = 0,
     Frame = 1,
     Head = 2,
