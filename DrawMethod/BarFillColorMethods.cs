@@ -1,6 +1,6 @@
 ﻿namespace YuBellBossBar.DrawMethod;
 
-internal class BarFillColor
+internal class BarFillColorMethods
 {
     /// <summary>
     /// <br/>这是原版血条颜色的方法

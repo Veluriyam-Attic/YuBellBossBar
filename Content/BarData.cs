@@ -18,26 +18,26 @@ internal static class BarData
         buildiincontent.Add(int.MaxValue,
             new BarTextures(
                 int.MaxValue,
-                new Dictionary<TextureType, Core.BarDraws>()
+                new Dictionary<TextureType, BarDraws>()
                 {
                     {
                         TextureType.Fill,
-                        new Core.BarDraws(TextureType.Head,ModContent.Request<Texture2D>
+                        new BarDraws(TextureType.Head,ModContent.Request<Texture2D>
                         (_vpath + "HealthBarFill_Exp", AssetRequestMode.ImmediateLoad))
                     },
                     {
                         TextureType.Frame,
-                        new Core.BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
+                        new BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
                         (_vpath + "HealthBarFrame_Exp", AssetRequestMode.ImmediateLoad))
                     },
                     {
                         TextureType.Head,
-                        new Core.BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
+                        new BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
                         (_vpath + "HealthBarHead_Exp", AssetRequestMode.ImmediateLoad))
                     },
                     {
                         TextureType.Tail,
-                        new Core.BarDraws(TextureType.Tail,ModContent.Request<Texture2D>
+                        new BarDraws(TextureType.Tail,ModContent.Request<Texture2D>
                         (_vpath + "HealthBarTail_Exp", AssetRequestMode.ImmediateLoad))
                     }
                 }

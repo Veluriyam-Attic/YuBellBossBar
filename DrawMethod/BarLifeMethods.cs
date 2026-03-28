@@ -1,6 +1,6 @@
 ﻿namespace YuBellBossBar.DrawMethod
 {
-    internal class BarLife
+    internal class BarLifeMethods
     {
         public static void Calculation(int npcwhoami)
         {
