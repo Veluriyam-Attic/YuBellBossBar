@@ -47,17 +47,50 @@ internal struct VBarParams
 /// </summary>
 internal struct BarTextures
 {
-    public BarDraws[] baseTextures;
+    public Dictionary<TextureType,BarDraws> baseTextures = new Dictionary<TextureType, BarDraws>();
 
-    public BarDraws[] extraTexturesBelowFill;
-    public BarDraws[] extraTexturesBetweenFillAndFrame;
-    public BarDraws[] extraTexturesBetweenFrameAndHeadEnd;
-    public BarDraws[] extraTexturesBetweenHeadEndAndInfo;
-    public BarDraws[] extraTexturesUponInfo;
+    public List<BarDraws> extraTexturesBelowFill = new List<BarDraws>();
+    public List<BarDraws> extraTexturesBetweenFillAndFrame = new List<BarDraws>();
+    public List<BarDraws> extraTexturesBetweenFrameAndHeadEnd = new List<BarDraws>();
+    public List<BarDraws> extraTexturesBetweenHeadEndAndInfo = new List<BarDraws>();
+    public List<BarDraws> extraTexturesUponInfo = new List<BarDraws>();
 
-    public BarTextures()
+    public BarTextures(TextureType type,BarDraws bardraws)
     {
-
+        switch(type){
+            default:
+                break;
+            case TextureType.ExtraBelowFill:
+                this.extraTexturesBelowFill.Add(bardraws);
+                break;
+            case TextureType.ExtraBetweenFillAndFrame:
+                this.extraTexturesBetweenFillAndFrame.Add(bardraws);
+                break;
+            case TextureType.ExtraBetweenFrameAndHeadEnd:
+                this.extraTexturesBetweenFrameAndHeadEnd.Add(bardraws);
+                break;
+            case TextureType.ExtraBetweenHeadEndAndInfo:
+                this.extraTexturesBetweenHeadEndAndInfo.Add(bardraws);
+                break;
+            case TextureType.ExtraUponInfo:
+                this.extraTexturesUponInfo.Add(bardraws);
+                break;
+            case TextureType.Fill:
+                this.baseTextures.Add(TextureType.Fill,bardraws);
+                break;
+            case TextureType.Frame:
+                this.baseTextures.Add(TextureType.Frame,bardraws);
+                break;
+            case TextureType.Head:
+                this.baseTextures.Add(TextureType.Head,bardraws);
+                break;
+            case TextureType.Tail:
+                this.baseTextures.Add(TextureType.Tail,bardraws);
+                break;
+            case TextureType.Info:
+                this.baseTextures.Add(TextureType.Info,bardraws);
+                break;
+        }
     }
 }
 
@@ -84,4 +117,11 @@ internal struct BarDraws
     public ExtraDrawStyles extraStyles;
 
     public event Action<SpriteBatch,Vector2> CustomDrawEvent;
+
+    public BarDraws(Vector2 position,TextureType type,Asset<Texture2D> texture)
+    {
+        this.textureType = type;
+        this.certerPosition = position;
+        this.texture = texture;
+    }
 }

@@ -105,5 +105,9 @@ internal enum TextureType
     Head = 2,
     Tail = 3,
     Info = 4,
-    Extra = 5,
+    ExtraBelowFill = 5,
+    ExtraBetweenFillAndFrame = 6,
+    ExtraBetweenFrameAndHeadEnd = 7,
+    ExtraBetweenHeadEndAndInfo = 8,
+    ExtraUponInfo = 9,
 }
