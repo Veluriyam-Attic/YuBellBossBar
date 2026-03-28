@@ -1,21 +1,4 @@
 ﻿namespace YuBellBossBar.Core;
-internal struct VBarParams
-{
-    public int npctype;
-
-    /// <summary>
-    /// <br/>贴图和如何绘制贴图都在这里了
-    /// <br/>The textures and how to draw them are all here
-    /// </summary>
-    public BarTextures barTextures;
-
-#pragma warning disable CS1573
-    public VBarParams(int npctype ,BarTextures barTextures)
-    {
-        this.npctype = npctype;
-        this.barTextures = barTextures;
-    }
-}
 
 /// <summary>
 /// <br/>一个血条的贴图
@@ -23,6 +6,8 @@ internal struct VBarParams
 /// </summary>
 internal struct BarTextures
 {
+    public int npctype;
+
     // Fill,Frame,Head,Tail,Info是基础贴图,必有且仅有一个
     public Dictionary<TextureType, BarDraws> baseTextures = new Dictionary<TextureType, BarDraws>();
 
@@ -38,8 +23,9 @@ internal struct BarTextures
     /// <br/><see langword="TextureType.Icon,TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/>是基础贴图,必有且仅有一个
     /// <br/><see langword="TextureType.Icon,TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/> are the basic textures, there must be one and only one of each.
     /// </summary>
-    public BarTextures(Dictionary<TextureType,BarDraws> bardraws)
+    public BarTextures(int npctype,Dictionary<TextureType,BarDraws> bardraws)
     {
+        this.npctype = npctype;
         foreach (TextureType type in bardraws.Keys)
         {
             switch (type)
