@@ -86,6 +86,7 @@ internal struct BarTextures
 internal struct BarDraws
 {
     public Asset<Texture2D> texture;
+    public TextureSource source;
 
     public int frameCount = 1;
 
@@ -110,13 +111,14 @@ internal struct BarDraws
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarDraws(TextureType type, Asset<Texture2D> texture,Action<BarFillStyles,BarFillColor,Color,BarFrameStyles,ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope,int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
+    public BarDraws(TextureType type, Asset<Texture2D> texture,TextureSource textureSource,Action<BarFillStyles,BarFillColor,Color,BarFrameStyles,ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope,int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
     {
         this.textureType = type;
         this.texture = texture;
         this.CustomDrawEvent += customDraw;
         barAnimation = animation;
         this.frameCount = framecount;
+        this.source = textureSource;
         // 在默认构造器逻辑之后调用,来服务委托中潜在的修改
         // Call after the default constructor logic to serve potential modifications in the delegate
         initiator?.Invoke(barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles);

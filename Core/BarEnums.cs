@@ -122,3 +122,13 @@ internal enum TextureType
     ExtraBetweenIconAndInfo = 9,
     ExtraUponInfo = 10,
 }
+
+internal enum TextureSource
+{
+    DefaultTexture = 0,
+    DefaultVanilla = 1,
+    ExtraVanilla = 2,
+    ExtraCalamity = 3,
+    ExtraInfo = 4,
+    ExtraCustom = 5,
+}
