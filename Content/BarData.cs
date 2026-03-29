@@ -93,6 +93,9 @@ internal static class BarData
         #endregion
 
         #region Default Vanilla
+        #endregion
+
+        #region Extra Vanilla
         buildiincontent.Add(NPCID.KingSlime,
             new BarTextures(
                 NPCID.KingSlime,
@@ -101,37 +104,37 @@ internal static class BarData
                     {
                         TextureType.Fill,
                         new BarTexture2D(TextureType.Fill,ModContent.Request<Texture2D>
-                        (_dvpath + "KingSlimeFill",
+                        (_evpath + "KingSlimeFill",
                         AssetRequestMode.ImmediateLoad),
-                        TextureSource.DefaultVanilla)
+                        TextureSource.ExtraVanilla)
                     },
                     {
                         TextureType.Frame,
                         new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
-                        (_dvpath + "KingSlimeFrame",
+                        (_evpath + "KingSlimeFrame",
                         AssetRequestMode.ImmediateLoad),
-                        TextureSource.DefaultVanilla)
+                        TextureSource.ExtraVanilla)
                     },
                     {
                         TextureType.Head,
                         new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
-                        (_dvpath + "KingSlimeHead",
+                        (_evpath + "KingSlimeHead",
                         AssetRequestMode.ImmediateLoad),
-                        TextureSource.DefaultVanilla)
+                        TextureSource.ExtraVanilla)
                     },
                     {
                         TextureType.Tail,
                         new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
-                        (_dvpath + "KingSlimeTail",
+                        (_evpath + "KingSlimeTail",
                         AssetRequestMode.ImmediateLoad),
-                        TextureSource.DefaultVanilla)
+                        TextureSource.ExtraVanilla)
                     },
                     {
                         TextureType.Icon,
                         new BarTexture2D(TextureType.Icon,ModContent.Request<Texture2D>
-                        (_dvpath + "KingSlimeIcon",
+                        (_evpath + "KingSlimeIcon",
                         AssetRequestMode.ImmediateLoad),
-                        TextureSource.DefaultVanilla)
+                        TextureSource.ExtraVanilla)
                     },
                 }
             )
