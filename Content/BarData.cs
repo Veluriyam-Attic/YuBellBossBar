@@ -27,14 +27,14 @@ internal static class BarData
                         new BarDraws(TextureType.Head,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarFill_Exp", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture,
-                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>{ barFillStyles = BarFillStyles.Extend; })
+                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; })
                     },
                     {
                         TextureType.Frame,
                         new BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarFrame_Exp", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture,
-                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>{ barFrameStyles = BarFrameStyles.Extend; })
+                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; })
                     },
                     {
                         TextureType.Head,
@@ -64,14 +64,14 @@ internal static class BarData
                         new BarDraws(TextureType.Head,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarFill", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture,
-                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>{ barFillStyles = BarFillStyles.Extend; })
+                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; })
                     },
                     {
                         TextureType.Frame,
                         new BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarFrame", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture,
-                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>{ barFrameStyles = BarFrameStyles.Extend; })
+                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; })
                     },
                     {
                         TextureType.Head,
