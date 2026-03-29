@@ -9,21 +9,21 @@ internal struct BarTextures
     public int npctype;
 
     // Fill,Frame,Head,Tail,Info是基础贴图,必有且仅有一个
-    public Dictionary<TextureType, BarDraws> baseTextures = new Dictionary<TextureType, BarDraws>();
+    public Dictionary<TextureType, BarTexture2D> baseTextures = new Dictionary<TextureType, BarTexture2D>();
 
-    public List<BarDraws> extraTexturesBelowFill = new List<BarDraws>();
-    public List<BarDraws> extraTexturesBetweenFillAndFrame = new List<BarDraws>();
-    public List<BarDraws> extraTexturesBetweenFrameAndHeadEnd = new List<BarDraws>();
-    public List<BarDraws> extraTexturesBetweenHeadEndAndIcon = new List<BarDraws>();
-    public List<BarDraws> extraTexturesBetweenIconAndInfo = new List<BarDraws>();
-    public List<BarDraws> extraTexturesUponInfo = new List<BarDraws>();
+    public List<BarTexture2D> extraTexturesBelowFill = new List<BarTexture2D>();
+    public List<BarTexture2D> extraTexturesBetweenFillAndFrame = new List<BarTexture2D>();
+    public List<BarTexture2D> extraTexturesBetweenFrameAndHeadEnd = new List<BarTexture2D>();
+    public List<BarTexture2D> extraTexturesBetweenHeadEndAndIcon = new List<BarTexture2D>();
+    public List<BarTexture2D> extraTexturesBetweenIconAndInfo = new List<BarTexture2D>();
+    public List<BarTexture2D> extraTexturesUponInfo = new List<BarTexture2D>();
 
     #region 实例构造器 Instance Constructor
     /// <summary>
     /// <br/><see langword="TextureType.Icon,TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/>是基础贴图,必有且仅有一个
     /// <br/><see langword="TextureType.Icon,TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/> are the basic textures, there must be one and only one of each.
     /// </summary>
-    public BarTextures(int npctype,Dictionary<TextureType,BarDraws> bardraws)
+    public BarTextures(int npctype,Dictionary<TextureType,BarTexture2D> bardraws)
     {
         this.npctype = npctype;
         foreach (TextureType type in bardraws.Keys)
@@ -83,7 +83,7 @@ internal struct BarTextures
 /// <br/>一个该结构体只服务一张贴图
 /// <br/>One struct serves only one texture
 /// </summary>
-internal struct BarDraws
+internal struct BarTexture2D
 {
     public Asset<Texture2D> texture;
     public TextureSource source;
@@ -111,7 +111,7 @@ internal struct BarDraws
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarDraws(TextureType type, Asset<Texture2D> texture,TextureSource textureSource,Action<BarFillStyles,BarFillColor,Color,BarFrameStyles,ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope,int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
+    public BarTexture2D(TextureType type, Asset<Texture2D> texture,TextureSource textureSource,Action<BarFillStyles,BarFillColor,Color,BarFrameStyles,ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope,int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
     {
         this.textureType = type;
         this.texture = texture;

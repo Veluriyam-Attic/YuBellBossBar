@@ -16,35 +16,36 @@ internal static class BarData
 
     public static void InstantiateBuildInContent()
     {
+        #region Default Texture
         #region 金色风格 Gloden Style
         buildiincontent.Add(int.MaxValue,
             new BarTextures(
                 int.MaxValue,
-                new Dictionary<TextureType, BarDraws>()
+                new Dictionary<TextureType, BarTexture2D>()
                 {
                     {
                         TextureType.Fill,
-                        new BarDraws(TextureType.Head,ModContent.Request<Texture2D>
+                        new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarFill_Exp", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture,
                         (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; })
                     },
                     {
                         TextureType.Frame,
-                        new BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
+                        new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarFrame_Exp", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture,
                         (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; })
                     },
                     {
                         TextureType.Head,
-                        new BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
+                        new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarHead_Exp", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture)
                     },
                     {
                         TextureType.Tail,
-                        new BarDraws(TextureType.Tail,ModContent.Request<Texture2D>
+                        new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarTail_Exp", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture)
                     },
@@ -57,34 +58,81 @@ internal static class BarData
         buildiincontent.Add(int.MinValue,
             new BarTextures(
                 int.MinValue,
-                new Dictionary<TextureType, BarDraws>()
+                new Dictionary<TextureType, BarTexture2D>()
                 {
                     {
                         TextureType.Fill,
-                        new BarDraws(TextureType.Head,ModContent.Request<Texture2D>
+                        new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarFill", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture,
                         (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; })
                     },
                     {
                         TextureType.Frame,
-                        new BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
+                        new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarFrame", AssetRequestMode.ImmediateLoad),
                         TextureSource.DefaultTexture,
                         (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; })
                     },
                     {
                         TextureType.Head,
-                        new BarDraws(TextureType.Frame,ModContent.Request<Texture2D>
+                        new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarHead", AssetRequestMode.ImmediateLoad), 
                         TextureSource.DefaultTexture)
                     },
                     {
                         TextureType.Tail,
-                        new BarDraws(TextureType.Tail,ModContent.Request<Texture2D>
+                        new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
                         (_dtpath + "HealthBarTail", AssetRequestMode.ImmediateLoad), 
                         TextureSource.DefaultTexture)
                     }
+                }
+            )
+        );
+        #endregion
+        #endregion
+
+        #region Default Vanilla
+        buildiincontent.Add(NPCID.KingSlime,
+            new BarTextures(
+                NPCID.KingSlime,
+                new Dictionary<TextureType, BarTexture2D>()
+                {
+                    {
+                        TextureType.Fill,
+                        new BarTexture2D(TextureType.Fill,ModContent.Request<Texture2D>
+                        (_dvpath + "KingSlimeFill",
+                        AssetRequestMode.ImmediateLoad),
+                        TextureSource.DefaultVanilla)
+                    },
+                    {
+                        TextureType.Frame,
+                        new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
+                        (_dvpath + "KingSlimeFrame",
+                        AssetRequestMode.ImmediateLoad),
+                        TextureSource.DefaultVanilla)
+                    },
+                    {
+                        TextureType.Head,
+                        new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
+                        (_dvpath + "KingSlimeHead",
+                        AssetRequestMode.ImmediateLoad),
+                        TextureSource.DefaultVanilla)
+                    },
+                    {
+                        TextureType.Tail,
+                        new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
+                        (_dvpath + "KingSlimeTail",
+                        AssetRequestMode.ImmediateLoad),
+                        TextureSource.DefaultVanilla)
+                    },
+                    {
+                        TextureType.Icon,
+                        new BarTexture2D(TextureType.Icon,ModContent.Request<Texture2D>
+                        (_dvpath + "KingSlimeIcon",
+                        AssetRequestMode.ImmediateLoad),
+                        TextureSource.DefaultVanilla)
+                    },
                 }
             )
         );
