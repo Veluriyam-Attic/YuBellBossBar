@@ -1,5 +1,80 @@
 ﻿namespace YuBellBossBar.Core;
 
+internal struct BarInfo
+{
+    #region 实例构造器 Instance Constructor
+    public BarInfo(BarTextures bartextures , Dictionary<string,bool> fields = null)
+    {
+        this.barTextures = bartextures;
+
+        if (fields.LongCount() == 0)
+            return;
+        foreach(string key in fields.Keys)
+        {
+            switch (key)
+            {
+                default:
+                    break;
+                case "ShowBar":
+                    ShowBar = fields[key];
+                    break;
+                case "ShowName":
+                    ShowName = fields[key];
+                    break;
+                case "ShowLife":
+                    ShowLife = fields[key];
+                    break;
+                case "ShowLifeMax":
+                    ShowLifeMax = fields[key];
+                    break;
+                case "ShowPercent":
+                    ShowPercent = fields[key];
+                    break;
+                case "ShowSegment":
+                    ShowSegment = fields[key];
+                    break;
+                case "ShowDefense":
+                    ShowDefense = fields[key];
+                    break;
+                case "ShowCalDR":
+                    ShowCalDR = fields[key];
+                    break;
+                case "ShowFarDR":
+                    ShowFarDR = fields[key];
+                    break;
+                case "ShowTarget":
+                    ShowTarget = fields[key];
+                    break;
+                case "ShowDamage":
+                    ShowDamage = fields[key];
+                    break;
+                case "ShowIcon":
+                    ShowIcon = fields[key];
+                    break;
+            }
+        }
+    }
+    #endregion
+
+    public int npctype => barTextures.npctype;
+    public BarTextures barTextures;
+
+    public bool ShowBar = true;
+
+    public bool ShowName = true;
+    public bool ShowLife = true;
+    public bool ShowLifeMax = true;
+    public bool ShowPercent = true;
+    public bool ShowSegment = true;
+    public bool ShowDefense = true;
+    public bool ShowCalDR = true;
+    public bool ShowFarDR = true;
+    public bool ShowTarget = true;
+    public bool ShowDamage = true;
+    public bool ShowIcon = true;
+}
+
+
 /// <summary>
 /// <br/>一个血条的贴图
 /// <br/>The Textures of a bar

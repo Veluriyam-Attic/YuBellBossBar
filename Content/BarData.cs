@@ -96,6 +96,7 @@ internal static class BarData
         #endregion
 
         #region Extra Vanilla
+        #region 史莱姆王
         buildiincontent.Add(NPCID.KingSlime,
             new BarTextures(
                 NPCID.KingSlime,
@@ -106,14 +107,16 @@ internal static class BarData
                         new BarTexture2D(TextureType.Fill,ModContent.Request<Texture2D>
                         (_evpath + "KingSlimeFill",
                         AssetRequestMode.ImmediateLoad),
-                        TextureSource.ExtraVanilla)
+                        TextureSource.ExtraVanilla,
+                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; })
                     },
                     {
                         TextureType.Frame,
                         new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
                         (_evpath + "KingSlimeFrame",
                         AssetRequestMode.ImmediateLoad),
-                        TextureSource.ExtraVanilla)
+                        TextureSource.ExtraVanilla,
+                        (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; })
                     },
                     {
                         TextureType.Head,
@@ -131,14 +134,13 @@ internal static class BarData
                     },
                     {
                         TextureType.Icon,
-                        new BarTexture2D(TextureType.Icon,ModContent.Request<Texture2D>
-                        (_evpath + "KingSlimeIcon",
-                        AssetRequestMode.ImmediateLoad),
+                        new BarTexture2D(TextureType.Icon,TextureAssets.NpcHeadBoss[],
                         TextureSource.ExtraVanilla)
                     },
                 }
             )
         );
+        #endregion
         #endregion
     }
 }
