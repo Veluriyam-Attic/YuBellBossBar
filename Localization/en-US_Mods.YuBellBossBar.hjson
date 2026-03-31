@@ -11,7 +11,7 @@ Configs: {
 	}
 }
 
-Exception:{
+Exception: {
 	Solution: Try Disable the [c/FF0000:Yet Another Boss Health Bar] Mod!
 	InputError: Input Error!{0}{$Solution}
 	OnSelectEnums: On Select Enums!

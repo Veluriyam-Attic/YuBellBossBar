@@ -3,56 +3,55 @@
 internal struct BarInfo
 {
     #region 实例构造器 Instance Constructor
-    public BarInfo(BarTextures bartextures , Dictionary<string,bool> fields = null)
+    public BarInfo(BarTextures bartextures, Dictionary<string, bool> fields = null)
     {
         this.barTextures = bartextures;
 
-        if (fields.LongCount() == 0)
-            return;
-        foreach(string key in fields.Keys)
-        {
-            switch (key)
+        if (fields != null)
+            foreach (string key in fields.Keys)
             {
-                default:
-                    break;
-                case "ShowBar":
-                    ShowBar = fields[key];
-                    break;
-                case "ShowName":
-                    ShowName = fields[key];
-                    break;
-                case "ShowLife":
-                    ShowLife = fields[key];
-                    break;
-                case "ShowLifeMax":
-                    ShowLifeMax = fields[key];
-                    break;
-                case "ShowPercent":
-                    ShowPercent = fields[key];
-                    break;
-                case "ShowSegment":
-                    ShowSegment = fields[key];
-                    break;
-                case "ShowDefense":
-                    ShowDefense = fields[key];
-                    break;
-                case "ShowCalDR":
-                    ShowCalDR = fields[key];
-                    break;
-                case "ShowFarDR":
-                    ShowFarDR = fields[key];
-                    break;
-                case "ShowTarget":
-                    ShowTarget = fields[key];
-                    break;
-                case "ShowDamage":
-                    ShowDamage = fields[key];
-                    break;
-                case "ShowIcon":
-                    ShowIcon = fields[key];
-                    break;
+                switch (key)
+                {
+                    default:
+                        break;
+                    case "ShowBar":
+                        ShowBar = fields[key];
+                        break;
+                    case "ShowName":
+                        ShowName = fields[key];
+                        break;
+                    case "ShowLife":
+                        ShowLife = fields[key];
+                        break;
+                    case "ShowLifeMax":
+                        ShowLifeMax = fields[key];
+                        break;
+                    case "ShowPercent":
+                        ShowPercent = fields[key];
+                        break;
+                    case "ShowSegment":
+                        ShowSegment = fields[key];
+                        break;
+                    case "ShowDefense":
+                        ShowDefense = fields[key];
+                        break;
+                    case "ShowCalDR":
+                        ShowCalDR = fields[key];
+                        break;
+                    case "ShowFarDR":
+                        ShowFarDR = fields[key];
+                        break;
+                    case "ShowTarget":
+                        ShowTarget = fields[key];
+                        break;
+                    case "ShowDamage":
+                        ShowDamage = fields[key];
+                        break;
+                    case "ShowIcon":
+                        ShowIcon = fields[key];
+                        break;
+                }
             }
-        }
     }
     #endregion
 
@@ -98,7 +97,7 @@ internal struct BarTextures
     /// <br/><see langword="TextureType.Icon,TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/>是基础贴图,必有且仅有一个
     /// <br/><see langword="TextureType.Icon,TextureType.Fill, TextureType.Frame, TextureType.Head, TextureType.Tail, TextureType.Info"/> are the basic textures, there must be one and only one of each.
     /// </summary>
-    public BarTextures(int npctype,Dictionary<TextureType,BarTexture2D> bardraws)
+    public BarTextures(int npctype, Dictionary<TextureType, BarTexture2D> bardraws)
     {
         this.npctype = npctype;
         foreach (TextureType type in bardraws.Keys)
@@ -186,7 +185,7 @@ internal struct BarTexture2D
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarTexture2D(TextureType type, Asset<Texture2D> texture,TextureSource textureSource,Action<BarFillStyles,BarFillColor,Color,BarFrameStyles,ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope,int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
+    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, Action<BarFillStyles, BarFillColor, Color, BarFrameStyles, ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope, int framecount = 1, Action<SpriteBatch, Vector2> customDraw = null)
     {
         this.textureType = type;
         this.texture = texture;

@@ -23,11 +23,11 @@ internal static class BarData
                 new BarTextures(
                     int.MaxValue,
                     new Dictionary<TextureType, BarTexture2D>()
-                    {   
+                    {
                         {
                             TextureType.Fill,
                             new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarFill_Exp", AssetRequestMode.ImmediateLoad),
+                            (_dtpath + "HealthBarFill", AssetRequestMode.ImmediateLoad),
                             TextureSource.DefaultTexture,
                             (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; })
                         },
@@ -109,7 +109,7 @@ internal static class BarData
                             new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
                                 (_dvpath + "WallofFleshFrame",AssetRequestMode.ImmediateLoad),
                                 TextureSource.DefaultVanilla,
-                                (barFillSytle,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
+                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
                             )
                         },
                         {
@@ -145,7 +145,7 @@ internal static class BarData
                             new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
                                 (_dvpath + "WallofFleshFrame",AssetRequestMode.ImmediateLoad),
                                 TextureSource.DefaultVanilla,
-                                (barFillSytle,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
+                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
                             )
                         },
                         {
@@ -174,7 +174,7 @@ internal static class BarData
             new BarInfo(
                 new BarTextures(
                     NPCID.Retinazer,
-                    new Dictionary<TextureType, BarTexture2D>() 
+                    new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
                             TextureType.Frame,
@@ -182,7 +182,7 @@ internal static class BarData
                                 TextureType.Frame,ModContent.Request<Texture2D>
                                 (_dvpath + "MechBossFrame",AssetRequestMode.ImmediateLoad),
                                 TextureSource.DefaultVanilla,
-                                (barFillSytle,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
+                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
                             )
                         },
                         {
@@ -220,7 +220,7 @@ internal static class BarData
                                 TextureType.Frame,ModContent.Request<Texture2D>
                                 (_dvpath + "MechBossFrame",AssetRequestMode.ImmediateLoad),
                                 TextureSource.DefaultVanilla,
-                                (barFillSytle,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
+                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
                             )
                         },
                         {
@@ -236,6 +236,132 @@ internal static class BarData
                             new BarTexture2D(
                                 TextureType.Tail,ModContent.Request<Texture2D>
                                 (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla
+                            )
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 毁灭者 The Destroyer
+        buildiincontent.Add(
+            NPCID.TheDestroyer,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.TheDestroyer,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Frame,
+                            new BarTexture2D(
+                                TextureType.Frame,ModContent.Request<Texture2D>
+                                (_dvpath + "MechBossFrame",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla,
+                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
+                            )
+                        },
+                        {
+                            TextureType.Head,
+                            new BarTexture2D(
+                                TextureType.Head,ModContent.Request<Texture2D>
+                                (_dvpath + "MechBossHead",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla
+                            )
+                        },
+                        {
+                            TextureType.Tail,
+                            new BarTexture2D(
+                                TextureType.Tail,ModContent.Request<Texture2D>
+                                (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla
+                            )
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 机械骷髅王 Skeletron Prime
+        buildiincontent.Add(
+            NPCID.SkeletronPrime,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.SkeletronPrime,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Frame,
+                            new BarTexture2D(
+                                TextureType.Frame,ModContent.Request<Texture2D>
+                                (_dvpath + "MechBossFrame",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla,
+                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
+                            )
+                        },
+                        {
+                            TextureType.Head,
+                            new BarTexture2D(
+                                TextureType.Head,ModContent.Request<Texture2D>
+                                (_dvpath + "MechBossHead",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla
+                            )
+                        },
+                        {
+                            TextureType.Tail,
+                            new BarTexture2D(
+                                TextureType.Tail,ModContent.Request<Texture2D>
+                                (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla
+                            )
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 世纪之花 Plantera
+        buildiincontent.Add(
+            NPCID.Plantera,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.Plantera,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            new BarTexture2D(
+                                TextureType.Frame,ModContent.Request<Texture2D>
+                                (_dvpath + "PlanteraFill",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla,
+                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; }
+                            )
+                        },
+                        {
+                            TextureType.Frame,
+                            new BarTexture2D(
+                                TextureType.Frame,ModContent.Request<Texture2D>
+                                (_dvpath + "PlanteraFrame",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla,
+                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
+                            )
+                        },
+                        {
+                            TextureType.Head,
+                            new BarTexture2D(
+                                TextureType.Head,ModContent.Request<Texture2D>
+                                (_dvpath + "PlanteraHead",AssetRequestMode.ImmediateLoad),
+                                TextureSource.DefaultVanilla
+                            )
+                        },
+                        {
+                            TextureType.Tail,
+                            new BarTexture2D(
+                                TextureType.Tail,ModContent.Request<Texture2D>
+                                (_dvpath + "PlanteraTail",AssetRequestMode.ImmediateLoad),
                                 TextureSource.DefaultVanilla
                             )
                         },
