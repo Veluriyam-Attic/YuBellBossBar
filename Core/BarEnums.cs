@@ -1,4 +1,5 @@
 ﻿namespace YuBellBossBar.Core;
+
 internal enum BarFillStyles
 {
     /// <summary>
@@ -26,6 +27,8 @@ internal enum BarFillStyles
     /// <br/>Completely custom, completely determined by the user how to draw the bar.
     /// </summary>
     Custom = 4,
+    
+    None = int.MaxValue,
 }
 
 internal enum BarFrameStyles
@@ -40,6 +43,8 @@ internal enum BarFrameStyles
     /// <br/>Continuously repeat a specific pattern.
     /// </summary>
     Dulplicate = 1,
+    
+    None = int.MaxValue,
 }
 
 /// <summary>
@@ -105,6 +110,8 @@ internal enum ExtraDrawStyles
     /// <br/>Completely custom, completely determined by the user how to draw the bar.
     /// </summary>
     Custom = 5,
+    
+    None = int.MaxValue,
 }
 
 internal enum TextureType
@@ -121,6 +128,8 @@ internal enum TextureType
     ExtraBetweenHeadEndAndIcon = 8,
     ExtraBetweenIconAndInfo = 9,
     ExtraUponInfo = 10,
+    
+    None = int.MaxValue,
 }
 
 internal enum TextureSource
@@ -131,4 +140,6 @@ internal enum TextureSource
     ExtraCalamity = 3,
     ExtraInfo = 4,
     ExtraCustom = 5,
+    
+    None = int.MaxValue,
 }

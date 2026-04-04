@@ -26,29 +26,19 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarFill", AssetRequestMode.ImmediateLoad),
-                            TextureSource.DefaultTexture,
-                            (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; })
+                            BuildInTextures.DefaultTexture["HealthBarFill_Exp"]
                         },
                         {
                             TextureType.Frame,
-                            new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarFrame_Exp", AssetRequestMode.ImmediateLoad),
-                            TextureSource.DefaultTexture,
-                            (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; })
+                            BuildInTextures.DefaultTexture["HealthBarFrame_Exp"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarHead_Exp", AssetRequestMode.ImmediateLoad),
-                            TextureSource.DefaultTexture)
+                            BuildInTextures.DefaultTexture["HealthBarHead_Exp"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarTail_Exp", AssetRequestMode.ImmediateLoad),
-                            TextureSource.DefaultTexture)
+                            BuildInTextures.DefaultTexture["HealthBarTail_Exp"]
                         },
                     }
                 )
@@ -65,29 +55,19 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarFill", AssetRequestMode.ImmediateLoad),
-                            TextureSource.DefaultTexture,
-                            (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; })
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
                         {
                             TextureType.Frame,
-                            new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarFrame", AssetRequestMode.ImmediateLoad),
-                            TextureSource.DefaultTexture,
-                            (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; })
+                            BuildInTextures.DefaultTexture["HealthBarFrame"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarHead", AssetRequestMode.ImmediateLoad),
-                            TextureSource.DefaultTexture)
+                            BuildInTextures.DefaultTexture["HealthBarHead"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
-                            (_dtpath + "HealthBarTail", AssetRequestMode.ImmediateLoad),
-                            TextureSource.DefaultTexture)
+                            BuildInTextures.DefaultTexture["HealthBarTail"]
                         }
                     }
                 )
@@ -105,28 +85,20 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
+                        },
+                        {
                             TextureType.Frame,
-                            new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
-                                (_dvpath + "WallofFleshFrame",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla,
-                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["WallofFleshFrame"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(
-                                TextureType.Head,ModContent.Request<Texture2D>
-                                (_dvpath + "WallofFleshHead",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["WallofFleshHead"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(
-                                TextureType.Tail,ModContent.Request<Texture2D>
-                                (_dvpath + "WallofFleshTail",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["WallofFleshTail"]
                         },
                     }
                 )
@@ -137,30 +109,24 @@ internal static class BarData
         buildiincontent.Add(NPCID.WallofFleshEye,
             new BarInfo(
                 new BarTextures(
-                    NPCID.WallofFleshEye,
+                    NPCID.WallofFlesh,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
+                        },
+                        {
                             TextureType.Frame,
-                            new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
-                                (_dvpath + "WallofFleshFrame",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla,
-                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["WallofFleshFrame"]
                         },
                         {
-                             TextureType.Head,
-                             new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
-                                (_dvpath + "WallofFleshHead",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                             )
+                            TextureType.Head,
+                            BuildInTextures.DefaultTexture["WallofFleshHead"]
                         },
                         {
-                             TextureType.Tail,
-                             new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
-                                (_dvpath + "WallofFleshTail",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                             )
+                            TextureType.Tail,
+                            BuildInTextures.DefaultTexture["WallofFleshTail"]
                         },
                     }
                 )
@@ -177,29 +143,20 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
+                        },
+                        {
                             TextureType.Frame,
-                            new BarTexture2D(
-                                TextureType.Frame,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossFrame",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla,
-                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["MechBossFrame"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(
-                                TextureType.Head,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossHead",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["MechBossHead"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(
-                                TextureType.Tail,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["MechBossTail"]
                         },
                     }
                 )
@@ -215,29 +172,20 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
+                        },
+                        {
                             TextureType.Frame,
-                            new BarTexture2D(
-                                TextureType.Frame,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossFrame",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla,
-                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["MechBossFrame"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(
-                                TextureType.Head,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossHead",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["MechBossHead"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(
-                                TextureType.Tail,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["MechBossTail"]
                         },
                     }
                 )
@@ -254,29 +202,20 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
+                        },
+                        {
                             TextureType.Frame,
-                            new BarTexture2D(
-                                TextureType.Frame,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossFrame",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla,
-                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["MechBossFrame"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(
-                                TextureType.Head,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossHead",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["MechBossHead"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(
-                                TextureType.Tail,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["MechBossTail"]
                         },
                     }
                 )
@@ -293,29 +232,20 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
+                        },
+                        {
                             TextureType.Frame,
-                            new BarTexture2D(
-                                TextureType.Frame,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossFrame",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla,
-                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["MechBossFrame"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(
-                                TextureType.Head,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossHead",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["MechBossHead"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(
-                                TextureType.Tail,ModContent.Request<Texture2D>
-                                (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["MechBossTail"]
                         },
                     }
                 )
@@ -333,37 +263,19 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            new BarTexture2D(
-                                TextureType.Frame,ModContent.Request<Texture2D>
-                                (_dvpath + "PlanteraFill",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla,
-                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["PlanteraFill"]
                         },
                         {
                             TextureType.Frame,
-                            new BarTexture2D(
-                                TextureType.Frame,ModContent.Request<Texture2D>
-                                (_dvpath + "PlanteraFrame",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla,
-                                (barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["PlanteraFrame"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(
-                                TextureType.Head,ModContent.Request<Texture2D>
-                                (_dvpath + "PlanteraHead",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["PlanteraHead"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(
-                                TextureType.Tail,ModContent.Request<Texture2D>
-                                (_dvpath + "PlanteraTail",AssetRequestMode.ImmediateLoad),
-                                TextureSource.DefaultVanilla
-                            )
+                            BuildInTextures.DefaultTexture["PlanteraTail"]
                         },
                     }
                 )
@@ -382,37 +294,19 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            new BarTexture2D(TextureType.Fill,ModContent.Request<Texture2D>
-                                (_evpath + "KingSlimeFill",
-                                AssetRequestMode.ImmediateLoad),
-                                TextureSource.ExtraVanilla,
-                                (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFillStyles = BarFillStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["KingSlimeFill"]
                         },
                         {
                             TextureType.Frame,
-                            new BarTexture2D(TextureType.Frame,ModContent.Request<Texture2D>
-                                (_evpath + "KingSlimeFrame",
-                                AssetRequestMode.ImmediateLoad),
-                                TextureSource.ExtraVanilla,
-                                (barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) => { barFrameStyles = BarFrameStyles.Extend; }
-                            )
+                            BuildInTextures.DefaultTexture["KingSlimeFrame"]
                         },
                         {
                             TextureType.Head,
-                            new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
-                                (_evpath + "KingSlimeHead",
-                                AssetRequestMode.ImmediateLoad),
-                                TextureSource.ExtraVanilla
-                            )
+                            BuildInTextures.DefaultTexture["KingSlimeHead"]
                         },
                         {
                             TextureType.Tail,
-                            new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
-                                (_evpath + "KingSlimeTail",
-                                AssetRequestMode.ImmediateLoad),
-                                TextureSource.ExtraVanilla
-                            )
+                            BuildInTextures.DefaultTexture["KingSlimeTail"]
                         },
                     }
                 )
