@@ -26,7 +26,7 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            BuildInTextures.DefaultTexture["HealthBarFill_Exp"]
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
                         {
                             TextureType.Frame,
@@ -90,15 +90,15 @@ internal static class BarData
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["WallofFleshFrame"]
+                            BuildInTextures.DefaultVanilla["WallofFleshFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultTexture["WallofFleshHead"]
+                            BuildInTextures.DefaultVanilla["WallofFleshHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultTexture["WallofFleshTail"]
+                            BuildInTextures.DefaultVanilla["WallofFleshTail"]
                         },
                     }
                 )
@@ -118,15 +118,15 @@ internal static class BarData
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["WallofFleshFrame"]
+                            BuildInTextures.DefaultVanilla["WallofFleshFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultTexture["WallofFleshHead"]
+                            BuildInTextures.DefaultVanilla["WallofFleshHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultTexture["WallofFleshTail"]
+                            BuildInTextures.DefaultVanilla["WallofFleshTail"]
                         },
                     }
                 )
@@ -148,15 +148,15 @@ internal static class BarData
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["MechBossFrame"]
+                            BuildInTextures.DefaultVanilla["MechBossFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultTexture["MechBossHead"]
+                            BuildInTextures.DefaultVanilla["MechBossHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultTexture["MechBossTail"]
+                            BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
                     }
                 )
@@ -177,15 +177,15 @@ internal static class BarData
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["MechBossFrame"]
+                            BuildInTextures.DefaultVanilla["MechBossFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultTexture["MechBossHead"]
+                            BuildInTextures.DefaultVanilla["MechBossHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultTexture["MechBossTail"]
+                            BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
                     }
                 )
@@ -207,15 +207,15 @@ internal static class BarData
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["MechBossFrame"]
+                            BuildInTextures.DefaultVanilla["MechBossFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultTexture["MechBossHead"]
+                            BuildInTextures.DefaultVanilla["MechBossHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultTexture["MechBossTail"]
+                            BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
                     }
                 )
@@ -237,15 +237,15 @@ internal static class BarData
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["MechBossFrame"]
+                            BuildInTextures.DefaultVanilla["MechBossFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultTexture["MechBossHead"]
+                            BuildInTextures.DefaultVanilla["MechBossHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultTexture["MechBossTail"]
+                            BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
                     }
                 )
@@ -263,19 +263,19 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            BuildInTextures.DefaultTexture["PlanteraFill"]
+                            BuildInTextures.DefaultVanilla["PlanteraFill"]
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["PlanteraFrame"]
+                            BuildInTextures.DefaultVanilla["PlanteraFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultTexture["PlanteraHead"]
+                            BuildInTextures.DefaultVanilla["PlanteraHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultTexture["PlanteraTail"]
+                            BuildInTextures.DefaultVanilla["PlanteraTail"]
                         },
                     }
                 )
@@ -294,19 +294,19 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            BuildInTextures.DefaultTexture["KingSlimeFill"]
+                            BuildInTextures.ExtraVanilla["KingSlimeFill"]
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["KingSlimeFrame"]
+                            BuildInTextures.ExtraVanilla["KingSlimeFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultTexture["KingSlimeHead"]
+                            BuildInTextures.ExtraVanilla["KingSlimeHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultTexture["KingSlimeTail"]
+                            BuildInTextures.ExtraVanilla["KingSlimeTail"]
                         },
                     }
                 )

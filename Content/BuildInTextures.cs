@@ -2,7 +2,6 @@ namespace YuBellBossBar.Content;
 
 internal static class BuildInTextures
 {
-
     private const string _dtpath = "YuBellBossBar/Texture/DefaultTexture/";
     private const string _dvpath = "YuBellBossBar/Texture/DefaultVanilla/";
     private const string _evpath = "YuBellBossBar/Texture/ExtraVanilla/";
@@ -129,7 +128,7 @@ internal static class BuildInTextures
                 (_dvpath + "MechBossHead",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) =>
-                {  }
+                { fillOffset = new Vector2(14,16);headOffset = new Vector2(29,33); }
             )
         },
         {
@@ -137,7 +136,9 @@ internal static class BuildInTextures
             new BarTexture2D(
                 TextureType.Tail,ModContent.Request<Texture2D>
                 (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
-                TextureSource.DefaultVanilla
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillOffset = new Vector2(14,16); }
             )
         },
         {
@@ -147,7 +148,7 @@ internal static class BuildInTextures
                 (_dvpath + "PlanteraFill",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) =>
-                { barFillStyles = BarFillStyles.Extend; }
+                { barFillStyles = BarFillStyles.Extend;fillCutLengh.Item2 = 18; }
             )
         },
         {
@@ -165,7 +166,9 @@ internal static class BuildInTextures
             new BarTexture2D(
                 TextureType.Head,ModContent.Request<Texture2D>
                 (_dvpath + "PlanteraHead",AssetRequestMode.ImmediateLoad),
-                TextureSource.DefaultVanilla
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) =>
+                {headOffset = new Vector2(33,31);fillOffset = new Vector2(30,18); }
             )
         },
         {
@@ -173,7 +176,9 @@ internal static class BuildInTextures
             new BarTexture2D(
                 TextureType.Tail,ModContent.Request<Texture2D>
                 (_dvpath + "PlanteraTail",AssetRequestMode.ImmediateLoad),
-                TextureSource.DefaultVanilla
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) =>
+                {fillOffset = new Vector2(30,18); }
             )
         },
     };
@@ -187,7 +192,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
-                { barFillStyles = BarFillStyles.Extend; }
+                { barFillStyles = BarFillStyles.Extend;fillCutLengh.Item2 = 8; }
             )
         },
         {
@@ -205,7 +210,9 @@ internal static class BuildInTextures
             new BarTexture2D(TextureType.Head,ModContent.Request<Texture2D>
                 (_evpath + "KingSlimeHead",
                 AssetRequestMode.ImmediateLoad),
-                TextureSource.ExtraVanilla
+                TextureSource.ExtraVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { headOffset = new Vector2(21,30);fillOffset = new Vector2(28,16); }
             )
         },
         {
@@ -213,7 +220,9 @@ internal static class BuildInTextures
             new BarTexture2D(TextureType.Tail,ModContent.Request<Texture2D>
                 (_evpath + "KingSlimeTail",
                 AssetRequestMode.ImmediateLoad),
-                TextureSource.ExtraVanilla
+                TextureSource.ExtraVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillOffset = new Vector2(26,16); }
             )
         },
     };
