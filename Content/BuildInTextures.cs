@@ -15,7 +15,7 @@ internal static class BuildInTextures
                 ModContent.Request<Texture2D>(_dtpath + "HealthBarFill",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultTexture,
                 (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
-                {barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Vanilla; fillCutLengh.Item2 = 8; }
+                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Vanilla; fillCutLengh.Item2 = 8; }
             )
         },
         {
@@ -77,6 +77,76 @@ internal static class BuildInTextures
                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
                { fillOffset = new Vector2(0,16); }
            )
+        },
+        {
+           "SmallBarFill",
+           new BarTexture2D(
+                TextureType.Fill,
+                ModContent.Request<Texture2D>(_dtpath + "SmallBarFill", AssetRequestMode.ImmediateLoad),
+               TextureSource.DefaultTexture,
+               (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Vanilla; fillCutLengh.Item2 = 6; }
+           )
+        },
+        {
+            "SmallBarFrame",
+            new BarTexture2D(
+                TextureType.Frame,
+                ModContent.Request<Texture2D>(_dtpath + "SmallBarFrame", AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultTexture,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { barFrameStyles = BarFrameStyles.Extend; }
+            )
+        },
+        {
+            "SmallBarFrame_Exp",
+            new BarTexture2D(
+                TextureType.Frame,
+                ModContent.Request<Texture2D>(_dtpath + "SmallBarFrame_Exp", AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultTexture,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { barFrameStyles = BarFrameStyles.Extend; }
+            )
+        },
+        {
+            "SmallBarHead",
+            new BarTexture2D(
+                TextureType.Head,
+                ModContent.Request<Texture2D>(_dtpath + "SmallBarHead", AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultTexture,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { headOffset = new Vector2(12,12); }
+            )
+        },
+        {
+            "SmallBarHead_Exp",
+            new BarTexture2D(
+                TextureType.Head,
+                ModContent.Request<Texture2D>(_dtpath + "SmallBarHead_Exp", AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultTexture,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { headOffset = new Vector2(12,12); }
+            )
+        },
+        {
+            "SmallBarTail",
+            new BarTexture2D(
+                TextureType.Tail,
+                ModContent.Request<Texture2D>(_dtpath + "SmallBarTail", AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultTexture,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { }
+            )
+        },
+        {
+            "SmallBarTail_Exp",
+            new BarTexture2D(
+                TextureType.Tail,
+                ModContent.Request<Texture2D>(_dtpath + "SmallBarTail_Exp", AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultTexture,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { }
+            )
         },
     };
 
@@ -168,7 +238,7 @@ internal static class BuildInTextures
                 (_dvpath + "PlanteraHead",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) =>
-                {headOffset = new Vector2(33,31);fillOffset = new Vector2(30,18); }
+                { headOffset = new Vector2(33,31);fillOffset = new Vector2(30,18); }
             )
         },
         {
@@ -178,7 +248,7 @@ internal static class BuildInTextures
                 (_dvpath + "PlanteraTail",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColot,fillColor,barFrameStyles,extraDrawStyles) =>
-                {fillOffset = new Vector2(30,18); }
+                { fillOffset = new Vector2(30,18); }
             )
         },
     };
