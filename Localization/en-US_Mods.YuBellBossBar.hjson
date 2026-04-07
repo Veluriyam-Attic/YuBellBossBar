@@ -1,64 +1,91 @@
-Name: Yet Another Boss Health Bar
-WorldText:
-	'''
-	Check Yet Boss Health Bar's Mod Configuration!
-	Choose Yet Another Boss Health Bar to Enable!
-	'''
-Invincible: Invincible
-
 Configs: {
 	BarConfig: {
-		DisplayName: Health Bar Config
-
-		Headers: {
-			PostionHeader: Position
-			InfoHeader: Info
-			StyleHeader: Style
-		}
-
-		BarLong: {
-			Label: Health Bar Long
-			Tooltip: Allow you to edit your Boss Health Bar Long
-		}
-
-		BarPostionY: {
-			Label: Boss Health Bar Position Y
-			Tooltip: Allow you to edit your Boss Health Bar Position Y
-		}
-
-		BarPostionX: {
-			Label: Boss Health Bar Position X
-			Tooltip: Allow you to edit your Boss Health Bar Position X
-		}
-
-		MoreInfo: {
-			Label: Show More Info
-			Tooltip: Display Defense , Damage , Target
-		}
-
-		DrawLastBar: {
-			Label: Show the past Boss Health Bar Position
+		ShowHealthPercentage: {
 			Tooltip: ""
-		}
-
-		UseGoldBar: {
-			Label: Use Gold Style Boss Health Bar
-			Tooltip: ""
-		}
-
-		LastBarDecreaseSpeed: {
-			Label: speed of past Boss Health Bar
-			Tooltip: ""
+			Label: Show Health Percentage
 		}
 
 		ForceUseDefaultBar: {
-			Label: Force Use Default Boss Health Bar
 			Tooltip: ""
+			Label: Force Use Default Bar
+		}
+
+		UseGoldBar: {
+			Tooltip: ""
+			Label: Use Gold Bar
+		}
+
+		LastBarDecreaseSpeed: {
+			Tooltip: ""
+			Label: Last Bar Decrease Speed
+		}
+
+		DrawLastBar: {
+			Tooltip: ""
+			Label: Draw Last Bar
+		}
+
+		Headers: {
+			StyleHeader: Style Header Header
+			InfoHeader: Info Header Header
+			PostionHeader: Postion Header Header
 		}
 
 		WorldInfo: {
-			Label: 提示信息
-			Tooltip: 开关进入世界时左下角的提示讯息
+			Tooltip: ""
+			Label: World Info
+		}
+
+		MoreInfo: {
+			Tooltip: ""
+			Label: More Info
+		}
+
+		BarPostionX: {
+			Tooltip: ""
+			Label: Bar Postion X
+		}
+
+		BarPostionY: {
+			Tooltip: ""
+			Label: Bar Postion Y
+		}
+
+		BarLong: {
+			Tooltip: ""
+			Label: Bar Long
+		}
+
+		DisplayName: Bar Config
+
+		ShowBossBarsWithNoHead: {
+			Label: Show Boss Bars With No Head
+			Tooltip: ""
+		}
+
+		SquishHealthBarsTogether: {
+			Tooltip: ""
+			Label: Squish Health Bars Together
+		}
+
+		ShowInvincibleBosses: {
+			Label: Show Invincible Bosses
+			Tooltip: ""
+		}
+
+		NumberOfBossBars: {
+			Label: Number Of Boss Bars
+			Tooltip: ""
+		}
+
+		TransparencyBarDecreaseTime: {
+			Label: Transparency Bar Decrease Time
+			Tooltip: ""
+		}
+
+		DrawBarBackgrounds: {
+			Label: Draw Bar Backgrounds
+			Tooltip: ""
 		}
 	}
 }

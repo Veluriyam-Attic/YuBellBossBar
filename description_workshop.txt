@@ -1,13 +1,5 @@
-[h1]This is a Health Bar Mod[/h1]
+This mod is a modification of the FKBossHealthBar port on the workshop
+Change the style in the Interface settings
 
-Updated From 1.3 [Yet Another Boss Health Bar]
-
-Next Update: Fix ModCall
-
-[h2]Thanks!!![/h2]
-Flashkirby, Devil Slime, ROH, Tigerzzz
-
-[h2]Feedback[/h2]
-Email: 3412615165@qq.com
-Discord: zhzhaidou_
-QQ Group: 909428503
+Sprites done by the original team and sprite updates done by Umbra and Shinji
+Code done by the original team and heavily modified by TheBoatsoon
