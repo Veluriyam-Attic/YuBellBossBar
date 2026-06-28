@@ -12,4 +12,16 @@ public class BarConfig : ModConfig
     [Range(1,10)]
     [ReloadRequired]
     public int BarCount;
+
+    [DefaultValue(0)]
+    public int BarPostionX;
+    [DefaultValue(0)]
+    public int BarPostionY;
+
+    [DefaultValue(true)]
+    public bool GoldenStyle;
+
+    [DefaultValue(800)]
+    [Range(400,int.MaxValue)]
+    public int BarLength;
 }

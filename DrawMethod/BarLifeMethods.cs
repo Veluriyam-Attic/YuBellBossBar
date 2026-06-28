@@ -5,6 +5,5 @@
         public static void Calculation(int npcwhoami)
         {
         }
-
     }
 }

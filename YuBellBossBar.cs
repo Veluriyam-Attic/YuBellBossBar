@@ -23,7 +23,7 @@ public class YuBellBossBar : Mod
     {
         // 检查灾厄是否启用了
         // Check if Calamity Mod is loaded
-        if (ModLoader.HasMod("CalamityMod"))
+        if (false && ModLoader.HasMod("CalamityMod"))
         {
             CalamityBarHealth.CalamityLoaded = true;
 

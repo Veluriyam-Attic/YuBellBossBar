@@ -8,6 +8,16 @@ Configs: {
 			Label: Bar Count
 			Tooltip: ""
 		}
+
+		BarPostionX: {
+			Label: Bar Postion X
+			Tooltip: ""
+		}
+
+		BarPostionY: {
+			Label: Bar Postion Y
+			Tooltip: ""
+		}
 	}
 }
 

@@ -19,7 +19,7 @@ internal class GlobalBar : GlobalBossBar
                 maxlifes.TryAdd(npc.type, drawParams.Life);
             }
 
-            if (CalamityBarHealth.CalamityLoaded)
+            if (false && CalamityBarHealth.CalamityLoaded)
             {
                 if (CalamityBarHealth.OneToMany.ContainsKey(npc.type))
                 {
@@ -60,13 +60,20 @@ internal class GlobalBar : GlobalBossBar
             }
 
             drawParams.LifeMax = maxlifes[npc.type];
-#if DEBUG
-            Main.NewText("   Jerk off is the best activity!" + drawParams.Life + "/" + drawParams.LifeMax + "/" + npc.realLife);
-            return true;
-#else
+
             return false;
-#endif
         }
         return true;
+    }
+
+    public override void PostDraw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams)
+    {
+        if(BarDrawsMethods.PreDraw(spriteBatch, npc, drawParams))
+        {
+            if (BarDrawsMethods.Draw(spriteBatch, npc, drawParams))
+            {
+                BarDrawsMethods.PostDraw(spriteBatch, npc, drawParams);
+            }
+        }
     }
 }

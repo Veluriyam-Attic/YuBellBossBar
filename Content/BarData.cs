@@ -6,7 +6,7 @@ internal static class BarData
     private const string _dvpath = "YuBellBossBar/Texture/DefaultVanilla/";
     private const string _evpath = "YuBellBossBar/Texture/ExtraVanilla/";
 
-    public static Dictionary<int, BarInfo> buildiincontent = new Dictionary<int, BarInfo>();
+    public static Dictionary<int, BarInfo> buildincontent = new Dictionary<int, BarInfo>();
 
     /// <summary>
     /// <br/>反射拿到的原版词典
@@ -18,7 +18,7 @@ internal static class BarData
     {
         #region 默认贴图 Default Texture
         #region 金色风格 Gloden Style
-        buildiincontent.Add(int.MaxValue,
+        buildincontent.Add(int.MaxValue,
             new BarInfo(
                 new BarTextures(
                     int.MaxValue,
@@ -47,7 +47,7 @@ internal static class BarData
         #endregion
 
         #region 银色风格 Silver Style
-        buildiincontent.Add(int.MinValue,
+        buildincontent.Add(int.MinValue,
             new BarInfo(
                 new BarTextures(
                     int.MinValue,
@@ -78,7 +78,7 @@ internal static class BarData
 
         #region 默认原版 Default Vanilla
         #region 血肉墙 Wall of Flesh
-        buildiincontent.Add(NPCID.WallofFlesh,
+        buildincontent.Add(NPCID.WallofFlesh,
             new BarInfo(
                 new BarTextures(
                     NPCID.WallofFlesh,
@@ -106,7 +106,7 @@ internal static class BarData
         );
         #endregion
         #region 血肉墙眼 Wall of Flesh Eye
-        buildiincontent.Add(NPCID.WallofFleshEye,
+        buildincontent.Add(NPCID.WallofFleshEye,
             new BarInfo(
                 new BarTextures(
                     NPCID.WallofFlesh,
@@ -135,7 +135,7 @@ internal static class BarData
         #endregion
 
         #region 激光眼 Retinazer
-        buildiincontent.Add(
+        buildincontent.Add(
             NPCID.Retinazer,
             new BarInfo(
                 new BarTextures(
@@ -164,7 +164,7 @@ internal static class BarData
         );
         #endregion
         #region 魔焰眼 Spazmatism
-        buildiincontent.Add(
+        buildincontent.Add(
             NPCID.Spazmatism,
             new BarInfo(
                 new BarTextures(
@@ -194,7 +194,7 @@ internal static class BarData
         #endregion
 
         #region 毁灭者 The Destroyer
-        buildiincontent.Add(
+        buildincontent.Add(
             NPCID.TheDestroyer,
             new BarInfo(
                 new BarTextures(
@@ -224,7 +224,7 @@ internal static class BarData
         #endregion
 
         #region 机械骷髅王 Skeletron Prime
-        buildiincontent.Add(
+        buildincontent.Add(
             NPCID.SkeletronPrime,
             new BarInfo(
                 new BarTextures(
@@ -254,7 +254,7 @@ internal static class BarData
         #endregion
 
         #region 世纪之花 Plantera
-        buildiincontent.Add(
+        buildincontent.Add(
             NPCID.Plantera,
             new BarInfo(
                 new BarTextures(
@@ -286,7 +286,7 @@ internal static class BarData
 
         #region 额外原版 Extra Vanilla
         #region 史莱姆王 King Slime
-        buildiincontent.Add(NPCID.KingSlime,
+        buildincontent.Add(NPCID.KingSlime,
             new BarInfo(
                 new BarTextures(
                     NPCID.KingSlime,
