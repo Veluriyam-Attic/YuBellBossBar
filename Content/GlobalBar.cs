@@ -11,6 +11,7 @@ internal class GlobalBar : GlobalBossBar
     {
         if (YAB.Selected)
         {
+            #region 忘了写的什么了，应该是计算血量的最大值和当前值的，反正就是计算血量的
             bool containskey = lifemaxs.ContainsKey(npc.type) && maxlifes.ContainsKey(npc.type);
 
             if (!containskey)
@@ -19,7 +20,7 @@ internal class GlobalBar : GlobalBossBar
                 maxlifes.TryAdd(npc.type, drawParams.Life);
             }
 
-            if (false && CalamityBarHealth.CalamityLoaded)
+            if (YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded)
             {
                 if (CalamityBarHealth.OneToMany.ContainsKey(npc.type))
                 {
@@ -60,20 +61,19 @@ internal class GlobalBar : GlobalBossBar
             }
 
             drawParams.LifeMax = maxlifes[npc.type];
+            #endregion
+
 
             return false;
         }
         return true;
     }
 
+
     public override void PostDraw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams)
     {
         if(BarDrawsMethods.PreDraw(spriteBatch, npc, drawParams))
-        {
             if (BarDrawsMethods.Draw(spriteBatch, npc, drawParams))
-            {
                 BarDrawsMethods.PostDraw(spriteBatch, npc, drawParams);
-            }
-        }
     }
 }

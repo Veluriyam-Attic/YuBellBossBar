@@ -14,6 +14,8 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
     /// </summary>
     internal static bool Selected = false;
 
+    public static Dictionary<int, BarInfo> ModCalls = new Dictionary<int, BarInfo>();
+
     public override string DisplayName => Language.GetTextValue("Mods.YuBellBossBar.Name");
 
     public override bool PreventDraw => false;

@@ -22,6 +22,6 @@ public class BarConfig : ModConfig
     public bool GoldenStyle;
 
     [DefaultValue(800)]
-    [Range(400,int.MaxValue)]
+    [Range(400, int.MaxValue)]
     public int BarLength;
 }

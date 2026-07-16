@@ -2,6 +2,8 @@ namespace YuBellBossBar;
 
 public class YuBellBossBar : Mod
 {
+    public static bool CalamityAdapt = false;
+
     public override void Load()
     {
         // 加载贴图
@@ -21,9 +23,8 @@ public class YuBellBossBar : Mod
 
     public override void PostSetupContent()
     {
-        // 检查灾厄是否启用了
-        // Check if Calamity Mod is loaded
-        if (false && ModLoader.HasMod("CalamityMod"))
+        #region 检查灾厄是否启用了 Check if Calamity Mod is loaded
+        if (CalamityAdapt && ModLoader.HasMod("CalamityMod"))
         {
             CalamityBarHealth.CalamityLoaded = true;
 
@@ -38,8 +39,18 @@ public class YuBellBossBar : Mod
                 CalamityBarHealth.updateMethod = CalamityBarHealth.bossHPUI.GetMethod("Update");
             }
 
-            FieldInfo SpecialBarDic = typeof(BigProgressBarSystem).GetField("_bossBarsByNpcNetId",BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo SpecialBarDic = typeof(BigProgressBarSystem).GetField("_bossBarsByNpcNetId", BindingFlags.NonPublic | BindingFlags.Instance);
             BarData._bossBarsByNpcNetId = SpecialBarDic.GetValue(SpecialBarDic) as Dictionary<int, IBigProgressBar>;
         }
+        #endregion
+    }
+
+    public override object Call(params object[] args)
+    {
+        // 可以从外部设定特定Boss的血条绘制情况
+        if (args[0].ToString() == "ChangeBarInfo")
+            YAB.ModCalls.TryAdd((int)args[1],new BarInfo(new BarTextures(), (Dictionary<string,bool>)args[2]));
+
+        return "[Yet Another Boss Health Bar]:Mod Call has been executed.";
     }
 }

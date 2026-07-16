@@ -313,6 +313,407 @@ internal static class BarData
             )
         );
         #endregion
+
+        #region 克苏鲁之眼 Eye of Cthulhu
+        buildincontent.Add(NPCID.EyeofCthulhu,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.EyeofCthulhu,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["EyeofCthulhuFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["EyeofCthulhuFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["EyeofCthulhuHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["EyeofCthulhuTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 世界吞噬者 Eater of Worlds
+        buildincontent.Add(NPCID.EaterofWorldsHead,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.EaterofWorldsHead,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsTail"]
+                        },
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.EaterofWorldsBody,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.EaterofWorldsBody,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsTail"]
+                        },
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.EaterofWorldsTail,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.EaterofWorldsTail,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 克苏鲁之脑 Brain of Cthulhu
+        buildincontent.Add(NPCID.BrainofCthulhu,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.BrainofCthulhu,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 蜂王 Queen Bee
+        buildincontent.Add(NPCID.QueenBee,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.QueenBee,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["QueenBeeFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["QueenBeeFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["QueenBeeHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["QueenBeeTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 骷髅王 Skeletron
+        buildincontent.Add(NPCID.SkeletronHead,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.SkeletronHead,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["SkeletronFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["SkeletronFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["SkeletronHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["SkeletronTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 独眼巨鹿 Deerclops
+        buildincontent.Add(NPCID.Deerclops,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.Deerclops,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["DeerclopsFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["DeerclopsFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["DeerclopsHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["DeerclopsTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 史莱姆皇后 Queen Slime
+        buildincontent.Add(NPCID.QueenSlimeBoss,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.QueenSlimeBoss,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["QueenSlimeFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["QueenSlimeFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["QueenSlimeHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["QueenSlimeTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 石巨人 Golem
+        buildincontent.Add(NPCID.Golem,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.Golem,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["GolemFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["GolemFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["GolemHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["GolemTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 火星飞碟 Martian Saucer
+        buildincontent.Add(NPCID.MartianSaucer,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.MartianSaucer,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["MartianSaucerFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["MartianSaucerFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["MartianSaucerHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["MartianSaucerTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 猪龙鱼公爵 Duke Fishron
+        buildincontent.Add(NPCID.DukeFishron,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.DukeFishron,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["DukeFishronFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["DukeFishronFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["DukeFishronHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["DukeFishronTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 光之女皇 Empress of Light
+        buildincontent.Add(NPCID.HallowBoss,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.HallowBoss,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["EmpressOfLightFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["EmpressOfLightFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["EmpressOfLightHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["EmpressOfLightTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
+        #region 拜月教邪教徒 Lunatic Cultist
+        buildincontent.Add(NPCID.CultistBoss,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.CultistBoss,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["LunaticCultistFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["LunaticCultistFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["LunaticCultistHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["LunaticCultistTail"]
+                        },
+                    }
+                )
+            )
+        );
+        #endregion
+
         #endregion
     }
 }

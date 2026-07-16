@@ -18,6 +18,9 @@ internal class CalamityBarHealth
 
     internal static (long?, long?, long?) DoSomeReflection(int npcIndex,int npcType)
     {
+        if (YuBellBossBar.CalamityAdapt)
+            return (null, null, null);
+
         // 创建BossHPUI实例
         // Create an instance of BossHPUI
         object BossHPUI = constructor.Invoke(new object[] { npcIndex, null });

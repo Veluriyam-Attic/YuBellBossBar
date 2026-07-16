@@ -159,30 +159,42 @@ internal struct BarTextures
 /// </summary>
 internal struct BarTexture2D
 {
+    // 贴图文件
     public Asset<Texture2D> texture;
 
+    // 偏移量
     public Vector2 fillOffset = Vector2.Zero;
     public Vector2 headOffset = Vector2.Zero;
     public (int,int) fillCutLengh = (0,0);
 
+    // 贴图来源
     public TextureSource source = TextureSource.None;
 
+    // 贴图帧数
     public int frameCount = 1;
 
+    // 贴图是否有动画
     public BarAnimation barAnimation = BarAnimation.Nope;
 
+    // 贴图类型
     public TextureType textureType = TextureType.None;
 
+    // 血条填充样式
     public BarFillStyles barFillStyles = BarFillStyles.None;
 
+    // 血条边框样式
     public BarFrameStyles barFrameStyles = BarFrameStyles.None;
 
+    // 血条填充颜色类型
     public BarFillColor barFillColor = BarFillColor.Custom;
 
+    // 血条填充颜色
     public Color fillColor = Color.White;
 
+    // 额外绘制样式
     public ExtraDrawStyles extraStyles = ExtraDrawStyles.None;
 
+    // 自定义绘制事件
     public event Action<SpriteBatch, Vector2> CustomDrawEvent = null;
 
     #region 实例构造器 Instance Constructor
