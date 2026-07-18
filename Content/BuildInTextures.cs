@@ -4,7 +4,7 @@ internal static class BuildInTextures
 {
     #region 默认贴图
     private const string _dtpath = "YuBellBossBar/Texture/DefaultTexture/";
-
+#pragma warning disable IDE0090
     public static Dictionary<string, BarTexture2D> DefaultTexture = new Dictionary<string, BarTexture2D>()
     {
         {
@@ -260,6 +260,7 @@ internal static class BuildInTextures
     #region 额外原版
     private const string _evpath = "YuBellBossBar/Texture/ExtraVanilla/";
 
+#pragma warning disable IDE0090
     public static Dictionary<string, BarTexture2D> ExtraVanilla = new Dictionary<string, BarTexture2D>()
     {
         {
@@ -771,7 +772,9 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (fillCutLengh, fillOffset, headOffset, barFillStyles, barFillColor, fillColor, barFrameStyles, extraDrawStyles) =>
-                { fillOffset = new Vector2(2, 6); }
+                { fillOffset = new Vector2(2, 6);  },
+                BarAnimation.Yep,
+                4
             )
         },
         {

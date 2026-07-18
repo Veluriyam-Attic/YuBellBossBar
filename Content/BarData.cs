@@ -6,6 +6,7 @@ internal static class BarData
     private const string _dvpath = "YuBellBossBar/Texture/DefaultVanilla/";
     private const string _evpath = "YuBellBossBar/Texture/ExtraVanilla/";
 
+#pragma warning disable IDE0090,IDE0028
     public static Dictionary<int, BarInfo> buildincontent = new Dictionary<int, BarInfo>();
 
     /// <summary>
@@ -665,19 +666,19 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            BuildInTextures.ExtraVanilla["EmpressOfLightFill"]
+                            BuildInTextures.ExtraVanilla["EmpressofLightFill"]
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.ExtraVanilla["EmpressOfLightFrame"]
+                            BuildInTextures.ExtraVanilla["EmpressofLightFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.ExtraVanilla["EmpressOfLightHead"]
+                            BuildInTextures.ExtraVanilla["EmpressofLightHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.ExtraVanilla["EmpressOfLightTail"]
+                            BuildInTextures.ExtraVanilla["EmpressofLightTail"]
                         },
                     }
                 )

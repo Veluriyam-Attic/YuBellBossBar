@@ -2,6 +2,7 @@
 
 internal class GlobalBar : GlobalBossBar
 {
+#pragma warning disable IDE0090,IDE0028
     // lifemax
     public static Dictionary<int, float> lifemaxs = new Dictionary<int, float>();
     // the max value of life
@@ -22,7 +23,7 @@ internal class GlobalBar : GlobalBossBar
 
             if (YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded)
             {
-                if (CalamityBarHealth.OneToMany.ContainsKey(npc.type))
+                if (CalamityBarHealth.OneToMany.TryGetValue(npc.type,out int[] typeArrary))
                 {
                     // 反射获取灾厄Boss血条的数值
                     // Use reflection to get the values of Calamity Mod's boss bar
@@ -37,7 +38,7 @@ internal class GlobalBar : GlobalBossBar
                         if (maxlifes[npc.type] < drawParams.Life)
                             maxlifes[npc.type] = drawParams.Life;
 
-                        int[] typeArrary = CalamityBarHealth.OneToMany[npc.type];
+                        typeArrary = CalamityBarHealth.OneToMany[npc.type];
 
                         // 同步所有体节在词典中的数值
                         float maxValueOfLifemax = typeArrary.Where(key => lifemaxs.ContainsKey(key)).Select(key => lifemaxs[key]).DefaultIfEmpty(float.MinValue).Max();
@@ -63,17 +64,11 @@ internal class GlobalBar : GlobalBossBar
             drawParams.LifeMax = maxlifes[npc.type];
             #endregion
 
+            YAB.npc = npc;
+            YAB.drawParams = drawParams;
 
             return false;
         }
         return true;
-    }
-
-
-    public override void PostDraw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams)
-    {
-        if(BarDrawsMethods.PreDraw(spriteBatch, npc, drawParams))
-            if (BarDrawsMethods.Draw(spriteBatch, npc, drawParams))
-                BarDrawsMethods.PostDraw(spriteBatch, npc, drawParams);
     }
 }

@@ -21,21 +21,72 @@ internal class BarDrawsMethods
         // 获取对应血条信息，如果未获取到，则使用默认血条信息
         if (!BarData.buildincontent.TryGetValue(npc.type, out barInfo))
             barInfo = BarData.buildincontent[BarConfig.Instance.GoldenStyle? int.MaxValue:int.MinValue];
-
+//---------------------------------------------------------------------------------------------------------------------------------------------------//
         #region 声明所需局部变量
         // 血量相关
         float life = drawParams.Life;
         float lifemax = drawParams.LifeMax;
 
+        // 贴图相关
+#pragma warning disable IDE0018
+        List<BarTexture2D> extraBelowFill;
+        BarTexture2D Fill;
+        List<BarTexture2D> extraBetweenFillAndFrame;
+        BarTexture2D frame;
+        List<BarTexture2D> extraBetweenFrameAndHeadEnd;
+        BarTexture2D head;
+        BarTexture2D end;
+        List<BarTexture2D> extraBetweenHeadEndAndIcon;
+        BarTexture2D icon;
+        List<BarTexture2D> extraBetweenIconAndInfo;
+        BarTexture2D info;
+        List<BarTexture2D> extraUponInfo;
+
+
         // 绘制信息是否被ModCall修改过
         bool modcall = YAB.ModCalls.TryGetValue(npc.type, out BarInfo modcallbarInfo);
         #endregion
-
-
+        //---------------------------------------------------------------------------------------------------------------------------------------------------//
         #region 绘制方法
+        // 绘制血条填充下方的贴图
+        extraBelowFill = barInfo.barTextures.extraTexturesBelowFill;
+        foreach (BarTexture2D texture in extraBelowFill)
+            texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Fill, out Fill);
+
+        extraBetweenFillAndFrame = barInfo.barTextures.extraTexturesBetweenFillAndFrame;
+        foreach (BarTexture2D texture in extraBetweenFillAndFrame)
+            texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Frame, out frame);
+
+        extraBetweenFrameAndHeadEnd = barInfo.barTextures.extraTexturesBetweenFrameAndHeadEnd;
+        foreach (BarTexture2D texture in extraBetweenFrameAndHeadEnd)
+            texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Head, out head);
+
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Tail, out end);
+
+        extraBetweenHeadEndAndIcon = barInfo.barTextures.extraTexturesBetweenHeadEndAndIcon;
+        foreach (BarTexture2D texture in extraBetweenHeadEndAndIcon)
+            texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Icon, out icon);
+
+        extraBetweenIconAndInfo = barInfo.barTextures.extraTexturesBetweenIconAndInfo;
+        foreach (BarTexture2D texture in extraBetweenIconAndInfo)
+            texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Info, out info);
+
+        extraUponInfo = barInfo.barTextures.extraTexturesUponInfo;
+        foreach (BarTexture2D texture in extraUponInfo)
+            texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
 
         #endregion
-
+        //---------------------------------------------------------------------------------------------------------------------------------------------------//
         spriteBatch.DrawString(FontAssets.MouseText.Value, $"Life: {life}/{lifemax}", position, Color.White);
 
         return true;

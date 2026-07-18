@@ -23,6 +23,7 @@ internal class CalamityBarHealth
 
         // 创建BossHPUI实例
         // Create an instance of BossHPUI
+#pragma warning disable IDE0300
         object BossHPUI = constructor.Invoke(new object[] { npcIndex, null });
 
         // 手动设置必要字段  

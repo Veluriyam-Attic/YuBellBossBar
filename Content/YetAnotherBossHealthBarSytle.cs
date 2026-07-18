@@ -14,6 +14,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
     /// </summary>
     internal static bool Selected = false;
 
+#pragma warning disable IDE0090,IDE0028
     public static Dictionary<int, BarInfo> ModCalls = new Dictionary<int, BarInfo>();
 
     public override string DisplayName => Language.GetTextValue("Mods.YuBellBossBar.Name");
@@ -23,5 +24,16 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
     public override void OnSelected() => Selected = true;
 
     public override void OnDeselected() => Selected = false;
+
+    public static NPC npc;
+    public static BossBarDrawParams drawParams;
+
+    public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
+    {
+        // npc和drawParams在GlobalBar.PreDraw()中被赋值
+        if (BarDrawsMethods.PreDraw(spriteBatch, npc, drawParams))
+            if (BarDrawsMethods.Draw(spriteBatch, npc, drawParams))
+                BarDrawsMethods.PostDraw(spriteBatch, npc, drawParams);
+    }
 }
 

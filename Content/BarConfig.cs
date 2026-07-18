@@ -4,6 +4,7 @@ public class BarConfig : ModConfig
 {
     public override ConfigScope Mode => ConfigScope.ClientSide;
 
+#pragma warning disable CA2211
     public static BarConfig Instance;
 
     public override void OnLoaded() => Instance = this;

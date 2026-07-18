@@ -18,6 +18,16 @@ Configs: {
 			Label: Bar Postion Y
 			Tooltip: ""
 		}
+
+		GoldenStyle: {
+			Label: Golden Style
+			Tooltip: ""
+		}
+
+		BarLength: {
+			Label: Bar Length
+			Tooltip: ""
+		}
 	}
 }
 
