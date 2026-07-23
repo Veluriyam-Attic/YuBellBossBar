@@ -210,7 +210,7 @@ internal struct BarTexture2D
     public Color fillColor = Color.White;
 
     // 额外绘制样式
-    public ExtraDrawStyles extraStyles = ExtraDrawStyles.None;
+    public ExtraDrawStyles extraDrawStyles = ExtraDrawStyles.None;
 
     // 自定义绘制事件,Vector2是血条绘制正中心位置, int是血条长度
     public Action<SpriteBatch, Vector2, int> CustomDrawEvent = null;
@@ -230,7 +230,7 @@ internal struct BarTexture2D
         this.source = textureSource;
         // 在默认构造器逻辑之后调用,来服务委托中潜在的修改
         // Call after the default constructor logic to serve potential modifications in the delegate
-        initiator?.Invoke(ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles, ref extraStyles);
+        initiator?.Invoke(ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles, ref extraDrawStyles);
     }
     #endregion
 }

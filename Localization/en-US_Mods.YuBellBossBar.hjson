@@ -39,6 +39,7 @@ Configs: {
 			Tooltip: 关闭后新额外添加的原版Boss专属贴图将不再显示，默认开启
 		}
 
+		#For non-Chinese text, please replace contact details with Discord: zlzhaidou_
 		EnableExtraCalamity: {
 			Label: 启用灾厄血条支持(未实现)
 			Tooltip:
