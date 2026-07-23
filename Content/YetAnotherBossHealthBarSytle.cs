@@ -24,6 +24,8 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
     public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
     {
+        if (currentBar == null)
+            return;
         if (npc == null)
             return;
         // npc和drawParams在GlobalBar.PreDraw()中被赋值

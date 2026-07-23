@@ -248,6 +248,10 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.DefaultVanilla["SkeletronPrimeIcon"]
+                        }
                     }
                 )
             )
@@ -294,11 +298,11 @@ internal static class BarData
                     {
                         {
                             TextureType.Fill,
-                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                            BuildInTextures.DefaultTexture["HealthBarFrame_Exp"]
                         },
                         {
                             TextureType.Head,
@@ -306,11 +310,11 @@ internal static class BarData
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultVanilla["MoonLordTail_EXP"]
+                            BuildInTextures.DefaultVanilla["MoonLordTail_Exp"]
                         },
                         {
                             TextureType.Icon,
-                            BuildInTextures.DefaultTexture["MoonLordHeart"]
+                            BuildInTextures.DefaultVanilla["MoonLordHeart"]
                         }
                     }
                 )
@@ -318,19 +322,19 @@ internal static class BarData
         );
 
         buildincontent.Add(
-            NPCID.MoonLordCore,
+            NPCID.MoonLordHand,
             new BarInfo(
                 new BarTextures(
-                    NPCID.MoonLordCore,
+                    NPCID.MoonLordHand,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
                             TextureType.Fill,
-                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                            BuildInTextures.DefaultTexture["HealthBarFrame_Exp"]
                         },
                         {
                             TextureType.Head,
@@ -338,11 +342,11 @@ internal static class BarData
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultVanilla["MoonLordTail_EXP"]
+                            BuildInTextures.DefaultVanilla["MoonLordTail_Exp"]
                         },
                         {
                             TextureType.Icon,
-                            BuildInTextures.DefaultTexture["MoonLordEye"]
+                            BuildInTextures.DefaultVanilla["MoonLordEye"]
                         }
                     }
                 )
@@ -354,16 +358,16 @@ internal static class BarData
             NPCID.MoonLordHead,
             new BarInfo(
                 new BarTextures(
-                    NPCID.MoonLordCore,
+                    NPCID.MoonLordHead,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
                             TextureType.Fill,
-                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                            BuildInTextures.DefaultTexture["HealthBarFrame_Exp"]
                         },
                         {
                             TextureType.Head,
@@ -371,11 +375,11 @@ internal static class BarData
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultVanilla["MoonLordTail_EXP"]
+                            BuildInTextures.DefaultVanilla["MoonLordTail_Exp"]
                         },
                         {
                             TextureType.Icon,
-                            BuildInTextures.DefaultTexture["MoonLordEye"]
+                            BuildInTextures.DefaultVanilla["MoonLordEye"]
                         }
                     }
                 )
@@ -466,6 +470,10 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.ExtraVanilla["EaterofWorldsTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
+                        }
                     }
                 )
             )
@@ -492,6 +500,10 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.ExtraVanilla["EaterofWorldsTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
+                        }
                     }
                 )
             )
@@ -518,6 +530,10 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.ExtraVanilla["EaterofWorldsTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
+                        }
                     }
                 )
             )
@@ -547,6 +563,40 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.ExtraVanilla["BrainofCthulhuTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuIcon"]
+                        }
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.Creeper,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.Creeper,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuTail"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["BrainofCthulhuIcon"]
+                        }
                     }
                 )
             )
@@ -692,6 +742,130 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.ExtraVanilla["GolemTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["GolemIcon"]
+                        }
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.GolemHead,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.GolemHead,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["GolemFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["GolemFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["GolemHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["GolemTail"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["GolemIcon"]
+                        }
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.GolemFistLeft,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.GolemFistLeft,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["GolemFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["GolemFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["GolemHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["GolemTail"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["GolemIcon"]
+                        }
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.GolemFistRight,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.GolemFistLeft,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["GolemFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["GolemFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["GolemHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["GolemTail"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["GolemIcon"]
+                        }
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.GolemHeadFree,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.GolemFistLeft,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.ExtraVanilla["GolemFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.ExtraVanilla["GolemFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.ExtraVanilla["GolemHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.ExtraVanilla["GolemTail"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["GolemIcon"]
+                        }
                     }
                 )
             )
@@ -808,6 +982,10 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.ExtraVanilla["LunaticCultistTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.ExtraVanilla["LunaticCultistIcon"]
+                        }
                     }
                 )
             )

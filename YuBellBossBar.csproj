@@ -8,6 +8,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<NoWarn>CS1591,CS1587</NoWarn>
+		<LangVersion>14.0</LangVersion>
 	</PropertyGroup>
 
 	<!-- References -->

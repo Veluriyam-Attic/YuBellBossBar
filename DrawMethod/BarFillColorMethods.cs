@@ -6,12 +6,9 @@ internal class BarFillColorMethods
     /// <br/>这是原版血条颜色的方法
     /// <br/>This is the vanilla method to get bar fill color.
     /// </summary>
-    /// <param name="Health"></param>
-    /// <param name="MaxHealth"></param>
     /// <returns></returns>
-    internal static Color GetVanillaBarColor(int Health, int MaxHealth)
+    internal static Color GetVanillaBarColor(float num)
     {
-        float num = (float)Health / (float)MaxHealth;
         if (num > 1f)
             num = 1f;
 

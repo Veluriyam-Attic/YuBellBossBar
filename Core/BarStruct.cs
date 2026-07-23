@@ -170,6 +170,24 @@ internal struct BarTexture2D
     // 贴图来源
     public TextureSource source = TextureSource.None;
 
+    // 该来源贴图是否可以被绘制
+    public bool ConfigEnabled 
+    {
+        get {
+            #pragma warning disable CS8524
+            return source switch
+            {
+                TextureSource.DefaultTexture => true,
+                TextureSource.DefaultVanilla => BarConfig.Instance.EnableDefualVanilla,
+                TextureSource.ExtraVanilla => BarConfig.Instance.EnableExtraVanilla,
+                TextureSource.ExtraCalamity => BarConfig.Instance.EnableExtraCalamity,
+                TextureSource.ExtraInfo => BarConfig.Instance.EnableExtraInfo,
+                TextureSource.ExtraCustom => BarConfig.Instance.EnableExtraCustom,
+                TextureSource.None => true,
+            };
+        } 
+    }
+
     // 贴图帧数
     public int frameCount = 1;
 
@@ -197,10 +215,12 @@ internal struct BarTexture2D
     // 自定义绘制事件,Vector2是血条绘制正中心位置, int是血条长度
     public Action<SpriteBatch, Vector2, int> CustomDrawEvent = null;
 
+    public delegate void BarTexture2DInitiator(ref (int, int) fillCutLengh, ref Vector2 fillOffset, ref Vector2 headOffset, ref BarFillStyles barFillStyles, ref BarFillColor barFillColor, ref Color fillColor, ref BarFrameStyles barFrameStyles,ref ExtraDrawStyles extraStyles);
+
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">fillCutLengh,fillOffset,headOffset,barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, Action<(int,int),Vector2,Vector2,BarFillStyles, BarFillColor, Color, BarFrameStyles, ExtraDrawStyles> initiator = null, BarAnimation animation = BarAnimation.Nope, int framecount = 1, Action<SpriteBatch, Vector2, int> customDraw = null)
+    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, BarAnimation animation = BarAnimation.Nope, int framecount = 1, Action<SpriteBatch, Vector2, int> customDraw = null)
     {
         this.textureType = type;
         this.texture = texture;
@@ -210,7 +230,7 @@ internal struct BarTexture2D
         this.source = textureSource;
         // 在默认构造器逻辑之后调用,来服务委托中潜在的修改
         // Call after the default constructor logic to serve potential modifications in the delegate
-        initiator?.Invoke(fillCutLengh,fillOffset,headOffset,barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles);
+        initiator?.Invoke(ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles, ref extraStyles);
     }
     #endregion
 }

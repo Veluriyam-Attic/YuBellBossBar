@@ -41,7 +41,13 @@ Configs: {
 
 		EnableExtraCalamity: {
 			Label: 启用灾厄血条支持(未实现)
-			Tooltip: 关闭后灾厄的Boss专属贴图将不再显示，默认开启
+			Tooltip:
+				'''
+				关闭后灾厄的Boss专属贴图将不再显示，默认开启
+				[由于灾厄部分贴图内容较多，且现有贴图为1.3时期老贴图]
+				[暂时决定暂缓对灾厄Boss血条的贴图支持]
+				[如您愿意可以添加QQ:3412615165帮助我实现这部分！]
+				'''
 		}
 
 		EnableExtraInfo: {
@@ -53,6 +59,7 @@ Configs: {
 			Label: 启用其他Mod额外添加的Boss专属贴图
 			Tooltip: 默认开启
 		}
+
 		PostHealthSpeed: {
 			Label: 伤害缓冲速率
 			Tooltip: ""
