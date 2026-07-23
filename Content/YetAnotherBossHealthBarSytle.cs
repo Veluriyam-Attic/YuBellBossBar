@@ -3,12 +3,6 @@
 internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 {
     /// <summary>
-    /// <br/>用来决定绘制哪些血条
-    /// <br/>Be used to check which boss's bar should be drawn
-    /// </summary>
-    internal static int[] BarCount = new int[BarConfig.Instance.BarCount];
-
-    /// <summary>
     /// <br/>用来判断是否启用来这个Boss血条样式
     /// <br/>Use it to check whether this boss bar style is selected or not.
     /// </summary>
@@ -30,6 +24,8 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
     public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
     {
+        if (npc == null)
+            return;
         // npc和drawParams在GlobalBar.PreDraw()中被赋值
         if (BarDrawsMethods.PreDraw(spriteBatch, npc, drawParams))
             if (BarDrawsMethods.Draw(spriteBatch, npc, drawParams))

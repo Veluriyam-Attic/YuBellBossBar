@@ -2,30 +2,64 @@ Name: Yet Another Boss Health Bar
 
 Configs: {
 	BarConfig: {
-		DisplayName: Bar Config
-
-		BarCount: {
-			Label: Bar Count
-			Tooltip: ""
-		}
+		DisplayName: 血条配置
 
 		BarPostionX: {
-			Label: Bar Postion X
-			Tooltip: ""
+			Label: 血条横坐标偏移量
+			Tooltip: 以向右为横轴正方向，默认0
 		}
 
 		BarPostionY: {
-			Label: Bar Postion Y
-			Tooltip: ""
+			Label: 血条纵坐标偏移量
+			Tooltip: 以向上为纵轴正方向，默认0
 		}
 
 		GoldenStyle: {
-			Label: Golden Style
-			Tooltip: ""
+			Label: 金银血条风格切换
+			Tooltip: 切换没有专属血条的Boss默认使用的血条贴图类型，开启为金色，关闭为银色，默认开启
 		}
 
 		BarLength: {
-			Label: Bar Length
+			Label: 血条长度
+			Tooltip: Boss血条的填充部分长度，默认为800
+		}
+
+		ForceDefaulTexture: {
+			Label: 强制使用默认血条
+			Tooltip: 强制使用没有专属血条时候的默认血条贴图，开启为强制使用，关闭为不强制使用，默认关闭
+		}
+
+		EnableDefualVanilla: {
+			Label: 启用原Mod添加的原版Boss专属贴图
+			Tooltip: 关闭后原Mod添加的原版Boss专属贴图将不再显示，默认开启
+		}
+
+		EnableExtraVanilla: {
+			Label: 启用新额外添加的原版Boss专属贴图
+			Tooltip: 关闭后新额外添加的原版Boss专属贴图将不再显示，默认开启
+		}
+
+		EnableExtraCalamity: {
+			Label: 启用灾厄血条支持(未实现)
+			Tooltip: 关闭后灾厄的Boss专属贴图将不再显示，默认开启
+		}
+
+		EnableExtraInfo: {
+			Label: 启用额外信息显示
+			Tooltip: 包括Boss攻击力，Boss防御力，Boss仇恨对象，后续会支持灾厄和法狗伤害减免显示
+		}
+
+		EnableExtraCustom: {
+			Label: 启用其他Mod额外添加的Boss专属贴图
+			Tooltip: 默认开启
+		}
+		PostHealthSpeed: {
+			Label: 伤害缓冲速率
+			Tooltip: ""
+		}
+
+		PostHealthTime: {
+			Label: 伤害缓冲时间
 			Tooltip: ""
 		}
 	}

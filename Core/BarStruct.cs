@@ -194,7 +194,7 @@ internal struct BarTexture2D
     // 额外绘制样式
     public ExtraDrawStyles extraStyles = ExtraDrawStyles.None;
 
-    // 自定义绘制事件
+    // 自定义绘制事件,Vector2是血条绘制正中心位置, int是血条长度
     public Action<SpriteBatch, Vector2, int> CustomDrawEvent = null;
 
     #region 实例构造器 Instance Constructor

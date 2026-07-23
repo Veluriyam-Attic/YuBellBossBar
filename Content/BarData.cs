@@ -283,6 +283,105 @@ internal static class BarData
             )
         );
         #endregion
+
+        #region 月亮领主 Moon Lord
+        buildincontent.Add(
+            NPCID.MoonLordCore,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.MoonLordCore,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultVanilla["MoonLordHead_Exp"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultVanilla["MoonLordTail_EXP"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.DefaultTexture["MoonLordHeart"]
+                        }
+                    }
+                )
+            )
+        );
+
+        buildincontent.Add(
+            NPCID.MoonLordCore,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.MoonLordCore,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultVanilla["MoonLordHead_Exp"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultVanilla["MoonLordTail_EXP"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.DefaultTexture["MoonLordEye"]
+                        }
+                    }
+                )
+            )
+        );
+
+
+        buildincontent.Add(
+            NPCID.MoonLordHead,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.MoonLordCore,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultVanilla["HealthBarFrame_Exp"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultVanilla["MoonLordHead_Exp"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultVanilla["MoonLordTail_EXP"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.DefaultTexture["MoonLordEye"]
+                        }
+                    }
+                )
+            )
+        );
+        #endregion
         #endregion
 
         #region 额外原版 Extra Vanilla

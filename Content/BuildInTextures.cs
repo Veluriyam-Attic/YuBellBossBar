@@ -254,6 +254,103 @@ internal static class BuildInTextures
                 { fillOffset = new Vector2(30,18); }
             )
         },
+        {
+            "DD2BarHead",
+            new BarTexture2D(
+                TextureType.Head,ModContent.Request<Texture2D>
+                (_dvpath + "DD2BarHead",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { headOffset = new Vector2(4,34); fillOffset = new Vector2(8,18); })
+        },
+        {
+            "DD2BarFrame",
+            new BarTexture2D(
+                TextureType.Head,ModContent.Request<Texture2D>
+                (_dvpath + "DD2BarFrame",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { barFrameStyles = BarFrameStyles.Extend; })
+        },
+        {
+            "DD2BarTail",
+            new BarTexture2D(
+                TextureType.Head,ModContent.Request<Texture2D>
+                (_dvpath + "DD2BarTail",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillOffset = new Vector2(38,18); })
+        },
+        {
+            "DD2BarFill",
+            new BarTexture2D(
+                TextureType.Fill,ModContent.Request<Texture2D>
+                (_dvpath + "DD2BarFill",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillColor = Color.White; barFillColor = BarFillColor.Custom; })
+        },
+        {
+            "DD2SmallBarFill",
+            new BarTexture2D(
+                TextureType.Fill,ModContent.Request<Texture2D>
+                (_dvpath + "DD2SmallBarFill",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillColor = Color.White; barFillColor = BarFillColor.Custom; })
+        },
+        {
+            "MoonLordHead",
+            new BarTexture2D(
+                TextureType.Head,ModContent.Request<Texture2D>
+                (_dvpath + "MoonLordHead",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillOffset = new Vector2(96,16); headOffset = new Vector2(79,30); })
+        },
+        {
+            "MoonLordHead_Exp",
+            new BarTexture2D(
+                TextureType.Head,ModContent.Request<Texture2D>
+                (_dvpath + "MoonLordHead_Exp",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillOffset = new Vector2(96,16); headOffset = new Vector2(79,30); })
+        },
+        {
+            "MoonLordTail",
+            new BarTexture2D(
+                TextureType.Tail,ModContent.Request<Texture2D>
+                (_dvpath + "MoonLordTail",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillOffset = new Vector2(30,16); })
+        },
+        {
+            "MoonLordTail_EXP",
+            new BarTexture2D(
+                TextureType.Tail,ModContent.Request<Texture2D>
+                (_dvpath + "MoonLordTail_Exp",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla,
+                (fillCutLengh,fillOffset,headOffset, barFillStyles,barFillColor,fillColor,barFrameStyles,extraDrawStyles) =>
+                { fillOffset = new Vector2(30,16); })
+        },
+        {
+            "MoonLordEye",
+            new BarTexture2D(
+                TextureType.Icon,ModContent.Request<Texture2D>
+                (_dvpath + "MoonLordEye",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla
+                )
+        },
+        {
+            "MoonLordHeart",
+            new BarTexture2D(
+                TextureType.Icon,ModContent.Request<Texture2D>
+                (_dvpath + "MoonLordHeart",AssetRequestMode.ImmediateLoad),
+                TextureSource.DefaultVanilla
+                )
+        }
     };
     #endregion
 

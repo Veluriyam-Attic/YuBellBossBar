@@ -20,10 +20,6 @@ public class YuBellBossBar : Mod
         // Load textures
         BarData.InstantiateBuildInContent();
 
-        // 初始时清除所有数
-        // remove the boss bar count when load
-        Array.Clear(YAB.BarCount, 0, BarConfig.Instance.BarCount);
-
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded
         if (CalamityAdapt && ModLoader.HasMod("CalamityMod"))
         {
