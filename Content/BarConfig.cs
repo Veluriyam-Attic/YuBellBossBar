@@ -39,11 +39,11 @@ public class BarConfig : ModConfig
     [Range(400, int.MaxValue)]
     public int BarLength;
 
-    [DefaultValue(10)]
+    [DefaultValue(4)]
     [Range(0,int.MaxValue)]
     public int PostHealthSpeed;
 
     [Range(0,int.MaxValue)]
-    [DefaultValue(0.75)]
+    [DefaultValue(35)]
     public int PostHealthTime;
 }

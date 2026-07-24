@@ -195,9 +195,6 @@ internal struct BarTexture2D
 
     public int TicksPerFrame = 6;
 
-    // 贴图是否有动画
-    public BarAnimation barAnimation = BarAnimation.Nope;
-
     // 贴图类型
     public TextureType textureType = TextureType.None;
 
@@ -221,12 +218,11 @@ internal struct BarTexture2D
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">fillCutLengh,fillOffset,headOffset,barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, BarAnimation animation = BarAnimation.Nope, int framecount = 1,int TPF = 6, Action<SpriteBatch, Vector2, int> customDraw = null)
+    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, int framecount = 1,int TPF = 6, Action<SpriteBatch, Vector2, int> customDraw = null)
     {
         this.textureType = type;
         this.texture = texture;
         this.CustomDrawEvent += customDraw;
-        this.barAnimation = animation;
         this.frameCount = framecount;
         this.source = textureSource;
         this.TicksPerFrame = TPF;

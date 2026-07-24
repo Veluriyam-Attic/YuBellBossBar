@@ -1,4 +1,6 @@
-﻿namespace YuBellBossBar.DrawMethod;
+﻿using Humanizer;
+
+namespace YuBellBossBar.DrawMethod;
 
 internal class BarDrawsMethods
 {
@@ -11,9 +13,6 @@ internal class BarDrawsMethods
 
     public static bool PreDraw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams)
     {
-        // 获取到对应更改且不绘制时结束方法
-        if (YAB.ModCalls.TryGetValue(npc.type, out BarInfo modcallbarInfo) && !modcallbarInfo.ShowBar)
-            return false;
 
         return true;
     }
@@ -28,7 +27,7 @@ internal class BarDrawsMethods
         if (!BarData.buildincontent.TryGetValue(npc.type, out barInfo))
         {
             int index = BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue;
-            barInfo.barTextures.baseTextures = BarData.buildincontent[index].barTextures.baseTextures;
+            barInfo = BarData.buildincontent[index];
         }
 
         if (barInfo.ShowBar)
@@ -39,6 +38,9 @@ internal class BarDrawsMethods
             float life = drawParams.Life;
             float lifemax = drawParams.LifeMax;
             float percentage = life / lifemax;
+            float postpercentage = PostHealthSystem.GetPostHealth(npc.type, percentage);
+            int lengthNow = (int)(percentage * BarConfig.Instance.BarLength);
+            int lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
 
             // 贴图相关
 #pragma warning disable IDE0018
@@ -121,9 +123,6 @@ internal class BarDrawsMethods
                     Vector2 StartPosition = position - new Vector2(BarConfig.Instance.BarLength / 2, fill.texture.Value.Height / 2);
                     int filllengh = (int)(BarConfig.Instance.BarLength * percentage);
 
-                    Rectangle FillP1 = new Rectangle(0, 0, fill.texture.Value.Width - fill.fillCutLengh, fill.texture.Value.Height);
-                    Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh, 0, fill.fillCutLengh, fill.texture.Value.Height);
-
 #pragma warning disable CS8524
                     Color fillcolor = fill.barFillColor switch
                     {
@@ -133,9 +132,15 @@ internal class BarDrawsMethods
 
                     switch (fill.barFillStyles)
                     {
-                        case BarFillStyles.Extend:
+                        case BarFillStyles.FillExtend:
                             {
-                                spriteBatch.Draw(fill.texture.Value, StartPosition, FillP1, fillcolor);
+                                FillExtend(spriteBatch, fill, StartPosition, lengthPost, percentage, postpercentage, 0.7f);
+                                FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
+                                break;
+                            }
+                        case BarFillStyles.FillAll:
+                            {
+                                FillAll(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
                                 break;
                             }
                     }
@@ -315,6 +320,57 @@ internal class BarDrawsMethods
 
     public static void PostDraw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams)
     {
+
+    }
+
+    private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)
+    {
+        Rectangle FillP1 = new Rectangle(0, 0, fill.texture.Value.Width - fill.fillCutLengh - 1, fill.texture.Value.Height);
+        Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh - 1, 0, fill.fillCutLengh, fill.texture.Value.Height);
+
+        Color color = fill.barFillColor switch
+        {
+            BarFillColor.Vanilla => BarFillColorMethods.GetVanillaBarColor(percentage),
+            BarFillColor.Custom => fill.fillColor,
+        };
+
+        if (length > fill.fillCutLengh)
+        {
+            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh, fill.texture.Value.Height), FillP1, color * alpha);
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), FillP2, color * alpha);
+        }
+        else
+        {
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), new Rectangle(FillP2.X, FillP2.Y, length, FillP2.Height), color * alpha);
+        }
+    }
+
+    private static void FillAll(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)
+    {
+        Color color = fill.barFillColor switch
+        {
+            BarFillColor.Vanilla => BarFillColorMethods.GetVanillaBarColor(percentage),
+            BarFillColor.Custom => fill.fillColor,
+        };
+
+        RenderTarget2D target = new RenderTarget2D(spriteBatch.GraphicsDevice, length, fill.texture.Value.Height);
+        spriteBatch.GraphicsDevice.SetRenderTarget(target);
+
+        spriteBatch.End(); 
+        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+
+
+        spriteBatch.Draw(
+            fill.texture.Value,
+            new Rectangle(0, 0,length,fill.texture.Value.Height),
+            Color.White);
+
+        spriteBatch.End();
+        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+
+        spriteBatch.Draw(target, new Rectangle((int)position.X, (int)position.Y, length, fill.texture.Value.Height), new Rectangle(0, 0, length, fill.texture.Value.Height), color);
+
+        spriteBatch.GraphicsDevice.SetRenderTarget(null);
 
     }
 }

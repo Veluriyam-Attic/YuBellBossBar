@@ -6,7 +6,7 @@ internal enum BarFillStyles
     /// <br/>最基础的自动延伸,也就是原Mod常用的
     /// <br/>The most basic auto extend, which is commonly used in the original mod.
     /// </summary>
-    Extend = 0,
+    FillExtend = 0,
     /// <summary>
     /// <br/>自动填充整个血条,当血量减少时,会依旧绘制血量满时所绘制的部分,只不过是不再绘制依旧损失的血量部分
     /// <br/>automatically fill the entire bar, when the health decreases, it will still draw the part that is drawn when the health is full, except that it will no longer draw the part that is still lost health.
@@ -51,18 +51,6 @@ internal enum BarFrameStyles
 /// <br/>增加可读性用的
 /// <br/>Added for readability
 /// </summary>
-internal enum  BarAnimation
-{
-    /// <summary>
-    /// <br/>不是动画,只绘制一帧
-    /// <br/>Not animated, only draw one frame.
-    /// </summary>
-    Nope = 0,
-    /// <summary>
-    /// <br/>是动画,绘制多帧
-    /// </summary>
-    Yep = 1,
-}
 
 internal enum BarFillColor
 {
@@ -76,42 +64,6 @@ internal enum BarFillColor
     /// <br/>The color drawn when the bar is filled is a custom color.
     /// </summary>
     Custom = 1,
-}
-
-internal enum ExtraDrawStyles
-{
-    /// <summary>
-    /// <br/>单纯的绘制一遍
-    /// <br/>Simply draw once.
-    /// </summary>
-    Single = 0,
-    /// <summary>
-    /// <br/>最基础的自动延伸,也就是原Mod常用的
-    /// <br/>The most basic auto extend, which is commonly used in the original mod.
-    /// </summary>
-    Extend = 1,
-    /// <summary>
-    /// <br/>自动填充整个血条,当血量减少时,会依旧绘制血量满时所绘制的部分,只不过是不再绘制依旧损失的血量部分
-    /// <br/>automatically fill the entire bar, when the health decreases, it will still draw the part that is drawn when the health is full, except that it will no longer draw the part that is still lost health.
-    /// </summary>
-    FillAll = 2,
-    /// <summary>
-    /// <br/>自动填充部分血条,当血量减少时,会自动把当前血条的部分填充满
-    /// <br/>automatically fill part of the bar, when the health decreases, it will automatically fill part of the current bar.
-    /// </summary>
-    FillPartial = 3,
-    /// <summary>
-    /// <br/>单纯的重复绘制血条,当血量减少时会取消绘制一部分
-    /// <br/>Simply repeat the drawing of the bar, when the health decreases, it will cancel the drawing of a part.
-    /// </summary>
-    Dulplicate = 4,
-    /// <summary>
-    /// <br/>完全自定义,完全由用户决定如何绘制血条
-    /// <br/>Completely custom, completely determined by the user how to draw the bar.
-    /// </summary>
-    Custom = 5,
-    
-    None = int.MaxValue,
 }
 
 internal enum TextureType

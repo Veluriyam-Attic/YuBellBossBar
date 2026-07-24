@@ -14,7 +14,7 @@ internal static class BuildInTextures
                 ModContent.Request<Texture2D>(_dtpath + "HealthBarFill",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultTexture,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Vanilla; fillCutLengh = 8; }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Vanilla; fillCutLengh = 8; }
             )
         },
         {
@@ -84,7 +84,7 @@ internal static class BuildInTextures
                 ModContent.Request<Texture2D>(_dtpath + "SmallBarFill", AssetRequestMode.ImmediateLoad),
                TextureSource.DefaultTexture,
                (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Vanilla; fillCutLengh = 6; }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Vanilla; fillCutLengh = 6; }
            )
         },
         {
@@ -235,7 +235,7 @@ internal static class BuildInTextures
                 (_dvpath + "PlanteraFill",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Vanilla; fillCutLengh = 18; }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Vanilla; fillCutLengh = 18; }
             )
         },
         {
@@ -411,7 +411,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend;fillCutLengh = 8;barFillColor = BarFillColor.Custom; fillColor = new Color(50, 120, 255); }
+                { barFillStyles = BarFillStyles.FillExtend;fillCutLengh = 8;barFillColor = BarFillColor.Custom; fillColor = new Color(50, 120, 255); }
             )
         },
         {
@@ -451,7 +451,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend;fillCutLengh = 8; barFillColor = BarFillColor.Custom; fillColor = new Color(213, 5, 5); }
+                { barFillStyles = BarFillStyles.FillExtend;fillCutLengh = 8; barFillColor = BarFillColor.Custom; fillColor = new Color(213, 5, 5); }
             )
         },
         {
@@ -491,7 +491,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Custom; fillCutLengh = 8; fillColor = new Color(115, 127, 33); }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Custom; fillCutLengh = 8; fillColor = new Color(115, 127, 33); }
             )
         },
         {
@@ -537,7 +537,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Custom; fillColor = Color.White; fillCutLengh = 2; }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Custom; fillColor = Color.White; fillCutLengh = 2; }
             )
         },
         {
@@ -583,7 +583,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Custom; fillColor = Color.White; fillCutLengh = 6; }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Custom; fillColor = Color.White; fillCutLengh = 6; }
             )
         },
         {
@@ -623,7 +623,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Custom; fillCutLengh = 6; fillColor = new Color(240, 240, 159); }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Custom; fillCutLengh = 6; fillColor = new Color(240, 240, 159); }
             )
         },
         {
@@ -703,7 +703,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Custom; fillColor = Color.White;  fillCutLengh = 10; }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Custom; fillColor = Color.White;  fillCutLengh = 10; }
             )
         },
         {
@@ -744,7 +744,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Custom; fillColor = Color.White;  fillCutLengh = 10; }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Custom; fillColor = Color.White;  fillCutLengh = 10; }
             )
         },
         {
@@ -790,7 +790,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend;  barFillColor = BarFillColor.Custom; fillColor = Color.White; fillCutLengh = 10; }
+                { barFillStyles = BarFillStyles.FillExtend;  barFillColor = BarFillColor.Custom; fillColor = Color.White; fillCutLengh = 10; }
             )
         },
         {
@@ -830,7 +830,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend;  barFillColor = BarFillColor.Custom; fillColor = Color.White; fillCutLengh = 2; }
+                { barFillStyles = BarFillStyles.FillExtend;  barFillColor = BarFillColor.Custom; fillColor = Color.White; fillCutLengh = 2; }
             )
         },
         {
@@ -902,7 +902,6 @@ internal static class BuildInTextures
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
                 { fillOffset = new Vector2(2, 6);  },
-                BarAnimation.Yep,
                 4
             )
         },
@@ -913,7 +912,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { barFillStyles = BarFillStyles.Extend; barFillColor = BarFillColor.Custom; fillColor = Color.White;  fillCutLengh = 2; }
+                { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Custom; fillColor = Color.White;  fillCutLengh = 2; }
             )
         },
         {
