@@ -353,6 +353,8 @@ internal class BarDrawsMethods
             BarFillColor.Custom => fill.fillColor,
         };
 
+        // 宝宝我也看不懂这些，这是AI写的
+        // 但是效果是对的不就好了吗
         RenderTarget2D target = new RenderTarget2D(spriteBatch.GraphicsDevice, length, fill.texture.Value.Height);
         spriteBatch.GraphicsDevice.SetRenderTarget(target);
 
@@ -362,7 +364,7 @@ internal class BarDrawsMethods
 
         spriteBatch.Draw(
             fill.texture.Value,
-            new Rectangle(0, 0,length,fill.texture.Value.Height),
+            new Rectangle(0, 0,BarConfig.Instance.BarLength,fill.texture.Value.Height),
             Color.White);
 
         spriteBatch.End();
