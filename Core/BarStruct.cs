@@ -82,6 +82,8 @@ internal struct BarTextures
 {
     public int npctype;
 
+    public List<int> Segment = new List<int>();
+
     // Fill,Frame,Head,Tail,Info是基础贴图,必有且仅有一个
     public Dictionary<TextureType, BarTexture2D> baseTextures = new Dictionary<TextureType, BarTexture2D>();
 
@@ -165,7 +167,7 @@ internal struct BarTexture2D
     // 偏移量
     public Vector2 fillOffset = Vector2.Zero;
     public Vector2 headOffset = Vector2.Zero;
-    public (int,int) fillCutLengh = (0,0);
+    public int fillCutLengh = 0;
 
     // 贴图来源
     public TextureSource source = TextureSource.None;
@@ -211,13 +213,10 @@ internal struct BarTexture2D
     // 血条填充颜色
     public Color fillColor = Color.White;
 
-    // 额外绘制样式
-    public ExtraDrawStyles extraDrawStyles = ExtraDrawStyles.None;
-
     // 自定义绘制事件,Vector2是血条绘制正中心位置, int是血条长度
     public Action<SpriteBatch, Vector2, int> CustomDrawEvent = null;
 
-    public delegate void BarTexture2DInitiator(ref (int, int) fillCutLengh, ref Vector2 fillOffset, ref Vector2 headOffset, ref BarFillStyles barFillStyles, ref BarFillColor barFillColor, ref Color fillColor, ref BarFrameStyles barFrameStyles,ref ExtraDrawStyles extraStyles);
+    public delegate void BarTexture2DInitiator(ref int fillCutLengh, ref Vector2 fillOffset, ref Vector2 headOffset, ref BarFillStyles barFillStyles, ref BarFillColor barFillColor, ref Color fillColor, ref BarFrameStyles barFrameStyles);
 
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
@@ -234,7 +233,7 @@ internal struct BarTexture2D
 
         // 在默认构造器逻辑之后调用,来服务委托中潜在的修改
         // Call after the default constructor logic to serve potential modifications in the delegate
-        initiator?.Invoke(ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles, ref extraDrawStyles);
+        initiator?.Invoke(ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles);
     }
     #endregion
 }
