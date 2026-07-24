@@ -1,4 +1,4 @@
-﻿using static System.Net.Mime.MediaTypeNames;
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace YuBellBossBar.DrawMethod;
 
@@ -24,10 +24,10 @@ internal class BarDrawsMethods
 
         // 获取对应血条信息，如果未获取到，则使用默认血条信息
         // 同时在此处选择使用金色或银色版本
-        if (!BarData.buildincontent.TryGetValue(npc.type, out barInfo))
+        if (!BarData.BarInfos.TryGetValue(npc.type, out barInfo))
         {
             int index = BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue;
-            barInfo = BarData.buildincontent[index];
+            barInfo = BarData.BarInfos[index];
         }
 
         if (barInfo.ShowBar)
@@ -55,11 +55,13 @@ internal class BarDrawsMethods
             List<BarTexture2D> extraBetweenIconAndInfo;
             List<BarTexture2D> extraUponInfo;
 
+            // 位置相关
+            Vector2[] CheckBox = new Vector2[2];
 
             // 绘制信息是否被ModCall修改过
             bool modcall = YAB.ModCalls.TryGetValue(npc.type, out BarInfo modcallbarInfo);
             #endregion
-            
+
             #region 根据模组配置重新选择贴图
 
             extraBelowFill = barInfo.barTextures.extraTexturesBelowFill;
@@ -85,8 +87,6 @@ internal class BarDrawsMethods
 
 
             if (!BarConfig.Instance.ForceDefaulTexture)
-            { }
-            else
             {
                 extraBelowFill.Clear();
                 extraBetweenFillAndFrame.Clear();
@@ -94,6 +94,24 @@ internal class BarDrawsMethods
                 extraBetweenHeadEndAndIcon.Clear();
                 extraBetweenIconAndInfo.Clear();
                 extraUponInfo.Clear();
+            }
+
+
+            if (!tail.ConfigEnabled)
+            {
+                tail = BarData.BarInfos[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Tail];
+            }
+            if (!head.ConfigEnabled)
+            {
+                head = BarData.BarInfos[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Head];
+            }
+            if (!frame.ConfigEnabled)
+            {
+                frame = BarData.BarInfos[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Frame];
+            }
+            if (!fill.ConfigEnabled)
+            {
+                fill = BarData.BarInfos[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Fill];
             }
 
             #endregion
@@ -108,11 +126,6 @@ internal class BarDrawsMethods
 
             #region 填充相关绘制方法
             {
-                if (!fill.ConfigEnabled)
-                {
-                    fill = BarData.buildincontent[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Fill];
-                }
-
                 if (fill.CustomDrawEvent != null)
                     fill.CustomDrawEvent(spriteBatch, position, BarConfig.Instance.BarLength);
                 else
@@ -163,10 +176,6 @@ internal class BarDrawsMethods
 
             #region 框架相关绘制方法
             {
-                if (!frame.ConfigEnabled)
-                {
-                    frame = BarData.buildincontent[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Frame];
-                }
                 if (frame.CustomDrawEvent != null)
                 {
                     frame.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
@@ -236,18 +245,16 @@ internal class BarDrawsMethods
 
             #region 头部相关绘制方法
             {
-                if (!head.ConfigEnabled)
-                {
-                    head = BarData.buildincontent[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Head];
-                }
                 if (head.CustomDrawEvent != null)
                 {
-                    head.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    CheckBox[0] = head.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
                 }
                 else
                 {
                     int HeightPF = head.texture.Value.Height / head.frameCount;
                     Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X, HeightPF / 2);
+
+                    CheckBox[0] = StartPosition;
 
                     if (frameNow[head] >= head.frameCount * head.TicksPerFrame)
                         frameNow[head] = 1;
@@ -270,18 +277,16 @@ internal class BarDrawsMethods
 
             #region 尾部相关绘制方法
             {
-                if (!tail.ConfigEnabled)
-                {
-                    tail = BarData.buildincontent[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Tail];
-                }
                 if (tail.CustomDrawEvent != null)
                 {
-                    tail.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    CheckBox[1] = tail.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
                 }
                 else
                 {
                     int HeightPF = tail.texture.Value.Height / tail.frameCount;
                     Vector2 StartPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
+
+                    CheckBox[1] = StartPosition;
 
                     if (frameNow[tail] >= tail.frameCount * tail.TicksPerFrame)
                         frameNow[tail] = 1;
@@ -309,7 +314,14 @@ internal class BarDrawsMethods
             #endregion
 
             #region 大头照相关绘制方法
-            spriteBatch.Draw(icon.texture.Value, position + new Vector2((-BarConfig.Instance.BarLength / 2) - head.fillOffset.X + head.headOffset.X - (icon.texture.Value.Width / 2), -((head.texture.Value.Height / head.frameCount) / 2) + head.headOffset.Y - (icon.texture.Value.Height / 2)), Color.White);
+            if (icon.CustomDrawEvent != null)
+            {
+                icon.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+            }
+            else
+            {
+                spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, icon.texture.Value.Height / 2), Color.White);
+            }
             #endregion
 
             #region 额外绘制大头照和信息之间
@@ -319,7 +331,39 @@ internal class BarDrawsMethods
             #endregion
 
             #region 信息显示相关绘制方法
-            Utils.DrawBorderString(spriteBatch, "", position, Color.White);
+
+
+            string Info = string.Empty;
+            if (barInfo.ShowName)
+            {
+                Info += Lang.GetNPCName(npc.type).ToString();
+            }
+            if (barInfo.ShowLife)
+            {
+                Info += (Info == string.Empty ? "" : " : ") + life.ToString();
+                if (barInfo.ShowLifeMax)
+                {
+                    Info += "/";
+                    Info += lifemax.ToString();
+                }
+            }
+            if (barInfo.ShowLifeMax && !barInfo.ShowLife)
+            {
+                Info += (Info == string.Empty ? "" : " : ") + lifemax.ToString();
+            }
+            if (barInfo.ShowPercent)
+            {
+                Info += (Info == string.Empty ? "" : " : ") + "[" + percentage.ToString() + "]";
+            }
+            if (barInfo.ShowSegment)
+            {
+                Info += (Info == string.Empty ? "" : " : ") + "".ToString();
+            }
+
+            Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Info).X / 2, FontAssets.MouseText.Value.MeasureString(Info).Y / 3);
+
+            Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
+            Utils.DrawBorderString(spriteBatch,Info , position - Namepostion, Color.White);
             #endregion
 
             #region 额外绘制信息显示之上
@@ -343,7 +387,7 @@ internal class BarDrawsMethods
     private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)
     {
         Rectangle FillP1 = new Rectangle(0, 0, fill.texture.Value.Width - fill.fillCutLengh - 1, fill.texture.Value.Height);
-        Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh - 1, 0, fill.fillCutLengh, fill.texture.Value.Height);
+        Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh - 1, 0, fill.fillCutLengh + 1, fill.texture.Value.Height);
 
         Color color = fill.barFillColor switch
         {
@@ -372,25 +416,41 @@ internal class BarDrawsMethods
 
         // 宝宝我也看不懂这些，这是AI写的
         // 但是效果是对的不就好了吗
-        RenderTarget2D target = new RenderTarget2D(spriteBatch.GraphicsDevice, length, fill.texture.Value.Height);
-        spriteBatch.GraphicsDevice.SetRenderTarget(target);
+        if (length != 0)
+        {
+            SpriteBatch _renderTargetSpriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
+            GraphicsDevice gd = spriteBatch.GraphicsDevice;
 
-        spriteBatch.End();
-        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            RenderTarget2D target = new RenderTarget2D(
+                gd,
+                length,
+                fill.texture.Value.Height);
 
+            gd.SetRenderTarget(target);
+            gd.Clear(Color.Transparent);
 
-        spriteBatch.Draw(
-            fill.texture.Value,
-            new Rectangle(0, 0, BarConfig.Instance.BarLength, fill.texture.Value.Height),
-            Color.White);
+            _renderTargetSpriteBatch.Begin(
+                SpriteSortMode.Deferred,
+                BlendState.AlphaBlend,
+                SamplerState.LinearClamp,
+                DepthStencilState.None,
+                RasterizerState.CullNone);
 
-        spriteBatch.End();
-        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            _renderTargetSpriteBatch.Draw(
+                fill.texture.Value,
+                new Rectangle(0, 0, BarConfig.Instance.BarLength, fill.texture.Value.Height),
+                Color.White);
 
-        spriteBatch.Draw(target, new Rectangle((int)position.X, (int)position.Y, length, fill.texture.Value.Height), new Rectangle(0, 0, length, fill.texture.Value.Height), color);
+            _renderTargetSpriteBatch.End();
 
-        spriteBatch.GraphicsDevice.SetRenderTarget(null);
+            gd.SetRenderTarget(null);
 
+            spriteBatch.Draw(
+                target,
+                new Rectangle((int)position.X, (int)position.Y, length, fill.texture.Value.Height),
+                new Rectangle(0, 0, length, fill.texture.Value.Height),
+                color);
+        }
     }
 
     private static void FillDulplicate(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)

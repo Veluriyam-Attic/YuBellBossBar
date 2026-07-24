@@ -3,7 +3,7 @@
 internal struct BarInfo
 {
     #region 实例构造器 Instance Constructor
-    public BarInfo(BarTextures bartextures, Dictionary<string, bool> fields = null)
+    public BarInfo(BarTextures bartextures, Dictionary<string, bool> fields = null,List<int> segment = null)
     {
         this.barTextures = bartextures;
 
@@ -52,11 +52,15 @@ internal struct BarInfo
                         break;
                 }
             }
+
+        this.Segment = segment;
     }
     #endregion
 
     public int npctype => barTextures.npctype;
     public BarTextures barTextures;
+
+    public List<int> Segment = null;
 
     public bool ShowBar = true;
 
@@ -81,8 +85,6 @@ internal struct BarInfo
 internal struct BarTextures
 {
     public int npctype;
-
-    public List<int> Segment = new List<int>();
 
     // Fill,Frame,Head,Tail,Info是基础贴图,必有且仅有一个
     public Dictionary<TextureType, BarTexture2D> baseTextures = new Dictionary<TextureType, BarTexture2D>();
@@ -211,14 +213,14 @@ internal struct BarTexture2D
     public Color fillColor = Color.White;
 
     // 自定义绘制事件,Vector2是血条绘制正中心位置, int是血条长度
-    public Action<SpriteBatch, Vector2, int> CustomDrawEvent = null;
+    public Func<SpriteBatch, Vector2, int,Vector2> CustomDrawEvent = null;
 
     public delegate void BarTexture2DInitiator(ref int fillCutLengh, ref Vector2 fillOffset, ref Vector2 headOffset, ref BarFillStyles barFillStyles, ref BarFillColor barFillColor, ref Color fillColor, ref BarFrameStyles barFrameStyles);
 
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">fillCutLengh,fillOffset,headOffset,barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, int framecount = 1,int TPF = 6, Action<SpriteBatch, Vector2, int> customDraw = null)
+    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, int framecount = 1,int TPF = 6, Func<SpriteBatch, Vector2, int, Vector2> customDraw = null)
     {
         this.textureType = type;
         this.texture = texture;

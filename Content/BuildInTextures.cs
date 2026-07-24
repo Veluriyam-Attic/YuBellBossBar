@@ -34,7 +34,7 @@ internal static class BuildInTextures
                 ModContent.Request<Texture2D>(_dtpath + "HealthBarHead_Exp", AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultTexture,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { headOffset = new Vector2(79,32);fillOffset = new Vector2(30,16); }
+                { headOffset = new Vector2(79,30);fillOffset = new Vector2(96,16); }
             )
         },
         {
@@ -44,7 +44,7 @@ internal static class BuildInTextures
                 ModContent.Request<Texture2D>(_dtpath + "HealthBarTail_Exp", AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultTexture,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { fillOffset = new Vector2(0,16); }
+               { fillOffset = new Vector2(30,16); }
             )
         },
         {
@@ -64,7 +64,7 @@ internal static class BuildInTextures
                 ModContent.Request<Texture2D>(_dtpath + "HealthBarHead", AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultTexture,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { headOffset = new Vector2(79,32);fillOffset = new Vector2(30,16); }
+                { headOffset = new Vector2(79,30);fillOffset = new Vector2(96,16); }
             )
         },
         {
@@ -74,7 +74,7 @@ internal static class BuildInTextures
                 ModContent.Request<Texture2D>(_dtpath + "HealthBarTail", AssetRequestMode.ImmediateLoad),
                TextureSource.DefaultTexture,
                (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-               { fillOffset = new Vector2(0,16); }
+               { fillOffset = new Vector2(30,16); }
            )
         },
         {
@@ -914,12 +914,6 @@ internal static class BuildInTextures
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
                 { barFillStyles = BarFillStyles.FillExtend; barFillColor = BarFillColor.Custom; fillColor = Color.White;  fillCutLengh = 2; }
             )
-        },
-        {
-            "LunaticCultistIcon",
-            new BarTexture2D(TextureType.Icon,
-                TextureAssets.NpcHeadBoss[24],
-                TextureSource.ExtraVanilla)
         }
     };
     #endregion

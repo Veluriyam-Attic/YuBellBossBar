@@ -7,7 +7,7 @@ internal static class BarData
     private const string _evpath = "YuBellBossBar/Texture/ExtraVanilla/";
 
 #pragma warning disable IDE0090,IDE0028
-    public static Dictionary<int, BarInfo> buildincontent = new Dictionary<int, BarInfo>();
+    public static Dictionary<int, BarInfo> BarInfos = new Dictionary<int, BarInfo>();
 
     /// <summary>
     /// <br/>反射拿到的原版词典
@@ -19,7 +19,7 @@ internal static class BarData
     {
         #region 默认贴图 Default Texture
         #region 金色风格 Gloden Style
-        buildincontent.Add(int.MaxValue,
+        BarInfos.Add(int.MaxValue,
             new BarInfo(
                 new BarTextures(
                     int.MaxValue,
@@ -48,7 +48,7 @@ internal static class BarData
         #endregion
 
         #region 银色风格 Silver Style
-        buildincontent.Add(int.MinValue,
+        BarInfos.Add(int.MinValue,
             new BarInfo(
                 new BarTextures(
                     int.MinValue,
@@ -79,7 +79,7 @@ internal static class BarData
 
         #region 默认原版 Default Vanilla
         #region 血肉墙 Wall of Flesh
-        buildincontent.Add(NPCID.WallofFlesh,
+        BarInfos.Add(NPCID.WallofFlesh,
             new BarInfo(
                 new BarTextures(
                     NPCID.WallofFlesh,
@@ -109,7 +109,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.TheHungryII,
+        BarInfos.Add(NPCID.TheHungryII,
             new BarInfo(
                 new BarTextures(
                     NPCID.TheHungryII,
@@ -139,7 +139,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.TheHungry,
+        BarInfos.Add(NPCID.TheHungry,
             new BarInfo(
                 new BarTextures(
                     NPCID.TheHungry,
@@ -171,7 +171,7 @@ internal static class BarData
         );
         #endregion
         #region 血肉墙眼 Wall of Flesh Eye
-        buildincontent.Add(NPCID.WallofFleshEye,
+        BarInfos.Add(NPCID.WallofFleshEye,
             new BarInfo(
                 new BarTextures(
                     NPCID.WallofFlesh,
@@ -204,7 +204,7 @@ internal static class BarData
         #endregion
 
         #region 激光眼 Retinazer
-        buildincontent.Add(
+        BarInfos.Add(
             NPCID.Retinazer,
             new BarInfo(
                 new BarTextures(
@@ -233,7 +233,7 @@ internal static class BarData
         );
         #endregion
         #region 魔焰眼 Spazmatism
-        buildincontent.Add(
+        BarInfos.Add(
             NPCID.Spazmatism,
             new BarInfo(
                 new BarTextures(
@@ -263,7 +263,7 @@ internal static class BarData
         #endregion
 
         #region 毁灭者 The Destroyer
-        buildincontent.Add(
+        BarInfos.Add(
             NPCID.TheDestroyer,
             new BarInfo(
                 new BarTextures(
@@ -293,7 +293,7 @@ internal static class BarData
         #endregion
 
         #region 机械骷髅王 Skeletron Prime
-        buildincontent.Add(
+        BarInfos.Add(
             NPCID.SkeletronPrime,
             new BarInfo(
                 new BarTextures(
@@ -316,10 +316,10 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
-                        {
-                            TextureType.Icon,
-                            BuildInTextures.DefaultVanilla["SkeletronPrimeIcon"]
-                        }
+                        //{
+                        //    TextureType.Icon,
+                        //    BuildInTextures.DefaultVanilla["SkeletronPrimeIcon"]
+                        //}
                     }
                 )
             )
@@ -327,7 +327,7 @@ internal static class BarData
         #endregion
 
         #region 世纪之花 Plantera
-        buildincontent.Add(
+        BarInfos.Add(
             NPCID.Plantera,
             new BarInfo(
                 new BarTextures(
@@ -357,7 +357,7 @@ internal static class BarData
         #endregion
 
         #region 月亮领主 Moon Lord
-        buildincontent.Add(
+        BarInfos.Add(
             NPCID.MoonLordCore,
             new BarInfo(
                 new BarTextures(
@@ -389,7 +389,7 @@ internal static class BarData
             )
         );
 
-        buildincontent.Add(
+        BarInfos.Add(
             NPCID.MoonLordHand,
             new BarInfo(
                 new BarTextures(
@@ -422,7 +422,7 @@ internal static class BarData
         );
 
 
-        buildincontent.Add(
+        BarInfos.Add(
             NPCID.MoonLordHead,
             new BarInfo(
                 new BarTextures(
@@ -458,7 +458,7 @@ internal static class BarData
 
         #region 额外原版 Extra Vanilla
         #region 史莱姆王 King Slime
-        buildincontent.Add(NPCID.KingSlime,
+        BarInfos.Add(NPCID.KingSlime,
             new BarInfo(
                 new BarTextures(
                     NPCID.KingSlime,
@@ -487,7 +487,7 @@ internal static class BarData
         #endregion
 
         #region 克苏鲁之眼 Eye of Cthulhu
-        buildincontent.Add(NPCID.EyeofCthulhu,
+        BarInfos.Add(NPCID.EyeofCthulhu,
             new BarInfo(
                 new BarTextures(
                     NPCID.EyeofCthulhu,
@@ -516,7 +516,7 @@ internal static class BarData
         #endregion
 
         #region 世界吞噬者 Eater of Worlds
-        buildincontent.Add(NPCID.EaterofWorldsHead,
+        BarInfos.Add(NPCID.EaterofWorldsHead,
             new BarInfo(
                 new BarTextures(
                     NPCID.EaterofWorldsHead,
@@ -546,7 +546,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.EaterofWorldsBody,
+        BarInfos.Add(NPCID.EaterofWorldsBody,
             new BarInfo(
                 new BarTextures(
                     NPCID.EaterofWorldsBody,
@@ -576,7 +576,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.EaterofWorldsTail,
+        BarInfos.Add(NPCID.EaterofWorldsTail,
             new BarInfo(
                 new BarTextures(
                     NPCID.EaterofWorldsTail,
@@ -609,7 +609,7 @@ internal static class BarData
         #endregion
 
         #region 克苏鲁之脑 Brain of Cthulhu
-        buildincontent.Add(NPCID.BrainofCthulhu,
+        BarInfos.Add(NPCID.BrainofCthulhu,
             new BarInfo(
                 new BarTextures(
                     NPCID.BrainofCthulhu,
@@ -639,7 +639,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.Creeper,
+        BarInfos.Add(NPCID.Creeper,
             new BarInfo(
                 new BarTextures(
                     NPCID.Creeper,
@@ -672,7 +672,7 @@ internal static class BarData
         #endregion
 
         #region 蜂王 Queen Bee
-        buildincontent.Add(NPCID.QueenBee,
+        BarInfos.Add(NPCID.QueenBee,
             new BarInfo(
                 new BarTextures(
                     NPCID.QueenBee,
@@ -701,7 +701,7 @@ internal static class BarData
         #endregion
 
         #region 骷髅王 Skeletron
-        buildincontent.Add(NPCID.SkeletronHead,
+        BarInfos.Add(NPCID.SkeletronHead,
             new BarInfo(
                 new BarTextures(
                     NPCID.SkeletronHead,
@@ -730,7 +730,7 @@ internal static class BarData
         #endregion
 
         #region 独眼巨鹿 Deerclops
-        buildincontent.Add(NPCID.Deerclops,
+        BarInfos.Add(NPCID.Deerclops,
             new BarInfo(
                 new BarTextures(
                     NPCID.Deerclops,
@@ -759,7 +759,7 @@ internal static class BarData
         #endregion
 
         #region 史莱姆皇后 Queen Slime
-        buildincontent.Add(NPCID.QueenSlimeBoss,
+        BarInfos.Add(NPCID.QueenSlimeBoss,
             new BarInfo(
                 new BarTextures(
                     NPCID.QueenSlimeBoss,
@@ -788,7 +788,7 @@ internal static class BarData
         #endregion
 
         #region 石巨人 Golem
-        buildincontent.Add(NPCID.Golem,
+        BarInfos.Add(NPCID.Golem,
             new BarInfo(
                 new BarTextures(
                     NPCID.Golem,
@@ -818,7 +818,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.GolemHead,
+        BarInfos.Add(NPCID.GolemHead,
             new BarInfo(
                 new BarTextures(
                     NPCID.GolemHead,
@@ -848,7 +848,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.GolemFistLeft,
+        BarInfos.Add(NPCID.GolemFistLeft,
             new BarInfo(
                 new BarTextures(
                     NPCID.GolemFistLeft,
@@ -878,7 +878,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.GolemFistRight,
+        BarInfos.Add(NPCID.GolemFistRight,
             new BarInfo(
                 new BarTextures(
                     NPCID.GolemFistLeft,
@@ -908,7 +908,7 @@ internal static class BarData
                 )
             )
         );
-        buildincontent.Add(NPCID.GolemHeadFree,
+        BarInfos.Add(NPCID.GolemHeadFree,
             new BarInfo(
                 new BarTextures(
                     NPCID.GolemFistLeft,
@@ -941,7 +941,7 @@ internal static class BarData
         #endregion
 
         #region 火星飞碟 Martian Saucer
-        buildincontent.Add(NPCID.MartianSaucer,
+        BarInfos.Add(NPCID.MartianSaucer,
             new BarInfo(
                 new BarTextures(
                     NPCID.MartianSaucer,
@@ -970,7 +970,7 @@ internal static class BarData
         #endregion
 
         #region 猪龙鱼公爵 Duke Fishron
-        buildincontent.Add(NPCID.DukeFishron,
+        BarInfos.Add(NPCID.DukeFishron,
             new BarInfo(
                 new BarTextures(
                     NPCID.DukeFishron,
@@ -999,7 +999,7 @@ internal static class BarData
         #endregion
 
         #region 光之女皇 Empress of Light
-        buildincontent.Add(NPCID.HallowBoss,
+        BarInfos.Add(NPCID.HallowBoss,
             new BarInfo(
                 new BarTextures(
                     NPCID.HallowBoss,
@@ -1028,7 +1028,7 @@ internal static class BarData
         #endregion
 
         #region 拜月教邪教徒 Lunatic Cultist
-        buildincontent.Add(NPCID.CultistBoss,
+        BarInfos.Add(NPCID.CultistBoss,
             new BarInfo(
                 new BarTextures(
                     NPCID.CultistBoss,
@@ -1050,16 +1050,11 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.ExtraVanilla["LunaticCultistTail"]
                         },
-                        {
-                            TextureType.Icon,
-                            BuildInTextures.ExtraVanilla["LunaticCultistIcon"]
-                        }
                     }
                 )
             )
         );
         #endregion
-
         #endregion
     }
 }
