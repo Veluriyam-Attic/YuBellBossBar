@@ -101,6 +101,70 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.DefaultVanilla["WallofFleshTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.DefaultVanilla["WallofFleshIcon"]
+                        }
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.TheHungryII,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.TheHungryII,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultVanilla["WallofFleshFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultVanilla["WallofFleshHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultVanilla["WallofFleshTail"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.DefaultVanilla["WallofFleshIcon"]
+                        }
+                    }
+                )
+            )
+        );
+        buildincontent.Add(NPCID.TheHungry,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.TheHungry,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultTexture["HealthBarFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultVanilla["WallofFleshFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultVanilla["WallofFleshHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultVanilla["WallofFleshTail"]
+                        },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.DefaultVanilla["WallofFleshIcon"]
+                        }
                     }
                 )
             )
@@ -129,6 +193,10 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.DefaultVanilla["WallofFleshTail"]
                         },
+                        {
+                            TextureType.Icon,
+                            BuildInTextures.DefaultVanilla["WallofFleshIcon"]
+                        }
                     }
                 )
             )

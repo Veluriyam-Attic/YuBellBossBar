@@ -191,6 +191,8 @@ internal struct BarTexture2D
     // 贴图帧数
     public int frameCount = 1;
 
+    public int TicksPerFrame = 6;
+
     // 贴图是否有动画
     public BarAnimation barAnimation = BarAnimation.Nope;
 
@@ -220,14 +222,16 @@ internal struct BarTexture2D
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">fillCutLengh,fillOffset,headOffset,barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, BarAnimation animation = BarAnimation.Nope, int framecount = 1, Action<SpriteBatch, Vector2, int> customDraw = null)
+    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, BarAnimation animation = BarAnimation.Nope, int framecount = 1,int TPF = 6, Action<SpriteBatch, Vector2, int> customDraw = null)
     {
         this.textureType = type;
         this.texture = texture;
         this.CustomDrawEvent += customDraw;
-        barAnimation = animation;
+        this.barAnimation = animation;
         this.frameCount = framecount;
         this.source = textureSource;
+        this.TicksPerFrame = TPF;
+
         // 在默认构造器逻辑之后调用,来服务委托中潜在的修改
         // Call after the default constructor logic to serve potential modifications in the delegate
         initiator?.Invoke(ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles, ref extraDrawStyles);

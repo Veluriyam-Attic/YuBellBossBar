@@ -185,6 +185,13 @@ internal static class BuildInTextures
             )
         },
         {
+            "WallofFleshIcon",
+            new BarTexture2D(
+                TextureType.Icon,
+                TextureAssets.NpcHeadBoss[22],
+                TextureSource.DefaultVanilla)
+        },
+        {
             "MechBossFrame",
             new BarTexture2D(
                 TextureType.Frame,ModContent.Request<Texture2D>
@@ -238,7 +245,7 @@ internal static class BuildInTextures
                 (_dvpath + "PlanteraFrame",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles, ref extraDrawStyles) =>
-                { barFrameStyles = BarFrameStyles.Extend; }
+                { barFrameStyles = BarFrameStyles.Dulplicate; }
             )
         },
         {
@@ -357,7 +364,7 @@ internal static class BuildInTextures
                 (_dvpath + "MoonLordHeart",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla
                 )
-        }
+        },
     };
     #endregion
 
