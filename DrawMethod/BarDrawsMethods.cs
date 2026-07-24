@@ -353,7 +353,7 @@ internal class BarDrawsMethods
             }
             if (barInfo.ShowPercent)
             {
-                Info += (Info == string.Empty ? "" : " : ") + "[" + percentage.ToString() + "]";
+                Info += (Info == string.Empty ? "" : " : ") + "[" + string.Format("{0:f2}", (percentage * 100)) + "%" + "]";
             }
             if (barInfo.ShowSegment)
             {
@@ -364,6 +364,8 @@ internal class BarDrawsMethods
 
             Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
             Utils.DrawBorderString(spriteBatch,Info , position - Namepostion, Color.White);
+
+
             #endregion
 
             #region 额外绘制信息显示之上
