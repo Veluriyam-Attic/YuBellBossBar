@@ -1,4 +1,4 @@
-﻿using Humanizer;
+﻿using static System.Net.Mime.MediaTypeNames;
 
 namespace YuBellBossBar.DrawMethod;
 
@@ -32,7 +32,6 @@ internal class BarDrawsMethods
 
         if (barInfo.ShowBar)
         {
-            //------------------------------------------------------------------------------------------------------------------------------------//
             #region 声明所需局部变量
             // 血量相关
             float life = drawParams.Life;
@@ -60,8 +59,7 @@ internal class BarDrawsMethods
             // 绘制信息是否被ModCall修改过
             bool modcall = YAB.ModCalls.TryGetValue(npc.type, out BarInfo modcallbarInfo);
             #endregion
-            //------------------------------------------------------------------------------------------------------------------------------------//
-
+            
             #region 根据模组配置重新选择贴图
 
             extraBelowFill = barInfo.barTextures.extraTexturesBelowFill;
@@ -100,16 +98,15 @@ internal class BarDrawsMethods
 
             #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
             #region 贴图绘制方法
-            // 绘制血条填充下方的贴图
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #region 额外绘制填充之下
             if (extraBelowFill != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBelowFill)
                     texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #endregion
 
+            #region 填充相关绘制方法
             {
                 if (!fill.ConfigEnabled)
                 {
@@ -143,17 +140,28 @@ internal class BarDrawsMethods
                                 FillAll(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
                                 break;
                             }
+                        case BarFillStyles.FillPartial:
+                            {
+                                FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
+                                break;
+                            }
+                        case BarFillStyles.Dulplicate:
+                            {
+                                FillDulplicate(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
+                                break;
+                            }
                     }
                 }
             }
+            #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
-
+            #region 额外绘制填充和框架之间
             if (extraBetweenFillAndFrame != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenFillAndFrame)
                     texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+            #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #region 框架相关绘制方法
             {
                 if (!frame.ConfigEnabled)
                 {
@@ -218,13 +226,15 @@ internal class BarDrawsMethods
                     }
                 }
             }
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #endregion
 
+            #region 额外绘制框架和头尾之间
             if (extraBetweenFrameAndHeadEnd != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenFrameAndHeadEnd)
                     texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+            #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #region 头部相关绘制方法
             {
                 if (!head.ConfigEnabled)
                 {
@@ -256,8 +266,9 @@ internal class BarDrawsMethods
                     frameNow[head]++;
                 }
             }
+            #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #region 尾部相关绘制方法
             {
                 if (!tail.ConfigEnabled)
                 {
@@ -289,32 +300,36 @@ internal class BarDrawsMethods
                     frameNow[tail]++;
                 }
             }
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #endregion
 
+            #region 额外绘制在头尾和大头照之间
             if (extraBetweenHeadEndAndIcon != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenHeadEndAndIcon)
                     texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+            #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
-
+            #region 大头照相关绘制方法
             spriteBatch.Draw(icon.texture.Value, position + new Vector2((-BarConfig.Instance.BarLength / 2) - head.fillOffset.X + head.headOffset.X - (icon.texture.Value.Width / 2), -((head.texture.Value.Height / head.frameCount) / 2) + head.headOffset.Y - (icon.texture.Value.Height / 2)), Color.White);
+            #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #region 额外绘制大头照和信息之间
             if (extraBetweenIconAndInfo != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenIconAndInfo)
                     texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+            #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
+            #region 信息显示相关绘制方法
+            Utils.DrawBorderString(spriteBatch, "", position, Color.White);
+            #endregion
 
-            //------------------------------------------------------------------------------------------------------------------------------------//
-
+            #region 额外绘制信息显示之上
             if (extraUponInfo != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraUponInfo)
                     texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
             #endregion
+            #endregion
 
         }
-        //------------------------------------------------------------------------------------------------------------------------------------//
         return true;
     }
 
@@ -322,6 +337,8 @@ internal class BarDrawsMethods
     {
 
     }
+
+    #region Fill相关绘制方法
 
     private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)
     {
@@ -358,13 +375,13 @@ internal class BarDrawsMethods
         RenderTarget2D target = new RenderTarget2D(spriteBatch.GraphicsDevice, length, fill.texture.Value.Height);
         spriteBatch.GraphicsDevice.SetRenderTarget(target);
 
-        spriteBatch.End(); 
+        spriteBatch.End();
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.UIScaleMatrix);
 
 
         spriteBatch.Draw(
             fill.texture.Value,
-            new Rectangle(0, 0,BarConfig.Instance.BarLength,fill.texture.Value.Height),
+            new Rectangle(0, 0, BarConfig.Instance.BarLength, fill.texture.Value.Height),
             Color.White);
 
         spriteBatch.End();
@@ -375,5 +392,26 @@ internal class BarDrawsMethods
         spriteBatch.GraphicsDevice.SetRenderTarget(null);
 
     }
+
+    private static void FillDulplicate(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)
+    {
+        int count = length / fill.texture.Value.Width;
+        int remainder = length % fill.texture.Value.Width;
+
+        Color color = fill.barFillColor switch
+        {
+            BarFillColor.Vanilla => BarFillColorMethods.GetVanillaBarColor(percentage),
+            BarFillColor.Custom => fill.fillColor,
+        };
+
+        for (int i = 0; i < count; i++)
+        {
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (i * fill.texture.Value.Width), position.Y), color);
+        }
+
+        spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (count * fill.texture.Value.Width), position.Y), new Rectangle(0, 0, remainder, fill.texture.Value.Height), color);
+    }
+
+    #endregion
 }
 

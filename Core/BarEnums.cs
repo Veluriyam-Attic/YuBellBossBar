@@ -22,11 +22,6 @@ internal enum BarFillStyles
     /// <br/>Simply repeat the drawing of the bar, when the health decreases, it will cancel the drawing of a part.
     /// </summary>
     Dulplicate = 3,
-    /// <summary>
-    /// <br/>完全自定义,完全由用户决定如何绘制血条
-    /// <br/>Completely custom, completely determined by the user how to draw the bar.
-    /// </summary>
-    Custom = 4,
     
     None = int.MaxValue,
 }
