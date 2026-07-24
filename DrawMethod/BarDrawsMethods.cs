@@ -77,7 +77,6 @@ internal class BarDrawsMethods
         extraBetweenHeadEndAndIcon = barInfo.barTextures.extraTexturesBetweenHeadEndAndIcon;
         if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Icon, out icon))
             icon = new BarTexture2D(TextureType.Icon, TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()], TextureSource.None);
-        frameNow.TryAdd(icon, 1);
         extraBetweenIconAndInfo = barInfo.barTextures.extraTexturesBetweenIconAndInfo;
         extraUponInfo = barInfo.barTextures.extraTexturesUponInfo;
 
@@ -291,7 +290,7 @@ internal class BarDrawsMethods
 
         //------------------------------------------------------------------------------------------------------------------------------------//
 
-        //------------------------------------------------------------------------------------------------------------------------------------//
+        spriteBatch.Draw(icon.texture.Value, position + new Vector2((-BarConfig.Instance.BarLength / 2) - head.fillOffset.X + head.headOffset.X - (icon.texture.Value.Width / 2), -((head.texture.Value.Height / head.frameCount) / 2 ) + head.headOffset.Y - (icon.texture.Value.Height / 2)), Color.White);
 
         //------------------------------------------------------------------------------------------------------------------------------------//
         if (extraBetweenIconAndInfo != null && !BarConfig.Instance.EnableExtraCustom)
