@@ -543,7 +543,9 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
                         }
                     }
-                )
+                ),
+                null,
+                new List<int> { NPCID.EaterofWorldsHead,NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }
             )
         );
         BarInfos.Add(NPCID.EaterofWorldsBody,
@@ -573,7 +575,9 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
                         }
                     }
-                )
+                ),
+                null,
+                new List<int> { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }
             )
         );
         BarInfos.Add(NPCID.EaterofWorldsTail,
@@ -603,7 +607,9 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
                         }
                     }
-                )
+                ),
+                null,
+                new List<int> { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }
             )
         );
         #endregion
@@ -636,7 +642,9 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["BrainofCthulhuIcon"]
                         }
                     }
-                )
+                ),
+                null,
+                new List<int>() { NPCID.Creeper}
             )
         );
         BarInfos.Add(NPCID.Creeper,
@@ -666,7 +674,9 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["BrainofCthulhuIcon"]
                         }
                     }
-                )
+                ),
+                null,
+                new List<int>() { NPCID.Creeper }
             )
         );
         #endregion

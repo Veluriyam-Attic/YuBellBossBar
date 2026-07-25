@@ -9,10 +9,16 @@ public class BarConfig : ModConfig
 
     public override void OnLoaded() => Instance = this;
 
+    [Header($"PostionHeader")]
+
     [DefaultValue(0)]
+    [Range(int.MinValue,int.MaxValue)]
     public int BarPostionX;
     [DefaultValue(0)]
+    [Range(int.MinValue, int.MaxValue)]
     public int BarPostionY;
+
+    [Header($"TextureHeader")]
 
     [DefaultValue(true)]
     public bool GoldenStyle;
@@ -35,6 +41,8 @@ public class BarConfig : ModConfig
     [DefaultValue(true)]
     public bool EnableExtraCustom;
 
+    [Header($"CustomHeader")]
+
     [DefaultValue(800)]
     [Range(400, int.MaxValue)]
     public int BarLength;
@@ -46,4 +54,45 @@ public class BarConfig : ModConfig
     [Range(0,int.MaxValue)]
     [DefaultValue(35)]
     public int PostHealthTime;
+
+    [Range(0, 100)]
+    [DefaultValue(100)]
+    public int Alpha;
+
+    [Range(0, 100)]
+    [DefaultValue(50)]
+    public int MouseAlpha;
+
+    [Header($"InfoHeader")]
+
+    [DefaultValue(true)]
+    public bool ShowBar;
+
+    [DefaultValue(true)]
+    public bool ShowName;
+    [DefaultValue(true)]
+    public bool ShowLife;
+    [DefaultValue(true)]
+    public bool ShowLifeMax;
+    [DefaultValue(true)]
+    public bool ShowPercent;
+    [DefaultValue(true)]
+    public bool ShowSegment;
+    [DefaultValue(true)]
+    public bool ShowDefense;
+    [DefaultValue(true)]
+    public bool ShowCalDR;
+    [DefaultValue(true)]
+    public bool ShowFarDR;
+    [DefaultValue(true)]
+    public bool ShowTarget;
+    [DefaultValue(true)]
+    public bool ShowDamage;
+    [DefaultValue(true)]
+    public bool ShowIcon;
+
+    [Header($"ExperimentalHeader")]
+
+    [DefaultValue(false)]
+    public bool ImprovedLifeCalculation;
 }

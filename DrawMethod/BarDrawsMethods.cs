@@ -1,11 +1,12 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace YuBellBossBar.DrawMethod;
+﻿namespace YuBellBossBar.DrawMethod;
 
 internal class BarDrawsMethods
 {
-
-    public static Vector2 position = Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2((float)BarConfig.Instance.BarPostionX, -(float)BarConfig.Instance.BarPostionY - 40f);
+    public  static Vector2 position 
+    {
+        get 
+        { return Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2(BarConfig.Instance.BarPostionX, -BarConfig.Instance.BarPostionY - 40f); }
+    }
 
     public static Dictionary<int, float> postpercentage = new Dictionary<int, float>();
 
@@ -13,7 +14,6 @@ internal class BarDrawsMethods
 
     public static bool PreDraw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams)
     {
-
         return true;
     }
 
@@ -30,14 +30,24 @@ internal class BarDrawsMethods
             barInfo = BarData.BarInfos[index];
         }
 
-        if (barInfo.ShowBar)
+        if (barInfo.ShowBar && BarConfig.Instance.ShowBar)
         {
+            #region 同步不同体节血量
+
+            if (barInfo.Segment != null && BarConfig.Instance.ImprovedLifeCalculation)
+            {
+
+            }
+
+            #endregion
+
+
             #region 声明所需局部变量
             // 血量相关
             float life = drawParams.Life;
             float lifemax = drawParams.LifeMax;
             float percentage = life / lifemax;
-            float postpercentage = PostHealthSystem.GetPostHealth(npc.type, percentage);
+            float postpercentage = PostHealthSystem.GetPostHealth(npc.whoAmI, percentage);
             int lengthNow = (int)(percentage * BarConfig.Instance.BarLength);
             int lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
 
@@ -118,16 +128,21 @@ internal class BarDrawsMethods
 
             #region 贴图绘制方法
 
+            #region Alpha乘数
+            bool MouseAlpha = Collision.CheckAABBvAABBCollision(Main.MouseScreen, Vector2.One, new Vector2(position.X - (BarConfig.Instance.BarLength / 2) - head.fillOffset.X, position.Y - (fill.texture.Value.Height / 2) - head.fillOffset.Y),new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - tail.fillOffset.X + tail.texture.Value.Width,Math.Max(head.texture.Value.Height,tail.texture.Value.Height)));
+            float GlobalAlpha = (MouseAlpha ? ((float)BarConfig.Instance.MouseAlpha / 100) : 1f) * ((float)BarConfig.Instance.Alpha / 100);
+            #endregion
+
             #region 额外绘制填充之下
             if (extraBelowFill != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBelowFill)
-                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength,(int)life, (int)lifemax,percentage,GlobalAlpha);
             #endregion
 
             #region 填充相关绘制方法
             {
                 if (fill.CustomDrawEvent != null)
-                    fill.CustomDrawEvent(spriteBatch, position, BarConfig.Instance.BarLength);
+                    fill.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
                 else
                 {
                     Vector2 StartPosition = position - new Vector2(BarConfig.Instance.BarLength / 2, fill.texture.Value.Height / 2);
@@ -144,23 +159,23 @@ internal class BarDrawsMethods
                     {
                         case BarFillStyles.FillExtend:
                             {
-                                FillExtend(spriteBatch, fill, StartPosition, lengthPost, percentage, postpercentage, 0.7f);
-                                FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
+                                FillExtend(spriteBatch, fill, StartPosition, lengthPost, percentage, postpercentage, 0.7f,GlobalAlpha);
+                                FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
                                 break;
                             }
                         case BarFillStyles.FillAll:
                             {
-                                FillAll(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
+                                FillAll(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
                                 break;
                             }
                         case BarFillStyles.FillPartial:
                             {
-                                FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
+                                FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
                                 break;
                             }
                         case BarFillStyles.Dulplicate:
                             {
-                                FillDulplicate(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f);
+                                FillDulplicate(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
                                 break;
                             }
                     }
@@ -171,14 +186,14 @@ internal class BarDrawsMethods
             #region 额外绘制填充和框架之间
             if (extraBetweenFillAndFrame != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenFillAndFrame)
-                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
             #endregion
 
             #region 框架相关绘制方法
             {
                 if (frame.CustomDrawEvent != null)
                 {
-                    frame.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    frame.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
                 }
                 else
                 {
@@ -202,7 +217,7 @@ internal class BarDrawsMethods
                                     HeightPF
                                     );
 
-                                spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X, (int)StartPosition.Y, (int)EndPosition.X - (int)StartPosition.X, frame.texture.Value.Height), frameP, Color.White);
+                                spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X, (int)StartPosition.Y, (int)EndPosition.X - (int)StartPosition.X, frame.texture.Value.Height), frameP, Color.White * GlobalAlpha);
 
                                 frameNow[frame]++;
                                 break;
@@ -226,7 +241,7 @@ internal class BarDrawsMethods
 
                                 for (int i = 0; i < count; i++)
                                 {
-                                    spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, frame.texture.Value.Height), frameP, Color.White);
+                                    spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, frame.texture.Value.Height), frameP, Color.White * GlobalAlpha);
                                 }
 
                                 frameNow[frame]++;
@@ -240,14 +255,14 @@ internal class BarDrawsMethods
             #region 额外绘制框架和头尾之间
             if (extraBetweenFrameAndHeadEnd != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenFrameAndHeadEnd)
-                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
             #endregion
 
             #region 头部相关绘制方法
             {
                 if (head.CustomDrawEvent != null)
                 {
-                    CheckBox[0] = head.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    CheckBox[0] = head.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
                 }
                 else
                 {
@@ -268,7 +283,7 @@ internal class BarDrawsMethods
                         HeightPF
                         );
 
-                    spriteBatch.Draw(head.texture.Value, StartPosition, headP, Color.White);
+                    spriteBatch.Draw(head.texture.Value, StartPosition, headP, Color.White * GlobalAlpha);
 
                     frameNow[head]++;
                 }
@@ -279,7 +294,7 @@ internal class BarDrawsMethods
             {
                 if (tail.CustomDrawEvent != null)
                 {
-                    CheckBox[1] = tail.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    CheckBox[1] = tail.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
                 }
                 else
                 {
@@ -300,7 +315,7 @@ internal class BarDrawsMethods
                         HeightPF
                         );
 
-                    spriteBatch.Draw(tail.texture.Value, StartPosition, tailP, Color.White);
+                    spriteBatch.Draw(tail.texture.Value, StartPosition, tailP, Color.White * GlobalAlpha);
 
                     frameNow[tail]++;
                 }
@@ -310,60 +325,72 @@ internal class BarDrawsMethods
             #region 额外绘制在头尾和大头照之间
             if (extraBetweenHeadEndAndIcon != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenHeadEndAndIcon)
-                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
             #endregion
 
             #region 大头照相关绘制方法
             if (icon.CustomDrawEvent != null)
             {
-                icon.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                icon.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
             }
             else
             {
-                spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, icon.texture.Value.Height / 2), Color.White);
+                spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, icon.texture.Value.Height / 2), Color.White * GlobalAlpha);
             }
             #endregion
 
             #region 额外绘制大头照和信息之间
             if (extraBetweenIconAndInfo != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenIconAndInfo)
-                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
             #endregion
 
             #region 信息显示相关绘制方法
 
-
             string Info = string.Empty;
-            if (barInfo.ShowName)
+            if (barInfo.ShowName && BarConfig.Instance.ShowName)
             {
                 Info += Lang.GetNPCName(npc.type).ToString();
             }
-            if (barInfo.ShowLife)
+            if (barInfo.ShowLife && BarConfig.Instance.ShowLife)
             {
                 Info += (Info == string.Empty ? "" : " : ") + life.ToString();
-                if (barInfo.ShowLifeMax)
+                if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax)
                 {
                     Info += "/";
                     Info += lifemax.ToString();
                 }
             }
-            if (barInfo.ShowLifeMax && !barInfo.ShowLife)
+            if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax && !barInfo.ShowLife && !BarConfig.Instance.ShowLife)
             {
                 Info += (Info == string.Empty ? "" : " : ") + lifemax.ToString();
             }
-            if (barInfo.ShowPercent)
+            if (barInfo.ShowPercent && BarConfig.Instance.ShowPercent)
             {
                 Info += (Info == string.Empty ? "" : " : ") + "[" + string.Format("{0:f2}", (percentage * 100)) + "%" + "]";
             }
-            if (barInfo.ShowSegment)
+            if (barInfo.ShowSegment && BarConfig.Instance.ShowSegment && barInfo.Segment != null)
             {
-                Info += (Info == string.Empty ? "" : " : ") + "".ToString();
+                int amount = 0;
+
+                foreach (int segmentType in barInfo.Segment)
+                {
+                    for (int i = 0; i < Main.npc.Length; i++)
+                    {
+                        NPC segment = Main.npc[i];
+                        if (segment.type == segmentType && segment.active)
+                        {
+                            amount++;
+                        }
+                    }
+                }
+                Info += (Info == string.Empty ? "" : " : ") + Language.GetTextValue("Mods.YuBellBossBar.Info.Segment") + amount.ToString();
             }
 
             Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Info).X / 2, FontAssets.MouseText.Value.MeasureString(Info).Y / 3);
 
             Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
-            Utils.DrawBorderString(spriteBatch,Info , position - Namepostion, Color.White);
+            Utils.DrawBorderString(spriteBatch,Info , position - Namepostion, Color.White * GlobalAlpha);
 
 
             #endregion
@@ -371,8 +398,9 @@ internal class BarDrawsMethods
             #region 额外绘制信息显示之上
             if (extraUponInfo != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraUponInfo)
-                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength);
+                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
             #endregion
+
             #endregion
 
         }
@@ -386,7 +414,7 @@ internal class BarDrawsMethods
 
     #region Fill相关绘制方法
 
-    private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)
+    private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha,float GlobalAlpha)
     {
         Rectangle FillP1 = new Rectangle(0, 0, fill.texture.Value.Width - fill.fillCutLengh - 1, fill.texture.Value.Height);
         Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh - 1, 0, fill.fillCutLengh + 1, fill.texture.Value.Height);
@@ -399,16 +427,16 @@ internal class BarDrawsMethods
 
         if (length > fill.fillCutLengh)
         {
-            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh, fill.texture.Value.Height), FillP1, color * alpha);
-            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), FillP2, color * alpha);
+            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh, fill.texture.Value.Height), FillP1, color * alpha * GlobalAlpha);
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), FillP2, color * alpha * GlobalAlpha);
         }
         else
         {
-            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), new Rectangle(FillP2.X, FillP2.Y, length, FillP2.Height), color * alpha);
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), new Rectangle(FillP2.X, FillP2.Y, length, FillP2.Height), color * alpha * GlobalAlpha);
         }
     }
 
-    private static void FillAll(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)
+    private static void FillAll(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
     {
         Color color = fill.barFillColor switch
         {
@@ -418,44 +446,78 @@ internal class BarDrawsMethods
 
         // 宝宝我也看不懂这些，这是AI写的
         // 但是效果是对的不就好了吗
-        if (length != 0)
         {
-            SpriteBatch _renderTargetSpriteBatch = new SpriteBatch(Main.graphics.GraphicsDevice);
-            GraphicsDevice gd = spriteBatch.GraphicsDevice;
+            try
+            {
+                Texture2D source = fill.texture.Value;
 
-            RenderTarget2D target = new RenderTarget2D(
-                gd,
-                length,
-                fill.texture.Value.Height);
+                int srcWidth = source.Width;
+                int srcHeight = source.Height;
+                int dstWidth = Math.Max(1, BarConfig.Instance.BarLength);
 
-            gd.SetRenderTarget(target);
-            gd.Clear(Color.Transparent);
+                // 裁剪宽度保护
+                length = Utils.Clamp(length, 0, dstWidth);
 
-            _renderTargetSpriteBatch.Begin(
-                SpriteSortMode.Deferred,
-                BlendState.AlphaBlend,
-                SamplerState.LinearClamp,
-                DepthStencilState.None,
-                RasterizerState.CullNone);
+                // 原图
+                Color[] src = new Color[srcWidth * srcHeight];
+                source.GetData(src);
 
-            _renderTargetSpriteBatch.Draw(
-                fill.texture.Value,
-                new Rectangle(0, 0, BarConfig.Instance.BarLength, fill.texture.Value.Height),
-                Color.White);
+                // 新图
+                Color[] dst = new Color[dstWidth * srcHeight];
 
-            _renderTargetSpriteBatch.End();
+                for (int y = 0; y < srcHeight; y++)
+                {
+                    int srcRow = y * srcWidth;
+                    int dstRow = y * dstWidth;
 
-            gd.SetRenderTarget(null);
+                    for (int x = 0; x < dstWidth; x++)
+                    {
+                        float fx = dstWidth == 1
+                            ? 0
+                            : x * (srcWidth - 1f) / (dstWidth - 1f);
 
-            spriteBatch.Draw(
-                target,
-                new Rectangle((int)position.X, (int)position.Y, length, fill.texture.Value.Height),
-                new Rectangle(0, 0, length, fill.texture.Value.Height),
-                color);
+                        int left = (int)fx;
+                        int right = Math.Min(left + 1, srcWidth - 1);
+
+                        float t = fx - left;
+
+                        Color a = src[srcRow + left];
+                        Color b = src[srcRow + right];
+
+                        dst[dstRow + x] = new Color(
+                            (byte)(a.R + (b.R - a.R) * t),
+                            (byte)(a.G + (b.G - a.G) * t),
+                            (byte)(a.B + (b.B - a.B) * t),
+                            (byte)(a.A + (b.A - a.A) * t));
+                    }
+                }
+
+                Texture2D texture = new Texture2D(
+                    spriteBatch.GraphicsDevice,
+                    dstWidth,
+                    srcHeight,
+                    false,
+                    SurfaceFormat.Color);
+
+                texture.SetData(dst);
+
+                spriteBatch.Draw(
+                    texture,
+                    position,
+                    new Rectangle(0, 0, length, srcHeight),
+                    color * GlobalAlpha);
+
+                // 暂时不要 Dispose，先确认功能正常
+                // texture.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Main.NewText(ex.Message);
+            }
         }
     }
 
-    private static void FillDulplicate(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha)
+    private static void FillDulplicate(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
     {
         int count = length / fill.texture.Value.Width;
         int remainder = length % fill.texture.Value.Width;
@@ -468,10 +530,10 @@ internal class BarDrawsMethods
 
         for (int i = 0; i < count; i++)
         {
-            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (i * fill.texture.Value.Width), position.Y), color);
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (i * fill.texture.Value.Width), position.Y), color * GlobalAlpha);
         }
 
-        spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (count * fill.texture.Value.Width), position.Y), new Rectangle(0, 0, remainder, fill.texture.Value.Height), color);
+        spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (count * fill.texture.Value.Width), position.Y), new Rectangle(0, 0, remainder, fill.texture.Value.Height), color * GlobalAlpha);
     }
 
     #endregion

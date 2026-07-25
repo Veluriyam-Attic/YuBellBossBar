@@ -63,12 +63,102 @@ Configs: {
 
 		PostHealthSpeed: {
 			Label: 伤害缓冲速率
-			Tooltip: ""
+			Tooltip: 默认值4
 		}
 
 		PostHealthTime: {
 			Label: 伤害缓冲时间
-			Tooltip: ""
+			Tooltip: 默认值35
+		}
+
+		Headers: {
+			PostionHeader: 位置
+			TextureHeader: 贴图
+			CustomHeader: 自定义
+			InfoHeader: 信息
+			ExperimentalHeader: 试验性
+		}
+
+		Alpha: {
+			Label: 不透明度
+			Tooltip: 默认值100
+		}
+
+		MouseAlpha: {
+			Label: 鼠标重合时不透明度
+			Tooltip: 默认值50
+		}
+
+		ShowBar: {
+			Label: 显示血条
+			Tooltip: 默认开启
+		}
+
+		ShowName: {
+			Label: 显示Boss名称
+			Tooltip: 默认开启
+		}
+
+		ShowLife: {
+			Label: 显示实时生命值
+			Tooltip: 默认开启
+		}
+
+		ShowLifeMax: {
+			Label: 显示最大生命值
+			Tooltip: 默认开启
+		}
+
+		ShowPercent: {
+			Label: 显示血量百分比
+			Tooltip: 默认开启
+		}
+
+		ShowSegment: {
+			Label: 显示剩余体节数
+			Tooltip: 默认开启
+		}
+
+		ShowDefense: {
+			Label: 显示防御力
+			Tooltip: 默认开启
+		}
+
+		ShowCalDR: {
+			Label: 显示灾厄伤害减免(未实现)
+			Tooltip: 默认开启
+		}
+
+		ShowFarDR: {
+			Label: 显示Fargo伤害减免(未实现)
+			Tooltip: 默认开启
+		}
+
+		ShowTarget: {
+			Label: 显示仇恨对象
+			Tooltip: 默认开启
+		}
+
+		ShowDamage: {
+			Label: 显示攻击伤害
+			Tooltip: 默认开启
+		}
+
+		ShowIcon: {
+			Label: 显示Boss头像
+			Tooltip: 默认开启
+		}
+
+		ImprovedLifeCalculation: {
+			Label: 优化后的血量算法
+			Tooltip:
+				'''
+				[c/FF0000:-请-注-意-该-配-置-为-试-验-性-配-置-]
+				开启此选项可能造成轻微性能问题
+				该配置可能优化开启灾厄时部分Boss血量计算
+				同时可能对部分Boss不兼容
+				默认关闭
+				'''
 		}
 	}
 }
@@ -77,4 +167,9 @@ Exception: {
 	Solution: Try Disable the [c/FF0000:Yet Another Boss Health Bar] Mod!
 	InputError: Input Error!{0}{$Solution}
 	OnSelectEnums: On Select Enums!
+}
+
+Info: {
+	Segment: 剩余体节:
+	Invincible: "[无敌]"
 }

@@ -10,30 +10,48 @@
 
     internal static class PostHealthSystem
     {
-        private static readonly float[] Health = new float[NPCLoader.NPCCount];
-        private static readonly float[] Last = new float[NPCLoader.NPCCount];
-        private static readonly int[] Timer = new int[NPCLoader.NPCCount];
+        private static int id = -1;
 
-        public static float GetPostHealth(int type, float percentage)
+        private static float Health;
+        private static float Last;
+        private static int Timer;
+
+
+        public static float GetPostHealth(int npcId, float percentage)
         {
-            if (Health[type] == 0f)
-                Health[type] = Last[type] = percentage;
+            // 当前显示对象改变
+            if (id != npcId)
+            {
+                id = npcId;
+                Health = Last = percentage;
+                Timer = 0;
+                return Health;
+            }
 
-            // 回血立即同步
-            if (Health[type] < percentage)
-                Health[type] = percentage;
+            // 回血同步
+            if (percentage > Health)
+                Health = percentage;
 
-            // 继续掉血，重新计时
-            if (percentage < Last[type])
-                Timer[type] = 0;
+            // 掉血
+            if (percentage < Last)
+            {
+                Timer = 0;
+            }
+            else
+            {
+                Timer++;
 
-            // 停止掉血，开始缩减延迟血条
-            else if (++Timer[type] >= BarConfig.Instance.PostHealthTime && Health[type] > percentage)
-                Health[type] = Math.Max(Health[type] - ((float)BarConfig.Instance.PostHealthSpeed / (float)BarConfig.Instance.BarLength), percentage);
+                if (Timer >= BarConfig.Instance.PostHealthTime)
+                {
+                    Health = Math.Max(
+                        Health - (float)BarConfig.Instance.PostHealthSpeed / BarConfig.Instance.BarLength,
+                        percentage);
+                }
+            }
 
-            Last[type] = percentage;
+            Last = percentage;
 
-            return Health[type];
+            return Health;
         }
     }
 }

@@ -1,15 +1,13 @@
-[h1]This is a Health Bar Mod[/h1]
+这是个血条
 
 Updated From 1.3 [Yet Another Boss Health Bar]
 
-[h1] I'll rework this mod when I finish Gaokao.
+Enable this Health Bar in Vanilla Setting - Interface - Boss Bar Style
 
-Next Update: Rework all code.
+Thanks!!!
+Flashkirby, Devil Slime, ROH, SupremePermafrost,Tigerzzz,Umbra and Shinji
 
-[h2]Thanks!!![/h2]
-Flashkirby, Devil Slime, ROH, SupremePermafrost,Tigerzzz
-
-[h2]Feedback[/h2]
+Feedback
 Email: 3412615165@qq.com
 Discord: zhzhaidou_
 QQ Group: 909428503
