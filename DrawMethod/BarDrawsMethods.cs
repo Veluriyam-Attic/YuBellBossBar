@@ -2,9 +2,9 @@
 
 internal class BarDrawsMethods
 {
-    public  static Vector2 position 
+    public static Vector2 position
     {
-        get 
+        get
         { return Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2(BarConfig.Instance.BarPostionX, -BarConfig.Instance.BarPostionY - 40f); }
     }
 
@@ -36,7 +36,15 @@ internal class BarDrawsMethods
 
             if (barInfo.Segment != null && BarConfig.Instance.ImprovedLifeCalculation)
             {
-
+                float max = barInfo.Segment.Max(npctype =>
+                {
+                    if (GlobalBar.maxlifes.ContainsKey(npctype))
+                        return GlobalBar.maxlifes[npctype];
+                    else
+                        return GlobalBar.maxlifes[npc.type];
+                });
+                foreach (int npctype in barInfo.Segment)
+                    GlobalBar.maxlifes[npctype] = max;
             }
 
             #endregion
@@ -75,24 +83,29 @@ internal class BarDrawsMethods
             #region 根据模组配置重新选择贴图
 
             extraBelowFill = barInfo.barTextures.extraTexturesBelowFill;
-            if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Fill, out fill))
-                fill = barInfo.barTextures.baseTextures[TextureType.Fill];
+
+            barInfo.barTextures.baseTextures.TryGetValue(TextureType.Fill, out fill);
             frameNow.TryAdd(fill, 1);
+
             extraBetweenFillAndFrame = barInfo.barTextures.extraTexturesBetweenFillAndFrame;
-            if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Frame, out frame))
-                frame = barInfo.barTextures.baseTextures[TextureType.Frame];
+            barInfo.barTextures.baseTextures.TryGetValue(TextureType.Frame, out frame);
             frameNow.TryAdd(frame, 1);
+
             extraBetweenFrameAndHeadEnd = barInfo.barTextures.extraTexturesBetweenFrameAndHeadEnd;
-            if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Head, out head))
-                head = barInfo.barTextures.baseTextures[TextureType.Head];
+
+            barInfo.barTextures.baseTextures.TryGetValue(TextureType.Head, out head);
             frameNow.TryAdd(head, 1);
-            if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Tail, out tail))
-                tail = barInfo.barTextures.baseTextures[TextureType.Tail];
+
+            barInfo.barTextures.baseTextures.TryGetValue(TextureType.Tail, out tail);
             frameNow.TryAdd(tail, 1);
+
             extraBetweenHeadEndAndIcon = barInfo.barTextures.extraTexturesBetweenHeadEndAndIcon;
+
             if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Icon, out icon))
                 icon = new BarTexture2D(TextureType.Icon, TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()], TextureSource.None);
+
             extraBetweenIconAndInfo = barInfo.barTextures.extraTexturesBetweenIconAndInfo;
+
             extraUponInfo = barInfo.barTextures.extraTexturesUponInfo;
 
 
@@ -129,14 +142,14 @@ internal class BarDrawsMethods
             #region 贴图绘制方法
 
             #region Alpha乘数
-            bool MouseAlpha = Collision.CheckAABBvAABBCollision(Main.MouseScreen, Vector2.One, new Vector2(position.X - (BarConfig.Instance.BarLength / 2) - head.fillOffset.X, position.Y - (fill.texture.Value.Height / 2) - head.fillOffset.Y),new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - tail.fillOffset.X + tail.texture.Value.Width,Math.Max(head.texture.Value.Height,tail.texture.Value.Height)));
+            bool MouseAlpha = Collision.CheckAABBvAABBCollision(Main.MouseScreen, Vector2.One, new Vector2(position.X - (BarConfig.Instance.BarLength / 2) - head.fillOffset.X, position.Y - (fill.texture.Value.Height / 2) - head.fillOffset.Y), new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - tail.fillOffset.X + tail.texture.Value.Width, Math.Max(head.texture.Value.Height, tail.texture.Value.Height)));
             float GlobalAlpha = (MouseAlpha ? ((float)BarConfig.Instance.MouseAlpha / 100) : 1f) * ((float)BarConfig.Instance.Alpha / 100);
             #endregion
 
             #region 额外绘制填充之下
             if (extraBelowFill != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBelowFill)
-                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength,(int)life, (int)lifemax,percentage,GlobalAlpha);
+                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
             #endregion
 
             #region 填充相关绘制方法
@@ -159,13 +172,13 @@ internal class BarDrawsMethods
                     {
                         case BarFillStyles.FillExtend:
                             {
-                                FillExtend(spriteBatch, fill, StartPosition, lengthPost, percentage, postpercentage, 0.7f,GlobalAlpha);
+                                FillExtend(spriteBatch, fill, StartPosition, lengthPost, percentage, postpercentage, 0.7f, GlobalAlpha);
                                 FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
                                 break;
                             }
                         case BarFillStyles.FillAll:
                             {
-                                FillAll(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
+                                FillAll(npc.type, spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
                                 break;
                             }
                         case BarFillStyles.FillPartial:
@@ -390,7 +403,7 @@ internal class BarDrawsMethods
             Vector2 Namepostion = new Vector2(FontAssets.MouseText.Value.MeasureString(Info).X / 2, FontAssets.MouseText.Value.MeasureString(Info).Y / 3);
 
             Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
-            Utils.DrawBorderString(spriteBatch,Info , position - Namepostion, Color.White * GlobalAlpha);
+            Utils.DrawBorderString(spriteBatch, Info, position - Namepostion, Color.White * GlobalAlpha);
 
 
             #endregion
@@ -414,7 +427,7 @@ internal class BarDrawsMethods
 
     #region Fill相关绘制方法
 
-    private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha,float GlobalAlpha)
+    private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
     {
         Rectangle FillP1 = new Rectangle(0, 0, fill.texture.Value.Width - fill.fillCutLengh - 1, fill.texture.Value.Height);
         Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh - 1, 0, fill.fillCutLengh + 1, fill.texture.Value.Height);
@@ -436,85 +449,87 @@ internal class BarDrawsMethods
         }
     }
 
-    private static void FillAll(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
+    private static void FillAll(int npctype, SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
     {
+        // 宝宝我也看不懂这些，这是AI写的
+        // 但是效果是对的不就好了吗
+        void AdjustTexture(ref BarTexture2D texture)
+        {
+            Texture2D source = texture.texture.Value;
+
+            int srcWidth = source.Width;
+            int srcHeight = source.Height;
+            int dstWidth = Math.Max(1, BarConfig.Instance.BarLength);
+
+            // 裁剪宽度保护
+            length = Utils.Clamp(length, 0, dstWidth);
+
+            // 原图
+            Color[] src = new Color[srcWidth * srcHeight];
+            source.GetData(src);
+
+            // 新图
+            Color[] dst = new Color[dstWidth * srcHeight];
+
+            for (int y = 0; y < srcHeight; y++)
+            {
+                int srcRow = y * srcWidth;
+                int dstRow = y * dstWidth;
+
+                for (int x = 0; x < dstWidth; x++)
+                {
+                    float fx = dstWidth == 1
+                        ? 0
+                        : x * (srcWidth - 1f) / (dstWidth - 1f);
+
+                    int left = (int)fx;
+                    int right = Math.Min(left + 1, srcWidth - 1);
+
+                    float t = fx - left;
+
+                    Color a = src[srcRow + left];
+                    Color b = src[srcRow + right];
+
+                    dst[dstRow + x] = new Color(
+                        (byte)(a.R + (b.R - a.R) * t),
+                        (byte)(a.G + (b.G - a.G) * t),
+                        (byte)(a.B + (b.B - a.B) * t),
+                        (byte)(a.A + (b.A - a.A) * t));
+                }
+            }
+
+            Texture2D tex = new Texture2D(
+                spriteBatch.GraphicsDevice,
+                dstWidth,
+                srcHeight,
+                false,
+                SurfaceFormat.Color);
+
+            tex.SetData(dst);
+
+            texture.adjustedtexture = tex;
+
+            //tex.Dispose();
+        }
+
         Color color = fill.barFillColor switch
         {
             BarFillColor.Vanilla => BarFillColorMethods.GetVanillaBarColor(percentage),
             BarFillColor.Custom => fill.fillColor,
         };
 
-        // 宝宝我也看不懂这些，这是AI写的
-        // 但是效果是对的不就好了吗
+        if (fill.adjustedtexture == null || fill.adjustedtexture?.Width != BarConfig.Instance.BarLength)
         {
-            try
-            {
-                Texture2D source = fill.texture.Value;
+            AdjustTexture(ref fill);
 
-                int srcWidth = source.Width;
-                int srcHeight = source.Height;
-                int dstWidth = Math.Max(1, BarConfig.Instance.BarLength);
-
-                // 裁剪宽度保护
-                length = Utils.Clamp(length, 0, dstWidth);
-
-                // 原图
-                Color[] src = new Color[srcWidth * srcHeight];
-                source.GetData(src);
-
-                // 新图
-                Color[] dst = new Color[dstWidth * srcHeight];
-
-                for (int y = 0; y < srcHeight; y++)
-                {
-                    int srcRow = y * srcWidth;
-                    int dstRow = y * dstWidth;
-
-                    for (int x = 0; x < dstWidth; x++)
-                    {
-                        float fx = dstWidth == 1
-                            ? 0
-                            : x * (srcWidth - 1f) / (dstWidth - 1f);
-
-                        int left = (int)fx;
-                        int right = Math.Min(left + 1, srcWidth - 1);
-
-                        float t = fx - left;
-
-                        Color a = src[srcRow + left];
-                        Color b = src[srcRow + right];
-
-                        dst[dstRow + x] = new Color(
-                            (byte)(a.R + (b.R - a.R) * t),
-                            (byte)(a.G + (b.G - a.G) * t),
-                            (byte)(a.B + (b.B - a.B) * t),
-                            (byte)(a.A + (b.A - a.A) * t));
-                    }
-                }
-
-                Texture2D texture = new Texture2D(
-                    spriteBatch.GraphicsDevice,
-                    dstWidth,
-                    srcHeight,
-                    false,
-                    SurfaceFormat.Color);
-
-                texture.SetData(dst);
-
-                spriteBatch.Draw(
-                    texture,
-                    position,
-                    new Rectangle(0, 0, length, srcHeight),
-                    color * GlobalAlpha);
-
-                // 暂时不要 Dispose，先确认功能正常
-                // texture.Dispose();
-            }
-            catch (Exception ex)
-            {
-                Main.NewText(ex.Message);
-            }
+            BarData.BarInfos[npctype].barTextures.baseTextures[TextureType.Fill] = fill;
         }
+
+        spriteBatch.Draw(
+            fill.adjustedtexture,
+            position,
+            new Rectangle(0, 0, length, fill.texture.Value.Height),
+            color * GlobalAlpha);
     }
 
     private static void FillDulplicate(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)

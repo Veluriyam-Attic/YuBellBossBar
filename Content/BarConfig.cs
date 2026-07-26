@@ -95,4 +95,11 @@ public class BarConfig : ModConfig
 
     [DefaultValue(false)]
     public bool ImprovedLifeCalculation;
+
+#if DEBUG
+    [Header($"DebugHeader")]
+
+    [DefaultValue(true)]
+    public bool UseOldFillAllLogic;
+#endif
 }

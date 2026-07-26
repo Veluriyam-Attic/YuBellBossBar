@@ -18,7 +18,7 @@ internal class CalamityBarHealth
 
     internal static (long?, long?, long?) DoSomeReflection(int npcIndex,int npcType)
     {
-        if (YuBellBossBar.CalamityAdapt)
+        if (!YuBellBossBar.CalamityAdapt)
             return (null, null, null);
 
         // 创建BossHPUI实例

@@ -166,6 +166,8 @@ internal struct BarTexture2D
     // 贴图文件
     public Asset<Texture2D> texture;
 
+    public Texture2D adjustedtexture = null;
+
     // 偏移量
     public Vector2 fillOffset = Vector2.Zero;
     public Vector2 headOffset = Vector2.Zero;

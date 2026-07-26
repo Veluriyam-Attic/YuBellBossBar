@@ -28,6 +28,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
             return;
         if (npc == null)
             return;
+
         // npc和drawParams在GlobalBar.PreDraw()中被赋值
         if (BarDrawsMethods.PreDraw(spriteBatch, npc, drawParams))
             if (BarDrawsMethods.Draw(spriteBatch, npc, drawParams))

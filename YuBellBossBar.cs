@@ -47,7 +47,7 @@ public class YuBellBossBar : Mod
     {
         // 可以从外部设定特定Boss的血条绘制情况
         if (args[0].ToString() == "ChangeBarInfo")
-            YAB.ModCalls.TryAdd((int)args[1],new BarInfo(new BarTextures(), (Dictionary<string,bool>)args[2]));
+            YAB.ModCalls.TryAdd((int)args[1], new BarInfo(new BarTextures(), (Dictionary<string, bool>)args[2]));
 
         return "[Yet Another Boss Health Bar]:Mod Call has been executed.";
     }

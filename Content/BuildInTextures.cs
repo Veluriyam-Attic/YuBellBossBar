@@ -917,4 +917,8 @@ internal static class BuildInTextures
         }
     };
     #endregion
+
+    #region 自定义
+    public static Dictionary<string, BarTexture2D> ExtraCustom = new Dictionary<string, BarTexture2D>();
+    #endregion
 }
