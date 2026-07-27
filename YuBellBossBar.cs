@@ -28,6 +28,11 @@ public class YuBellBossBar : Mod
             YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", fargosouls.Find<ModNPC>("AbomBoss").Type, "Fill Color", (int)TextureType.Fill, Color.Orange);
             YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", fargosouls.Find<ModNPC>("MutantBoss").Type, "Fill Color", (int)TextureType.Fill, new Color(10, 255, 210));
         }
+
+        if (ModLoader.TryGetMod("CalamityMod",out Mod calamity))
+        {
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("SlimeGodCore").Type, false);
+        }
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded
         if (CalamityAdapt && ModLoader.HasMod("CalamityMod"))
         {
@@ -135,6 +140,27 @@ public class YuBellBossBar : Mod
                                     }
                                     break;
                                 }
+
+                            case "Invincible":
+                                {
+                                    if (args[3] is int && args[4] is bool)
+                                    {
+                                        if (BarData.BarInfos.Keys.Contains((int)args[3]))
+                                        {
+                                            BarInfo bridage = new BarInfo(BarData.BarInfos[(int)args[3]]);
+                                            bridage.ShowInvincible = (bool)args[4];
+                                            BarData.BarInfos[(int)args[3]] = bridage;
+                                        }
+                                        else
+                                        {
+                                            BarInfo bridage = new BarInfo(BarData.BarInfos[int.MaxValue]);
+                                            bridage.ShowInvincible = (bool)args[4];
+                                            BarData.BarInfos.Add((int)args[3],bridage);
+                                        }
+                                    }
+                                    return "YetAnotherModCall: Invincible changed successfully!";
+                                }
+
                         }
                         break;
                     }
