@@ -1,0 +1,206 @@
+Name: Yet Another Boss Health Bar
+
+Configs: {
+	BarConfig: {
+		DisplayName: Health Bar Config
+
+		BarPostionX: {
+			Label: Health Bar Horizontal Offset
+			Tooltip: RIGHT as positive direction. Defaults to 0.
+		}
+
+		BarPostionY: {
+			Label: Health Bar Vertical Offset
+			Tooltip: UP as positive direction. Defaults to 0.
+		}
+
+		GoldenStyle: {
+			Label: Switch Golden/Sivery Health Bar
+			Tooltip: Toggles the default health bar texture for bosses without a unique health bar. Enabled uses golden, while disabled uses silvery. Enabled by default.
+		}
+
+		BarLength: {
+			Label: Health Bar Length
+			Tooltip: The length of the filled portion of the boss health bar. Defaults to 800.
+		}
+
+		ForceDefaulTexture: {
+			Label: Force Default Health Bar
+			Tooltip: Forces the default health bar texture used for bosses without a unique health bar. Enabled forces its use, while disabled does not. Disabled by default.
+		}
+
+		EnableDefualVanilla: {
+			Label: Vanilla Boss Health Bar Textures
+			Tooltip: When disabled, the unique health bar textures added by the original mod for vanilla bosses will no longer be displayed. Enabled by default.
+		}
+
+		EnableExtraVanilla: {
+			Label: Enable New Vanilla Boss Health Bar Textures
+			Tooltip: When disabled, the newly added unique health bar textures for vanilla bosses will no longer be displayed. Enabled by default.
+		}
+
+		#For non-Chinese text, please replace contact details with Discord: zlzhaidou_
+		EnableExtraCalamity: {
+			Label: Enable Calamity Health Bar Support
+			Tooltip:
+				'''
+				When disabled, the unique health bar textures for Calamity bosses will no longer be displayed. Enabled by default.
+				[As Calamity contains a large number of textures, and the existing textures date back to version 1.3,]
+				[support for Calamity boss health bar textures has been postponed for now.]
+				[You may add Discord: zlzhaidou_ if you would like to help me implement this feature!]
+				'''
+		}
+
+		EnableExtraInfo: {
+			Label: Enable Extra Info
+			Tooltip: Including boss damage, boss defense, and the boss's current target. Support for displaying damage reduction from Calamity and Fargo's Souls will be added in the future.
+		}
+
+		EnableExtraCustom: {
+			Label: Enable Exclusive Boss Sprites Added by Other Mods
+			Tooltip: Enabled by default.
+		}
+
+		PostHealthSpeed: {
+			Label: Damage Buffer Rate
+			Tooltip: Defaults to 4.
+		}
+
+		PostHealthTime: {
+			Label: Damage Buffer Time
+			Tooltip: Defaults to 35.
+		}
+
+		Headers: {
+			PostionHeader: Position
+			TextureHeader: Texture
+			CustomHeader: Custom
+			InfoHeader: Info
+			ExperimentalHeader: Experimental
+			DebugHeader: Debug
+		}
+
+		Alpha: {
+			Label: Opacity
+			Tooltip: Defaults to 100.
+		}
+
+		MouseAlpha: {
+			Label: Mouseover Opacity
+			Tooltip: Defaults to 50.
+		}
+
+		ShieldColorR: {
+			Label: Shield Bar Color R
+			Tooltip: Defaults to 54.
+		}
+
+		ShieldColorG: {
+			Label: Shield Bar Color G
+			Tooltip: Defaults to 163.
+		}
+
+		ShieldColorB: {
+			Label: Shield Bar Color B
+			Tooltip: Defaults to 232.
+		}
+
+		ShowBar: {
+			Label: Show Health Bar
+			Tooltip: Enabled by default.
+		}
+
+		ShowShield: {
+			Label: Show Sheild Bar
+			Tooltip: Enabled by default.
+		}
+
+		ShowInvincible: {
+			Label: Show Invincible Status
+			Tooltip: Enabled by default.
+		}
+
+		ShowName: {
+			Label: Show Boss Name
+			Tooltip: Enabled by default.
+		}
+
+		ShowLife: {
+			Label: Show Real-time Health
+			Tooltip: Enabled by default.
+		}
+
+		ShowLifeMax: {
+			Label: Show Max Health
+			Tooltip: Enabled by default.
+		}
+
+		ShowPercent: {
+			Label: Show Health Percentage
+			Tooltip: Enabled by default.
+		}
+
+		ShowSegment: {
+			Label: Show Remaining Segment Count
+			Tooltip: Enabled by default.
+		}
+
+		ShowDefense: {
+			Label: Show Defence
+			Tooltip: Enabled by default.
+		}
+
+		ShowCalDR: {
+			Label: Show Calamity Damage Reduction (WIP)
+			Tooltip: Enabled by default.
+		}
+
+		ShowFarDR: {
+			Label: Show Fargo Souls Damage Reduction (WIP)
+			Tooltip: Enabled by default.
+		}
+
+		ShowTarget: {
+			Label: Show Aggro Target
+			Tooltip: Enabled by default.
+		}
+
+		ShowDamage: {
+			Label: Show Attack Damage
+			Tooltip: Enabled by default.
+		}
+
+		ShowIcon: {
+			Label: Show Boss Icon
+			Tooltip: Enabled by default.
+		}
+
+		ImprovedLifeCalculation: {
+			Label: Improved Health Calculation
+			Tooltip:
+				'''
+				[c/FF0000:-Please-Note-That-This-Is-an-Experimental-Setting-]
+				Enabling this option may cause minor performance issues
+				This setting may improve health calculations for certain bosses when Calamity is enabled
+				It may also be incompatible with certain bosses
+				Disabled by default.
+				'''
+		}
+
+		UseOldFillAllLogic: {
+			Label: Use Old FillAll Logic
+			Tooltip: Disabled by default.
+		}
+	}
+}
+
+Exception: {
+	Solution: Try Disable the [c/FF0000:Yet Another Boss Health Bar] Mod!
+	InputError: Input Error!{0}{$Solution}
+	OnSelectEnums: On Select Enums!
+}
+
+Info: {
+	Segment: Remaining Segment: 
+	Invincible: Invincible
+}
