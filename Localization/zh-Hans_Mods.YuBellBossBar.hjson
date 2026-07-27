@@ -179,7 +179,7 @@ Configs: {
 			Label: Improved Health Calculation
 			Tooltip:
 				'''
-				[c/FF0000:-Please-Note-That-This-Is-an-Experimental-Setting-]
+				[c/FF0000:PLEASE NOTE THAT THIS IS AN EXPERIMENTAL SETTINGNote]
 				Enabling this option may cause minor performance issues
 				This setting may improve health calculations for certain bosses when Calamity is enabled
 				It may also be incompatible with certain bosses
