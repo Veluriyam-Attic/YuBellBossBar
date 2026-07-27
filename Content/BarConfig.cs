@@ -63,11 +63,26 @@ public class BarConfig : ModConfig
     [DefaultValue(50)]
     public int MouseAlpha;
 
+    [Range(0,255)]
+    [DefaultValue(54)]
+    public int ShieldColorR;
+    [Range(0, 255)]
+    [DefaultValue(163)]
+    public int ShieldColorG;
+    [Range(0, 255)]
+    [DefaultValue(232)]
+    public int ShieldColorB;
+
     [Header($"InfoHeader")]
 
     [DefaultValue(true)]
     public bool ShowBar;
 
+    [DefaultValue(true)]
+    public bool ShowShield;
+
+    [DefaultValue(true)]
+    public bool ShowInvincible;
     [DefaultValue(true)]
     public bool ShowName;
     [DefaultValue(true)]

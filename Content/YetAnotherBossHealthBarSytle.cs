@@ -8,8 +8,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
     /// </summary>
     internal static bool Selected = false;
 
-#pragma warning disable IDE0090,IDE0028
-    public static Dictionary<int, BarInfo> ModCalls = new Dictionary<int, BarInfo>();
+    public static bool EnableThisMod = true;
 
     public override string DisplayName => Language.GetTextValue("Mods.YuBellBossBar.Name");
 
@@ -27,6 +26,8 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
         if (currentBar == null)
             return;
         if (npc == null)
+            return;
+        if (!EnableThisMod)
             return;
 
         // npc和drawParams在GlobalBar.PreDraw()中被赋值

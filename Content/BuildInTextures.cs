@@ -302,7 +302,7 @@ internal static class BuildInTextures
                 (_dvpath + "DD2BarFill",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { fillColor = Color.White; barFillColor = BarFillColor.Custom; })
+                { fillColor = Color.White; barFillColor = BarFillColor.Custom; barFillStyles = BarFillStyles.FillAll; })
         },
         {
             "DD2SmallBarFill",
@@ -311,7 +311,7 @@ internal static class BuildInTextures
                 (_dvpath + "DD2SmallBarFill",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { fillColor = Color.White; barFillColor = BarFillColor.Custom; })
+                { fillColor = Color.White; barFillColor = BarFillColor.Custom; barFillStyles = BarFillStyles.FillAll; })
         },
         {
             "MoonLordHead",
@@ -920,5 +920,61 @@ internal static class BuildInTextures
 
     #region 自定义
     public static Dictionary<string, BarTexture2D> ExtraCustom = new Dictionary<string, BarTexture2D>();
+    #endregion
+
+    #region 信息显示
+    private const string _eipath = "YuBellBossBar/Texture/ExtraInfo/";
+
+    public static Dictionary<string, BarTexture2D> ExtraInfo = new Dictionary<string, BarTexture2D>()
+    {
+        {
+            "Damage",
+            new BarTexture2D(TextureType.Info, ModContent.Request<Texture2D>
+                (_eipath + "Damage",
+                AssetRequestMode.ImmediateLoad),
+                TextureSource.ExtraInfo
+            )
+        },
+        {
+            "Defense",
+            new BarTexture2D(TextureType.Info, ModContent.Request<Texture2D>
+                (_eipath + "Defense",
+                AssetRequestMode.ImmediateLoad),
+                TextureSource.ExtraInfo
+            )
+        },
+        {
+            "Target",
+            new BarTexture2D(TextureType.Info, ModContent.Request<Texture2D>
+                (_eipath + "Target",
+                AssetRequestMode.ImmediateLoad),
+                TextureSource.ExtraInfo
+            )
+        },
+        {
+            "CalDR",
+            new BarTexture2D(TextureType.Info, ModContent.Request<Texture2D>
+                (_eipath + "CalDR",
+                AssetRequestMode.ImmediateLoad),
+                TextureSource.ExtraInfo
+            )
+        },
+        {
+            "FarDR",
+            new BarTexture2D(TextureType.Info, ModContent.Request<Texture2D>
+                (_eipath + "FarDR",
+                AssetRequestMode.ImmediateLoad),
+                TextureSource.ExtraInfo
+            )
+        },
+        {
+            "Shield",
+            new BarTexture2D(TextureType.Shield, ModContent.Request<Texture2D>
+                (_eipath + "Shield",
+                AssetRequestMode.ImmediateLoad),
+                TextureSource.ExtraInfo
+            )
+        },
+    };
     #endregion
 }

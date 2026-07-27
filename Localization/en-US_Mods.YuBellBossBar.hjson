@@ -77,7 +77,7 @@ Configs: {
 			CustomHeader: 自定义
 			InfoHeader: 信息
 			ExperimentalHeader: 试验性
-			DebugHeader: Debug Header Header
+			DebugHeader: Debug
 		}
 
 		Alpha: {
@@ -90,8 +90,33 @@ Configs: {
 			Tooltip: 默认值50
 		}
 
+		ShieldColorR: {
+			Label: 盾条颜色R
+			Tooltip: 默认为54
+		}
+
+		ShieldColorG: {
+			Label: 盾条颜色G
+			Tooltip: 默认为163
+		}
+
+		ShieldColorB: {
+			Label: 盾条颜色B
+			Tooltip: 默认为232
+		}
+
 		ShowBar: {
 			Label: 显示血条
+			Tooltip: 默认开启
+		}
+
+		ShowShield: {
+			Label: 显示盾条
+			Tooltip: 默认开启
+		}
+
+		ShowInvincible: {
+			Label: 显示无敌状态
 			Tooltip: 默认开启
 		}
 
@@ -163,8 +188,8 @@ Configs: {
 		}
 
 		UseOldFillAllLogic: {
-			Label: Use Old Fill All Logic
-			Tooltip: ""
+			Label: 使用旧版FillAll逻辑
+			Tooltip: 默认关闭
 		}
 	}
 }
@@ -177,5 +202,5 @@ Exception: {
 
 Info: {
 	Segment: 剩余体节:
-	Invincible: "[无敌]"
+	Invincible: 无敌
 }

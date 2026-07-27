@@ -1,4 +1,6 @@
-﻿namespace YuBellBossBar.Core;
+﻿using JetBrains.Annotations;
+
+namespace YuBellBossBar.Core;
 
 internal struct BarInfo
 {
@@ -50,10 +52,38 @@ internal struct BarInfo
                     case "ShowIcon":
                         ShowIcon = fields[key];
                         break;
+                    case "ShowInvincible":
+                        ShowInvincible = fields[key];
+                        break;
                 }
             }
 
         this.Segment = segment;
+    }
+    #endregion
+
+    #region 复制构造器
+    public BarInfo(BarInfo other)
+    {
+        barTextures = new BarTextures(other.barTextures);
+
+        Segment = other.Segment == null
+            ? null
+            : new List<int>(other.Segment);
+
+        ShowBar = other.ShowBar;
+        ShowInvincible = other.ShowInvincible;
+        ShowName = other.ShowName;
+        ShowLife = other.ShowLife;
+        ShowLifeMax = other.ShowLifeMax;
+        ShowPercent = other.ShowPercent;
+        ShowSegment = other.ShowSegment;
+        ShowDefense = other.ShowDefense;
+        ShowCalDR = other.ShowCalDR;
+        ShowFarDR = other.ShowFarDR;
+        ShowTarget = other.ShowTarget;
+        ShowDamage = other.ShowDamage;
+        ShowIcon = other.ShowIcon;
     }
     #endregion
 
@@ -64,6 +94,7 @@ internal struct BarInfo
 
     public bool ShowBar = true;
 
+    public bool ShowInvincible = true;
     public bool ShowName = true;
     public bool ShowLife = true;
     public bool ShowLifeMax = true;
@@ -129,6 +160,9 @@ internal struct BarTextures
                 case TextureType.Info:
                     this.baseTextures.TryAdd(TextureType.Info, bardraws[type]);
                     break;
+                case TextureType.Shield:
+                    this.baseTextures.TryAdd(TextureType.Shield, bardraws[type]);
+                    break;
                 #endregion
 
                 #region 额外贴图 Extra Textures
@@ -153,6 +187,22 @@ internal struct BarTextures
                 #endregion
             }
         }
+    }
+    #endregion
+
+    #region 复制构造器
+    public BarTextures(BarTextures other)
+    {
+        npctype = other.npctype;
+
+        baseTextures = new Dictionary<TextureType, BarTexture2D>(other.baseTextures);
+
+        extraTexturesBelowFill = new List<BarTexture2D>(other.extraTexturesBelowFill);
+        extraTexturesBetweenFillAndFrame = new List<BarTexture2D>(other.extraTexturesBetweenFillAndFrame);
+        extraTexturesBetweenFrameAndHeadEnd = new List<BarTexture2D>(other.extraTexturesBetweenFrameAndHeadEnd);
+        extraTexturesBetweenHeadEndAndIcon = new List<BarTexture2D>(other.extraTexturesBetweenHeadEndAndIcon);
+        extraTexturesBetweenIconAndInfo = new List<BarTexture2D>(other.extraTexturesBetweenIconAndInfo);
+        extraTexturesUponInfo = new List<BarTexture2D>(other.extraTexturesUponInfo);
     }
     #endregion
 }
@@ -214,6 +264,8 @@ internal struct BarTexture2D
     // 血条填充颜色
     public Color fillColor = Color.White;
 
+    public Color shieldColor;
+
     // 自定义绘制事件,Vector2是血条绘制正中心位置, int是血条长度
     public Func<SpriteBatch, Vector2, int,int,int,float,float,Vector2> CustomDrawEvent = null;
 
@@ -222,7 +274,7 @@ internal struct BarTexture2D
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">fillCutLengh,fillOffset,headOffset,barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, int framecount = 1,int TPF = 6, Func<SpriteBatch, Vector2, int, int, int, float, float,Vector2> customDraw = null)
+    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, int framecount = 1, int TPF = 6, Func<SpriteBatch, Vector2, int, int, int, float, float, Vector2> customDraw = null, Color? shieldcolor = null)
     {
         this.textureType = type;
         this.texture = texture;
@@ -230,6 +282,11 @@ internal struct BarTexture2D
         this.frameCount = framecount;
         this.source = textureSource;
         this.TicksPerFrame = TPF;
+
+        if(shieldcolor == null)
+            this.shieldColor = new Color(BarConfig.Instance.ShieldColorR, BarConfig.Instance.ShieldColorG, BarConfig.Instance.ShieldColorB);
+        else
+            this.shieldColor = (Color)shieldcolor;
 
         // 在默认构造器逻辑之后调用,来服务委托中潜在的修改
         // Call after the default constructor logic to serve potential modifications in the delegate

@@ -19,4 +19,5 @@ global using YuBellBossBar.ModCross;
 global using Mono.Cecil.Cil;
 global using MonoMod.Cil;
 global using Terraria.GameContent.Bestiary;
-global using YuBellBossBar.DrawMethod; 
+global using YuBellBossBar.DrawMethod;
+global using System.Linq;

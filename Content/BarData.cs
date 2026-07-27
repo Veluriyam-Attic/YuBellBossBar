@@ -26,6 +26,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
@@ -54,6 +58,10 @@ internal static class BarData
                     int.MinValue,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
@@ -86,6 +94,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
@@ -116,6 +128,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
@@ -145,6 +161,10 @@ internal static class BarData
                     NPCID.TheHungry,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
@@ -177,6 +197,10 @@ internal static class BarData
                     NPCID.WallofFlesh,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
@@ -212,6 +236,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
@@ -240,6 +268,10 @@ internal static class BarData
                     NPCID.Spazmatism,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
@@ -271,6 +303,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
@@ -300,6 +336,10 @@ internal static class BarData
                     NPCID.SkeletronPrime,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
@@ -335,6 +375,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.DefaultVanilla["PlanteraFill"]
                         },
@@ -364,6 +408,10 @@ internal static class BarData
                     NPCID.MoonLordCore,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
@@ -396,6 +444,10 @@ internal static class BarData
                     NPCID.MoonLordHand,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
@@ -430,6 +482,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.DefaultTexture["HealthBarFill"]
                         },
@@ -454,6 +510,197 @@ internal static class BarData
             )
         );
         #endregion
+
+        #region 食人魔T2
+        BarInfos.Add(NPCID.DD2OgreT2,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.DD2OgreT2,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultVanilla["DD2SmallBarFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultTexture["SmallBarFrame_Exp"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultTexture["SmallBarHead_Exp"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultTexture["SmallBarTail_Exp"]
+                        },
+                    }
+                ),
+                new Dictionary<string, bool>
+                {
+                    {
+                        "ShowIcon",false
+                    }
+                }
+            )
+        );
+        #endregion
+        #region 黑暗魔法师T1
+        BarInfos.Add(NPCID.DD2DarkMageT1,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.DD2DarkMageT1,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultVanilla["DD2SmallBarFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultTexture["SmallBarFrame_Exp"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultTexture["SmallBarHead_Exp"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultTexture["SmallBarTail_Exp"]
+                        },
+                    }
+                ),
+                new Dictionary<string, bool>
+                {
+                    {
+                        "ShowIcon",false
+                    }
+                }
+            )
+        );
+        #endregion
+        #region 食人魔T3
+        BarInfos.Add(NPCID.DD2OgreT3,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.DD2OgreT3,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultVanilla["DD2BarFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultVanilla["DD2BarFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultVanilla["DD2BarHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultVanilla["DD2BarTail"]
+                        },
+                    }
+                ),
+                new Dictionary<string, bool>
+                {
+                    {
+                        "ShowIcon",false
+                    }
+                }
+            )
+        );
+        #endregion
+        #region 黑暗魔法师T3
+        BarInfos.Add(NPCID.DD2DarkMageT3,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.DD2DarkMageT3,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultVanilla["DD2BarFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultVanilla["DD2BarFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultVanilla["DD2BarHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultVanilla["DD2BarTail"]
+                        },
+                    }
+                ),
+                new Dictionary<string, bool>
+                {
+                    {
+                        "ShowIcon",false
+                    }
+                }
+            )
+        );
+        #endregion
+        #region 双足翼龙
+        BarInfos.Add(NPCID.DD2Betsy,
+            new BarInfo(
+                new BarTextures(
+                    NPCID.DD2Betsy,
+                    new Dictionary<TextureType, BarTexture2D>()
+                    {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
+                            TextureType.Fill,
+                            BuildInTextures.DefaultVanilla["DD2BarFill"]
+                        },
+                        {
+                            TextureType.Frame,
+                            BuildInTextures.DefaultVanilla["DD2BarFrame"]
+                        },
+                        {
+                            TextureType.Head,
+                            BuildInTextures.DefaultVanilla["DD2BarHead"]
+                        },
+                        {
+                            TextureType.Tail,
+                            BuildInTextures.DefaultVanilla["DD2BarTail"]
+                        },
+                    }
+                ),
+                new Dictionary<string, bool>
+                {
+                    {
+                        "ShowIcon",false
+                    }
+                }
+            )
+        );
+        #endregion
         #endregion
 
         #region 额外原版 Extra Vanilla
@@ -464,6 +711,10 @@ internal static class BarData
                     NPCID.KingSlime,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["KingSlimeFill"]
@@ -494,6 +745,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["EyeofCthulhuFill"]
                         },
@@ -522,6 +777,10 @@ internal static class BarData
                     NPCID.EaterofWorldsHead,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["EaterofWorldsFill"]
@@ -555,6 +814,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["EaterofWorldsFill"]
                         },
@@ -586,6 +849,10 @@ internal static class BarData
                     NPCID.EaterofWorldsTail,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["EaterofWorldsFill"]
@@ -622,6 +889,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["BrainofCthulhuFill"]
                         },
@@ -653,6 +924,10 @@ internal static class BarData
                     NPCID.Creeper,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["BrainofCthulhuFill"]
@@ -689,6 +964,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["QueenBeeFill"]
                         },
@@ -717,6 +996,10 @@ internal static class BarData
                     NPCID.SkeletronHead,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["SkeletronFill"]
@@ -747,6 +1030,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["DeerclopsFill"]
                         },
@@ -776,6 +1063,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["QueenSlimeFill"]
                         },
@@ -804,6 +1095,10 @@ internal static class BarData
                     NPCID.Golem,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["GolemFill"]
@@ -835,6 +1130,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["GolemFill"]
                         },
@@ -864,6 +1163,10 @@ internal static class BarData
                     NPCID.GolemFistLeft,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["GolemFill"]
@@ -895,6 +1198,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["GolemFill"]
                         },
@@ -924,6 +1231,10 @@ internal static class BarData
                     NPCID.GolemFistLeft,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["GolemFill"]
@@ -958,6 +1269,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["MartianSaucerFill"]
                         },
@@ -986,6 +1301,10 @@ internal static class BarData
                     NPCID.DukeFishron,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["DukeFishronFill"]
@@ -1016,6 +1335,10 @@ internal static class BarData
                     new Dictionary<TextureType, BarTexture2D>()
                     {
                         {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
+                        {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["EmpressofLightFill"]
                         },
@@ -1044,6 +1367,10 @@ internal static class BarData
                     NPCID.CultistBoss,
                     new Dictionary<TextureType, BarTexture2D>()
                     {
+                        {
+                            TextureType.Shield,
+                            BuildInTextures.ExtraInfo["Shield"]
+                        },
                         {
                             TextureType.Fill,
                             BuildInTextures.ExtraVanilla["LunaticCultistFill"]

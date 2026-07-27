@@ -20,6 +20,14 @@ public class YuBellBossBar : Mod
         // Load textures
         BarData.InstantiateBuildInContent();
 
+        Mod YuBellBossBar = ModLoader.GetMod("YuBellBossBar");
+
+        if (ModLoader.TryGetMod("FargowiltasSouls", out Mod fargosouls))
+        {
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", fargosouls.Find<ModNPC>("DeviBoss").Type, "Fill Color", (int)TextureType.Fill,new Color(255, 0, 147));
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", fargosouls.Find<ModNPC>("AbomBoss").Type, "Fill Color", (int)TextureType.Fill, Color.Orange);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", fargosouls.Find<ModNPC>("MutantBoss").Type, "Fill Color", (int)TextureType.Fill, new Color(10, 255, 210));
+        }
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded
         if (CalamityAdapt && ModLoader.HasMod("CalamityMod"))
         {
@@ -45,10 +53,93 @@ public class YuBellBossBar : Mod
 
     public override object Call(params object[] args)
     {
-        // 可以从外部设定特定Boss的血条绘制情况
-        if (args[0].ToString() == "ChangeBarInfo")
-            YAB.ModCalls.TryAdd((int)args[1], new BarInfo(new BarTextures(), (Dictionary<string, bool>)args[2]));
+        if (args[0].ToString() == "YetAnotherModCall")
+        {
+            switch(args[1])
+            {
+                default:break;
 
-        return "[Yet Another Boss Health Bar]:Mod Call has been executed.";
+                case "Disable Yet Another Boss Health Bar Mod":
+                    {
+                        YAB.EnableThisMod = false;
+                        return "YetAnotherModCall: Disable Target Mod Successfully!";
+                    }
+                case "Edit":
+                    {
+                        switch (args[2])
+                        {
+                            default: break;
+
+                            case "Color":
+                                {
+                                    if (args[3] is int && args[4] is string && args[5] is int && args[6] is Color)
+                                    {
+                                        if (BarData.BarInfos.Keys.Contains((int)args[3]))
+                                        {
+                                            switch (args[4].ToString())
+                                            {
+                                                default: break;
+
+                                                case "Fill Color":
+                                                    {
+                                                        BarInfo bridage1 = BarData.BarInfos[(int)args[3]];
+                                                        BarTexture2D bridage2 = bridage1.barTextures.baseTextures[(TextureType)args[5]];
+                                                        bridage2.fillColor = (Color)args[6];
+                                                        bridage2.barFillColor = BarFillColor.Custom;
+                                                        bridage1.barTextures.baseTextures[(TextureType)args[5]] = bridage2;
+                                                        BarData.BarInfos[(int)args[3]] = bridage1;
+                                                        return "YetAnotherModCall: Fill Color changed successfully!";
+                                                    }
+
+                                                case "Shield Color":
+                                                    {
+                                                        BarInfo bridage1 = BarData.BarInfos[(int)args[3]];
+                                                        BarTexture2D bridage2 = bridage1.barTextures.baseTextures[(TextureType)args[5]];
+                                                        bridage2.shieldColor = (Color)args[6];
+                                                        bridage2.barFillColor = BarFillColor.Custom;
+                                                        bridage1.barTextures.baseTextures[(TextureType)args[5]] = bridage2;
+                                                        BarData.BarInfos[(int)args[3]] = bridage1;
+                                                        return "YetAnotherModCall: Shield Color changed successfully!";
+                                                    }
+                                            }
+                                        }
+                                        else
+                                        {
+                                            switch (args[4].ToString())
+                                            {
+                                                default: break;
+
+                                                case "Fill Color":
+                                                    {
+                                                        BarInfo bridage1 = new BarInfo(BarData.BarInfos[int.MaxValue]);
+                                                        BarTexture2D bridage2 = bridage1.barTextures.baseTextures[(TextureType)args[5]];
+                                                        bridage2.fillColor = (Color)args[6];
+                                                        bridage2.barFillColor = BarFillColor.Custom;
+                                                        bridage1.barTextures.baseTextures[(TextureType)args[5]] = bridage2;
+                                                        BarData.BarInfos.Add((int)args[3],bridage1);
+                                                        return "YetAnotherModCall: Fill Color changed successfully!";
+                                                    }
+
+                                                case "Shield Color":
+                                                    {
+                                                        BarInfo bridage1 = new BarInfo(BarData.BarInfos[int.MaxValue]);
+                                                        BarTexture2D bridage2 = bridage1.barTextures.baseTextures[(TextureType)args[5]];
+                                                        bridage2.shieldColor = (Color)args[6];
+                                                        bridage2.barFillColor = BarFillColor.Custom;
+                                                        bridage1.barTextures.baseTextures[(TextureType)args[5]] = bridage2;
+                                                        BarData.BarInfos.Add((int)args[3], bridage1);
+                                                        return "YetAnotherModCall: Shield Color changed successfully!";
+                                                    }
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                        }
+                        break;
+                    }
+            };
+        }
+        return "YetAnotherModCall:Failed!";
     }
 }
