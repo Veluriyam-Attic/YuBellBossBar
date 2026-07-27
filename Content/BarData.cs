@@ -17,9 +17,12 @@ internal static class BarData
 
     public static void InstantiateBuildInContent()
     {
-        #region 默认贴图 Default Texture
-        #region 金色风格 Gloden Style
-        BarInfos.Add(int.MaxValue,
+        Mod YuBellBossBar = ModLoader.GetMod("YuBellBossBar");
+
+
+            #region 默认贴图 Default Texture
+            #region 金色风格 Gloden Style
+            BarInfos.Add(int.MaxValue,
             new BarInfo(
                 new BarTextures(
                     int.MaxValue,
