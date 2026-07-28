@@ -157,8 +157,9 @@ public class YuBellBossBar : Mod
                                             bridage.ShowInvincible = (bool)args[4];
                                             BarData.BarInfos.Add((int)args[3],bridage);
                                         }
+                                        return "YetAnotherModCall: Invincible changed successfully!";
                                     }
-                                    return "YetAnotherModCall: Invincible changed successfully!";
+                                    break;
                                 }
 
                         }
