@@ -24,6 +24,11 @@ public class BarPlayer : ModPlayer
 
     public override void OnEnterWorld()
     {
+        if (BarConfig.Instance.OnEnterWorldInfo)
+        {
+            Main.NewText(Language.GetTextValue("Mods.YuBellBossBar.Info.OnEnterWorld"));
+        }
+
         // 世吞太傻逼了,这样才能在是否清除索引时让世吞被判断为在场的Boss
         // The Eater of World is too stupid, this is the only way to make it be judged as a boss in the field when checking whether to remove indexs or not.
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsHead] = true;

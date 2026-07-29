@@ -21,6 +21,13 @@ public class YuBellBossBar : Mod
         BarData.InstantiateBuildInContent();
 
         Mod YuBellBossBar = ModLoader.GetMod("YuBellBossBar");
+        if (ModLoader.HasMod("YuBellBossBar"))
+        {
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucer, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerCannon, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerCore, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerTurret, false);
+        }
 
         if (ModLoader.TryGetMod("FargowiltasSouls", out Mod fargosouls))
         {
@@ -32,6 +39,17 @@ public class YuBellBossBar : Mod
         if (ModLoader.TryGetMod("CalamityMod",out Mod calamity))
         {
             YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("SlimeGodCore").Type, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("RavagerBody").Type, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.Golem, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHead, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHeadFree, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistLeft, false);
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistRight, false);
+        }
+
+        if (ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
+        {
+            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", catalyst.Find<ModNPC>("Astrageldon").Type, "Fill Color", (int)TextureType.Fill, Color.Purple);
         }
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded
         if (CalamityAdapt && ModLoader.HasMod("CalamityMod"))
@@ -77,7 +95,7 @@ public class YuBellBossBar : Mod
 
                             case "Color":
                                 {
-                                    if (args[3] is int && args[4] is string && args[5] is int && args[6] is Color)
+                                    //if (args[3] is int && args[4] is string && args[5] is int && args[6] is Color)
                                     {
                                         if (BarData.BarInfos.Keys.Contains((int)args[3]))
                                         {
@@ -143,23 +161,22 @@ public class YuBellBossBar : Mod
 
                             case "Invincible":
                                 {
-                                    if (args[3] is int && args[4] is bool)
+                                    //if (args[3] is int && args[4] is bool)
                                     {
-                                        if (BarData.BarInfos.Keys.Contains((int)args[3]))
+                                        if (BarData.BarInfos.Keys.Contains(Convert.ToInt32(args[3])))
                                         {
-                                            BarInfo bridage = new BarInfo(BarData.BarInfos[(int)args[3]]);
+                                            BarInfo bridage = new BarInfo(BarData.BarInfos[Convert.ToInt32(args[3])]);
                                             bridage.ShowInvincible = (bool)args[4];
-                                            BarData.BarInfos[(int)args[3]] = bridage;
+                                            BarData.BarInfos[Convert.ToInt32(args[3])] = bridage;
                                         }
                                         else
                                         {
                                             BarInfo bridage = new BarInfo(BarData.BarInfos[int.MaxValue]);
                                             bridage.ShowInvincible = (bool)args[4];
-                                            BarData.BarInfos.Add((int)args[3],bridage);
+                                            BarData.BarInfos.Add(Convert.ToInt32(args[3]), bridage);
                                         }
                                         return "YetAnotherModCall: Invincible changed successfully!";
                                     }
-                                    break;
                                 }
 
                         }

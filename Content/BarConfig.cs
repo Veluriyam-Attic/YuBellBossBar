@@ -76,6 +76,9 @@ public class BarConfig : ModConfig
     [Header($"InfoHeader")]
 
     [DefaultValue(true)]
+    public bool OnEnterWorldInfo;
+
+    [DefaultValue(true)]
     public bool ShowBar;
 
     [DefaultValue(true)]

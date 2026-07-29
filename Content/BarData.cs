@@ -17,11 +17,8 @@ internal static class BarData
 
     public static void InstantiateBuildInContent()
     {
-        Mod YuBellBossBar = ModLoader.GetMod("YuBellBossBar");
-
-
-            #region 默认贴图 Default Texture
-            #region 金色风格 Gloden Style
+        #region 默认贴图 Default Texture
+        #region 金色风格 Gloden Style
             BarInfos.Add(int.MaxValue,
             new BarInfo(
                 new BarTextures(
@@ -1265,7 +1262,7 @@ internal static class BarData
         #endregion
 
         #region 火星飞碟 Martian Saucer
-        BarInfos.Add(NPCID.MartianSaucer,
+        BarInfos.Add(NPCID.MartianSaucerCore,
             new BarInfo(
                 new BarTextures(
                     NPCID.MartianSaucer,

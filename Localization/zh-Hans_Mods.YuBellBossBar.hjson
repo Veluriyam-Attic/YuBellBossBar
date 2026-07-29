@@ -2,194 +2,199 @@ Name: Yet Another Boss Health Bar
 
 Configs: {
 	BarConfig: {
-		DisplayName: Health Bar Config
+		DisplayName: 血条配置
 
 		BarPostionX: {
-			Label: Health Bar Horizontal Offset
-			Tooltip: RIGHT as positive direction. Defaults to 0.
+			Label: 血条横坐标偏移量
+			Tooltip: 以向右为横轴正方向，默认0
 		}
 
 		BarPostionY: {
-			Label: Health Bar Vertical Offset
-			Tooltip: UP as positive direction. Defaults to 0.
+			Label: 血条纵坐标偏移量
+			Tooltip: 以向上为纵轴正方向，默认0
 		}
 
 		GoldenStyle: {
-			Label: Switch Golden/Sivery Health Bar
-			Tooltip: Toggles the default health bar texture for bosses without a unique health bar. Enabled uses golden, while disabled uses silvery. Enabled by default.
+			Label: 金银血条风格切换
+			Tooltip: 切换没有专属血条的Boss默认使用的血条贴图类型，开启为金色，关闭为银色，默认开启
 		}
 
 		BarLength: {
-			Label: Health Bar Length
-			Tooltip: The length of the filled portion of the boss health bar. Defaults to 800.
+			Label: 血条长度
+			Tooltip: Boss血条的填充部分长度，默认为800
 		}
 
 		ForceDefaulTexture: {
-			Label: Force Default Health Bar
-			Tooltip: Forces the default health bar texture used for bosses without a unique health bar. Enabled forces its use, while disabled does not. Disabled by default.
+			Label: 强制使用默认血条
+			Tooltip: 强制使用没有专属血条时候的默认血条贴图，开启为强制使用，关闭为不强制使用，默认关闭
 		}
 
 		EnableDefualVanilla: {
-			Label: Vanilla Boss Health Bar Textures
-			Tooltip: When disabled, the unique health bar textures added by the original mod for vanilla bosses will no longer be displayed. Enabled by default.
+			Label: 启用原Mod添加的原版Boss专属贴图
+			Tooltip: 关闭后原Mod添加的原版Boss专属贴图将不再显示，默认开启
 		}
 
 		EnableExtraVanilla: {
-			Label: Enable New Vanilla Boss Health Bar Textures
-			Tooltip: When disabled, the newly added unique health bar textures for vanilla bosses will no longer be displayed. Enabled by default.
+			Label: 启用新额外添加的原版Boss专属贴图
+			Tooltip: 关闭后新额外添加的原版Boss专属贴图将不再显示，默认开启
 		}
 
 		#For non-Chinese text, please replace contact details with Discord: zlzhaidou_
 		EnableExtraCalamity: {
-			Label: Enable Calamity Health Bar Support
+			Label: 启用灾厄血条支持(未实现)
 			Tooltip:
 				'''
-				When disabled, the unique health bar textures for Calamity bosses will no longer be displayed. Enabled by default.
-				[As Calamity contains a large number of textures, and the existing textures date back to version 1.3,]
-				[support for Calamity boss health bar textures has been postponed for now.]
-				[You may add Discord: zlzhaidou_ if you would like to help me implement this feature!]
+				关闭后灾厄的Boss专属贴图将不再显示，默认开启
+				[由于灾厄部分贴图内容较多，且现有贴图为1.3时期老贴图]
+				[暂时决定暂缓对灾厄Boss血条的贴图支持]
+				[如您愿意可以添加QQ:3412615165帮助我实现这部分！]
 				'''
 		}
 
 		EnableExtraInfo: {
-			Label: Enable Extra Info
-			Tooltip: Including boss damage, boss defense, and the boss's current target. Support for displaying damage reduction from Calamity and Fargo's Souls will be added in the future.
+			Label: 启用额外信息显示
+			Tooltip: 包括Boss攻击力，Boss防御力，Boss仇恨对象，后续会支持灾厄和法狗伤害减免显示
 		}
 
 		EnableExtraCustom: {
-			Label: Enable Exclusive Boss Sprites Added by Other Mods
-			Tooltip: Enabled by default.
+			Label: 启用其他Mod额外添加的Boss专属贴图
+			Tooltip: 默认开启
 		}
 
 		PostHealthSpeed: {
-			Label: Damage Buffer Rate
-			Tooltip: Defaults to 4.
+			Label: 伤害缓冲速率
+			Tooltip: 默认值4
 		}
 
 		PostHealthTime: {
-			Label: Damage Buffer Time
-			Tooltip: Defaults to 35.
+			Label: 伤害缓冲时间
+			Tooltip: 默认值35
 		}
 
 		Headers: {
-			PostionHeader: Position
-			TextureHeader: Texture
-			CustomHeader: Custom
-			InfoHeader: Info
-			ExperimentalHeader: Experimental
+			PostionHeader: 位置
+			TextureHeader: 贴图
+			CustomHeader: 自定义
+			InfoHeader: 信息
+			ExperimentalHeader: 试验性
 			DebugHeader: Debug
 		}
 
 		Alpha: {
-			Label: Opacity
-			Tooltip: Defaults to 100.
+			Label: 不透明度
+			Tooltip: 默认值100
 		}
 
 		MouseAlpha: {
-			Label: Mouseover Opacity
-			Tooltip: Defaults to 50.
+			Label: 鼠标重合时不透明度
+			Tooltip: 默认值50
 		}
 
 		ShieldColorR: {
-			Label: Shield Bar Color R
-			Tooltip: Defaults to 54.
+			Label: 盾条颜色R
+			Tooltip: 默认为54
 		}
 
 		ShieldColorG: {
-			Label: Shield Bar Color G
-			Tooltip: Defaults to 163.
+			Label: 盾条颜色G
+			Tooltip: 默认为163
 		}
 
 		ShieldColorB: {
-			Label: Shield Bar Color B
-			Tooltip: Defaults to 232.
+			Label: 盾条颜色B
+			Tooltip: 默认为232
+		}
+
+		OnEnterWorldInfo: {
+			Label: 显示进入世界时的提示
+			Tooltip: 默认开启
 		}
 
 		ShowBar: {
-			Label: Show Health Bar
-			Tooltip: Enabled by default.
+			Label: 显示血条
+			Tooltip: 默认开启
 		}
 
 		ShowShield: {
-			Label: Show Sheild Bar
-			Tooltip: Enabled by default.
+			Label: 显示盾条
+			Tooltip: 默认开启
 		}
 
 		ShowInvincible: {
-			Label: Show Invincible Status
-			Tooltip: Enabled by default.
+			Label: 显示无敌状态
+			Tooltip: 默认开启
 		}
 
 		ShowName: {
-			Label: Show Boss Name
-			Tooltip: Enabled by default.
+			Label: 显示Boss名称
+			Tooltip: 默认开启
 		}
 
 		ShowLife: {
-			Label: Show Real-time Health
-			Tooltip: Enabled by default.
+			Label: 显示实时生命值
+			Tooltip: 默认开启
 		}
 
 		ShowLifeMax: {
-			Label: Show Max Health
-			Tooltip: Enabled by default.
+			Label: 显示最大生命值
+			Tooltip: 默认开启
 		}
 
 		ShowPercent: {
-			Label: Show Health Percentage
-			Tooltip: Enabled by default.
+			Label: 显示血量百分比
+			Tooltip: 默认开启
 		}
 
 		ShowSegment: {
-			Label: Show Remaining Segment Count
-			Tooltip: Enabled by default.
+			Label: 显示剩余体节数
+			Tooltip: 默认开启
 		}
 
 		ShowDefense: {
-			Label: Show Defence
-			Tooltip: Enabled by default.
+			Label: 显示防御力
+			Tooltip: 默认开启
 		}
 
 		ShowCalDR: {
-			Label: Show Calamity Damage Reduction (WIP)
-			Tooltip: Enabled by default.
+			Label: 显示灾厄伤害减免(未实现)
+			Tooltip: 默认开启
 		}
 
 		ShowFarDR: {
-			Label: Show Fargo Souls Damage Reduction (WIP)
-			Tooltip: Enabled by default.
+			Label: 显示Fargo伤害减免(未实现)
+			Tooltip: 默认开启
 		}
 
 		ShowTarget: {
-			Label: Show Aggro Target
-			Tooltip: Enabled by default.
+			Label: 显示仇恨对象
+			Tooltip: 默认开启
 		}
 
 		ShowDamage: {
-			Label: Show Attack Damage
-			Tooltip: Enabled by default.
+			Label: 显示攻击伤害
+			Tooltip: 默认开启
 		}
 
 		ShowIcon: {
-			Label: Show Boss Icon
-			Tooltip: Enabled by default.
+			Label: 显示Boss头像
+			Tooltip: 默认开启
 		}
 
 		ImprovedLifeCalculation: {
-			Label: Improved Health Calculation
+			Label: 优化后的血量算法
 			Tooltip:
 				'''
-				[c/FF0000:PLEASE NOTE THAT THIS IS AN EXPERIMENTAL SETTING]
-				Enabling this option may cause minor performance issues
-				This setting may improve health calculations for certain bosses when Calamity is enabled
-				It may also be incompatible with certain bosses
-				Disabled by default.
+				[c/FF0000:-请-注-意-该-配-置-为-试-验-性-配-置-]
+				开启此选项可能造成轻微性能问题
+				该配置可能优化开启灾厄时部分Boss血量计算
+				同时可能对部分Boss不兼容
+				默认关闭
 				'''
 		}
 
 		UseOldFillAllLogic: {
-			Label: Use Old FillAll Logic
-			Tooltip: Disabled by default.
+			Label: 使用旧版FillAll逻辑
+			Tooltip: 默认关闭
 		}
 	}
 }
@@ -201,6 +206,14 @@ Exception: {
 }
 
 Info: {
-	Segment: Remaining Segment: 
-	Invincible: Invincible
+	Segment: 剩余体节:
+	Invincible: 无敌
+	OnEnterWorld:
+		'''
+
+		请在[设置]-[界面]-[Boss 血条样式]中选用[Yet Another Boss Health Bar]以生效
+		请浏览[模组配置] - [Yet Another Boss Health Bar]来选择开启或关闭一些功能
+		同时可以在[模组配置]中关闭此提示
+
+		'''
 }
