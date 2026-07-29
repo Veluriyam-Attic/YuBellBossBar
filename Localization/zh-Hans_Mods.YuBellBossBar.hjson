@@ -1,64 +1,219 @@
-Name: Yet血条
-WorldText:
-	'''
-	请查看Yet Boss Health Bar的模组配置！
-	在设置中选择Yet血条以启用！
-	'''
-Invincible: 无敌
+Name: Yet Another Boss Health Bar
 
 Configs: {
 	BarConfig: {
 		DisplayName: 血条配置
 
-		Headers: {
-			PostionHeader: 位置
-			InfoHeader: 信息
-			StyleHeader: 样式
-		}
-
-		BarLong: {
-			Label: 血条长度
-			Tooltip: 允许你决定血条的长度
+		BarPostionX: {
+			Label: 血条横坐标偏移量
+			Tooltip: 以向右为横轴正方向，默认0
 		}
 
 		BarPostionY: {
-			Label: 血条竖直位置
-			Tooltip: 允许你自定义血条的竖直位置
+			Label: 血条纵坐标偏移量
+			Tooltip: 以向上为纵轴正方向，默认0
 		}
 
-		BarPostionX: {
-			Label: 血条横向位置
-			Tooltip: 允许你自定义血条的横向位置
+		GoldenStyle: {
+			Label: 金银血条风格切换
+			Tooltip: 切换没有专属血条的Boss默认使用的血条贴图类型，开启为金色，关闭为银色，默认开启
 		}
 
-		MoreInfo: {
-			Label: 更多信息
-			Tooltip: 显示当前Boss的防御、伤害、伤害减免和目标
+		BarLength: {
+			Label: 血条长度
+			Tooltip: Boss血条的填充部分长度，默认为800
 		}
 
-		DrawLastBar: {
-			Label: 显示连续攻击开始时血条位置
-			Tooltip: ""
-		}
-
-		UseGoldBar: {
-			Label: 使用金色版本的血条
-			Tooltip: ""
-		}
-
-		LastBarDecreaseSpeed: {
-			Label: 连续攻击结束时回退血条开始时血条速度
-			Tooltip: ""
-		}
-
-		ForceUseDefaultBar: {
+		ForceDefaulTexture: {
 			Label: 强制使用默认血条
-			Tooltip: ""
+			Tooltip: 强制使用没有专属血条时候的默认血条贴图，开启为强制使用，关闭为不强制使用，默认关闭
 		}
 
-		WorldInfo: {
-			Label: 提示信息
-			Tooltip: 开关进入世界时左下角的提示讯息
+		EnableDefualVanilla: {
+			Label: 启用原Mod添加的原版Boss专属贴图
+			Tooltip: 关闭后原Mod添加的原版Boss专属贴图将不再显示，默认开启
+		}
+
+		EnableExtraVanilla: {
+			Label: 启用新额外添加的原版Boss专属贴图
+			Tooltip: 关闭后新额外添加的原版Boss专属贴图将不再显示，默认开启
+		}
+
+		#For non-Chinese text, please replace contact details with Discord: zlzhaidou_
+		EnableExtraCalamity: {
+			Label: 启用灾厄血条支持(未实现)
+			Tooltip:
+				'''
+				关闭后灾厄的Boss专属贴图将不再显示，默认开启
+				[由于灾厄部分贴图内容较多，且现有贴图为1.3时期老贴图]
+				[暂时决定暂缓对灾厄Boss血条的贴图支持]
+				[如您愿意可以添加QQ:3412615165帮助我实现这部分！]
+				'''
+		}
+
+		EnableExtraInfo: {
+			Label: 启用额外信息显示
+			Tooltip: 包括Boss攻击力，Boss防御力，Boss仇恨对象，后续会支持灾厄和法狗伤害减免显示
+		}
+
+		EnableExtraCustom: {
+			Label: 启用其他Mod额外添加的Boss专属贴图
+			Tooltip: 默认开启
+		}
+
+		PostHealthSpeed: {
+			Label: 伤害缓冲速率
+			Tooltip: 默认值4
+		}
+
+		PostHealthTime: {
+			Label: 伤害缓冲时间
+			Tooltip: 默认值35
+		}
+
+		Headers: {
+			PostionHeader: 位置
+			TextureHeader: 贴图
+			CustomHeader: 自定义
+			InfoHeader: 信息
+			ExperimentalHeader: 试验性
+			DebugHeader: Debug
+		}
+
+		Alpha: {
+			Label: 不透明度
+			Tooltip: 默认值100
+		}
+
+		MouseAlpha: {
+			Label: 鼠标重合时不透明度
+			Tooltip: 默认值50
+		}
+
+		ShieldColorR: {
+			Label: 盾条颜色R
+			Tooltip: 默认为54
+		}
+
+		ShieldColorG: {
+			Label: 盾条颜色G
+			Tooltip: 默认为163
+		}
+
+		ShieldColorB: {
+			Label: 盾条颜色B
+			Tooltip: 默认为232
+		}
+
+		OnEnterWorldInfo: {
+			Label: 显示进入世界时的提示
+			Tooltip: 默认开启
+		}
+
+		ShowBar: {
+			Label: 显示血条
+			Tooltip: 默认开启
+		}
+
+		ShowShield: {
+			Label: 显示盾条
+			Tooltip: 默认开启
+		}
+
+		ShowInvincible: {
+			Label: 显示无敌状态
+			Tooltip: 默认开启
+		}
+
+		ShowName: {
+			Label: 显示Boss名称
+			Tooltip: 默认开启
+		}
+
+		ShowLife: {
+			Label: 显示实时生命值
+			Tooltip: 默认开启
+		}
+
+		ShowLifeMax: {
+			Label: 显示最大生命值
+			Tooltip: 默认开启
+		}
+
+		ShowPercent: {
+			Label: 显示血量百分比
+			Tooltip: 默认开启
+		}
+
+		ShowSegment: {
+			Label: 显示剩余体节数
+			Tooltip: 默认开启
+		}
+
+		ShowDefense: {
+			Label: 显示防御力
+			Tooltip: 默认开启
+		}
+
+		ShowCalDR: {
+			Label: 显示灾厄伤害减免(未实现)
+			Tooltip: 默认开启
+		}
+
+		ShowFarDR: {
+			Label: 显示Fargo伤害减免(未实现)
+			Tooltip: 默认开启
+		}
+
+		ShowTarget: {
+			Label: 显示仇恨对象
+			Tooltip: 默认开启
+		}
+
+		ShowDamage: {
+			Label: 显示攻击伤害
+			Tooltip: 默认开启
+		}
+
+		ShowIcon: {
+			Label: 显示Boss头像
+			Tooltip: 默认开启
+		}
+
+		ImprovedLifeCalculation: {
+			Label: 优化后的血量算法
+			Tooltip:
+				'''
+				[c/FF0000:-请-注-意-该-配-置-为-试-验-性-配-置-]
+				开启此选项可能造成轻微性能问题
+				该配置可能优化开启灾厄时部分Boss血量计算
+				同时可能对部分Boss不兼容
+				默认关闭
+				'''
+		}
+
+		UseOldFillAllLogic: {
+			Label: 使用旧版FillAll逻辑
+			Tooltip: 默认关闭
 		}
 	}
+}
+
+Exception: {
+	Solution: Try Disable the [c/FF0000:Yet Another Boss Health Bar] Mod!
+	InputError: Input Error!{0}{$Solution}
+	OnSelectEnums: On Select Enums!
+}
+
+Info: {
+	Segment: 剩余体节:
+	Invincible: 无敌
+	OnEnterWorld:
+		'''
+
+		请在[设置]-[界面]-[Boss 血条样式]中选用[Yet Another Boss Health Bar]以生效
+		请浏览[模组配置] - [Yet Another Boss Health Bar]来选择开启或关闭一些功能
+		同时可以在[模组配置]中关闭此提示
+
+		'''
 }

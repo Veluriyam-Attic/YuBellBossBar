@@ -1,5 +1,7 @@
-displayName = Yet Another Boss Health Bar - Update by 虞悖
-author = 虞悖
-version = 0.1.1.7
+displayName = Yet Another Boss Health Bar
+author = Flashkirby,2.85,虞悖
+contributor: Boatsoon
+version = 1.0.0.2
 side = Both
-weakReferences = FargowiltasSouls,CalamityMod,SacredTools
+languageVersion=14
+weakReferences = FargowiltasSouls,CalamityMod,CatalystMod,

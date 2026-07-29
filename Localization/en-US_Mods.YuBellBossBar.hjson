@@ -1,64 +1,219 @@
 Name: Yet Another Boss Health Bar
-WorldText:
-	'''
-	Check Yet Boss Health Bar's Mod Configuration!
-	Choose Yet Another Boss Health Bar to Enable!
-	'''
-Invincible: Invincible
 
 Configs: {
 	BarConfig: {
 		DisplayName: Health Bar Config
 
-		Headers: {
-			PostionHeader: Position
-			InfoHeader: Info
-			StyleHeader: Style
-		}
-
-		BarLong: {
-			Label: Health Bar Long
-			Tooltip: Allow you to edit your Boss Health Bar Long
+		BarPostionX: {
+			Label: Health Bar Horizontal Offset
+			Tooltip: RIGHT as positive direction. Defaults to 0.
 		}
 
 		BarPostionY: {
-			Label: Boss Health Bar Position Y
-			Tooltip: Allow you to edit your Boss Health Bar Position Y
+			Label: Health Bar Vertical Offset
+			Tooltip: UP as positive direction. Defaults to 0.
 		}
 
-		BarPostionX: {
-			Label: Boss Health Bar Position X
-			Tooltip: Allow you to edit your Boss Health Bar Position X
+		GoldenStyle: {
+			Label: Switch Golden/Sivery Health Bar
+			Tooltip: Toggles the default health bar texture for bosses without a unique health bar. Enabled uses golden, while disabled uses silvery. Enabled by default.
 		}
 
-		MoreInfo: {
-			Label: Show More Info
-			Tooltip: Display Defense , Damage , Target
+		BarLength: {
+			Label: Health Bar Length
+			Tooltip: The length of the filled portion of the boss health bar. Defaults to 800.
 		}
 
-		DrawLastBar: {
-			Label: Show the past Boss Health Bar Position
-			Tooltip: ""
+		ForceDefaulTexture: {
+			Label: Force Default Health Bar
+			Tooltip: Forces the default health bar texture used for bosses without a unique health bar. Enabled forces its use, while disabled does not. Disabled by default.
 		}
 
-		UseGoldBar: {
-			Label: Use Gold Style Boss Health Bar
-			Tooltip: ""
+		EnableDefualVanilla: {
+			Label: Vanilla Boss Health Bar Textures
+			Tooltip: When disabled, the unique health bar textures added by the original mod for vanilla bosses will no longer be displayed. Enabled by default.
 		}
 
-		LastBarDecreaseSpeed: {
-			Label: speed of past Boss Health Bar
-			Tooltip: ""
+		EnableExtraVanilla: {
+			Label: Enable New Vanilla Boss Health Bar Textures
+			Tooltip: When disabled, the newly added unique health bar textures for vanilla bosses will no longer be displayed. Enabled by default.
 		}
 
-		ForceUseDefaultBar: {
-			Label: Force Use Default Boss Health Bar
-			Tooltip: ""
+		#For non-Chinese text, please replace contact details with Discord: zlzhaidou_
+		EnableExtraCalamity: {
+			Label: Enable Calamity Health Bar Support
+			Tooltip:
+				'''
+				When disabled, the unique health bar textures for Calamity bosses will no longer be displayed. Enabled by default.
+				[As Calamity contains a large number of textures, and the existing textures date back to version 1.3,]
+				[support for Calamity boss health bar textures has been postponed for now.]
+				[You may add Discord: zlzhaidou_ if you would like to help me implement this feature!]
+				'''
 		}
 
-		WorldInfo: {
-			Label: 提示信息
-			Tooltip: 开关进入世界时左下角的提示讯息
+		EnableExtraInfo: {
+			Label: Enable Extra Info
+			Tooltip: Including boss damage, boss defense, and the boss's current target. Support for displaying damage reduction from Calamity and Fargo's Souls will be added in the future.
+		}
+
+		EnableExtraCustom: {
+			Label: Enable Exclusive Boss Sprites Added by Other Mods
+			Tooltip: Enabled by default.
+		}
+
+		PostHealthSpeed: {
+			Label: Damage Buffer Rate
+			Tooltip: Defaults to 4.
+		}
+
+		PostHealthTime: {
+			Label: Damage Buffer Time
+			Tooltip: Defaults to 35.
+		}
+
+		Headers: {
+			PostionHeader: Position
+			TextureHeader: Texture
+			CustomHeader: Custom
+			InfoHeader: Info
+			ExperimentalHeader: Experimental
+			DebugHeader: Debug
+		}
+
+		Alpha: {
+			Label: Opacity
+			Tooltip: Defaults to 100.
+		}
+
+		MouseAlpha: {
+			Label: Mouseover Opacity
+			Tooltip: Defaults to 50.
+		}
+
+		ShieldColorR: {
+			Label: Shield Bar Color R
+			Tooltip: Defaults to 54.
+		}
+
+		ShieldColorG: {
+			Label: Shield Bar Color G
+			Tooltip: Defaults to 163.
+		}
+
+		ShieldColorB: {
+			Label: Shield Bar Color B
+			Tooltip: Defaults to 232.
+		}
+
+		OnEnterWorldInfo: {
+			Label: Show Info when enter world
+			Tooltip: Enabled by default.
+		}
+
+		ShowBar: {
+			Label: Show Health Bar
+			Tooltip: Enabled by default.
+		}
+
+		ShowShield: {
+			Label: Show Sheild Bar
+			Tooltip: Enabled by default.
+		}
+
+		ShowInvincible: {
+			Label: Show Invincible Status
+			Tooltip: Enabled by default.
+		}
+
+		ShowName: {
+			Label: Show Boss Name
+			Tooltip: Enabled by default.
+		}
+
+		ShowLife: {
+			Label: Show Real-time Health
+			Tooltip: Enabled by default.
+		}
+
+		ShowLifeMax: {
+			Label: Show Max Health
+			Tooltip: Enabled by default.
+		}
+
+		ShowPercent: {
+			Label: Show Health Percentage
+			Tooltip: Enabled by default.
+		}
+
+		ShowSegment: {
+			Label: Show Remaining Segment Count
+			Tooltip: Enabled by default.
+		}
+
+		ShowDefense: {
+			Label: Show Defence
+			Tooltip: Enabled by default.
+		}
+
+		ShowCalDR: {
+			Label: Show Calamity Damage Reduction (WIP)
+			Tooltip: Enabled by default.
+		}
+
+		ShowFarDR: {
+			Label: Show Fargo Souls Damage Reduction (WIP)
+			Tooltip: Enabled by default.
+		}
+
+		ShowTarget: {
+			Label: Show Aggro Target
+			Tooltip: Enabled by default.
+		}
+
+		ShowDamage: {
+			Label: Show Attack Damage
+			Tooltip: Enabled by default.
+		}
+
+		ShowIcon: {
+			Label: Show Boss Icon
+			Tooltip: Enabled by default.
+		}
+
+		ImprovedLifeCalculation: {
+			Label: Improved Health Calculation
+			Tooltip:
+				'''
+				[c/FF0000:PLEASE NOTE THAT THIS IS AN EXPERIMENTAL SETTING]
+				Enabling this option may cause minor performance issues
+				This setting may improve health calculations for certain bosses when Calamity is enabled
+				It may also be incompatible with certain bosses
+				Disabled by default.
+				'''
+		}
+
+		UseOldFillAllLogic: {
+			Label: Use Old FillAll Logic
+			Tooltip: Disabled by default.
 		}
 	}
+}
+
+Exception: {
+	Solution: Try Disable the [c/FF0000:Yet Another Boss Health Bar] Mod!
+	InputError: Input Error!{0}{$Solution}
+	OnSelectEnums: On Select Enums!
+}
+
+Info: {
+	Segment: Remaining Segment:
+	Invincible: Invincible
+	OnEnterWorld:
+		'''
+
+		Please select [Yet Another Boss Health Bar] under [Setting] > [Interface] > [Boss Bar Style] to activate it.
+		Please visit [Mod Configuration] > [Yet Another Boss Health Bar] to enable or disable specific features.
+		You can also disable this information message within [Mod Configuration].
+
+		'''
 }
