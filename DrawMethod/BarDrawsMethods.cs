@@ -101,7 +101,7 @@ internal class BarDrawsMethods
 
             if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Icon, out icon))
             {
-                if (npc.GetBossHeadTextureIndex() > 0)
+                if (npc.GetBossHeadTextureIndex() >= 0)
                     icon = new BarTexture2D(TextureType.Icon, TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()], TextureSource.None);
                 else
                     icon = new BarTexture2D(TextureType.Icon, ModContent.Request<Texture2D>("YuBellBossBar/Texture/Sweetie"), TextureSource.None);

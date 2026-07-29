@@ -171,7 +171,7 @@ internal static class BuildInTextures
                 (_dvpath + "WallofFleshHead",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { headOffset = new Vector2(52,30);fillOffset = new Vector2(4,16); }
+                { headOffset = new Vector2(52,30);fillOffset = new Vector2(80,16); }
             )
         },
         {
@@ -381,7 +381,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { headOffset = new Vector2(21,30);fillOffset = new Vector2(28,16); }
+                { headOffset = new Vector2(21,30);fillOffset = new Vector2(48,16); }
             )
         },
         {
@@ -553,7 +553,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { headOffset = new Vector2(23,26);fillOffset = new Vector2(50,8); }
+                { headOffset = new Vector2(26,22);fillOffset = new Vector2(50,8); }
             )
         },
         {
