@@ -277,12 +277,14 @@ internal class BarDrawsMethods
                                     HeightPF
                                     );
 
-                                int count = (((int)EndPosition.X - (int)StartPosition.X) / frame.texture.Value.Width) + 1;
+                                int count = (((int)EndPosition.X - (int)StartPosition.X) / frame.texture.Value.Width);
+                                int extra = (((int)EndPosition.X - (int)StartPosition.X) % frame.texture.Value.Width);
 
                                 for (int i = 0; i < count; i++)
                                 {
                                     spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, frame.texture.Value.Height), frameP, Color.White * GlobalAlpha);
                                 }
+                                spriteBatch.Draw(frame.texture.Value,new Vector2(EndPosition.X - extra, EndPosition.Y),new Rectangle(frame.texture.Value.Width - extra,0,extra,frameP.Height),Color.White * GlobalAlpha);
 
                                 frameNow[frame]++;
                                 break;
