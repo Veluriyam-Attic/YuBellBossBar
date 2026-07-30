@@ -230,7 +230,7 @@ internal struct BarTexture2D
     public bool ConfigEnabled 
     {
         get {
-            #pragma warning disable CS8524
+#pragma warning disable CS8524
             return source switch
             {
                 TextureSource.DefaultTexture => true,
@@ -239,6 +239,7 @@ internal struct BarTexture2D
                 TextureSource.ExtraCalamity => BarConfig.Instance.EnableExtraCalamity,
                 TextureSource.ExtraInfo => BarConfig.Instance.EnableExtraInfo,
                 TextureSource.ExtraCustom => BarConfig.Instance.EnableExtraCustom,
+                TextureSource.ExtraAAClassic => BarConfig.Instance.EnableExtraAAClassic,
                 TextureSource.None => true,
             };
         } 

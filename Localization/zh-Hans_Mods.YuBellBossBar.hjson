@@ -196,6 +196,11 @@ Configs: {
 			Label: 使用旧版FillAll逻辑
 			Tooltip: 默认关闭
 		}
+
+		EnableExtraAAClassic: {
+			// Label: Enable Extra A A Classic
+			// Tooltip: ""
+		}
 	}
 }
 

@@ -1,0 +1,1975 @@
+﻿namespace AAMod.Globals
+{
+	// Token: 0x02000B30 RID: 2864
+	internal class WeakReferences
+	{
+		// Token: 0x06003CBA RID: 15546 RVA: 0x00239776 File Offset: 0x00237976
+		public static void PerformModSupport()
+		{
+			WeakReferences.PerformHealthBarSupport();
+			WeakReferences.PerformBossChecklistSupport();
+			WeakReferences.PerformCencusSupport();
+			WeakReferences.PerformFargosSetup();
+		}
+
+		// Token: 0x06003CBB RID: 15547 RVA: 0x0023978C File Offset: 0x0023798C
+		private static void PerformHealthBarSupport()
+		{
+			Mod yabhb = ModLoader.GetMod("FKBossHealthBar");
+			if (yabhb != null)
+			{
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/MBarHead"),
+					AAMod.instance.GetTexture("Healthbars/MBarBody"),
+					AAMod.instance.GetTexture("Healthbars/MBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Firebrick,
+					Color.Firebrick,
+					Color.Firebrick
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("MushroomMonarch")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/FBarHead"),
+					AAMod.instance.GetTexture("Healthbars/FBarBody"),
+					AAMod.instance.GetTexture("Healthbars/FBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.DarkCyan,
+					Color.DarkCyan,
+					Color.DarkCyan
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("FeudalFungus")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/RGCBarHead"),
+					AAMod.instance.GetTexture("Healthbars/RGCBarBody"),
+					AAMod.instance.GetTexture("Healthbars/RGCBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.DarkOrange,
+					Color.DarkOrange,
+					Color.DarkOrange
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("GripOfChaosRed")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/BGCBarHead"),
+					AAMod.instance.GetTexture("Healthbars/BGCBarBody"),
+					AAMod.instance.GetTexture("Healthbars/BGCBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Indigo,
+					Color.Indigo,
+					Color.Indigo
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("GripOfChaosBlue")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/BMBarHead"),
+					AAMod.instance.GetTexture("Healthbars/BMBarBody"),
+					AAMod.instance.GetTexture("Healthbars/BMBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.DarkOrange,
+					Color.DarkOrange,
+					Color.DarkOrange
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Broodmother")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/HydraBarHead"),
+					AAMod.instance.GetTexture("Healthbars/HydraBarBody"),
+					AAMod.instance.GetTexture("Healthbars/HydraBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Indigo,
+					Color.Indigo,
+					Color.Indigo
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Hydra")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/SSBarHead"),
+					AAMod.instance.GetTexture("Healthbars/SSBarBody"),
+					AAMod.instance.GetTexture("Healthbars/SSBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Cyan,
+					Color.Cyan,
+					Color.Cyan
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("SerpentHead")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/DDBarHead"),
+					AAMod.instance.GetTexture("Healthbars/DDBarBody"),
+					AAMod.instance.GetTexture("Healthbars/DDBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.IndianRed,
+					Color.IndianRed,
+					Color.IndianRed
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Djinn")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/SagBarHead"),
+					AAMod.instance.GetTexture("Healthbars/SagBarBody"),
+					AAMod.instance.GetTexture("Healthbars/SagBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Red,
+					Color.Red,
+					Color.Red
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Sag")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/AnuBarHead"),
+					AAMod.instance.GetTexture("Healthbars/AnuBarBody"),
+					AAMod.instance.GetTexture("Healthbars/AnuBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Cyan,
+					Color.Cyan,
+					Color.Cyan
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Anubis")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/GreedBarHead"),
+					AAMod.instance.GetTexture("Healthbars/GreedBarBody"),
+					AAMod.instance.GetTexture("Healthbars/GreedBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Goldenrod,
+					Color.Goldenrod,
+					Color.Goldenrod
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Greed")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/RajahBarHead"),
+					AAMod.instance.GetTexture("Healthbars/RajahBarBody"),
+					AAMod.instance.GetTexture("Healthbars/RajahBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Orange,
+					Color.Orange,
+					Color.Orange
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Rajah")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/FAnuBarHead"),
+					AAMod.instance.GetTexture("Healthbars/FAnuBarBody"),
+					AAMod.instance.GetTexture("Healthbars/FAnuBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.MediumAquamarine,
+					Color.MediumAquamarine,
+					Color.MediumAquamarine
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("ForsakenAnubis")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/WKGBarHead"),
+					AAMod.instance.GetTexture("Healthbars/WKGBarBody"),
+					AAMod.instance.GetTexture("Healthbars/WKGBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Goldenrod,
+					Color.Goldenrod,
+					Color.Goldenrod
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Greed")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/DBBarHead"),
+					AAMod.instance.GetTexture("Healthbars/DBBarBody"),
+					AAMod.instance.GetTexture("Healthbars/DBBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Cyan,
+					Color.Cyan,
+					Color.Cyan
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("DaybringerHead")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/NCBarHead"),
+					AAMod.instance.GetTexture("Healthbars/NCBarBody"),
+					AAMod.instance.GetTexture("Healthbars/NCBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.MediumBlue,
+					Color.MediumBlue,
+					Color.MediumBlue
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("NightcrawlerHead")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/HarukaBarHead"),
+					AAMod.instance.GetTexture("Healthbars/HarukaBarBody"),
+					AAMod.instance.GetTexture("Healthbars/HarukaBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					new Color(122, 157, 152),
+					new Color(122, 157, 152),
+					new Color(122, 157, 152)
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Haruka")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				Mod mod = yabhb;
+				object[] array = new object[5];
+				array[0] = "hbSetTextureSmall";
+				array[1] = AAMod.instance.GetTexture("Healthbars/HarukaBar2Head");
+				array[2] = AAMod.instance.GetTexture("Healthbars/HarukaBar2Body");
+				array[3] = AAMod.instance.GetTexture("Healthbars/HarukaBar2Tail");
+				mod.Call(array);
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					new Color(122, 157, 152),
+					new Color(122, 157, 152),
+					new Color(122, 157, 152)
+				});
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("HarukaY")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				Mod mod2 = yabhb;
+				object[] array2 = new object[5];
+				array2[0] = "hbSetTextureSmall";
+				array2[1] = AAMod.instance.GetTexture("Healthbars/HarukaBar2Head");
+				array2[2] = AAMod.instance.GetTexture("Healthbars/HarukaBar2Body");
+				array2[3] = AAMod.instance.GetTexture("Healthbars/HarukaBar2Tail");
+				mod2.Call(array2);
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					new Color(122, 157, 152),
+					new Color(122, 157, 152),
+					new Color(122, 157, 152)
+				});
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("WrathHaruka")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				Mod mod3 = yabhb;
+				object[] array3 = new object[5];
+				array3[0] = "hbSetTextureSmall";
+				array3[1] = AAMod.instance.GetTexture("Healthbars/AsheBar2Head");
+				array3[2] = AAMod.instance.GetTexture("Healthbars/AsheBar2Body");
+				array3[3] = AAMod.instance.GetTexture("Healthbars/AsheBar2Tail");
+				mod3.Call(array3);
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.OrangeRed,
+					Color.OrangeRed,
+					Color.OrangeRed
+				});
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("AsheA")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				Mod mod4 = yabhb;
+				object[] array4 = new object[5];
+				array4[0] = "hbSetTextureSmall";
+				array4[1] = AAMod.instance.GetTexture("Healthbars/AsheBar2Head");
+				array4[2] = AAMod.instance.GetTexture("Healthbars/AsheBar2Body");
+				array4[3] = AAMod.instance.GetTexture("Healthbars/AsheBar2Tail");
+				mod4.Call(array4);
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.OrangeRed,
+					Color.OrangeRed,
+					Color.OrangeRed
+				});
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("FuryAshe")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/YamataBarHead"),
+					AAMod.instance.GetTexture("Healthbars/YamataBarBody"),
+					AAMod.instance.GetTexture("Healthbars/YamataBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Purple,
+					Color.Purple,
+					Color.Purple
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Yamata")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/YamataABarHead"),
+					AAMod.instance.GetTexture("Healthbars/YamataABarBody"),
+					AAMod.instance.GetTexture("Healthbars/YamataABarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.MediumVioletRed,
+					Color.MediumVioletRed,
+					Color.MediumVioletRed
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("YamataA")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/AkumaBarHead"),
+					AAMod.instance.GetTexture("Healthbars/AkumaBarBody"),
+					AAMod.instance.GetTexture("Healthbars/AkumaBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Yellow,
+					Color.Yellow,
+					Color.Yellow
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Akuma")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/AkumaABarHead"),
+					AAMod.instance.GetTexture("Healthbars/AkumaBarBody"),
+					AAMod.instance.GetTexture("Healthbars/AkumaABarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.DeepSkyBlue,
+					Color.DeepSkyBlue,
+					Color.DeepSkyBlue
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("AkumaA")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/ZeroBarHead"),
+					AAMod.instance.GetTexture("Healthbars/ZeroBarBody"),
+					AAMod.instance.GetTexture("Healthbars/ZeroBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Red,
+					Color.Red,
+					Color.Red
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Zero")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/ZeroABarHead"),
+					AAMod.instance.GetTexture("Healthbars/ZeroBarBody"),
+					AAMod.instance.GetTexture("Healthbars/ZeroABarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Red,
+					Color.Red,
+					Color.Red
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("ZeroProtocol")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/SRajahBarHead"),
+					AAMod.instance.GetTexture("Healthbars/SRajahBarBody"),
+					AAMod.instance.GetTexture("Healthbars/SRajahBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Gold,
+					Color.Gold,
+					Color.Gold
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("SupremeRajah")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/ShenBarHead"),
+					AAMod.instance.GetTexture("Healthbars/ShenBarBody"),
+					AAMod.instance.GetTexture("Healthbars/ShenBarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Purple,
+					Color.Purple,
+					Color.Purple
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("Shen")
+				});
+				yabhb.Call(new object[] { "hbStart" });
+				yabhb.Call(new object[]
+				{
+					"hbSetTexture",
+					AAMod.instance.GetTexture("Healthbars/ShenABarHead"),
+					AAMod.instance.GetTexture("Healthbars/ShenABarBody"),
+					AAMod.instance.GetTexture("Healthbars/ShenABarTail"),
+					AAMod.instance.GetTexture("Healthbars/BarFill")
+				});
+				yabhb.Call(new object[]
+				{
+					"hbSetColours",
+					Color.Silver,
+					Color.Silver,
+					Color.Silver
+				});
+				yabhb.Call(new object[] { "hbSetMidBarOffset", -30, 10 });
+				yabhb.Call(new object[] { "hbSetBossHeadCentre", 50, 32 });
+				yabhb.Call(new object[] { "hbSetFillDecoOffsetSmall", 16 });
+				yabhb.Call(new object[]
+				{
+					"hbFinishSingle",
+					AAMod.instance.NPCType("ShenA")
+				});
+			}
+		}
+
+		// Token: 0x06003CBC RID: 15548 RVA: 0x0023BCD4 File Offset: 0x00239ED4
+		private static void PerformBossChecklistSupport()
+		{
+			Mod bossChecklist = ModLoader.GetMod("BossChecklist");
+			AAMod mod = AAMod.instance;
+			if (bossChecklist != null)
+			{
+				Mod mod2 = bossChecklist;
+				object[] array = new object[13];
+				array[0] = "AddBoss";
+				array[1] = 0f;
+				array[2] = mod.NPCType("MushroomMonarch");
+				array[3] = mod;
+				array[4] = Lang.BossCheck("MushroomMonarch");
+				array[5] = new Func<bool>(() => AAWorld.downedMonarch);
+				array[6] = ModContent.ItemType<IntimidatingMushroom>();
+				array[7] = new List<int>
+				{
+					ModContent.ItemType<MonarchTrophy>(),
+					ModContent.ItemType<MonarchMask>(),
+					ModContent.ItemType<MonarchBox>()
+				};
+				array[8] = new List<int>
+				{
+					ModContent.ItemType<MonarchBag>(),
+					ModContent.ItemType<HeartyTruffle>(),
+					ModContent.ItemType<Mushium>(),
+					ModContent.ItemType<SporeSac>()
+				};
+				array[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usean"),
+					"[i: ",
+					ModContent.ItemType<IntimidatingMushroom>(),
+					"]"
+				});
+				array[10] = Lang.BossCheck("MushroomMonarchInfo2");
+				array[11] = "AAMod/CrossMod/BossChecklist/Monarch";
+				array[12] = "AAMod/NPCs/Bosses/MushroomMonarch/MushroomMonarch_Head_Boss";
+				mod2.Call(array);
+				Mod mod3 = bossChecklist;
+				object[] array2 = new object[13];
+				array2[0] = "AddBoss";
+				array2[1] = 0.1f;
+				array2[2] = mod.NPCType("FeudalFungus");
+				array2[3] = mod;
+				array2[4] = Lang.BossCheck("FeudalFungus");
+				array2[5] = new Func<bool>(() => AAWorld.downedFungus);
+				array2[6] = ModContent.ItemType<ConfusingMushroom>();
+				array2[7] = new List<int>
+				{
+					ModContent.ItemType<FungusTrophy>(),
+					ModContent.ItemType<FungusMask>(),
+					ModContent.ItemType<FungusBox>()
+				};
+				array2[8] = new List<int>
+				{
+					ModContent.ItemType<FungusBag>(),
+					ModContent.ItemType<MagicTruffle>(),
+					ModContent.ItemType<GlowingMushium>(),
+					ModContent.ItemType<GlowingSporeSac>()
+				};
+				array2[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usean"),
+					"[i: ",
+					ModContent.ItemType<ConfusingMushroom>(),
+					"]",
+					Lang.BossCheck("FeudalFungusInfo")
+				});
+				array2[10] = Lang.BossCheck("FeudalFungusInfo2");
+				array2[11] = "AAMod/CrossMod/BossChecklist/Fungus";
+				array2[12] = "AAMod/NPCs/Bosses/FeudalFungus/FeudalFungus_Head_Boss";
+				mod3.Call(array2);
+				Mod mod4 = bossChecklist;
+				object[] array3 = new object[13];
+				array3[0] = "AddBoss";
+				array3[1] = 2f;
+				array3[2] = mod.NPCType("GripOfChaosRed");
+				array3[3] = mod;
+				array3[4] = Lang.BossCheck("GripsofChaos");
+				array3[5] = new Func<bool>(() => AAWorld.downedGrips);
+				array3[6] = ModContent.ItemType<CuriousClaw>();
+				array3[7] = new List<int>
+				{
+					ModContent.ItemType<GripTrophyBlue>(),
+					ModContent.ItemType<GripTrophyRed>(),
+					ModContent.ItemType<GripMaskBlue>(),
+					ModContent.ItemType<GripMaskRed>(),
+					ModContent.ItemType<GripsBox>()
+				};
+				array3[8] = new List<int>
+				{
+					ModContent.ItemType<GripBag>(),
+					ModContent.ItemType<ClawOfChaos>(),
+					ModContent.ItemType<ClawBaton>()
+				};
+				array3[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("CuriousClaw"),
+					"]",
+					Lang.BossCheck("or"),
+					"[i:",
+					AAMod.instance.ItemType("InterestingClaw"),
+					"]",
+					Lang.BossCheck("atnight")
+				});
+				array3[10] = Lang.BossCheck("GripsofChaosInfo");
+				array3[11] = "AAMod/CrossMod/BossChecklist/Grips";
+				array3[12] = "AAMod/CrossMod/BossChecklist/GripsHead";
+				mod4.Call(array3);
+				Mod mod5 = bossChecklist;
+				object[] array4 = new object[13];
+				array4[0] = "AddBoss";
+				array4[1] = 2.5f;
+				array4[2] = mod.NPCType("TruffleToad");
+				array4[3] = mod;
+				array4[4] = Lang.BossCheck("TruffleToad");
+				array4[5] = new Func<bool>(() => AAWorld.downedToad);
+				array4[6] = ModContent.ItemType<Toadstool>();
+				array4[7] = new List<int>
+				{
+					ModContent.ItemType<ToadTrophy>(),
+					ModContent.ItemType<ToadMask>(),
+					ModContent.ItemType<ToadBox>()
+				};
+				array4[8] = new List<int>
+				{
+					ModContent.ItemType<ToadBag>(),
+					ModContent.ItemType<ToadLeg>(),
+					ModContent.ItemType<ToadTongue>(),
+					ModContent.ItemType<Todegun>(),
+					ModContent.ItemType<MushrockStaff>(),
+					ModContent.ItemType<GlowingSporeSac>()
+				};
+				array4[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("Toadstool"),
+					"]",
+					Lang.BossCheck("TruffleToadInfo")
+				});
+				array4[10] = Lang.BossCheck("TruffleToadInfo2");
+				array4[11] = "AAMod/CrossMod/BossChecklist/Toad";
+				array4[12] = "AAMod/NPCs/Bosses/Toad/TruffleToad_Head_Boss";
+				mod5.Call(array4);
+				Mod mod6 = bossChecklist;
+				object[] array5 = new object[13];
+				array5[0] = "AddBoss";
+				array5[1] = 3.5f;
+				array5[2] = mod.NPCType("Broodmother");
+				array5[3] = mod;
+				array5[4] = Lang.BossCheck("Broodmother");
+				array5[5] = new Func<bool>(() => AAWorld.downedBrood);
+				array5[6] = ModContent.ItemType<DragonBell>();
+				array5[7] = new List<int>
+				{
+					ModContent.ItemType<BroodmotherTrophy>(),
+					ModContent.ItemType<BroodmotherMask>(),
+					ModContent.ItemType<BroodBox>()
+				};
+				array5[8] = new List<int>
+				{
+					ModContent.ItemType<BroodBag>(),
+					ModContent.ItemType<DragonCape>(),
+					ModContent.ItemType<BroodScale>(),
+					ModContent.ItemType<Incinerite>()
+				};
+				array5[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("DragonBell"),
+					"]",
+					Lang.BossCheck("BroodmotherInfo")
+				});
+				array5[10] = Lang.BossCheck("BroodmotherInfo2");
+				array5[11] = "AAMod/CrossMod/BossChecklist/Brood";
+				array5[12] = "AAMod/NPCs/Bosses/Broodmother/Broodmother_Head_Boss";
+				mod6.Call(array5);
+				Mod mod7 = bossChecklist;
+				object[] array6 = new object[14];
+				array6[0] = "AddBoss";
+				array6[1] = 3.5f;
+				array6[2] = mod.NPCType("Hydra");
+				array6[3] = mod;
+				array6[4] = Lang.BossCheck("Hydra");
+				array6[5] = new Func<bool>(() => AAWorld.downedHydra);
+				array6[6] = ModContent.ItemType<HydraChow>();
+				array6[7] = new List<int>
+				{
+					ModContent.ItemType<HydraTrophy>(),
+					ModContent.ItemType<HydraMask1>(),
+					ModContent.ItemType<HydraBox>()
+				};
+				array6[8] = new List<int>
+				{
+					ModContent.ItemType<HydraBag>(),
+					ModContent.ItemType<HydraPendant>(),
+					ModContent.ItemType<HydraHide>(),
+					ModContent.ItemType<Abyssium>()
+				};
+				array6[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("HydraChow"),
+					"]",
+					Lang.BossCheck("HydraInfo")
+				});
+				array6[10] = Lang.BossCheck("HydraInfo2");
+				array6[11] = "AAMod/CrossMod/BossChecklist/Hydra";
+				array6[12] = "AAMod/NPCs/Bosses/Hydra/HydraHead1_Head_Boss";
+				mod7.Call(array6);
+				Mod mod8 = bossChecklist;
+				object[] array7 = new object[13];
+				array7[0] = "AddBoss";
+				array7[1] = 5.5f;
+				array7[2] = mod.NPCType("SerpentHead");
+				array7[3] = mod;
+				array7[4] = Lang.BossCheck("SubzeroSerpent");
+				array7[5] = new Func<bool>(() => AAWorld.downedSerpent);
+				array7[6] = ModContent.ItemType<SubzeroCrystal>();
+				array7[7] = new List<int>
+				{
+					ModContent.ItemType<SerpentTrophy>(),
+					ModContent.ItemType<SerpentMask>(),
+					ModContent.ItemType<SerpentBox>()
+				};
+				array7[8] = new List<int>
+				{
+					ModContent.ItemType<SerpentBag>(),
+					ModContent.ItemType<ArcticMedallion>(),
+					ModContent.ItemType<BlizzardBuster>(),
+					ModContent.ItemType<Icepick>(),
+					ModContent.ItemType<SerpentSpike>(),
+					ModContent.ItemType<SerpentSting>(),
+					ModContent.ItemType<Sickle>(),
+					ModContent.ItemType<SickleShot>(),
+					ModContent.ItemType<SnakeStaff>(),
+					ModContent.ItemType<SnowflakeShuriken>(),
+					ModContent.ItemType<SubzeroSlasher>(),
+					ModContent.ItemType<SnowMana>()
+				};
+				array7[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("SubzeroCrystal"),
+					"]",
+					Lang.BossCheck("SubzeroSerpentInfo")
+				});
+				array7[10] = Lang.BossCheck("SubzeroSerpentInfo2");
+				array7[11] = "AAMod/CrossMod/BossChecklist/Serpent1";
+				array7[12] = "AAMod/NPCs/Bosses/Serpent/SerpentHead_Head_Boss";
+				mod8.Call(array7);
+				Mod mod9 = bossChecklist;
+				object[] array8 = new object[13];
+				array8[0] = "AddBoss";
+				array8[1] = 5.5f;
+				array8[2] = mod.NPCType("Djinn");
+				array8[3] = mod;
+				array8[4] = Lang.BossCheck("DesertDjinn");
+				array8[5] = new Func<bool>(() => AAWorld.downedDjinn);
+				array8[6] = ModContent.ItemType<DjinnLamp>();
+				array8[7] = new List<int>
+				{
+					ModContent.ItemType<DjinnTrophy>(),
+					ModContent.ItemType<DjinnMask>(),
+					ModContent.ItemType<DjinnBox>()
+				};
+				array8[8] = new List<int>
+				{
+					ModContent.ItemType<DjinnBag>(),
+					ModContent.ItemType<SandstormMedallion>(),
+					ModContent.ItemType<DjinnBag>(),
+					ModContent.ItemType<Djinnerang>(),
+					ModContent.ItemType<Sandagger>(),
+					ModContent.ItemType<SandLamp>(),
+					ModContent.ItemType<SandScepter>(),
+					ModContent.ItemType<SandstormCrossbow>(),
+					ModContent.ItemType<SultanScimitar>(),
+					ModContent.ItemType<DesertMana>()
+				};
+				array8[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("DjinnLamp"),
+					"]",
+					Lang.BossCheck("DesertDjinnInfo")
+				});
+				array8[10] = Lang.BossCheck("DesertDjinnInfo2");
+				array8[11] = "AAMod/CrossMod/BossChecklist/Djinn";
+				array8[12] = "AAMod/NPCs/Bosses/Djinn/Djinn_Head_Boss";
+				mod9.Call(array8);
+				Mod mod10 = bossChecklist;
+				object[] array9 = new object[13];
+				array9[0] = "AddBoss";
+				array9[1] = 5.7f;
+				array9[2] = mod.NPCType("Sag");
+				array9[3] = mod;
+				array9[4] = Lang.BossCheck("Sagittarius");
+				array9[5] = new Func<bool>(() => AAWorld.downedSag);
+				array9[6] = ModContent.ItemType<Lifescanner>();
+				array9[7] = new List<int>
+				{
+					ModContent.ItemType<SagTrophy>(),
+					ModContent.ItemType<SagMask>(),
+					ModContent.ItemType<SagBox>()
+				};
+				array9[8] = new List<int>
+				{
+					ModContent.ItemType<SagBag>(),
+					ModContent.ItemType<SagShield>(),
+					ModContent.ItemType<Legg>(),
+					ModContent.ItemType<NeutronStaff>(),
+					ModContent.ItemType<SagCore>(),
+					ModContent.ItemType<Doomite>()
+				};
+				array9[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("Lifescanner"),
+					"]",
+					Lang.BossCheck("SagittariusInfo")
+				});
+				array9[10] = Lang.BossCheck("SagittariusInfo2");
+				array9[11] = "AAMod/CrossMod/BossChecklist/Sag";
+				array9[12] = "AAMod/NPCs/Bosses/Sag/Sag_Head_Boss";
+				mod10.Call(array9);
+				Mod mod11 = bossChecklist;
+				object[] array10 = new object[13];
+				array10[0] = "AddBoss";
+				array10[1] = 9.7f;
+				array10[2] = mod.NPCType("Anubis");
+				array10[3] = mod;
+				array10[4] = Lang.BossCheck("Anubis");
+				array10[5] = new Func<bool>(() => AAWorld.downedAnubis);
+				array10[6] = ModContent.ItemType<Scepter>();
+				array10[7] = new List<int>
+				{
+					ModContent.ItemType<AnubisTrophy>(),
+					ModContent.ItemType<AnubisMask>(),
+					ModContent.ItemType<AnubisBox>()
+				};
+				array10[8] = new List<int>
+				{
+					ModContent.ItemType<AnubisBag>(),
+					ModContent.ItemType<ArtifactOfJudgement>(),
+					ModContent.ItemType<Judgment>(),
+					ModContent.ItemType<JackalsWrath>(),
+					ModContent.ItemType<NeithsString>(),
+					ModContent.ItemType<SandstormThrower>(),
+					ModContent.ItemType<DesertStaff>(),
+					ModContent.ItemType<SentryOfTheEye>(),
+					ModContent.ItemType<ForsakenFragment>()
+				};
+				array10[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("Scepter"),
+					"]",
+					Lang.BossCheck("AnubisInfo")
+				});
+				array10[11] = "AAMod/CrossMod/BossChecklist/Anubis";
+				array10[12] = "AAMod/NPCs/Bosses/Anubis/Anubis_Head_Boss";
+				mod11.Call(array10);
+				Mod mod12 = bossChecklist;
+				object[] array11 = new object[13];
+				array11[0] = "AddBoss";
+				array11[1] = 11.5f;
+				array11[2] = mod.NPCType("Athena");
+				array11[3] = mod;
+				array11[4] = Lang.BossCheck("Athena");
+				array11[5] = new Func<bool>(() => AAWorld.downedAthena);
+				array11[6] = ModContent.ItemType<Owl>();
+				array11[7] = new List<int>
+				{
+					ModContent.ItemType<AthenaTrophy>(),
+					ModContent.ItemType<AthenaMask>(),
+					ModContent.ItemType<AthenaBox>()
+				};
+				array11[8] = new List<int>
+				{
+					ModContent.ItemType<AthenaBag>(),
+					ModContent.ItemType<SeraphHarp>(),
+					ModContent.ItemType<SkycutterKopis>(),
+					ModContent.ItemType<RazorwindLongbow>(),
+					ModContent.ItemType<GaleOfWings>(),
+					ModContent.ItemType<DivineWindCharm>(),
+					ModContent.ItemType<GoddessFeather>()
+				};
+				array11[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usean"),
+					"[i:",
+					AAMod.instance.ItemType("Owl"),
+					"]",
+					Lang.BossCheck("AthenaInfo")
+				});
+				array11[11] = "AAMod/CrossMod/BossChecklist/Athena";
+				array11[12] = "AAMod/NPCs/Bosses/Athena/Athena_Head_Boss";
+				mod12.Call(array11);
+				Mod mod13 = bossChecklist;
+				object[] array12 = new object[13];
+				array12[0] = "AddBoss";
+				array12[1] = 11.5f;
+				array12[2] = mod.NPCType("Greed");
+				array12[3] = mod;
+				array12[4] = Lang.BossCheck("Greed");
+				array12[5] = new Func<bool>(() => AAWorld.downedGreed);
+				array12[6] = ModContent.ItemType<GoldenGrub>();
+				array12[7] = new List<int>
+				{
+					ModContent.ItemType<GreedTrophy>(),
+					ModContent.ItemType<GreedMask>(),
+					ModContent.ItemType<GreedBox>()
+				};
+				array12[8] = new List<int>
+				{
+					ModContent.ItemType<GreedBag>(),
+					ModContent.ItemType<DesireCharm>(),
+					ModContent.ItemType<StoneSlammer>(),
+					ModContent.ItemType<GildedGlock>(),
+					ModContent.ItemType<GoldDigger>(),
+					ModContent.ItemType<Miner>(),
+					ModContent.ItemType<StoneShell>()
+				};
+				array12[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("GoldenGrub"),
+					"]",
+					Lang.BossCheck("GreedInfo")
+				});
+				array12[11] = "AAMod/CrossMod/BossChecklist/Greed";
+				array12[12] = "AAMod/NPCs/Bosses/Greed/Greed_Head_Boss";
+				mod13.Call(array12);
+				Mod mod14 = bossChecklist;
+				object[] array13 = new object[13];
+				array13[0] = "AddBoss";
+				array13[1] = 11.5f;
+				array13[2] = mod.NPCType("Rajah");
+				array13[3] = mod;
+				array13[4] = Lang.BossCheck("RajahRabbit");
+				array13[5] = new Func<bool>(() => AAWorld.downedRajah);
+				array13[6] = ModContent.ItemType<GoldenCarrot>();
+				array13[7] = new List<int>
+				{
+					ModContent.ItemType<RajahTrophy>(),
+					ModContent.ItemType<RajahMask>(),
+					ModContent.ItemType<RajahBox>()
+				};
+				array13[8] = new List<int>
+				{
+					ModContent.ItemType<RajahBag>(),
+					ModContent.ItemType<RajahSash>(),
+					ModContent.ItemType<BaneOfTheBunny>(),
+					ModContent.ItemType<Punisher>(),
+					ModContent.ItemType<Bunzooka>(),
+					ModContent.ItemType<RoyalScepter>(),
+					ModContent.ItemType<CottonCane>(),
+					ModContent.ItemType<RabbitcopterEars>(),
+					ModContent.ItemType<RajahPelt>()
+				};
+				array13[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("GoldenCarrot"),
+					"]",
+					Lang.BossCheck("RajahRabbitInfo")
+				});
+				array13[11] = "AAMod/CrossMod/BossChecklist/Rajah";
+				array13[12] = "AAMod/NPCs/Bosses/Rajah/Rajah_Head_Boss";
+				mod14.Call(array13);
+				Mod mod15 = bossChecklist;
+				object[] array14 = new object[13];
+				array14[0] = "AddBoss";
+				array14[1] = 15f;
+				array14[2] = mod.NPCType("ForsakenAnubis");
+				array14[3] = mod;
+				array14[4] = Lang.BossCheck("AnubisA");
+				array14[5] = new Func<bool>(() => AAWorld.downedAnubisA);
+				array14[6] = ModContent.ItemType<Scepter>();
+				array14[7] = new List<int>
+				{
+					ModContent.ItemType<FAnubisTrophy>(),
+					ModContent.ItemType<FAnubisMask>(),
+					ModContent.ItemType<AnubisFBox>()
+				};
+				array14[8] = new List<int>
+				{
+					ModContent.ItemType<FAnubisBag>(),
+					ModContent.ItemType<ArtifactOfGuilt>(),
+					ModContent.ItemType<Verdict>(),
+					ModContent.ItemType<Soulsplitter>(),
+					ModContent.ItemType<Lifeline>(),
+					ModContent.ItemType<CursedFury>(),
+					ModContent.ItemType<ForsakenStaff>(),
+					ModContent.ItemType<HorusCane>(),
+					ModContent.ItemType<SoulFragment>()
+				};
+				array14[9] = Lang.BossCheck("AnubisAInfo");
+				array14[11] = "AAMod/CrossMod/BossChecklist/FAnubis";
+				array14[12] = "AAMod/NPCs/Bosses/Anubis/Forsaken/ForsakenAnubis_Head_Boss";
+				mod15.Call(array14);
+				Mod mod16 = bossChecklist;
+				object[] array15 = new object[14];
+				array15[0] = "AddBoss";
+				array15[1] = 15.1f;
+				array15[2] = mod.NPCType("AthenaA");
+				array15[3] = mod;
+				array15[4] = Lang.BossCheck("AthenaA");
+				array15[5] = new Func<bool>(() => AAWorld.downedAthenaA);
+				array15[6] = ModContent.ItemType<Owl>();
+				array15[7] = new List<int> { ModContent.ItemType<AthenaABox>() };
+				array15[8] = new List<int>
+				{
+					ModContent.ItemType<AthenaABag>(),
+					ModContent.ItemType<GoddessHarp>(),
+					ModContent.ItemType<Olympia>(),
+					ModContent.ItemType<Windfury>(),
+					ModContent.ItemType<GaleForce>(),
+					ModContent.ItemType<HurricaneStone>(),
+					ModContent.ItemType<StarChart>()
+				};
+				array15[9] = Lang.BossCheck("AthenaAInfo");
+				array15[11] = "AAMod/CrossMod/BossChecklist/AthenaA";
+				array15[12] = "AAMod/NPCs/Bosses/Athena/Olympian/AthenaA_Head_Boss";
+				array15[13] = new Func<bool>(() => AAWorld.downedAnubisA);
+				mod16.Call(array15);
+				Mod mod17 = bossChecklist;
+				object[] array16 = new object[14];
+				array16[0] = "AddBoss";
+				array16[1] = 15.2f;
+				array16[2] = mod.NPCType("GreedA");
+				array16[3] = mod;
+				array16[4] = Lang.BossCheck("GreedA");
+				array16[5] = new Func<bool>(() => AAWorld.downedGreedA);
+				array16[6] = ModContent.ItemType<GoldenGrub>();
+				array16[7] = new List<int> { ModContent.ItemType<GreedABox>() };
+				array16[8] = new List<int>
+				{
+					ModContent.ItemType<GreedABag>(),
+					ModContent.ItemType<DesireTalisman>(),
+					ModContent.ItemType<Earthbreaker>(),
+					ModContent.ItemType<OreCannon>(),
+					ModContent.ItemType<OreStaff>(),
+					ModContent.ItemType<Unearther>(),
+					ModContent.ItemType<GravitySphere>()
+				};
+				array16[9] = Lang.BossCheck("GreedAInfo");
+				array16[11] = "AAMod/CrossMod/BossChecklist/GreedA";
+				array16[12] = "AAMod/NPCs/Bosses/Greed/GreedA_Head_Boss";
+				array16[13] = new Func<bool>(() => AAWorld.downedAnubisA);
+				mod17.Call(array16);
+				Mod mod18 = bossChecklist;
+				object[] array17 = new object[13];
+				array17[0] = "AddBoss";
+				array17[1] = 16f;
+				array17[2] = mod.NPCType("DaybringerHead");
+				array17[3] = mod;
+				array17[4] = Lang.BossCheck("NightcrawlerDaybringer");
+				array17[5] = new Func<bool>(() => AAWorld.downedEquinox);
+				array17[6] = ModContent.ItemType<EquinoxWorm>();
+				array17[7] = new List<int>
+				{
+					ModContent.ItemType<DBTrophy>(),
+					ModContent.ItemType<NCTrophy>(),
+					ModContent.ItemType<DaybringerMask>(),
+					ModContent.ItemType<NightcrawlerMask>(),
+					ModContent.ItemType<Equibox>()
+				};
+				array17[8] = new List<int>
+				{
+					ModContent.ItemType<EquinoxBag>(),
+					ModContent.ItemType<RadiantStar>(),
+					ModContent.ItemType<DarkVoid>(),
+					ModContent.ItemType<Stardust>(),
+					ModContent.ItemType<DarkEnergy>(),
+					ModContent.ItemType<DarkmatterOre>(),
+					ModContent.ItemType<RadiumOre>()
+				};
+				array17[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("EquinoxWorm"),
+					"]"
+				});
+				array17[11] = "AAMod/CrossMod/BossChecklist/Equinox";
+				array17[12] = "AAMod/CrossMod/BossChecklist/EquinoxHead";
+				mod18.Call(array17);
+				Mod mod19 = bossChecklist;
+				object[] array18 = new object[13];
+				array18[0] = "AddBoss";
+				array18[1] = 17f;
+				array18[2] = mod.NPCType("Ashe");
+				array18[3] = mod;
+				array18[4] = Lang.BossCheck("SistersofDiscord");
+				array18[5] = new Func<bool>(() => AAWorld.downedSisters);
+				array18[6] = ModContent.ItemType<FlamesOfAnarchy>();
+				array18[7] = new List<int>
+				{
+					ModContent.ItemType<AsheTrophy>(),
+					ModContent.ItemType<HarukaTrophy>(),
+					ModContent.ItemType<SistersBox>()
+				};
+				array18[8] = new List<int>
+				{
+					ModContent.ItemType<AHBag>(),
+					ModContent.ItemType<HeartOfPassion>(),
+					ModContent.ItemType<HeartOfSorrow>(),
+					ModContent.ItemType<AshRain>(),
+					ModContent.ItemType<FuryFlame>(),
+					ModContent.ItemType<FireSpiritStaff>(),
+					ModContent.ItemType<AsheSatchel>(),
+					ModContent.ItemType<HarukaKunai>(),
+					ModContent.ItemType<Masamune>(),
+					ModContent.ItemType<MizuArashi>(),
+					ModContent.ItemType<HarukaBox>()
+				};
+				array18[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usethe"),
+					"[i:",
+					AAMod.instance.ItemType("FlamesOfAnarchy"),
+					"]"
+				});
+				array18[11] = "AAMod/CrossMod/BossChecklist/AH";
+				array18[12] = "AAMod/CrossMod/BossChecklist/AHHead";
+				mod19.Call(array18);
+				Mod mod20 = bossChecklist;
+				object[] array19 = new object[13];
+				array19[0] = "AddBoss";
+				array19[1] = 18f;
+				array19[2] = mod.NPCType("Akuma");
+				array19[3] = mod;
+				array19[4] = Lang.BossCheck("Akuma");
+				array19[5] = new Func<bool>(() => AAWorld.downedAkuma);
+				array19[6] = ModContent.ItemType<DraconianSigil>();
+				array19[7] = new List<int>
+				{
+					ModContent.ItemType<AkumaTrophy>(),
+					ModContent.ItemType<AkumaMask>(),
+					ModContent.ItemType<AkumaBox>()
+				};
+				array19[8] = new List<int>
+				{
+					ModContent.ItemType<ReignOfFire>(),
+					ModContent.ItemType<DragonSlasher>(),
+					ModContent.ItemType<Daycrusher>(),
+					ModContent.ItemType<SunSpear>(),
+					ModContent.ItemType<Solar>(),
+					ModContent.ItemType<MorningGlory>(),
+					ModContent.ItemType<RadiantDawn>(),
+					ModContent.ItemType<YOTD>(),
+					ModContent.ItemType<DaybreakArrow>(),
+					ModContent.ItemType<Dawnstrike>(),
+					ModContent.ItemType<SunStorm>(),
+					ModContent.ItemType<Daystorm>(),
+					ModContent.ItemType<LungStaff>(),
+					ModContent.ItemType<AkumaTerratool>(),
+					ModContent.ItemType<CrucibleScale>()
+				};
+				array19[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("DraconianSigil"),
+					"]",
+					Lang.BossCheck("AkumaInfo")
+				});
+				array19[11] = "AAMod/CrossMod/BossChecklist/Akuma";
+				array19[12] = "AAMod/NPCs/Bosses/Akuma/Akuma_Head_Boss";
+				mod20.Call(array19);
+				Mod mod21 = bossChecklist;
+				object[] array20 = new object[14];
+				array20[0] = "AddBoss";
+				array20[1] = 18.05f;
+				array20[2] = mod.NPCType("AkumaA");
+				array20[3] = mod;
+				array20[4] = Lang.BossCheck("AkumaA");
+				array20[5] = new Func<bool>(() => AAWorld.downedAkuma);
+				array20[6] = ModContent.ItemType<DraconianRune>();
+				array20[7] = new List<int>
+				{
+					ModContent.ItemType<AkumaATrophy>(),
+					ModContent.ItemType<AkumaAMask>(),
+					ModContent.ItemType<AkumaABox>()
+				};
+				array20[8] = new List<int>
+				{
+					ModContent.ItemType<AkumaBag>(),
+					ModContent.ItemType<TaiyangBaolei>()
+				};
+				array20[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("DraconianRune"),
+					"]",
+					Lang.BossCheck("AkumaInfo")
+				});
+				array20[11] = "AAMod/CrossMod/BossChecklist/AkumaA";
+				array20[12] = "AAMod/NPCs/Bosses/Akuma/Awakened/AkumaA_Head_Boss";
+				array20[13] = new Func<bool>(() => AAWorld.downedAkuma && Main.expertMode);
+				mod21.Call(array20);
+				Mod mod22 = bossChecklist;
+				object[] array21 = new object[13];
+				array21[0] = "AddBoss";
+				array21[1] = 18.1f;
+				array21[2] = mod.NPCType("Yamata");
+				array21[3] = mod;
+				array21[4] = Lang.BossCheck("Yamata");
+				array21[5] = new Func<bool>(() => AAWorld.downedYamata);
+				array21[6] = ModContent.ItemType<DreadSigil>();
+				array21[7] = new List<int>
+				{
+					ModContent.ItemType<YamataTrophy>(),
+					ModContent.ItemType<YamataMask>(),
+					ModContent.ItemType<YamataBox>()
+				};
+				array21[8] = new List<int>
+				{
+					ModContent.ItemType<AbyssalYari>(),
+					ModContent.ItemType<Hydraslayer>(),
+					ModContent.ItemType<Flairdra>(),
+					ModContent.ItemType<HydraStabber>(),
+					ModContent.ItemType<Crescent>(),
+					ModContent.ItemType<AE>(),
+					ModContent.ItemType<Darksprayer>(),
+					ModContent.ItemType<FallingTwilight>(),
+					ModContent.ItemType<MidnightWrath>(),
+					ModContent.ItemType<Sevenshot>(),
+					ModContent.ItemType<ThrowingCrescent>(),
+					ModContent.ItemType<Toxibomb>(),
+					ModContent.ItemType<YamataTerratool>(),
+					ModContent.ItemType<DreadScale>()
+				};
+				array21[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("DreadSigil"),
+					"]",
+					Lang.BossCheck("YamataInfo")
+				});
+				array21[11] = "AAMod/CrossMod/BossChecklist/Yamata";
+				array21[12] = "AAMod/NPCs/Bosses/Yamata/YamataHead_Head_Boss";
+				mod22.Call(array21);
+				Mod mod23 = bossChecklist;
+				object[] array22 = new object[14];
+				array22[0] = "AddBoss";
+				array22[1] = 18.15f;
+				array22[2] = mod.NPCType("YamataA");
+				array22[3] = mod;
+				array22[4] = Lang.BossCheck("YamataA");
+				array22[5] = new Func<bool>(() => AAWorld.downedYamata);
+				array22[6] = ModContent.ItemType<DreadRune>();
+				array22[7] = new List<int>
+				{
+					ModContent.ItemType<YamataATrophy>(),
+					ModContent.ItemType<YamataAMask>(),
+					ModContent.ItemType<YamataABox>()
+				};
+				array22[8] = new List<int>
+				{
+					ModContent.ItemType<YamataBag>(),
+					ModContent.ItemType<Naitokurosu>()
+				};
+				array22[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("DreadRune"),
+					"]",
+					Lang.BossCheck("YamataInfo")
+				});
+				array22[11] = "AAMod/CrossMod/BossChecklist/YamataA";
+				array22[12] = "AAMod/NPCs/Bosses/Yamata/Awakened/YamataAHead_Head_Boss";
+				array22[13] = new Func<bool>(() => AAWorld.downedYamata && Main.expertMode);
+				mod23.Call(array22);
+				Mod mod24 = bossChecklist;
+				object[] array23 = new object[13];
+				array23[0] = "AddBoss";
+				array23[1] = 18.2f;
+				array23[2] = mod.NPCType("Zero");
+				array23[3] = mod;
+				array23[4] = Lang.BossCheck("Zero");
+				array23[5] = new Func<bool>(() => AAWorld.downedZero);
+				array23[6] = ModContent.ItemType<ZeroTesseract>();
+				array23[7] = new List<int>
+				{
+					ModContent.ItemType<ZeroTrophy>(),
+					ModContent.ItemType<ZeroMask>(),
+					ModContent.ItemType<ZeroBox>()
+				};
+				array23[8] = new List<int>
+				{
+					ModContent.ItemType<RiftShredder>(),
+					ModContent.ItemType<EventHorizon>(),
+					ModContent.ItemType<Vortex>(),
+					ModContent.ItemType<BHB>(),
+					ModContent.ItemType<GenocideCannon>(),
+					ModContent.ItemType<Gigataser>(),
+					ModContent.ItemType<Neutralizer>(),
+					ModContent.ItemType<OmegaVolley>(),
+					ModContent.ItemType<RealityCannon>(),
+					ModContent.ItemType<TeslaHand>(),
+					ModContent.ItemType<ZeroArrow>(),
+					ModContent.ItemType<Battery>(),
+					ModContent.ItemType<VoidStar>(),
+					ModContent.ItemType<DoomRay>(),
+					ModContent.ItemType<DoomPortal>(),
+					ModContent.ItemType<ZeroTerratool>(),
+					ModContent.ItemType<UnstableSingularity>()
+				};
+				array23[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("ZeroTesseract"),
+					"]",
+					Lang.BossCheck("ZeroInfo")
+				});
+				array23[11] = "AAMod/CrossMod/BossChecklist/Zero";
+				array23[12] = "AAMod/NPCs/Bosses/Zero/Zero_Head_Boss";
+				mod24.Call(array23);
+				Mod mod25 = bossChecklist;
+				object[] array24 = new object[14];
+				array24[0] = "AddBoss";
+				array24[1] = 18.25f;
+				array24[2] = mod.NPCType("ZeroProtocol");
+				array24[3] = mod;
+				array24[4] = Lang.BossCheck("ZeroP");
+				array24[5] = new Func<bool>(() => AAWorld.downedZero);
+				array24[6] = ModContent.ItemType<ZeroRune>();
+				array24[7] = new List<int> { ModContent.ItemType<ZeroATrophy>() };
+				array24[8] = new List<int>
+				{
+					ModContent.ItemType<ZeroBag>(),
+					ModContent.ItemType<BrokenCode>()
+				};
+				array24[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("ZeroRune"),
+					"]",
+					Lang.BossCheck("ZeroInfo")
+				});
+				array24[11] = "AAMod/CrossMod/BossChecklist/ZeroProtocol";
+				array24[12] = "AAMod/NPCs/Bosses/Zero/Protocol/ZeroProtocol_Head_Boss";
+				array24[13] = new Func<bool>(() => AAWorld.downedZero && Main.expertMode);
+				mod25.Call(array24);
+				Mod mod26 = bossChecklist;
+				object[] array25 = new object[13];
+				array25[0] = "AddBoss";
+				array25[1] = 19f;
+				array25[2] = mod.NPCType("SupremeRajah");
+				array25[3] = mod;
+				array25[4] = Lang.BossCheck("RajahRabbitRevenge");
+				array25[5] = new Func<bool>(() => AAWorld.downedRajahsRevenge);
+				array25[6] = ModContent.ItemType<GoldenCarrot>();
+				array25[7] = new List<int>();
+				array25[8] = new List<int>
+				{
+					ModContent.ItemType<RajahCache>(),
+					ModContent.ItemType<RajahCape>(),
+					ModContent.ItemType<Excalihare>(),
+					ModContent.ItemType<BaneOfTheBunnyEX>(),
+					ModContent.ItemType<PunisherEX>(),
+					ModContent.ItemType<FluffyFury>(),
+					ModContent.ItemType<BunzookaEX>(),
+					ModContent.ItemType<RabbitsWrath>(),
+					ModContent.ItemType<RoyalScepterEX>(),
+					ModContent.ItemType<CottonCaneEX>(),
+					ModContent.ItemType<ChampionPlate>()
+				};
+				array25[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("DiamondCarrot"),
+					"]",
+					Lang.BossCheck("RajahRabbitRevengeInfo")
+				});
+				array25[11] = "AAMod/CrossMod/BossChecklist/CRajah";
+				array25[12] = "AAMod/NPCs/Bosses/Rajah/SupremeRajah_Head_Boss";
+				mod26.Call(array25);
+				Mod mod27 = bossChecklist;
+				object[] array26 = new object[13];
+				array26[0] = "AddBoss";
+				array26[1] = 20f;
+				array26[2] = mod.NPCType("Shen");
+				array26[3] = mod;
+				array26[4] = Lang.BossCheck("ShenDoragon");
+				array26[5] = new Func<bool>(() => AAWorld.downedShen);
+				array26[6] = ModContent.ItemType<ChaosSigil>();
+				array26[7] = new List<int>
+				{
+					ModContent.ItemType<ShenTrophy>(),
+					ModContent.ItemType<ShenMask>(),
+					ModContent.ItemType<ShenBox>()
+				};
+				array26[8] = new List<int>
+				{
+					ModContent.ItemType<ChaosSlayer>(),
+					ModContent.ItemType<Astroid>(),
+					ModContent.ItemType<Timesplitter>(),
+					ModContent.ItemType<DraconicRipper>(),
+					ModContent.ItemType<FlamingTwilight>(),
+					ModContent.ItemType<Skyfall>(),
+					ModContent.ItemType<MeteorStrike>(),
+					ModContent.ItemType<ShenTerratool>(),
+					ModContent.ItemType<ChaosScale>()
+				};
+				array26[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("ChaosSigil"),
+					"]"
+				});
+				array26[11] = "AAMod/CrossMod/BossChecklist/Shen";
+				array26[12] = "AAMod/NPCs/Bosses/Shen/Shen_Head_Boss";
+				mod27.Call(array26);
+				Mod mod28 = bossChecklist;
+				object[] array27 = new object[14];
+				array27[0] = "AddBoss";
+				array27[1] = 20.1f;
+				array27[2] = mod.NPCType("ShenA");
+				array27[3] = mod;
+				array27[4] = Lang.BossCheck("ShenDoragonA");
+				array27[5] = new Func<bool>(() => AAWorld.downedShen);
+				array27[6] = ModContent.ItemType<ChaosRune>();
+				array27[7] = new List<int>
+				{
+					ModContent.ItemType<ShenATrophy>(),
+					ModContent.ItemType<ShenAMask>(),
+					ModContent.ItemType<ShenABox>()
+				};
+				array27[8] = new List<int>
+				{
+					ModContent.ItemType<ShenCache>(),
+					ModContent.ItemType<ChaosSoul>()
+				};
+				array27[9] = string.Concat(new object[]
+				{
+					Lang.BossCheck("Usea"),
+					"[i:",
+					AAMod.instance.ItemType("ChaosRune"),
+					"]"
+				});
+				array27[11] = "AAMod/CrossMod/BossChecklist/ShenA";
+				array27[12] = "AAMod/NPCs/Bosses/Shen/ShenA_Head_Boss";
+				array27[13] = new Func<bool>(() => AAWorld.downedShen && Main.expertMode);
+				mod28.Call(array27);
+			}
+		}
+
+		// Token: 0x06003CBD RID: 15549 RVA: 0x0023E1B8 File Offset: 0x0023C3B8
+		private static void PerformCencusSupport()
+		{
+			Mod censusMod = ModLoader.GetMod("Census");
+			if (censusMod != null)
+			{
+				Mod mod = AAMod.instance;
+				censusMod.Call(new object[]
+				{
+					"TownNPCCondition",
+					mod.NPCType("Anubis"),
+					Lang.CensusMod("Anubis")
+				});
+				if (!AAConfigClient.Instance.NoAATownNPC)
+				{
+					censusMod.Call(new object[]
+					{
+						"TownNPCCondition",
+						mod.NPCType("Mushman"),
+						Lang.CensusMod("Mushman")
+					});
+					censusMod.Call(new object[]
+					{
+						"TownNPCCondition",
+						mod.NPCType("Lovecraftian"),
+						Lang.CensusMod("Lovecraftian")
+					});
+					censusMod.Call(new object[]
+					{
+						"TownNPCCondition",
+						mod.NPCType("Samurai"),
+						Lang.CensusMod("Samurai")
+					});
+					censusMod.Call(new object[]
+					{
+						"TownNPCCondition",
+						mod.NPCType("Goblin Slayer"),
+						Lang.CensusMod("GoblinSlayer")
+					});
+				}
+			}
+		}
+
+		// Token: 0x06003CBE RID: 15550 RVA: 0x0023E2F4 File Offset: 0x0023C4F4
+		private static void PerformFargosSetup()
+		{
+			Mod fargos = ModLoader.GetMod("Fargowiltas");
+			if (fargos != null)
+			{
+				Mod mod = fargos;
+				object[] array = new object[6];
+				array[0] = "AddSummon";
+				array[1] = 0f;
+				array[2] = "AAMod";
+				array[3] = "IntimidatingMushroom";
+				array[4] = new Func<bool>(() => AAWorld.downedMonarch);
+				array[5] = 20000;
+				mod.Call(array);
+				Mod mod2 = fargos;
+				object[] array2 = new object[6];
+				array2[0] = "AddSummon";
+				array2[1] = 0.1f;
+				array2[2] = "AAMod";
+				array2[3] = "ConfusingMushroom";
+				array2[4] = new Func<bool>(() => AAWorld.downedFungus);
+				array2[5] = 20000;
+				mod2.Call(array2);
+				Mod mod3 = fargos;
+				object[] array3 = new object[6];
+				array3[0] = "AddSummon";
+				array3[1] = 2f;
+				array3[2] = "AAMod";
+				array3[3] = "InterestingClaw";
+				array3[4] = new Func<bool>(() => AAWorld.downedGrips);
+				array3[5] = 80000;
+				mod3.Call(array3);
+				Mod mod4 = fargos;
+				object[] array4 = new object[6];
+				array4[0] = "AddSummon";
+				array4[1] = 2.5f;
+				array4[2] = "AAMod";
+				array4[3] = "Toadstool";
+				array4[4] = new Func<bool>(() => AAWorld.downedToad);
+				array4[5] = 80000;
+				mod4.Call(array4);
+				Mod mod5 = fargos;
+				object[] array5 = new object[6];
+				array5[0] = "AddSummon";
+				array5[1] = 3.5f;
+				array5[2] = "AAMod";
+				array5[3] = "DragonBell";
+				array5[4] = new Func<bool>(() => AAWorld.downedBrood);
+				array5[5] = 100000;
+				mod5.Call(array5);
+				Mod mod6 = fargos;
+				object[] array6 = new object[6];
+				array6[0] = "AddSummon";
+				array6[1] = 3.5f;
+				array6[2] = "AAMod";
+				array6[3] = "HydraChow";
+				array6[4] = new Func<bool>(() => AAWorld.downedHydra);
+				array6[5] = 100000;
+				mod6.Call(array6);
+				Mod mod7 = fargos;
+				object[] array7 = new object[6];
+				array7[0] = "AddSummon";
+				array7[1] = 5.5f;
+				array7[2] = "AAMod";
+				array7[3] = "SubzeroCrystal";
+				array7[4] = new Func<bool>(() => AAWorld.downedSerpent);
+				array7[5] = 100000;
+				mod7.Call(array7);
+				Mod mod8 = fargos;
+				object[] array8 = new object[6];
+				array8[0] = "AddSummon";
+				array8[1] = 5.5f;
+				array8[2] = "AAMod";
+				array8[3] = "DjinnLamp";
+				array8[4] = new Func<bool>(() => AAWorld.downedDjinn);
+				array8[5] = 100000;
+				mod8.Call(array8);
+				Mod mod9 = fargos;
+				object[] array9 = new object[6];
+				array9[0] = "AddSummon";
+				array9[1] = 5.7f;
+				array9[2] = "AAMod";
+				array9[3] = "Lifescanner";
+				array9[4] = new Func<bool>(() => AAWorld.downedSag);
+				array9[5] = 200000;
+				mod9.Call(array9);
+				Mod mod10 = fargos;
+				object[] array10 = new object[6];
+				array10[0] = "AddSummon";
+				array10[1] = 9.7f;
+				array10[2] = "AAMod";
+				array10[3] = "Scepter";
+				array10[4] = new Func<bool>(() => AAWorld.downedAnubis);
+				array10[5] = 400000;
+				mod10.Call(array10);
+				Mod mod11 = fargos;
+				object[] array11 = new object[6];
+				array11[0] = "AddSummon";
+				array11[1] = 9.7f;
+				array11[2] = "AAMod";
+				array11[3] = "Scepter";
+				array11[4] = new Func<bool>(() => AAWorld.downedAnubis);
+				array11[5] = 400000;
+				mod11.Call(array11);
+				Mod mod12 = fargos;
+				object[] array12 = new object[6];
+				array12[0] = "AddSummon";
+				array12[1] = 11.5f;
+				array12[2] = "AAMod";
+				array12[3] = "Owl";
+				array12[4] = new Func<bool>(() => AAWorld.downedAthena);
+				array12[5] = 500000;
+				mod12.Call(array12);
+				Mod mod13 = fargos;
+				object[] array13 = new object[6];
+				array13[0] = "AddSummon";
+				array13[1] = 11.5f;
+				array13[2] = "AAMod";
+				array13[3] = "GoldenGrub";
+				array13[4] = new Func<bool>(() => AAWorld.downedGreed);
+				array13[5] = 500000;
+				mod13.Call(array13);
+				Mod mod14 = fargos;
+				object[] array14 = new object[6];
+				array14[0] = "AddSummon";
+				array14[1] = 11.5f;
+				array14[2] = "AAMod";
+				array14[3] = "GoldenCarrot";
+				array14[4] = new Func<bool>(() => AAWorld.downedRajah);
+				array14[5] = 600000;
+				mod14.Call(array14);
+				Mod mod15 = fargos;
+				object[] array15 = new object[6];
+				array15[0] = "AddSummon";
+				array15[1] = 16f;
+				array15[2] = "AAMod";
+				array15[3] = "EquinoxWorm";
+				array15[4] = new Func<bool>(() => AAWorld.downedEquinox);
+				array15[5] = 1000000;
+				mod15.Call(array15);
+				Mod mod16 = fargos;
+				object[] array16 = new object[6];
+				array16[0] = "AddSummon";
+				array16[1] = 17f;
+				array16[2] = "AAMod";
+				array16[3] = "FlamesOfAnarchy";
+				array16[4] = new Func<bool>(() => AAWorld.downedSisters);
+				array16[5] = 1000000;
+				mod16.Call(array16);
+				Mod mod17 = fargos;
+				object[] array17 = new object[6];
+				array17[0] = "AddSummon";
+				array17[1] = 18f;
+				array17[2] = "AAMod";
+				array17[3] = "DraconianSigil";
+				array17[4] = new Func<bool>(() => AAWorld.downedAkuma);
+				array17[5] = 1000000;
+				mod17.Call(array17);
+				Mod mod18 = fargos;
+				object[] array18 = new object[6];
+				array18[0] = "AddSummon";
+				array18[1] = 18.05f;
+				array18[2] = "AAMod";
+				array18[3] = "DraconianRune";
+				array18[4] = new Func<bool>(() => AAWorld.downedAkuma && Main.expertMode);
+				array18[5] = 2000000;
+				mod18.Call(array18);
+				Mod mod19 = fargos;
+				object[] array19 = new object[6];
+				array19[0] = "AddSummon";
+				array19[1] = 18.1f;
+				array19[2] = "AAMod";
+				array19[3] = "DreadSigil";
+				array19[4] = new Func<bool>(() => AAWorld.downedYamata);
+				array19[5] = 1000000;
+				mod19.Call(array19);
+				Mod mod20 = fargos;
+				object[] array20 = new object[6];
+				array20[0] = "AddSummon";
+				array20[1] = 18.05f;
+				array20[2] = "AAMod";
+				array20[3] = "DreadRune";
+				array20[4] = new Func<bool>(() => AAWorld.downedYamata && Main.expertMode);
+				array20[5] = 2000000;
+				mod20.Call(array20);
+				Mod mod21 = fargos;
+				object[] array21 = new object[6];
+				array21[0] = "AddSummon";
+				array21[1] = 18.2f;
+				array21[2] = "AAMod";
+				array21[3] = "ZeroTesseract";
+				array21[4] = new Func<bool>(() => AAWorld.downedZero);
+				array21[5] = 1000000;
+				mod21.Call(array21);
+				Mod mod22 = fargos;
+				object[] array22 = new object[6];
+				array22[0] = "AddSummon";
+				array22[1] = 18.05f;
+				array22[2] = "AAMod";
+				array22[3] = "ZeroRune";
+				array22[4] = new Func<bool>(() => AAWorld.downedZero && Main.expertMode);
+				array22[5] = 2000000;
+				mod22.Call(array22);
+				Mod mod23 = fargos;
+				object[] array23 = new object[6];
+				array23[0] = "AddSummon";
+				array23[1] = 19f;
+				array23[2] = "AAMod";
+				array23[3] = "DiamondCarrot";
+				array23[4] = new Func<bool>(() => AAWorld.downedRajahsRevenge);
+				array23[5] = 2500000;
+				mod23.Call(array23);
+				Mod mod24 = fargos;
+				object[] array24 = new object[6];
+				array24[0] = "AddSummon";
+				array24[1] = 20f;
+				array24[2] = "AAMod";
+				array24[3] = "ChaosSigil";
+				array24[4] = new Func<bool>(() => AAWorld.downedShen);
+				array24[5] = 2500000;
+				mod24.Call(array24);
+				Mod mod25 = fargos;
+				object[] array25 = new object[6];
+				array25[0] = "AddSummon";
+				array25[1] = 20.5f;
+				array25[2] = "AAMod";
+				array25[3] = "ChaosRune";
+				array25[4] = new Func<bool>(() => AAWorld.downedShen && Main.expertMode);
+				array25[5] = 4000000;
+				mod25.Call(array25);
+			}
+		}
+	}
+}

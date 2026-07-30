@@ -6,6 +6,12 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
     /// <br/>用来判断是否启用来这个Boss血条样式
     /// <br/>Use it to check whether this boss bar style is selected or not.
     /// </summary>
+    /// 
+    public override bool IsLoadingEnabled(Mod mod)
+    {
+        return EnableThisMod;
+    }
+
     internal static bool Selected = false;
 
     public static bool EnableThisMod = true;

@@ -11,7 +11,6 @@ public class YuBellBossBar : Mod
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsHead] = true;
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsBody] = true;
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsTail] = true;
-
     }
 
     public override void PostSetupContent()
@@ -29,28 +28,6 @@ public class YuBellBossBar : Mod
             YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerTurret, false);
         }
 
-        if (ModLoader.TryGetMod("FargowiltasSouls", out Mod fargosouls))
-        {
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", fargosouls.Find<ModNPC>("DeviBoss").Type, "Fill Color", (int)TextureType.Fill, new Color(255, 61, 223));
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", fargosouls.Find<ModNPC>("AbomBoss").Type, "Fill Color", (int)TextureType.Fill, Color.Orange);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", fargosouls.Find<ModNPC>("MutantBoss").Type, "Fill Color", (int)TextureType.Fill, new Color(10, 255, 210));
-        }
-
-        if (ModLoader.TryGetMod("CalamityMod",out Mod calamity))
-        {
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("SlimeGodCore").Type, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("RavagerBody").Type, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.Golem, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHead, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHeadFree, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistLeft, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistRight, false);
-        }
-
-        if (ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
-        {
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", catalyst.Find<ModNPC>("Astrageldon").Type, "Fill Color", (int)TextureType.Fill, Color.Purple);
-        }
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded
         if (CalamityAdapt && ModLoader.HasMod("CalamityMod"))
         {
@@ -82,6 +59,11 @@ public class YuBellBossBar : Mod
             {
                 default:break;
 
+                case "Chaos":
+                    {
+
+                        break;
+                    }
                 case "Disable Yet Another Boss Health Bar Mod":
                     {
                         YAB.EnableThisMod = false;
@@ -89,98 +71,7 @@ public class YuBellBossBar : Mod
                     }
                 case "Edit":
                     {
-                        switch (args[2])
-                        {
-                            default: break;
-
-                            case "Color":
-                                {
-                                    //if (args[3] is int && args[4] is string && args[5] is int && args[6] is Color)
-                                    {
-                                        if (BarData.BarInfos.Keys.Contains((int)args[3]))
-                                        {
-                                            switch (args[4].ToString())
-                                            {
-                                                default: break;
-
-                                                case "Fill Color":
-                                                    {
-                                                        BarInfo bridage1 = BarData.BarInfos[(int)args[3]];
-                                                        BarTexture2D bridage2 = bridage1.barTextures.baseTextures[(TextureType)args[5]];
-                                                        bridage2.fillColor = (Color)args[6];
-                                                        bridage2.barFillColor = BarFillColor.Custom;
-                                                        bridage1.barTextures.baseTextures[(TextureType)args[5]] = bridage2;
-                                                        BarData.BarInfos[(int)args[3]] = bridage1;
-                                                        return "YetAnotherModCall: Fill Color changed successfully!";
-                                                    }
-
-                                                case "Shield Color":
-                                                    {
-                                                        BarInfo bridage1 = BarData.BarInfos[(int)args[3]];
-                                                        BarTexture2D bridage2 = bridage1.barTextures.baseTextures[(TextureType)args[5]];
-                                                        bridage2.shieldColor = (Color)args[6];
-                                                        bridage2.barFillColor = BarFillColor.Custom;
-                                                        bridage1.barTextures.baseTextures[(TextureType)args[5]] = bridage2;
-                                                        BarData.BarInfos[(int)args[3]] = bridage1;
-                                                        return "YetAnotherModCall: Shield Color changed successfully!";
-                                                    }
-                                            }
-                                        }
-                                        else
-                                        {
-                                            switch (args[4].ToString())
-                                            {
-                                                default: break;
-
-                                                case "Fill Color":
-                                                    {
-                                                        BarInfo bridage1 = new BarInfo(BarData.BarInfos[int.MaxValue]);
-                                                        BarTexture2D bridage2 = bridage1.barTextures.baseTextures[(TextureType)args[5]];
-                                                        bridage2.fillColor = (Color)args[6];
-                                                        bridage2.barFillColor = BarFillColor.Custom;
-                                                        bridage1.barTextures.baseTextures[(TextureType)args[5]] = bridage2;
-                                                        BarData.BarInfos.Add((int)args[3],bridage1);
-                                                        return "YetAnotherModCall: Fill Color changed successfully!";
-                                                    }
-
-                                                case "Shield Color":
-                                                    {
-                                                        BarInfo bridage1 = new BarInfo(BarData.BarInfos[int.MaxValue]);
-                                                        BarTexture2D bridage2 = bridage1.barTextures.baseTextures[(TextureType)args[5]];
-                                                        bridage2.shieldColor = (Color)args[6];
-                                                        bridage2.barFillColor = BarFillColor.Custom;
-                                                        bridage1.barTextures.baseTextures[(TextureType)args[5]] = bridage2;
-                                                        BarData.BarInfos.Add((int)args[3], bridage1);
-                                                        return "YetAnotherModCall: Shield Color changed successfully!";
-                                                    }
-                                            }
-                                        }
-                                    }
-                                    break;
-                                }
-
-                            case "Invincible":
-                                {
-                                    //if (args[3] is int && args[4] is bool)
-                                    {
-                                        if (BarData.BarInfos.Keys.Contains(Convert.ToInt32(args[3])))
-                                        {
-                                            BarInfo bridage = new BarInfo(BarData.BarInfos[Convert.ToInt32(args[3])]);
-                                            bridage.ShowInvincible = (bool)args[4];
-                                            BarData.BarInfos[Convert.ToInt32(args[3])] = bridage;
-                                        }
-                                        else
-                                        {
-                                            BarInfo bridage = new BarInfo(BarData.BarInfos[int.MaxValue]);
-                                            bridage.ShowInvincible = (bool)args[4];
-                                            BarData.BarInfos.Add(Convert.ToInt32(args[3]), bridage);
-                                        }
-                                        return "YetAnotherModCall: Invincible changed successfully!";
-                                    }
-                                }
-
-                        }
-                        break;
+                        return ModCallEdit.Edit(args);
                     }
             };
         }

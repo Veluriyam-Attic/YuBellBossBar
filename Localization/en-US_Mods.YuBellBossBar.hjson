@@ -196,6 +196,11 @@ Configs: {
 			Label: Use Old FillAll Logic
 			Tooltip: Disabled by default.
 		}
+
+		EnableExtraAAClassic: {
+			Label: Enable Extra A A Classic
+			Tooltip: ""
+		}
 	}
 }
 

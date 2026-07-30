@@ -88,6 +88,7 @@ internal enum TextureSource
     ExtraCalamity = 3,
     ExtraInfo = 4,
     ExtraCustom = 5,
+    ExtraAAClassic = 6,
     
     None = int.MaxValue,
 }

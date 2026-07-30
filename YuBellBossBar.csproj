@@ -10,6 +10,9 @@
 		<NoWarn>CS1591,CS1587</NoWarn>
 		<LangVersion>14.0</LangVersion>
 	</PropertyGroup>
+	<ItemGroup>
+	  <Compile Remove="WeakReferences.cs" />
+	</ItemGroup>
 
 	<!-- References -->
 
