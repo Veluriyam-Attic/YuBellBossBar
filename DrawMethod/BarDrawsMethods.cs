@@ -21,11 +21,6 @@ internal class BarDrawsMethods
 
     public static bool Draw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams)
     {
-        if (CalamityCloneAdapt.BrotherAlive)
-        {
-            Main.NewText("Got the value!");
-        }
-
         // 这个是当前绘制需要的血条信息
         BarInfo barInfo;
 
