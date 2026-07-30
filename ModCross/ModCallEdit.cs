@@ -101,7 +101,7 @@ namespace YuBellBossBar.ModCross
 
                 case "AddBarTexture2D":
                     {
-                        // index,TextureType,Asset<Texture2D>,fillCutLengh = 0,fillOdffset = Vector2.Zero,headOffset = Vector2.Zero
+                        // index,TextureType,Asset<Texture2D>,fillCutLengh = 0,fillOffset = Vector2.Zero,headOffset = Vector2.Zero
                         // BarFillStyles = (int.MaxValue)barFillStyles.None
                         // barFillColor = (0)BarFillColor.Vanilla ,fillColor = Color.White, barFrameStyles = (int.MaxValue)BarFrameStyles.None
                         // framecount,TPF,customdraw = null,shieldcolor = null

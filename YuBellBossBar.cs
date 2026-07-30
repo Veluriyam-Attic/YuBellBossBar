@@ -11,6 +11,8 @@ public class YuBellBossBar : Mod
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsHead] = true;
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsBody] = true;
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsTail] = true;
+
+        CalamityCloneAdapt.IL_GetBrotherAlive();
     }
 
     public override void PostSetupContent()
