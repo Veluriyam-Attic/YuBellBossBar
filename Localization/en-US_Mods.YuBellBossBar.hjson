@@ -41,7 +41,7 @@ Configs: {
 
 		#For non-Chinese text, please replace contact details with Discord: zlzhaidou_
 		EnableExtraCalamity: {
-			Label: Enable Calamity Health Bar Support
+			Label: Enable Calamity Health Bar Support(部分实现)
 			Tooltip:
 				'''
 				When disabled, the unique health bar textures for Calamity bosses will no longer be displayed. Enabled by default.

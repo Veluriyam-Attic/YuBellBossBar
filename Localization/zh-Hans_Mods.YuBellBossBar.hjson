@@ -41,7 +41,7 @@ Configs: {
 
 		#For non-Chinese text, please replace contact details with Discord: zlzhaidou_
 		EnableExtraCalamity: {
-			Label: 启用灾厄血条支持(未实现)
+			Label: 启用灾厄血条支持(部分实现)
 			Tooltip:
 				'''
 				关闭后灾厄的Boss专属贴图将不再显示，默认开启

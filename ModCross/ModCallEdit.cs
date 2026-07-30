@@ -1,4 +1,6 @@
-﻿namespace YuBellBossBar.ModCross
+﻿using static YuBellBossBar.Core.BarTexture2D;
+
+namespace YuBellBossBar.ModCross
 {
     internal class ModCallEdit
     {
@@ -96,6 +98,36 @@
                         }
                     }
                 #endregion
+
+                case "AddBarTexture2D":
+                    {
+                        // index,TextureType,Asset<Texture2D>,fillCutLengh = 0,fillOdffset = Vector2.Zero,headOffset = Vector2.Zero
+                        // BarFillStyles = (int.MaxValue)barFillStyles.None
+                        // barFillColor = (0)BarFillColor.Vanilla ,fillColor = Color.White, barFrameStyles = (int.MaxValue)BarFrameStyles.None
+                        // framecount,TPF,customdraw = null,shieldcolor = null
+                        BuildInTextures.ExtraCustom.Add(
+                            (string)args[3],
+                            new BarTexture2D((TextureType)args[4],
+                            (Asset<Texture2D>)args[5],
+                            TextureSource.ExtraCustom,
+                            (ref fillCutLengh, ref fillOffset, ref headOffset, ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
+                        {
+                            fillCutLengh = (int)args[6];
+                            fillOffset = (Vector2)args[7];
+                            headOffset = (Vector2)args[8];
+                            barFillStyles = (BarFillStyles)args[9];
+                            barFillColor = (BarFillColor)args[10];
+                            fillColor = (Color)args[11];
+                            barFrameStyles = (BarFrameStyles)args[12];
+                        },
+                            (int)args[13],
+                            (int)args[14],
+                            // sb, position, BarLength,life,lifemax,percentage,GlobalAlpha,npc,drawParams,bt without customdraw event,return the startposition
+                            (Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2>)args[15],
+                            (Color?)args[16]
+                        ));
+                        break;
+                    }
             }
 
             return "YetAnotherModCall:Failed!";

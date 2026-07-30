@@ -16,6 +16,8 @@
                 YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHeadFree, false);
                 YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistLeft, false);
                 YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistRight, false);
+
+                //YuBellBossBar.Call("YetAnotherModCall", "Edit", "AddBarTexture2D");
             }
         }
     }
