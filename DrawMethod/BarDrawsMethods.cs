@@ -26,7 +26,7 @@ internal class BarDrawsMethods
         // 同时在此处选择使用金色或银色版本
         if (!BarData.BarInfos.TryGetValue(npc.type, out barInfo))
         {
-            int index = BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue;
+            int index = int.MinValue;
             barInfo = BarData.BarInfos[index];
         }
 
@@ -83,19 +83,15 @@ internal class BarDrawsMethods
             extraBelowFill = barInfo.barTextures.extraTexturesBelowFill;
 
             barInfo.barTextures.baseTextures.TryGetValue(TextureType.Fill, out fill);
-            frameNow.TryAdd(fill, 1);
 
             extraBetweenFillAndFrame = barInfo.barTextures.extraTexturesBetweenFillAndFrame;
             barInfo.barTextures.baseTextures.TryGetValue(TextureType.Frame, out frame);
-            frameNow.TryAdd(frame, 1);
 
             extraBetweenFrameAndHeadEnd = barInfo.barTextures.extraTexturesBetweenFrameAndHeadEnd;
 
             barInfo.barTextures.baseTextures.TryGetValue(TextureType.Head, out head);
-            frameNow.TryAdd(head, 1);
 
             barInfo.barTextures.baseTextures.TryGetValue(TextureType.Tail, out tail);
-            frameNow.TryAdd(tail, 1);
 
             extraBetweenHeadEndAndIcon = barInfo.barTextures.extraTexturesBetweenHeadEndAndIcon;
 
@@ -112,7 +108,7 @@ internal class BarDrawsMethods
             extraUponInfo = barInfo.barTextures.extraTexturesUponInfo;
 
 
-            if (!BarConfig.Instance.ForceDefaulTexture)
+            if (BarConfig.Instance.ForceDefaulTexture)
             {
                 extraBelowFill.Clear();
                 extraBetweenFillAndFrame.Clear();
@@ -125,20 +121,92 @@ internal class BarDrawsMethods
 
             if (!tail.ConfigEnabled)
             {
-                tail = BarData.BarInfos[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Tail];
+                tail = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Tail];
             }
             if (!head.ConfigEnabled)
             {
-                head = BarData.BarInfos[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Head];
+                head = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Head];
             }
             if (!frame.ConfigEnabled)
             {
-                frame = BarData.BarInfos[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Frame];
+                frame = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Frame];
             }
             if (!fill.ConfigEnabled)
             {
-                fill = BarData.BarInfos[BarConfig.Instance.GoldenStyle ? int.MaxValue : int.MinValue].barTextures.baseTextures[TextureType.Fill];
+                fill = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Fill];
             }
+
+            void reselectTexture(ref BarTexture2D barTexture)
+            {
+                if ((BarConfig.Instance.ForceGoldenStyle || Main.expertMode) && !barTexture.texture.Name.Contains("_Exp"))
+                {
+                    BarTexture2D outvalue;
+
+                    string GetLastName(string path)
+                    {
+                        int index = path.LastIndexOf('\\');
+
+                        return index >= 0
+                            ? path[(index + 1)..]
+                            : path;
+                    }
+
+                    switch (barTexture.source)
+                    {
+                        case TextureSource.DefaultTexture:
+                            {
+                                if (BuildInTextures.DefaultTexture.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                    barTexture = outvalue;
+                                break;
+                            }
+                        case TextureSource.DefaultVanilla:
+                            {
+                                if (BuildInTextures.DefaultVanilla.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                    barTexture = outvalue;
+                                break;
+                            }
+                        case TextureSource.ExtraVanilla:
+                            {
+                                if (BuildInTextures.ExtraVanilla.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                    barTexture = outvalue;
+                                break;
+                            }
+                        case TextureSource.ExtraCalamity:
+                            {
+                                if (BuildInTextures.ExtraCalamity.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                    barTexture = outvalue;
+                                break;
+                            }
+                        case TextureSource.ExtraAAClassic:
+                            {
+                                if (BuildInTextures.ExtraAAClassic.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                    barTexture = outvalue;
+                                break;
+                            }
+                        case TextureSource.ExtraCustom:
+                            {
+                                if (BuildInTextures.ExtraCustom.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                    barTexture = outvalue;
+                                break;
+                            }
+                        case TextureSource.ExtraInfo:
+                            {
+                                if (BuildInTextures.DefaultTexture.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                    barTexture = outvalue;
+                                break;
+                            }
+                    }
+                }
+            }
+            reselectTexture(ref head);
+            reselectTexture(ref tail);
+            reselectTexture(ref frame);
+
+
+            frameNow.TryAdd(frame, 1);
+            frameNow.TryAdd(tail, 1);
+            frameNow.TryAdd(head, 1);
+            frameNow.TryAdd(fill, 1);
 
             #endregion
 
@@ -213,7 +281,7 @@ internal class BarDrawsMethods
                         spriteBatch.Draw(
                             shield.adjustedtexture,
                             StartPosition,
-                            new Rectangle(0,0,shieldlength,shield.texture.Value.Height),
+                            new Rectangle(0, 0, shieldlength, shield.texture.Value.Height),
                             shield.shieldColor * GlobalAlpha);
                     }
 
@@ -284,7 +352,7 @@ internal class BarDrawsMethods
                                 {
                                     spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, frame.texture.Value.Height), frameP, Color.White * GlobalAlpha);
                                 }
-                                spriteBatch.Draw(frame.texture.Value,new Vector2(EndPosition.X - extra, EndPosition.Y),new Rectangle(frame.texture.Value.Width - extra,0,extra,frameP.Height),Color.White * GlobalAlpha);
+                                spriteBatch.Draw(frame.texture.Value, new Vector2(EndPosition.X - extra, EndPosition.Y), new Rectangle(frame.texture.Value.Width - extra, 0, extra, frameP.Height), Color.White * GlobalAlpha);
 
                                 frameNow[frame]++;
                                 break;
@@ -394,7 +462,7 @@ internal class BarDrawsMethods
 
             #region 文字部分
 
-            string GetText(float _life,float _lifemax,float _percentage)
+            string GetText(float _life, float _lifemax, float _percentage)
             {
 
                 string Info = string.Empty;
@@ -461,7 +529,7 @@ internal class BarDrawsMethods
 
             #region 图片部分
 
-            void DrawInfoWithNum(Vector2 LeftTopPosition,BarTexture2D bt,string num)
+            void DrawInfoWithNum(Vector2 LeftTopPosition, BarTexture2D bt, string num)
             {
                 Vector2 p = LeftTopPosition - new Vector2(0, bt.texture.Value.Height + 5f);
 
@@ -469,13 +537,13 @@ internal class BarDrawsMethods
                 Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
 
                 spriteBatch.Draw(bt.texture.Value, LeftTopPosition, Color.White * GlobalAlpha);
-                Utils.DrawBorderString(spriteBatch, num, LeftTopPosition - Namepostion + new Vector2(bt.texture.Value.Width/2,bt.texture.Value.Height/2), Color.White * GlobalAlpha);
+                Utils.DrawBorderString(spriteBatch, num, LeftTopPosition - Namepostion + new Vector2(bt.texture.Value.Width / 2, bt.texture.Value.Height / 2), Color.White * GlobalAlpha);
             }
 
             if (BarConfig.Instance.ShowDefense && barInfo.ShowDefense)
             {
                 BarTexture2D defense = BuildInTextures.ExtraInfo["Defense"];
-                DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -defense.texture.Value.Height - 5f),defense, npc.defense.ToString());
+                DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -defense.texture.Value.Height - 5f), defense, npc.defense.ToString());
             }
 
             if (BarConfig.Instance.ShowTarget && barInfo.ShowTarget)
@@ -643,7 +711,7 @@ internal class BarDrawsMethods
 
         if (fill.adjustedtexture == null || fill.adjustedtexture?.Width != BarConfig.Instance.BarLength)
         {
-            AdjustTexture(ref fill, spriteBatch,fill.texture.Value.Height);
+            AdjustTexture(ref fill, spriteBatch, fill.texture.Value.Height);
 
             BarData.BarInfos[npctype].barTextures.baseTextures[TextureType.Fill] = fill;
         }

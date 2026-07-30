@@ -418,15 +418,15 @@ internal static class BarData
                         },
                         {
                             TextureType.Frame,
-                            BuildInTextures.DefaultTexture["HealthBarFrame_Exp"]
+                            BuildInTextures.DefaultTexture["HealthBarFrame"]
                         },
                         {
                             TextureType.Head,
-                            BuildInTextures.DefaultVanilla["MoonLordHead_Exp"]
+                            BuildInTextures.DefaultVanilla["MoonLordHead"]
                         },
                         {
                             TextureType.Tail,
-                            BuildInTextures.DefaultVanilla["MoonLordTail_Exp"]
+                            BuildInTextures.DefaultVanilla["MoonLordTail"]
                         },
                         {
                             TextureType.Icon,

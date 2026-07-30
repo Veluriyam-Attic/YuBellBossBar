@@ -20,8 +20,8 @@ public class BarConfig : ModConfig
 
     [Header($"TextureHeader")]
 
-    [DefaultValue(true)]
-    public bool GoldenStyle;
+    [DefaultValue(false)]
+    public bool ForceGoldenStyle;
 
     [DefaultValue(false)]
     public bool ForceDefaulTexture;

@@ -14,9 +14,9 @@ Configs: {
 			Tooltip: 以向上为纵轴正方向，默认0
 		}
 
-		GoldenStyle: {
-			Label: 金银血条风格切换
-			Tooltip: 切换没有专属血条的Boss默认使用的血条贴图类型，开启为金色，关闭为银色，默认开启
+		ForceGoldenStyle: {
+			Label: 强制使用金色血条
+			Tooltip: 强制使没有专属血条的Boss使用的血条贴图类型为金色，默认关闭
 		}
 
 		BarLength: {
@@ -49,6 +49,11 @@ Configs: {
 				[暂时决定暂缓对灾厄Boss血条的贴图支持]
 				[如您愿意可以添加QQ:3412615165帮助我实现这部分！]
 				'''
+		}
+
+		EnableExtraAAClassic: {
+			Label: 启用远古觉醒经典版血条支持
+			Tooltip: 关闭后新额外添加的远古觉醒经典版Boss专属贴图将不再显示，默认开启
 		}
 
 		EnableExtraInfo: {
@@ -195,11 +200,6 @@ Configs: {
 		UseOldFillAllLogic: {
 			Label: 使用旧版FillAll逻辑
 			Tooltip: 默认关闭
-		}
-
-		EnableExtraAAClassic: {
-			// Label: Enable Extra A A Classic
-			// Tooltip: ""
 		}
 	}
 }

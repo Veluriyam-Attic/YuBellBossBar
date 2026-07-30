@@ -14,9 +14,9 @@ Configs: {
 			Tooltip: UP as positive direction. Defaults to 0.
 		}
 
-		GoldenStyle: {
-			Label: Switch Golden/Sivery Health Bar
-			Tooltip: Toggles the default health bar texture for bosses without a unique health bar. Enabled uses golden, while disabled uses silvery. Enabled by default.
+		ForceGoldenStyle: {
+			Label: 强制使用金色血条
+			Tooltip: 强制使没有专属血条的Boss使用的血条贴图类型为金色，默认关闭
 		}
 
 		BarLength: {
@@ -49,6 +49,11 @@ Configs: {
 				[support for Calamity boss health bar textures has been postponed for now.]
 				[You may add Discord: zlzhaidou_ if you would like to help me implement this feature!]
 				'''
+		}
+
+		EnableExtraAAClassic: {
+			Label: 启用远古觉醒经典版血条支持
+			Tooltip: 关闭后新额外添加的远古觉醒经典版Boss专属贴图将不再显示，默认开启
 		}
 
 		EnableExtraInfo: {
@@ -195,11 +200,6 @@ Configs: {
 		UseOldFillAllLogic: {
 			Label: Use Old FillAll Logic
 			Tooltip: Disabled by default.
-		}
-
-		EnableExtraAAClassic: {
-			Label: Enable Extra A A Classic
-			Tooltip: ""
 		}
 	}
 }

@@ -918,6 +918,24 @@ internal static class BuildInTextures
     };
     #endregion
 
+    #region 额外灾厄
+    private const string _ecpath = "YuBellBossBar/Texture/ExtraCalamity/";
+
+    public static Dictionary<string, BarTexture2D> ExtraCalamity = new Dictionary<string, BarTexture2D>()
+    {
+
+    };
+    #endregion
+
+    #region 额外AAClassic
+    private const string _eacpath = "YuBellBossBar/Texture/ExtraAAClassic/";
+
+    public static Dictionary<string, BarTexture2D> ExtraAAClassic = new Dictionary<string, BarTexture2D>()
+    {
+
+    };
+    #endregion
+
     #region 自定义
     public static Dictionary<string, BarTexture2D> ExtraCustom = new Dictionary<string, BarTexture2D>();
     #endregion
