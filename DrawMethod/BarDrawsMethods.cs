@@ -1,4 +1,6 @@
-﻿namespace YuBellBossBar.DrawMethod;
+﻿using System.Globalization;
+
+namespace YuBellBossBar.DrawMethod;
 
 internal class BarDrawsMethods
 {
@@ -359,7 +361,7 @@ internal class BarDrawsMethods
 
                     CheckBox[0] = StartPosition;
 
-                    spriteBatch.Draw(head.texture.Value, StartPosition, FrameChooser(head,HeightPF), Color.White * GlobalAlpha);
+                    spriteBatch.Draw(head.texture.Value, StartPosition, FrameChooser(head, HeightPF), Color.White * GlobalAlpha);
                 }
             }
             #endregion
@@ -400,7 +402,7 @@ internal class BarDrawsMethods
                 {
                     int HeightPF = icon.texture.Value.Height / icon.frameCount;
 
-                    spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, HeightPF / 2),FrameChooser(icon,HeightPF), Color.White * GlobalAlpha);
+                    spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, HeightPF / 2), FrameChooser(icon, HeightPF), Color.White * GlobalAlpha);
                 }
             }
             #endregion
@@ -424,16 +426,16 @@ internal class BarDrawsMethods
                 }
                 if (barInfo.ShowLife && BarConfig.Instance.ShowLife)
                 {
-                    Info += (Info == string.Empty ? "" : " : ") + _life.ToString();
+                    Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_life);
                     if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax)
                     {
                         Info += "/";
-                        Info += _lifemax.ToString();
+                        Info += ToStringWithComma((int)_lifemax);
                     }
                 }
                 if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax && !barInfo.ShowLife && !BarConfig.Instance.ShowLife)
                 {
-                    Info += (Info == string.Empty ? "" : " : ") + _lifemax.ToString();
+                    Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_lifemax);
                 }
                 if (barInfo.ShowPercent && BarConfig.Instance.ShowPercent)
                 {
@@ -481,7 +483,7 @@ internal class BarDrawsMethods
 
             #region 图片部分
 
-            void DrawInfoWithNum(Vector2 LeftTopPosition, BarTexture2D bt, string num,int heightPF)
+            void DrawInfoWithNum(Vector2 LeftTopPosition, BarTexture2D bt, string num, int heightPF)
             {
                 Vector2 p = LeftTopPosition - new Vector2(0, heightPF + 5f);
 
@@ -490,7 +492,7 @@ internal class BarDrawsMethods
 
                 Rectangle btp = FrameChooser(bt, heightPF);
 
-                spriteBatch.Draw(bt.texture.Value, LeftTopPosition,btp, Color.White * GlobalAlpha);
+                spriteBatch.Draw(bt.texture.Value, LeftTopPosition, btp, Color.White * GlobalAlpha);
                 Utils.DrawBorderString(spriteBatch, num, LeftTopPosition - Namepostion + new Vector2(bt.texture.Value.Width / 2, heightPF / 2), Color.White * GlobalAlpha);
             }
 
@@ -499,7 +501,7 @@ internal class BarDrawsMethods
                 BarTexture2D defense = BuildInTextures.ExtraInfo["Defense"];
                 frameNow.TryAdd(defense, 1);
                 int heightPF = defense.texture.Value.Height / defense.frameCount;
-                DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -heightPF - 5f), defense, npc.defense.ToString(),heightPF);
+                DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -heightPF - 5f), defense, ToStringWithComma(npc.defense), heightPF);
             }
 
             if (BarConfig.Instance.ShowTarget && barInfo.ShowTarget)
@@ -507,7 +509,10 @@ internal class BarDrawsMethods
                 BarTexture2D target = BuildInTextures.ExtraInfo["Target"];
                 frameNow.TryAdd(target, 1);
                 int heightPF = target.texture.Value.Height / target.frameCount;
-                DrawInfoWithNum(new Vector2(position.X - (target.texture.Value.Width / 2), CheckBox[0].Y - heightPF - 5f), target, Main.player[npc.target].name.ToString(),heightPF);
+                if (npc.target >= 0)
+                {
+                    DrawInfoWithNum(new Vector2(position.X - (target.texture.Value.Width / 2), CheckBox[0].Y - heightPF - 5f), target, Main.player[npc.target].name.ToString(), heightPF);
+                }
             }
 
             if (BarConfig.Instance.ShowDamage && barInfo.ShowDamage)
@@ -515,7 +520,7 @@ internal class BarDrawsMethods
                 BarTexture2D damage = BuildInTextures.ExtraInfo["Damage"];
                 frameNow.TryAdd(damage, 1);
                 int heightPF = damage.texture.Value.Height / damage.frameCount;
-                DrawInfoWithNum(CheckBox[0] + new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - damage.texture.Value.Width, -heightPF - 5f), damage, npc.damage.ToString(),heightPF);
+                DrawInfoWithNum(CheckBox[0] + new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - damage.texture.Value.Width, -heightPF - 5f), damage, ToStringWithComma(npc.damage), heightPF);
             }
 
             #endregion
@@ -544,9 +549,9 @@ internal class BarDrawsMethods
     {
         int FillPF = fill.texture.Value.Height / fill.frameCount;
 
-        Rectangle p1 = FrameChooser(fill,FillPF);
+        Rectangle p1 = FrameChooser(fill, FillPF);
 
-        Rectangle FillP1 = new Rectangle(0, p1.Y, fill.texture.Value.Width - fill.fillCutLengh - 1,FillPF);
+        Rectangle FillP1 = new Rectangle(0, p1.Y, fill.texture.Value.Width - fill.fillCutLengh - 1, FillPF);
         Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh - 1, p1.Y, fill.fillCutLengh + 1, FillPF);
 
         Color color = fill.barFillColor switch
@@ -713,7 +718,7 @@ internal class BarDrawsMethods
 
     #endregion
 
-    private static Rectangle FrameChooser(BarTexture2D bartetxure,int heightPF)
+    private static Rectangle FrameChooser(BarTexture2D bartetxure, int heightPF)
     {
         if (frameNow.ContainsKey(bartetxure))
             frameNow[bartetxure]++;
@@ -732,6 +737,15 @@ internal class BarDrawsMethods
             bartetxure.texture.Value.Width,
             heightPF
             );
+    }
+
+    private static string ToStringWithComma(int input)
+    {
+        return input.ToString("N0", new NumberFormatInfo
+        {
+            NumberGroupSizes = new[] { Language.ActiveCulture == GameCulture.FromCultureName(GameCulture.CultureName.Chinese)? BarConfig.Instance.ChineseCommaGap : BarConfig.Instance.CommaGap },
+            NumberGroupSeparator = ","
+        });
     }
 }
 

@@ -46,6 +46,14 @@ public class BarConfig : ModConfig
 
     [Header($"CustomHeader")]
 
+    [DefaultValue(3)]
+    [Range(0, int.MaxValue)]
+    public int CommaGap;
+
+    [DefaultValue(4)]
+    [Range(0, int.MaxValue)]
+    public int ChineseCommaGap;
+
     [DefaultValue(800)]
     [Range(400, int.MaxValue)]
     public int BarLength;
