@@ -207,13 +207,14 @@ internal class BarDrawsMethods
             frameNow.TryAdd(tail, 1);
             frameNow.TryAdd(head, 1);
             frameNow.TryAdd(fill, 1);
+            frameNow.TryAdd(icon, 1);
 
             #endregion
 
             #region 贴图绘制方法
 
             #region Alpha乘数
-            bool MouseAlpha = Collision.CheckAABBvAABBCollision(Main.MouseScreen, Vector2.One, new Vector2(position.X - (BarConfig.Instance.BarLength / 2) - head.fillOffset.X, position.Y - (fill.texture.Value.Height / 2) - head.fillOffset.Y), new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - tail.fillOffset.X + tail.texture.Value.Width, Math.Max(head.texture.Value.Height, tail.texture.Value.Height)));
+            bool MouseAlpha = Collision.CheckAABBvAABBCollision(Main.MouseScreen, Vector2.One, new Vector2(position.X - (BarConfig.Instance.BarLength / 2) - head.fillOffset.X, position.Y - (fill.texture.Value.Height / (2 * fill.frameCount)) - head.fillOffset.Y), new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - tail.fillOffset.X + tail.texture.Value.Width, Math.Max(head.texture.Value.Height / (2 * head.frameCount), tail.texture.Value.Height / (2 * tail.frameCount))));
             float GlobalAlpha = (MouseAlpha ? ((float)BarConfig.Instance.MouseAlpha / 100) : 1f) * ((float)BarConfig.Instance.Alpha / 100);
             #endregion
 
@@ -229,7 +230,7 @@ internal class BarDrawsMethods
                     fill.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha);
                 else
                 {
-                    Vector2 StartPosition = position - new Vector2(BarConfig.Instance.BarLength / 2, fill.texture.Value.Height / 2);
+                    Vector2 StartPosition = position - new Vector2(BarConfig.Instance.BarLength / 2, fill.texture.Value.Height / (2 * fill.frameCount));
                     int filllengh = (int)(BarConfig.Instance.BarLength * percentage);
 
                     #region 填充部分
@@ -272,9 +273,11 @@ internal class BarDrawsMethods
                     {
                         BarTexture2D shield = BuildInTextures.ExtraInfo["Shield"];
 
-                        if (shield.adjustedtexture == null || shield.adjustedtexture?.Width != BarConfig.Instance.BarLength || shield.adjustedtexture?.Height != fill.texture.Value.Height)
+                        int heightPF = fill.texture.Value.Height / fill.frameCount;
+
+                        if (shield.adjustedtexture == null || shield.adjustedtexture?.Width != BarConfig.Instance.BarLength || shield.adjustedtexture?.Height != heightPF)
                         {
-                            AdjustTexture(ref shield, spriteBatch, fill.texture.Value.Height);
+                            AdjustTexture(ref shield, spriteBatch, heightPF);
                             BuildInTextures.ExtraInfo["Shield"] = shield;
                         }
 
@@ -308,53 +311,28 @@ internal class BarDrawsMethods
                     int HeightPF = frame.texture.Value.Height / frame.frameCount;
                     Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X - head.texture.Value.Width, HeightPF / 2);
                     Vector2 EndPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
+                    Rectangle frameP = FrameChooser(frame, HeightPF);
 
                     switch (frame.barFrameStyles)
                     {
                         case BarFrameStyles.Extend:
                             {
-                                if (frameNow[frame] >= frame.frameCount * frame.TicksPerFrame)
-                                    frameNow[frame] = 1;
+                                spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X, (int)StartPosition.Y, (int)EndPosition.X - (int)StartPosition.X, HeightPF), frameP, Color.White * GlobalAlpha);
 
-                                int NowFrame = (frameNow[frame]) / frame.TicksPerFrame;
-
-                                Rectangle frameP = new Rectangle(
-                                    0,
-                                    HeightPF * (NowFrame),
-                                    frame.texture.Value.Width,
-                                    HeightPF
-                                    );
-
-                                spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X, (int)StartPosition.Y, (int)EndPosition.X - (int)StartPosition.X, frame.texture.Value.Height), frameP, Color.White * GlobalAlpha);
-
-                                frameNow[frame]++;
                                 break;
                             }
 
                         case BarFrameStyles.Dulplicate:
                             {
-                                if (frameNow[frame] >= frame.frameCount * frame.TicksPerFrame)
-                                    frameNow[frame] = 1;
-
-                                int NowFrame = (frameNow[frame]) / frame.TicksPerFrame;
-
-                                Rectangle frameP = new Rectangle(
-                                    0,
-                                    HeightPF * (NowFrame),
-                                    frame.texture.Value.Width,
-                                    HeightPF
-                                    );
-
                                 int count = (((int)EndPosition.X - (int)StartPosition.X) / frame.texture.Value.Width);
                                 int extra = (((int)EndPosition.X - (int)StartPosition.X) % frame.texture.Value.Width);
 
                                 for (int i = 0; i < count; i++)
                                 {
-                                    spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, frame.texture.Value.Height), frameP, Color.White * GlobalAlpha);
+                                    spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, HeightPF), frameP, Color.White * GlobalAlpha);
                                 }
                                 spriteBatch.Draw(frame.texture.Value, new Vector2(EndPosition.X - extra, EndPosition.Y), new Rectangle(frame.texture.Value.Width - extra, 0, extra, frameP.Height), Color.White * GlobalAlpha);
 
-                                frameNow[frame]++;
                                 break;
                             }
                     }
@@ -381,21 +359,7 @@ internal class BarDrawsMethods
 
                     CheckBox[0] = StartPosition;
 
-                    if (frameNow[head] >= head.frameCount * head.TicksPerFrame)
-                        frameNow[head] = 1;
-
-                    int NowFrame = (frameNow[head]) / head.TicksPerFrame;
-
-                    Rectangle headP = new Rectangle(
-                        0,
-                        HeightPF * (NowFrame),
-                        head.texture.Value.Width,
-                        HeightPF
-                        );
-
-                    spriteBatch.Draw(head.texture.Value, StartPosition, headP, Color.White * GlobalAlpha);
-
-                    frameNow[head]++;
+                    spriteBatch.Draw(head.texture.Value, StartPosition, FrameChooser(head,HeightPF), Color.White * GlobalAlpha);
                 }
             }
             #endregion
@@ -409,25 +373,12 @@ internal class BarDrawsMethods
                 else
                 {
                     int HeightPF = tail.texture.Value.Height / tail.frameCount;
+
                     Vector2 StartPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
 
                     CheckBox[1] = StartPosition;
 
-                    if (frameNow[tail] >= tail.frameCount * tail.TicksPerFrame)
-                        frameNow[tail] = 1;
-
-                    int NowFrame = (frameNow[tail]) / tail.TicksPerFrame;
-
-                    Rectangle tailP = new Rectangle(
-                        0,
-                        HeightPF * (NowFrame),
-                        tail.texture.Value.Width,
-                        HeightPF
-                        );
-
-                    spriteBatch.Draw(tail.texture.Value, StartPosition, tailP, Color.White * GlobalAlpha);
-
-                    frameNow[tail]++;
+                    spriteBatch.Draw(tail.texture.Value, StartPosition, FrameChooser(tail, HeightPF), Color.White * GlobalAlpha);
                 }
             }
             #endregion
@@ -447,7 +398,9 @@ internal class BarDrawsMethods
                 }
                 else
                 {
-                    spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, icon.texture.Value.Height / 2), Color.White * GlobalAlpha);
+                    int HeightPF = icon.texture.Value.Height / icon.frameCount;
+
+                    spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, HeightPF / 2),FrameChooser(icon,HeightPF), Color.White * GlobalAlpha);
                 }
             }
             #endregion
@@ -464,7 +417,6 @@ internal class BarDrawsMethods
 
             string GetText(float _life, float _lifemax, float _percentage)
             {
-
                 string Info = string.Empty;
                 if (barInfo.ShowName && BarConfig.Instance.ShowName)
                 {
@@ -529,33 +481,41 @@ internal class BarDrawsMethods
 
             #region 图片部分
 
-            void DrawInfoWithNum(Vector2 LeftTopPosition, BarTexture2D bt, string num)
+            void DrawInfoWithNum(Vector2 LeftTopPosition, BarTexture2D bt, string num,int heightPF)
             {
-                Vector2 p = LeftTopPosition - new Vector2(0, bt.texture.Value.Height + 5f);
+                Vector2 p = LeftTopPosition - new Vector2(0, heightPF + 5f);
 
                 Vector2 size = FontAssets.MouseText.Value.MeasureString(num);
                 Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
 
-                spriteBatch.Draw(bt.texture.Value, LeftTopPosition, Color.White * GlobalAlpha);
-                Utils.DrawBorderString(spriteBatch, num, LeftTopPosition - Namepostion + new Vector2(bt.texture.Value.Width / 2, bt.texture.Value.Height / 2), Color.White * GlobalAlpha);
+                Rectangle btp = FrameChooser(bt, heightPF);
+
+                spriteBatch.Draw(bt.texture.Value, LeftTopPosition,btp, Color.White * GlobalAlpha);
+                Utils.DrawBorderString(spriteBatch, num, LeftTopPosition - Namepostion + new Vector2(bt.texture.Value.Width / 2, heightPF / 2), Color.White * GlobalAlpha);
             }
 
             if (BarConfig.Instance.ShowDefense && barInfo.ShowDefense)
             {
                 BarTexture2D defense = BuildInTextures.ExtraInfo["Defense"];
-                DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -defense.texture.Value.Height - 5f), defense, npc.defense.ToString());
+                frameNow.TryAdd(defense, 1);
+                int heightPF = defense.texture.Value.Height / defense.frameCount;
+                DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -heightPF - 5f), defense, npc.defense.ToString(),heightPF);
             }
 
             if (BarConfig.Instance.ShowTarget && barInfo.ShowTarget)
             {
                 BarTexture2D target = BuildInTextures.ExtraInfo["Target"];
-                DrawInfoWithNum(new Vector2(position.X - (target.texture.Value.Width / 2), CheckBox[0].Y - target.texture.Value.Height - 5f), target, Main.player[npc.target].name.ToString());
+                frameNow.TryAdd(target, 1);
+                int heightPF = target.texture.Value.Height / target.frameCount;
+                DrawInfoWithNum(new Vector2(position.X - (target.texture.Value.Width / 2), CheckBox[0].Y - heightPF - 5f), target, Main.player[npc.target].name.ToString(),heightPF);
             }
 
             if (BarConfig.Instance.ShowDamage && barInfo.ShowDamage)
             {
                 BarTexture2D damage = BuildInTextures.ExtraInfo["Damage"];
-                DrawInfoWithNum(CheckBox[0] + new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - damage.texture.Value.Width, -damage.texture.Value.Height - 5f), damage, npc.damage.ToString());
+                frameNow.TryAdd(damage, 1);
+                int heightPF = damage.texture.Value.Height / damage.frameCount;
+                DrawInfoWithNum(CheckBox[0] + new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - damage.texture.Value.Width, -heightPF - 5f), damage, npc.damage.ToString(),heightPF);
             }
 
             #endregion
@@ -569,7 +529,6 @@ internal class BarDrawsMethods
             #endregion
 
             #endregion
-
         }
         return true;
     }
@@ -583,8 +542,12 @@ internal class BarDrawsMethods
 
     private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
     {
-        Rectangle FillP1 = new Rectangle(0, 0, fill.texture.Value.Width - fill.fillCutLengh - 1, fill.texture.Value.Height);
-        Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh - 1, 0, fill.fillCutLengh + 1, fill.texture.Value.Height);
+        int FillPF = fill.texture.Value.Height / fill.frameCount;
+
+        Rectangle p1 = FrameChooser(fill,FillPF);
+
+        Rectangle FillP1 = new Rectangle(0, p1.Y, fill.texture.Value.Width - fill.fillCutLengh - 1,FillPF);
+        Rectangle FillP2 = new Rectangle(fill.texture.Value.Width - fill.fillCutLengh - 1, p1.Y, fill.fillCutLengh + 1, FillPF);
 
         Color color = fill.barFillColor switch
         {
@@ -594,7 +557,7 @@ internal class BarDrawsMethods
 
         if (length > fill.fillCutLengh)
         {
-            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh, fill.texture.Value.Height), FillP1, color * alpha * GlobalAlpha);
+            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh, FillPF), FillP1, color * alpha * GlobalAlpha);
             spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), FillP2, color * alpha * GlobalAlpha);
         }
         else
@@ -716,10 +679,14 @@ internal class BarDrawsMethods
             BarData.BarInfos[npctype].barTextures.baseTextures[TextureType.Fill] = fill;
         }
 
+        int FillPF = fill.texture.Value.Height / fill.frameCount;
+
+        Rectangle FillP = FrameChooser(fill, FillPF);
+
         spriteBatch.Draw(
             fill.adjustedtexture,
             position,
-            new Rectangle(0, 0, length, fill.texture.Value.Height),
+            new Rectangle(0, 0, length, FillPF),
             color * GlobalAlpha);
     }
 
@@ -733,15 +700,38 @@ internal class BarDrawsMethods
             BarFillColor.Vanilla => BarFillColorMethods.GetVanillaBarColor(percentage),
             BarFillColor.Custom => fill.fillColor,
         };
+        int fillPF = fill.texture.Value.Height / fill.frameCount;
+        Rectangle fillp = FrameChooser(fill, fillPF);
 
         for (int i = 0; i < count; i++)
         {
-            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (i * fill.texture.Value.Width), position.Y), color * GlobalAlpha);
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (i * fill.texture.Value.Width), position.Y), fillp, color * GlobalAlpha);
         }
 
-        spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (count * fill.texture.Value.Width), position.Y), new Rectangle(0, 0, remainder, fill.texture.Value.Height), color * GlobalAlpha);
+        spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (count * fill.texture.Value.Width), position.Y), new Rectangle(0, fillp.Y, remainder, fillPF), color * GlobalAlpha);
     }
 
     #endregion
+
+    private static Rectangle FrameChooser(BarTexture2D bartetxure,int heightPF)
+    {
+        if (frameNow.ContainsKey(bartetxure))
+            frameNow[bartetxure]++;
+        else
+            frameNow.Add(bartetxure, 1);
+
+
+        if (frameNow[bartetxure] >= bartetxure.frameCount * bartetxure.TicksPerFrame)
+            frameNow[bartetxure] = 1;
+
+        int NowFrame = (frameNow[bartetxure]) / bartetxure.TicksPerFrame;
+
+        return new Rectangle(
+            0,
+            heightPF * (NowFrame),
+            bartetxure.texture.Value.Width,
+            heightPF
+            );
+    }
 }
 

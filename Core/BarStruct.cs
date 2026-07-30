@@ -234,12 +234,12 @@ internal struct BarTexture2D
             return source switch
             {
                 TextureSource.DefaultTexture => true,
-                TextureSource.DefaultVanilla => BarConfig.Instance.EnableDefualVanilla,
-                TextureSource.ExtraVanilla => BarConfig.Instance.EnableExtraVanilla,
-                TextureSource.ExtraCalamity => BarConfig.Instance.EnableExtraCalamity,
-                TextureSource.ExtraInfo => BarConfig.Instance.EnableExtraInfo,
-                TextureSource.ExtraCustom => BarConfig.Instance.EnableExtraCustom,
-                TextureSource.ExtraAAClassic => BarConfig.Instance.EnableExtraAAClassic,
+                TextureSource.DefaultVanilla => BarConfig.Instance.EnableDefualVanilla && !BarConfig.Instance.ForceDefaulTexture,
+                TextureSource.ExtraVanilla => BarConfig.Instance.EnableExtraVanilla && !BarConfig.Instance.ForceDefaulTexture,
+                TextureSource.ExtraCalamity => BarConfig.Instance.EnableExtraCalamity && !BarConfig.Instance.ForceDefaulTexture,
+                TextureSource.ExtraInfo => BarConfig.Instance.EnableExtraInfo && !BarConfig.Instance.ForceDefaulTexture,
+                TextureSource.ExtraCustom => BarConfig.Instance.EnableExtraCustom && !BarConfig.Instance.ForceDefaulTexture,
+                TextureSource.ExtraAAClassic => BarConfig.Instance.EnableExtraAAClassic && !BarConfig.Instance.ForceDefaulTexture,
                 TextureSource.None => true,
             };
         } 
