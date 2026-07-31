@@ -4,6 +4,9 @@ namespace YuBellBossBar.DrawMethod;
 
 internal class BarDrawsMethods
 {
+    // 位置相关
+    public static Vector2[] CheckBox = new Vector2[2];
+
     public static Vector2 position
     {
         get
@@ -75,9 +78,6 @@ internal class BarDrawsMethods
             BarTexture2D icon;
             List<BarTexture2D> extraBetweenIconAndInfo;
             List<BarTexture2D> extraUponInfo;
-
-            // 位置相关
-            Vector2[] CheckBox = new Vector2[2];
             #endregion
 
             #region 根据模组配置重新选择贴图
@@ -415,71 +415,73 @@ internal class BarDrawsMethods
 
             #region 信息显示相关绘制方法
 
-            #region 文字部分
-
-            string GetText(float _life, float _lifemax, float _percentage)
+            if (barInfo.ShowText)
             {
-                string Info = string.Empty;
-                if (barInfo.ShowName && BarConfig.Instance.ShowName)
-                {
-                    Info += Lang.GetNPCName(npc.type).ToString();
-                }
-                if (barInfo.ShowLife && BarConfig.Instance.ShowLife)
-                {
-                    Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_life);
-                    if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax)
-                    {
-                        Info += "/";
-                        Info += ToStringWithComma((int)_lifemax);
-                    }
-                }
-                if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax && !barInfo.ShowLife && !BarConfig.Instance.ShowLife)
-                {
-                    Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_lifemax);
-                }
-                if (barInfo.ShowPercent && BarConfig.Instance.ShowPercent)
-                {
-                    Info += (Info == string.Empty ? "" : " : ") + "[" + string.Format("{0:f2}", _percentage * 100) + "%" + "]";
-                }
-                if (barInfo.ShowSegment && BarConfig.Instance.ShowSegment && barInfo.Segment != null)
-                {
-                    int amount = 0;
+                #region 文字部分
 
-                    foreach (int segmentType in barInfo.Segment)
+                string GetText(float _life, float _lifemax, float _percentage)
+                {
+                    string Info = string.Empty;
+                    if (barInfo.ShowName && BarConfig.Instance.ShowName)
                     {
-                        for (int i = 0; i < Main.npc.Length; i++)
+                        Info += Lang.GetNPCName(npc.type).ToString();
+                    }
+                    if (barInfo.ShowLife && BarConfig.Instance.ShowLife)
+                    {
+                        Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_life);
+                        if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax)
                         {
-                            NPC segment = Main.npc[i];
-                            if (segment.type == segmentType && segment.active)
-                            {
-                                amount++;
-                            }
+                            Info += "/";
+                            Info += ToStringWithComma((int)_lifemax);
                         }
                     }
-                    if (amount != 0)
+                    if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax && !barInfo.ShowLife && !BarConfig.Instance.ShowLife)
                     {
-                        Info += (Info == string.Empty ? "" : " : ") + Language.GetTextValue("Mods.YuBellBossBar.Info.Segment") + amount.ToString();
+                        Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_lifemax);
                     }
+                    if (barInfo.ShowPercent && BarConfig.Instance.ShowPercent)
+                    {
+                        Info += (Info == string.Empty ? "" : " : ") + "[" + string.Format("{0:f2}", _percentage * 100) + "%" + "]";
+                    }
+                    if (barInfo.ShowSegment && BarConfig.Instance.ShowSegment && barInfo.Segment != null)
+                    {
+                        int amount = 0;
+
+                        foreach (int segmentType in barInfo.Segment)
+                        {
+                            foreach (NPC segment in Main.npc)
+                            {
+                                if (segment.type == segmentType && segment.active)
+                                {
+                                    amount++;
+                                }
+                            }
+                        }
+                        if (amount != 0)
+                        {
+                            Info += (Info == string.Empty ? "" : " : ") + Language.GetTextValue("Mods.YuBellBossBar.Info.Segment") + amount.ToString();
+                        }
+                    }
+
+                    return Info;
                 }
 
-                return Info;
+                string Info = string.Empty;
+                if (drawParams.Shield > 0 && BarConfig.Instance.ShowShield)
+                    Info = GetText(drawParams.Shield, drawParams.ShieldMax, shieldpercentage);
+                else
+                {
+                    Info = GetText(life, lifemax, percentage);
+                    if (npc.dontTakeDamage && BarConfig.Instance.ShowInvincible && barInfo.ShowInvincible)
+                        Info = "[" + Lang.GetNPCName(npc.type).ToString() + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + "]";
+                }
+
+                Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
+                Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
+
+                Utils.DrawBorderString(spriteBatch, Info, position - Namepostion, Color.White * GlobalAlpha);
+                #endregion
             }
-
-            string Info = string.Empty;
-            if (drawParams.Shield > 0 && BarConfig.Instance.ShowShield)
-                Info = GetText(drawParams.Shield, drawParams.ShieldMax, shieldpercentage);
-            else
-            {
-                Info = GetText(life, lifemax, percentage);
-                if (npc.dontTakeDamage && BarConfig.Instance.ShowInvincible && barInfo.ShowInvincible)
-                    Info = "[" + Lang.GetNPCName(npc.type).ToString() + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + "]";
-            }
-
-            Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
-            Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
-
-            Utils.DrawBorderString(spriteBatch, Info, position - Namepostion, Color.White * GlobalAlpha);
-            #endregion
 
             #region 图片部分
 
@@ -499,28 +501,49 @@ internal class BarDrawsMethods
             if (BarConfig.Instance.ShowDefense && barInfo.ShowDefense)
             {
                 BarTexture2D defense = BuildInTextures.ExtraInfo["Defense"];
-                frameNow.TryAdd(defense, 1);
-                int heightPF = defense.texture.Value.Height / defense.frameCount;
-                DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -heightPF - 5f), defense, ToStringWithComma(npc.defense), heightPF);
+                if (defense.CustomDrawEvent != null)
+                {
+                    defense.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, defense.GetBTWithoutCustomDraw(defense));
+                }
+                else
+                {
+                    frameNow.TryAdd(defense, 1);
+                    int heightPF = defense.texture.Value.Height / defense.frameCount;
+                    DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -heightPF - 5f), defense, ToStringWithComma(npc.defense), heightPF);
+                }
             }
 
             if (BarConfig.Instance.ShowTarget && barInfo.ShowTarget)
             {
                 BarTexture2D target = BuildInTextures.ExtraInfo["Target"];
-                frameNow.TryAdd(target, 1);
-                int heightPF = target.texture.Value.Height / target.frameCount;
-                if (npc.target >= 0)
+                if (target.CustomDrawEvent != null)
                 {
-                    DrawInfoWithNum(new Vector2(position.X - (target.texture.Value.Width / 2), CheckBox[0].Y - heightPF - 5f), target, Main.player[npc.target].name.ToString(), heightPF);
+                    target.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, target.GetBTWithoutCustomDraw(target));
+                }
+                else
+                {
+                    frameNow.TryAdd(target, 1);
+                    int heightPF = target.texture.Value.Height / target.frameCount;
+                    if (npc.target >= 0)
+                    {
+                        DrawInfoWithNum(new Vector2(position.X - (target.texture.Value.Width / 2), CheckBox[0].Y - heightPF - 5f), target, Main.player[npc.target].name.ToString(), heightPF);
+                    }
                 }
             }
 
             if (BarConfig.Instance.ShowDamage && barInfo.ShowDamage)
             {
                 BarTexture2D damage = BuildInTextures.ExtraInfo["Damage"];
-                frameNow.TryAdd(damage, 1);
-                int heightPF = damage.texture.Value.Height / damage.frameCount;
-                DrawInfoWithNum(CheckBox[0] + new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - damage.texture.Value.Width, -heightPF - 5f), damage, ToStringWithComma(npc.damage), heightPF);
+                if (damage.CustomDrawEvent != null)
+                {
+                    damage.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, damage.GetBTWithoutCustomDraw(damage));
+                }
+                else
+                {
+                    frameNow.TryAdd(damage, 1);
+                    int heightPF = damage.texture.Value.Height / damage.frameCount;
+                    DrawInfoWithNum(CheckBox[0] + new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - damage.texture.Value.Width, -heightPF - 5f), damage, ToStringWithComma(npc.damage), heightPF);
+                }
             }
 
             #endregion
@@ -545,7 +568,7 @@ internal class BarDrawsMethods
 
     #region Fill相关绘制方法
 
-    private static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
+    internal static void FillExtend(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
     {
         int FillPF = fill.texture.Value.Height / fill.frameCount;
 
@@ -570,7 +593,7 @@ internal class BarDrawsMethods
             spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), new Rectangle(FillP2.X, FillP2.Y, length, FillP2.Height), color * alpha * GlobalAlpha);
         }
     }
-    private static void AdjustTexture(ref BarTexture2D texture, SpriteBatch spriteBatch, int dstHeight)
+    internal static void AdjustTexture(ref BarTexture2D texture, SpriteBatch spriteBatch, int dstHeight)
     {
         // 宝宝我也看不懂这些，这是AI写的
         // 但是效果是对的不就好了吗
@@ -668,7 +691,7 @@ internal class BarDrawsMethods
         texture.adjustedtexture = tex;
     }
 
-    private static void FillAll(int npctype, SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
+    internal static void FillAll(int npctype, SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
     {
 
         Color color = fill.barFillColor switch
@@ -695,7 +718,7 @@ internal class BarDrawsMethods
             color * GlobalAlpha);
     }
 
-    private static void FillDulplicate(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
+    internal static void FillDulplicate(SpriteBatch spriteBatch, BarTexture2D fill, Vector2 position, int length, float percentage, float postpercentage, float alpha, float GlobalAlpha)
     {
         int count = (length - fill.fillCutLengh) / (fill.texture.Value.Width - fill.fillCutLengh);
         int remainder = (length - fill.fillCutLengh) % (fill.texture.Value.Width - fill.fillCutLengh);
@@ -720,7 +743,7 @@ internal class BarDrawsMethods
 
     #endregion
 
-    private static Rectangle FrameChooser(BarTexture2D bartetxure, int heightPF)
+    internal static Rectangle FrameChooser(BarTexture2D bartetxure, int heightPF)
     {
         if (frameNow.ContainsKey(bartetxure))
             frameNow[bartetxure]++;
@@ -741,7 +764,7 @@ internal class BarDrawsMethods
             );
     }
 
-    private static string ToStringWithComma(int input)
+    internal static string ToStringWithComma(int input)
     {
         return input.ToString("N0", new NumberFormatInfo
         {

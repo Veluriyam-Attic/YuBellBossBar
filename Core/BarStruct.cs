@@ -55,6 +55,9 @@ internal struct BarInfo
                     case "ShowInvincible":
                         ShowInvincible = fields[key];
                         break;
+                    case "ShowText":
+                        ShowText = fields[key];
+                        break;
                 }
             }
 
@@ -94,6 +97,7 @@ internal struct BarInfo
 
     public bool ShowBar = true;
 
+    public bool ShowText = true;
     public bool ShowInvincible = true;
     public bool ShowName = true;
     public bool ShowLife = true;
