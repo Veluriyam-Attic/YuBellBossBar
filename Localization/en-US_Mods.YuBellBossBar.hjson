@@ -221,8 +221,9 @@ Exception: {
 }
 
 Info: {
-	Segment: Remaining Segment:
+	Segment: Remaining Segment:{0}
 	Invincible: Invincible
+	BulletHell: "[Bullet Hell Time Remain: {0}s]"
 	OnEnterWorld:
 		'''
 

@@ -459,7 +459,7 @@ internal class BarDrawsMethods
                         }
                         if (amount != 0)
                         {
-                            Info += (Info == string.Empty ? "" : " : ") + Language.GetTextValue("Mods.YuBellBossBar.Info.Segment") + amount.ToString();
+                            Info += (Info == string.Empty ? "" : " : ") + Language.GetTextValue("Mods.YuBellBossBar.Info.Segment", amount.ToString());
                         }
                     }
 

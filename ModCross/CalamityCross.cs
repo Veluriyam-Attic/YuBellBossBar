@@ -324,7 +324,7 @@
                     {
                         DrawByPercent((900f - CalCloneAI3) / 900f, 1f);
 
-                        string text = "[Bullet Hell Time Remain:" + string.Format("{0:f2}", (900f - CalCloneAI3) / 60) + " s]";
+                        string text = Language.GetTextValue("Mods.YuBellBossBar.Info.BulletHell", string.Format("{0:f2}", (900f - CalCloneAI3) / 60));
                         Vector2 size = FontAssets.MouseText.Value.MeasureString(text);
                         Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
 
@@ -348,7 +348,9 @@
                         int 灾难length = (int)(灾难percentage * ((BarLength / 2) - 10));
 
                         {
-                            //spriteBatch.Draw();
+                            int 灾难count = 灾难length / (灾难Fill.Value.Width - 8);
+                            int 灾难extra = 灾难length % (灾难Fill.Value.Width - 8);
+
                         }
                     }
                     int 灾祸index = (int)cataclysmField.GetValue(null);
@@ -358,6 +360,11 @@
                         NPC 灾祸 = Main.npc[灾祸index];
                         float 灾祸percentage = 灾祸.life / 灾祸.lifeMax;
                         int 灾祸length = (int)(灾祸percentage * ((BarLength / 2) - 10));
+
+                        {
+                            int 灾祸count = 灾祸length / (灾难Fill.Value.Width - 8);
+                            int 灾祸extra = 灾祸length % (灾难Fill.Value.Width - 8);
+                        }
                     }
                 }
                 return Vector2.Zero;
