@@ -1,16 +1,16 @@
 ﻿namespace YuBellBossBar.ModCross
 {
-    internal class CalamityCross : ModSystem
+    internal class CalamityCloneAdapt : ModType
     {
-        public override void PostSetupContent()
-        {
 
+        public override void SetupContent()
+        {
             if (ModLoader.TryGetMod("CalamityMod", out CalamityCloneAdapt.calamity))
             {
                 Mod yabhb = ModLoader.GetMod("YuBellBossBar");
 
-                yabhb.Call("YetAnotherModCall", "Edit", "Invincible", CalamityCloneAdapt.calamity.Find<ModNPC>("SlimeGodCore").Type, false);
-                yabhb.Call("YetAnotherModCall", "Edit", "Invincible", CalamityCloneAdapt.calamity.Find<ModNPC>("RavagerBody").Type, false);
+                yabhb.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("SlimeGodCore").Type, false);
+                yabhb.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("RavagerBody").Type, false);
                 yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.Golem, false);
                 yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHead, false);
                 yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHeadFree, false);
@@ -87,14 +87,30 @@
                         null);
                     #endregion
 
-                    yabhb.Call("YetAnotherModCall", "Edit", "AddBarInfo", CalamityCloneAdapt.calamity.Find<ModNPC>("CalamitasClone").Type, new List<object> { CalamitasCloneHead, CalamitasCloneFrame, CalamitasCloneTail, CalamitasCloneFill }, new Dictionary<string, bool> { { "ShowText", false } }, null);
+                    #region 普灾Icon
+                    var CalamitasCloneIcon = yabhb.Call("YetAnotherModCall", "Edit", "AddBarTexture2D",
+                        "普灾Icon", "Icon",
+                        ModContent.Request<Texture2D>("CalamityMod/NPCs/CalClone/CalamitasClone_Head_Boss", AssetRequestMode.ImmediateLoad),
+                        0,
+                        Vector2.Zero,
+                        Vector2.Zero,
+                        "Dulplicate",
+                        "Custom",
+                        Color.White,
+                        "None",
+                        1,
+                        1,
+                        CalamityCloneAdapt.DrawFill,
+                        null);
+                    #endregion
+
+                    yabhb.Call("YetAnotherModCall", "Edit", "AddBarInfo", CalamityCloneAdapt.calamity.Find<ModNPC>("CalamitasClone").Type, new List<object> { CalamitasCloneHead, CalamitasCloneFrame, CalamitasCloneTail, CalamitasCloneFill }, new Dictionary<string, bool> { { "ShowText", false } }, new List<int> { CalamityCloneAdapt.calamity.Find<ModNPC>("SoulSeeker").Type });
                 }
             }
         }
-    }
 
-    internal class CalamityCloneAdapt : ModType
-    {
+        public override bool IsLoadingEnabled(Mod mod) => ModLoader.HasMod("CalamityMod");
+
         public static Mod calamity;
 
         public static Asset<Texture2D> 灾难构造体Head = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难构造体Head", AssetRequestMode.ImmediateLoad);
@@ -146,7 +162,7 @@
                 ILCursor cursor = new ILCursor(il);
                 int brotherAliveIndex = -1;
 
-                if(cursor.TryGotoNext(MoveType.After,
+                if (cursor.TryGotoNext(MoveType.After,
                     i => i.MatchLdsfld(catastropheField),
                     i => i.MatchLdcI4(-1),
                     i => i.MatchBeq(out _),
@@ -297,7 +313,7 @@
             {
                 if (!BrotherAlive)
                 {
-                    void DrawByPercent(float percentage,float GA)
+                    void DrawByPercent(float percentage, float GA)
                     {
                         Vector2 StartPostion = position - new Vector2(BarLength / 2, bt.texture.Value.Height / 2);
                         int length = (int)(percentage * BarLength);
@@ -323,6 +339,71 @@
                     if (CalCloneAI3 > 0 && CalCloneAI2 > 0)
                     {
                         DrawByPercent((900f - CalCloneAI3) / 900f, 1f);
+                    }
+                    else
+                    {
+                        float postpercentage = PostHealthSystem.GetPostHealth(npc.whoAmI, percentage);
+
+                        DrawByPercent(postpercentage, 0.7f);
+                        DrawByPercent(percentage, 1f);
+                    }
+                }
+                else
+                {
+                    int 灾难index = (int)catastropheField.GetValue(null);
+                    if (灾难index != -1)
+                    {
+                        NPC 灾难 = Main.npc[灾难index];
+                        float 灾难percentage = (float)灾难.life / (float)灾难.lifeMax;
+                        int 灾难length = (int)(灾难percentage * ((BarLength / 2) - 10));
+
+                        {
+                            int 灾难count = 灾难length / (灾难Fill.Value.Width - 8);
+                            int 灾难extra = 灾难length % (灾难Fill.Value.Width - 8);
+
+                            spriteBatch.Draw(灾难Fill.Value, position - new Vector2(8 + 灾难extra, 灾难Fill.Value.Height / 2), new Rectangle(8, 0, 灾难extra, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
+
+                            for (int i = 0; i < 灾难count; i++)
+                            {
+                                spriteBatch.Draw(灾难Fill.Value, position - new Vector2(灾难Fill.Value.Width + 灾难extra + (i * (灾难Fill.Value.Width - 8)), 灾难Fill.Value.Height / 2), new Rectangle(8, 0, 灾难Fill.Value.Width - 8, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
+                            }
+                            spriteBatch.Draw(灾难Fill.Value, position - new Vector2(8 + 灾难extra + (灾难count * (灾难Fill.Value.Width - 8)), 灾难Fill.Value.Height / 2), new Rectangle(0, 0, 8, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
+
+                        }
+                    }
+                    int 灾祸index = (int)cataclysmField.GetValue(null);
+
+                    if (灾祸index != -1)
+                    {
+                        NPC 灾祸 = Main.npc[灾祸index];
+                        float 灾祸percentage = (float)灾祸.life / (float)灾祸.lifeMax;
+                        int 灾祸length = (int)(灾祸percentage * ((BarLength / 2) - 10));
+
+                        {
+                            int 灾祸count = 灾祸length / (灾难Fill.Value.Width - 8);
+                            int 灾祸extra = 灾祸length % (灾难Fill.Value.Width - 8);
+
+                            spriteBatch.Draw(灾祸Fill.Value, position + new Vector2(8, -灾祸Fill.Value.Height / 2), new Rectangle(0, 0, 灾祸extra, 灾祸Fill.Value.Height), Color.White * GlobalAlpha);
+
+                            for (int i = 0; i < 灾祸count; i++)
+                            {
+                                spriteBatch.Draw(灾祸Fill.Value, position + new Vector2(8 + 灾祸extra + (i * (灾祸Fill.Value.Width - 8)), -灾祸Fill.Value.Height / 2), new Rectangle(0, 0, 灾祸Fill.Value.Width - 8, 灾祸Fill.Value.Height), Color.White * GlobalAlpha);
+                            }
+                            spriteBatch.Draw(灾祸Fill.Value, position + new Vector2(8 + 灾祸extra + (灾祸count * (灾祸Fill.Value.Width - 8)), -灾祸Fill.Value.Height / 2), new Rectangle(灾祸Fill.Value.Width - 8, 0, 8, 灾祸Fill.Value.Height), Color.White * GlobalAlpha);
+                        }
+                    }
+                }
+                return Vector2.Zero;
+            });
+        public static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawIcon = new(
+            (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
+            {
+                if (!BrotherAlive)
+                {
+                    spriteBatch.Draw(bt.texture.Value, position - new Vector2(28 + ((bt.texture.Value.Width + BarLength) / 2), bt.texture.Value.Height / 2), Color.White * GlobalAlpha);
+
+                    if (CalCloneAI3 > 0 && CalCloneAI2 > 0)
+                    {
 
                         string text = Language.GetTextValue("Mods.YuBellBossBar.Info.BulletHell", string.Format("{0:f2}", (900f - CalCloneAI3) / 60));
                         Vector2 size = FontAssets.MouseText.Value.MeasureString(text);
@@ -332,42 +413,12 @@
                     }
                     else
                     {
-                        float postpercentage = PostHealthSystem.GetPostHealth(npc.whoAmI, percentage);
-
-                        DrawByPercent(postpercentage, 0.7f);
-                        DrawByPercent(percentage,1f);
+                        
                     }
                 }
-                else
-                {
-                    int 灾难index = (int)catastropheField.GetValue(null);
-                    if (灾难index != -1)
-                    {
-                        NPC 灾难 = Main.npc[灾难index];
-                        float 灾难percentage = 灾难.life / 灾难.lifeMax;
-                        int 灾难length = (int)(灾难percentage * ((BarLength / 2) - 10));
 
-                        {
-                            int 灾难count = 灾难length / (灾难Fill.Value.Width - 8);
-                            int 灾难extra = 灾难length % (灾难Fill.Value.Width - 8);
-
-                        }
-                    }
-                    int 灾祸index = (int)cataclysmField.GetValue(null);
-
-                    if (灾祸index != -1)
-                    {
-                        NPC 灾祸 = Main.npc[灾祸index];
-                        float 灾祸percentage = 灾祸.life / 灾祸.lifeMax;
-                        int 灾祸length = (int)(灾祸percentage * ((BarLength / 2) - 10));
-
-                        {
-                            int 灾祸count = 灾祸length / (灾难Fill.Value.Width - 8);
-                            int 灾祸extra = 灾祸length % (灾难Fill.Value.Width - 8);
-                        }
-                    }
-                }
                 return Vector2.Zero;
             });
+
     }
 }

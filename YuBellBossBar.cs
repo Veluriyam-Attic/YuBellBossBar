@@ -11,14 +11,14 @@ public class YuBellBossBar : Mod
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsHead] = true;
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsBody] = true;
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsTail] = true;
+
+        // 加载贴图
+        // Load textures
+        BarData.InstantiateBuildInContent();
     }
 
     public override void PostSetupContent()
     {
-        // 加载贴图
-        // Load textures
-        BarData.InstantiateBuildInContent();
-
         Mod YuBellBossBar = ModLoader.GetMod("YuBellBossBar");
         if (ModLoader.HasMod("YuBellBossBar"))
         {

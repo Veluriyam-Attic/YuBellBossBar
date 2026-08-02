@@ -526,7 +526,13 @@ internal class BarDrawsMethods
                     int heightPF = target.texture.Value.Height / target.frameCount;
                     if (npc.target >= 0)
                     {
-                        DrawInfoWithNum(new Vector2(position.X - (target.texture.Value.Width / 2), CheckBox[0].Y - heightPF - 5f), target, Main.player[npc.target].name.ToString(), heightPF);
+                        string name = Main.player[npc.target].name.ToString(); 
+                        Vector2 size = FontAssets.MouseText.Value.MeasureString(name);
+
+                        Vector2 LeftTopPosition = new Vector2(position.X - ((size.X + target.texture.Value.Width) / 2), CheckBox[0].Y - heightPF - 5f);
+
+                        spriteBatch.Draw(target.texture.Value, LeftTopPosition, Color.White * GlobalAlpha);
+                        Utils.DrawBorderString(spriteBatch, name, new Vector2(LeftTopPosition.X + target.texture.Value.Width, LeftTopPosition.Y + (size.Y / 5)), Color.White * GlobalAlpha);
                     }
                 }
             }
