@@ -74,8 +74,12 @@ public class YuBellBossBar : Mod
                     {
                         return ModCallEdit.Edit(args);
                     }
+                case "Add":
+                    {
+                        return ModCallAdd.Add(args);
+                    }
             };
         }
-        return "YetAnotherModCall:Failed!";
+        return "YetAnotherModCall: Failed!";
     }
 }

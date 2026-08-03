@@ -2,8 +2,8 @@
 {
     internal class CalamityCloneAdapt : ModType
     {
-        public static int CatastropheType = -1;
-        public static int CataclysmType = -1;
+        private static int CatastropheType = -1;
+        private static int CataclysmType = -1;
 
         public override void SetupContent()
         {
@@ -25,7 +25,7 @@
                     CataclysmType = calamity.Find<ModNPC>("Cataclysm").Type;
 
                     #region 普灾Head
-                    var CalamitasCloneHead = yabhb.Call("YetAnotherModCall", "Edit", "AddBarTexture2D",
+                    var CalamitasCloneHead = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
                         "普灾Head", "Head",
                         ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/普灾Head", AssetRequestMode.ImmediateLoad),
                         0,
@@ -42,7 +42,7 @@
                     #endregion
 
                     #region 普灾Frame
-                    var CalamitasCloneFrame = yabhb.Call("YetAnotherModCall", "Edit", "AddBarTexture2D",
+                    var CalamitasCloneFrame = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
                         "普灾Frame", "Frame",
                         ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/普灾Frame", AssetRequestMode.ImmediateLoad),
                         0,
@@ -59,7 +59,7 @@
                     #endregion
 
                     #region 普灾Tail
-                    var CalamitasCloneTail = yabhb.Call("YetAnotherModCall", "Edit", "AddBarTexture2D",
+                    var CalamitasCloneTail = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
                         "普灾Tail", "Tail",
                         ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/普灾Tail", AssetRequestMode.ImmediateLoad),
                         0,
@@ -76,7 +76,7 @@
                     #endregion
 
                     #region 普灾Fill
-                    var CalamitasCloneFill = yabhb.Call("YetAnotherModCall", "Edit", "AddBarTexture2D",
+                    var CalamitasCloneFill = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
                         "普灾Fill", "Fill",
                         ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/普灾Fill", AssetRequestMode.ImmediateLoad),
                         0,
@@ -93,7 +93,7 @@
                     #endregion
 
                     #region 普灾Icon
-                    var CalamitasCloneIcon = yabhb.Call("YetAnotherModCall", "Edit", "AddBarTexture2D",
+                    var CalamitasCloneIcon = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
                         "普灾Icon", "Icon",
                         ModContent.Request<Texture2D>("CalamityMod/NPCs/CalClone/CalamitasClone_Head_Boss", AssetRequestMode.ImmediateLoad),
                         0,
@@ -109,32 +109,32 @@
                         null);
                     #endregion
 
-                    yabhb.Call("YetAnotherModCall", "Edit", "AddBarInfo", calamity.Find<ModNPC>("CalamitasClone").Type, new List<object> { CalamitasCloneHead, CalamitasCloneFrame, CalamitasCloneTail, CalamitasCloneFill, CalamitasCloneIcon }, DrawText,null, new List<int> { calamity.Find<ModNPC>("SoulSeeker").Type });
+                    yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", calamity.Find<ModNPC>("CalamitasClone").Type, new List<object> { CalamitasCloneHead, CalamitasCloneFrame, CalamitasCloneTail, CalamitasCloneFill, CalamitasCloneIcon }, DrawText,null, new List<int> { calamity.Find<ModNPC>("SoulSeeker").Type });
                 }
             }
         }
 
         public override bool IsLoadingEnabled(Mod mod) => ModLoader.HasMod("CalamityMod") && !ModLoader.HasMod("InfernumMode");
 
-        public static Mod calamity;
+        private static Mod calamity;
 
-        public static Asset<Texture2D> 灾难构造体Head = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难构造体Head", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> 灾难构造体Frame = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难构造体Frame", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> 灾难构造体Tail = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难构造体Tail", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> 灾祸构造体Head = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾祸构造体Head", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> 灾祸构造体Frame = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾祸构造体Frame", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> 灾祸构造体Tail = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾祸构造体Tail", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> 灾难Fill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难Fill", AssetRequestMode.ImmediateLoad);
-        public static Asset<Texture2D> 灾祸Fill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾祸Fill", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> 灾难构造体Head = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难构造体Head", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> 灾难构造体Frame = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难构造体Frame", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> 灾难构造体Tail = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难构造体Tail", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> 灾祸构造体Head = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾祸构造体Head", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> 灾祸构造体Frame = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾祸构造体Frame", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> 灾祸构造体Tail = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾祸构造体Tail", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> 灾难Fill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾难Fill", AssetRequestMode.ImmediateLoad);
+        private static Asset<Texture2D> 灾祸Fill = ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/灾祸Fill", AssetRequestMode.ImmediateLoad);
 
-        public static FieldInfo catastropheField;
-        public static FieldInfo cataclysmField;
-        public static Type calamityGlobalNPCType;
-        public static MethodInfo aiMethod;
+        private static FieldInfo catastropheField;
+        private static FieldInfo cataclysmField;
+        private static Type calamityGlobalNPCType;
+        private static MethodInfo aiMethod;
 
-        public static bool BrotherAlive = false;
-        public static float CalCloneAI3 = 0;
-        public static float CalCloneAI2 = 0;
+        private static bool BrotherAlive = false;
+        private static float CalCloneAI3 = 0;
+        private static float CalCloneAI2 = 0;
 
         public override void Load()
         {
@@ -142,7 +142,7 @@
             IL_GetNewAI_23();
         }
 
-        public static void IL_GetBrotherAlive()
+        private static void IL_GetBrotherAlive()
         {
             if (!ModLoader.TryGetMod("CalamityMod", out Mod calamity))
                 return;
@@ -192,7 +192,7 @@
             });
         }
 
-        public static void IL_GetNewAI_23()
+        private static void IL_GetNewAI_23()
         {
             MonoModHooks.Modify(aiMethod, il =>
             {
@@ -239,7 +239,7 @@
 
         protected override void Register() { }
 
-        public static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawHead = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawHead = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
@@ -257,7 +257,7 @@
                     return StartPosition;
                 }
             });
-        public static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawFrame = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawFrame = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
@@ -295,7 +295,7 @@
 
                 return Vector2.Zero;
             });
-        public static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawTail = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawTail = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
@@ -313,7 +313,7 @@
                     return StartPosition;
                 }
             });
-        public static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawFill = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawFill = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
@@ -399,18 +399,17 @@
                 }
                 return Vector2.Zero;
             });
-        public static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawIcon = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawIcon = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
                 {
                     spriteBatch.Draw(bt.texture.Value, position - new Vector2(28 + ((bt.texture.Value.Width + BarLength) / 2), bt.texture.Value.Height / 2), Color.White * GlobalAlpha);
-
                 }
                 return Vector2.Zero;
             });
 
-        public static Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>> DrawText = new((bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage, defaultDrawText) =>
+        private static Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>> DrawText = new((bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage, defaultDrawText) =>
         {
             if (CalCloneAI3 > 0 && CalCloneAI2 > 0)
             {
