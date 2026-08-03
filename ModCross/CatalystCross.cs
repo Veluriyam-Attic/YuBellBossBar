@@ -7,9 +7,9 @@
 
             if (ModLoader.TryGetMod("CatalystMod", out Mod catalyst))
             {
-                Mod YuBellBossBar = ModLoader.GetMod("YuBellBossBar");
+                Mod yabhb = ModLoader.GetMod("YuBellBossBar");
 
-                YuBellBossBar.Call("YetAnotherModCall", "Edit", "Color", catalyst.Find<ModNPC>("Astrageldon").Type, "Fill Color", (int)TextureType.Fill, Color.Purple);
+                yabhb.Call("YetAnotherModCall", "Edit", "Color", catalyst.Find<ModNPC>("Astrageldon").Type, "Fill Color", (int)TextureType.Fill, Color.Purple);
             }
         }
     }

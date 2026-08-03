@@ -4,4 +4,4 @@ contributor = Boatsoon
 version = 1.0.0.2
 side = Both
 languageVersion=14
-weakReferences = FargowiltasSouls,CalamityMod,CatalystMod,
+weakReferences = FargowiltasSouls,CalamityMod,CatalystMod,AAModClassic

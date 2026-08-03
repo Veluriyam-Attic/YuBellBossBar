@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace YuBellBossBar.DrawMethod;
+﻿namespace YuBellBossBar.DrawMethod;
 
 internal class BarDrawsMethods
 {
@@ -299,14 +297,14 @@ internal class BarDrawsMethods
             #region 额外绘制填充和框架之间
             if (extraBetweenFillAndFrame != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenFillAndFrame)
-                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha,npc,drawParams,texture.GetBTWithoutCustomDraw(texture));
+                    texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, texture.GetBTWithoutCustomDraw(texture));
             #endregion
 
             #region 框架相关绘制方法
             {
                 if (frame.CustomDrawEvent != null)
                 {
-                    frame.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha,npc,drawParams,frame.GetBTWithoutCustomDraw(frame));
+                    frame.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, frame.GetBTWithoutCustomDraw(frame));
                 }
                 else
                 {
@@ -419,67 +417,28 @@ internal class BarDrawsMethods
             {
                 #region 文字部分
 
-                string GetText(float _life, float _lifemax, float _percentage)
+                if (barInfo.DrawText != null)
                 {
-                    string Info = string.Empty;
-                    if (barInfo.ShowName && BarConfig.Instance.ShowName)
-                    {
-                        Info += Lang.GetNPCName(npc.type).ToString();
-                    }
-                    if (barInfo.ShowLife && BarConfig.Instance.ShowLife)
-                    {
-                        Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_life);
-                        if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax)
-                        {
-                            Info += "/";
-                            Info += ToStringWithComma((int)_lifemax);
-                        }
-                    }
-                    if (barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax && !barInfo.ShowLife && !BarConfig.Instance.ShowLife)
-                    {
-                        Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_lifemax);
-                    }
-                    if (barInfo.ShowPercent && BarConfig.Instance.ShowPercent)
-                    {
-                        Info += (Info == string.Empty ? "" : " : ") + "[" + string.Format("{0:f2}", _percentage * 100) + "%" + "]";
-                    }
-                    if (barInfo.ShowSegment && BarConfig.Instance.ShowSegment && barInfo.Segment != null)
-                    {
-                        int amount = 0;
-
-                        foreach (int segmentType in barInfo.Segment)
-                        {
-                            foreach (NPC segment in Main.npc)
-                            {
-                                if (segment.type == segmentType && segment.active)
-                                {
-                                    amount++;
-                                }
-                            }
-                        }
-                        if (amount != 0)
-                        {
-                            Info += (Info == string.Empty ? "" : " : ") + Language.GetTextValue("Mods.YuBellBossBar.Info.Segment", amount.ToString());
-                        }
-                    }
-
-                    return Info;
+                    barInfo.DrawText?.Invoke(
+                        barInfo.ShowInvincible && BarConfig.Instance.ShowInvincible,
+                        barInfo.ShowName && BarConfig.Instance.ShowName,
+                        barInfo.ShowLife && BarConfig.Instance.ShowLife,
+                        barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax,
+                        barInfo.ShowPercent && BarConfig.Instance.ShowPercent,
+                        barInfo.ShowSegment && BarConfig.Instance.ShowSegment,
+                        spriteBatch, position, BarConfig.Instance.BarLength, [life, lifemax, percentage], GlobalAlpha, npc, drawParams, barInfo.Segment, shieldpercentage, DrawText);
                 }
-
-                string Info = string.Empty;
-                if (drawParams.Shield > 0 && BarConfig.Instance.ShowShield)
-                    Info = GetText(drawParams.Shield, drawParams.ShieldMax, shieldpercentage);
                 else
                 {
-                    Info = GetText(life, lifemax, percentage);
-                    if (npc.dontTakeDamage && BarConfig.Instance.ShowInvincible && barInfo.ShowInvincible)
-                        Info = "[" + Lang.GetNPCName(npc.type).ToString() + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + "]";
+                    DrawText?.Invoke(barInfo.ShowInvincible && BarConfig.Instance.ShowInvincible,
+                        barInfo.ShowName && BarConfig.Instance.ShowName,
+                        barInfo.ShowLife && BarConfig.Instance.ShowLife,
+                        barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax,
+                        barInfo.ShowPercent && BarConfig.Instance.ShowPercent,
+                        barInfo.ShowSegment && BarConfig.Instance.ShowSegment,
+                        spriteBatch, BarConfig.Instance.BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, barInfo.Segment, shieldpercentage);
                 }
 
-                Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
-                Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
-
-                Utils.DrawBorderString(spriteBatch, Info, position - Namepostion, Color.White * GlobalAlpha);
                 #endregion
             }
 
@@ -526,7 +485,7 @@ internal class BarDrawsMethods
                     int heightPF = target.texture.Value.Height / target.frameCount;
                     if (npc.target >= 0)
                     {
-                        string name = Main.player[npc.target].name.ToString(); 
+                        string name = Main.player[npc.target].name.ToString();
                         Vector2 size = FontAssets.MouseText.Value.MeasureString(name);
 
                         Vector2 LeftTopPosition = new Vector2(position.X - ((size.X + target.texture.Value.Width) / 2), CheckBox[0].Y - heightPF - 5f);
@@ -739,7 +698,7 @@ internal class BarDrawsMethods
 
         for (int i = 0; i < count; i++)
         {
-            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (i * (fill.texture.Value.Width - fill.fillCutLengh)), position.Y), new Rectangle(fillp.X, fillp.Y,fillp.Width - fill.fillCutLengh,fillp.Height), color * GlobalAlpha);
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (i * (fill.texture.Value.Width - fill.fillCutLengh)), position.Y), new Rectangle(fillp.X, fillp.Y, fillp.Width - fill.fillCutLengh, fillp.Height), color * GlobalAlpha);
         }
 
         spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + (count * (fill.texture.Value.Width - fill.fillCutLengh)), position.Y), new Rectangle(0, fillp.Y, remainder, fillPF), color * GlobalAlpha);
@@ -770,11 +729,76 @@ internal class BarDrawsMethods
             );
     }
 
+    internal static Action<bool, bool, bool, bool, bool, bool, SpriteBatch, int, float, float, float,float, NPC, BossBarDrawParams, List<int>, float> DrawText = new(
+                (bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, BarLength, life,lifemax, percentage, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage) =>
+            {
+                string GetText(float _life, float _lifemax, float _percentage)
+                {
+                    string Info = string.Empty;
+                    if (bool_name)
+                    {
+                        Info += Lang.GetNPCName(npc.type).ToString();
+                    }
+                    if (bool_life)
+                    {
+                        Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_life);
+                        if (bool_lifemax)
+                        {
+                            Info += "/";
+                            Info += ToStringWithComma((int)_lifemax);
+                        }
+                    }
+                    if (bool_lifemax && !bool_life)
+                    {
+                        Info += (Info == string.Empty ? "" : " : ") + ToStringWithComma((int)_lifemax);
+                    }
+                    if (bool_percentage)
+                    {
+                        Info += (Info == string.Empty ? "" : " : ") + "[" + string.Format("{0:f2}", _percentage * 100) + "%" + "]";
+                    }
+                    if (bool_segment && SegmentTypeList != null)
+                    {
+                        int amount = 0;
+
+                        foreach (int segmentType in SegmentTypeList)
+                        {
+                            foreach (NPC segment in Main.npc)
+                            {
+                                if (segment.type == segmentType && segment.active)
+                                {
+                                    amount++;
+                                }
+                            }
+                        }
+                        if (amount != 0)
+                        {
+                            Info += (Info == string.Empty ? "" : " : ") + Language.GetTextValue("Mods.YuBellBossBar.Info.Segment", amount.ToString());
+                        }
+                    }
+                    return Info;
+                }
+
+                string Info = string.Empty;
+                if (drawParams.Shield > 0 && BarConfig.Instance.ShowShield)
+                    Info = GetText(drawParams.Shield, drawParams.ShieldMax, shieldpercentage);
+                else
+                {
+                    Info = GetText(life, lifemax, percentage);
+                    if (npc.dontTakeDamage && BarConfig.Instance.ShowInvincible && bool_invincible)
+                        Info = "[" + Lang.GetNPCName(npc.type).ToString() + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + "]";
+                }
+
+                Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
+                Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
+
+                Utils.DrawBorderString(spriteBatch, Info, position - Namepostion, Color.White * GlobalAlpha);
+            });
+
     internal static string ToStringWithComma(int input)
     {
         return input.ToString("N0", new NumberFormatInfo
         {
-            NumberGroupSizes = new[] { Language.ActiveCulture == GameCulture.FromCultureName(GameCulture.CultureName.Chinese)? BarConfig.Instance.ChineseCommaGap : BarConfig.Instance.CommaGap },
+            NumberGroupSizes = new[] { Language.ActiveCulture == GameCulture.FromCultureName(GameCulture.CultureName.Chinese) ? BarConfig.Instance.ChineseCommaGap : BarConfig.Instance.CommaGap },
             NumberGroupSeparator = ","
         });
     }

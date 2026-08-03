@@ -5,7 +5,7 @@
 
         public override void SetupContent()
         {
-            if (ModLoader.TryGetMod("CalamityMod", out CalamityCloneAdapt.calamity))
+            if (ModLoader.TryGetMod("CalamityMod", out calamity))
             {
                 Mod yabhb = ModLoader.GetMod("YuBellBossBar");
 
@@ -32,7 +32,7 @@
                         "None",
                         1,
                         1,
-                        CalamityCloneAdapt.DrawHead,
+                        DrawHead,
                         null);
                     #endregion
 
@@ -49,7 +49,7 @@
                         "Dulplicate",
                         1,
                         1,
-                        CalamityCloneAdapt.DrawFrame,
+                        DrawFrame,
                         null);
                     #endregion
 
@@ -66,7 +66,7 @@
                         "Dulplicate",
                         1,
                         1,
-                        CalamityCloneAdapt.DrawTail,
+                        DrawTail,
                         null);
                     #endregion
 
@@ -83,7 +83,7 @@
                         "None",
                         1,
                         1,
-                        CalamityCloneAdapt.DrawFill,
+                        DrawFill,
                         null);
                     #endregion
 
@@ -94,22 +94,22 @@
                         0,
                         Vector2.Zero,
                         Vector2.Zero,
-                        "Dulplicate",
-                        "Custom",
+                        "None",
+                        "Vanilla",
                         Color.White,
                         "None",
                         1,
                         1,
-                        CalamityCloneAdapt.DrawFill,
+                        DrawIcon,
                         null);
                     #endregion
 
-                    yabhb.Call("YetAnotherModCall", "Edit", "AddBarInfo", CalamityCloneAdapt.calamity.Find<ModNPC>("CalamitasClone").Type, new List<object> { CalamitasCloneHead, CalamitasCloneFrame, CalamitasCloneTail, CalamitasCloneFill }, new Dictionary<string, bool> { { "ShowText", false } }, new List<int> { CalamityCloneAdapt.calamity.Find<ModNPC>("SoulSeeker").Type });
+                    yabhb.Call("YetAnotherModCall", "Edit", "AddBarInfo", calamity.Find<ModNPC>("CalamitasClone").Type, new List<object> { CalamitasCloneHead, CalamitasCloneFrame, CalamitasCloneTail, CalamitasCloneFill, CalamitasCloneIcon }, DrawText, new Dictionary<string, bool> { { "ShowText", false } }, new List<int> { calamity.Find<ModNPC>("SoulSeeker").Type });
                 }
             }
         }
 
-        public override bool IsLoadingEnabled(Mod mod) => ModLoader.HasMod("CalamityMod");
+        public override bool IsLoadingEnabled(Mod mod) => ModLoader.HasMod("CalamityMod") && !ModLoader.HasMod("InfernumMode");
 
         public static Mod calamity;
 
@@ -419,6 +419,13 @@
 
                 return Vector2.Zero;
             });
+
+        public delegate void DrawTextDegelage(bool bool_invincible, bool bool_name, bool bool_life, bool bool_lifemax, bool bool_percentage, bool bool_segment, SpriteBatch spriteBatch, Vector2 position, int BarLength, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams, List<int> SegmentTypeList, float shieldpercentage);
+
+        public static DrawTextDegelage DrawText = new DrawTextDegelage((bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage) => 
+        {
+            
+        });
 
     }
 }

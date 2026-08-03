@@ -6,7 +6,7 @@
         {
             if (ModLoader.TryGetMod("AAModClassic",out Mod AAClassic))
             {
-                Mod YuBellBossBar = ModLoader.GetMod("YuBellBossBar");
+                Mod yabhb = ModLoader.GetMod("YuBellBossBar");
 
 
             }

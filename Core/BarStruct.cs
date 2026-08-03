@@ -1,11 +1,12 @@
-﻿using JetBrains.Annotations;
-
-namespace YuBellBossBar.Core;
-
+﻿namespace YuBellBossBar.Core;
 internal struct BarInfo
 {
     #region 实例构造器 Instance Constructor
-    public BarInfo(BarTextures bartextures, Dictionary<string, bool> fields = null,List<int> segment = null)
+    public BarInfo(BarTextures bartextures, 
+        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float,
+        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, int, float, float, float, float, NPC, BossBarDrawParams, List<int>, float>
+        >
+        drawtext, Dictionary<string, bool> fields = null,List<int> segment = null)
     {
         this.barTextures = bartextures;
 
@@ -61,6 +62,8 @@ internal struct BarInfo
                 }
             }
 
+            DrawText = drawtext;
+
         this.Segment = segment;
     }
     #endregion
@@ -87,8 +90,13 @@ internal struct BarInfo
         ShowTarget = other.ShowTarget;
         ShowDamage = other.ShowDamage;
         ShowIcon = other.ShowIcon;
+        DrawText = other.DrawText; 
     }
     #endregion
+
+    public Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, 
+        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, int, float, float, float, float, NPC, BossBarDrawParams, List<int>, float>
+        > DrawText = null;
 
     public int npctype => barTextures.npctype;
     public BarTextures barTextures;

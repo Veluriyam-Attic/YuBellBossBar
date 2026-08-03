@@ -46,7 +46,7 @@ internal static class BarData
                             BuildInTextures.DefaultTexture["HealthBarTail_Exp"]
                         },
                     }
-                )
+                ),null
             )
         );
         #endregion
@@ -79,7 +79,7 @@ internal static class BarData
                             BuildInTextures.DefaultTexture["HealthBarTail"]
                         }
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -118,7 +118,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["WallofFleshIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         BarInfos.Add(NPCID.TheHungryII,
@@ -152,7 +152,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["WallofFleshIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         BarInfos.Add(NPCID.TheHungry,
@@ -186,7 +186,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["WallofFleshIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -222,7 +222,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["WallofFleshIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -256,7 +256,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -289,7 +289,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -323,7 +323,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["MechBossTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -361,7 +361,7 @@ internal static class BarData
                         //    BuildInTextures.DefaultVanilla["SkeletronPrimeIcon"]
                         //}
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -395,7 +395,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["PlanteraTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -433,7 +433,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["MoonLordHeart"]
                         }
                     }
-                )
+                ), null
             )
         );
 
@@ -469,7 +469,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["MoonLordEye"]
                         }
                     }
-                )
+                ), null
             )
         );
 
@@ -506,7 +506,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["MoonLordEye"]
                         }
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -539,7 +539,7 @@ internal static class BarData
                             BuildInTextures.DefaultTexture["SmallBarTail_Exp"]
                         },
                     }
-                ),
+                ), null,
                 new Dictionary<string, bool>
                 {
                     {
@@ -577,7 +577,7 @@ internal static class BarData
                             BuildInTextures.DefaultTexture["SmallBarTail_Exp"]
                         },
                     }
-                ),
+                ), null,
                 new Dictionary<string, bool>
                 {
                     {
@@ -615,7 +615,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["DD2BarTail"]
                         },
                     }
-                ),
+                ), null,
                 new Dictionary<string, bool>
                 {
                     {
@@ -653,7 +653,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["DD2BarTail"]
                         },
                     }
-                ),
+                ), null,
                 new Dictionary<string, bool>
                 {
                     {
@@ -691,7 +691,7 @@ internal static class BarData
                             BuildInTextures.DefaultVanilla["DD2BarTail"]
                         },
                     }
-                ),
+                ), null,
                 new Dictionary<string, bool>
                 {
                     {
@@ -732,7 +732,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["KingSlimeTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -765,7 +765,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["EyeofCthulhuTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -802,7 +802,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
                         }
                     }
-                ),
+                ), null,
                 null,
                 new List<int> { NPCID.EaterofWorldsHead,NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }
             )
@@ -838,7 +838,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
                         }
                     }
-                ),
+                ), null,
                 null,
                 new List<int> { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }
             )
@@ -874,7 +874,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["EaterofWorldsIcon"]
                         }
                     }
-                ),
+                ), null,
                 null,
                 new List<int> { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }
             )
@@ -913,7 +913,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["BrainofCthulhuIcon"]
                         }
                     }
-                ),
+                ), null,
                 null,
                 new List<int>() { NPCID.Creeper}
             )
@@ -949,7 +949,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["BrainofCthulhuIcon"]
                         }
                     }
-                ),
+                ), null,
                 null,
                 new List<int>() { NPCID.Creeper }
             )
@@ -984,7 +984,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["QueenBeeTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -1017,7 +1017,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["SkeletronTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -1050,7 +1050,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["DeerclopsTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -1083,7 +1083,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["QueenSlimeTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -1120,7 +1120,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["GolemIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         BarInfos.Add(NPCID.GolemHead,
@@ -1154,7 +1154,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["GolemIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         BarInfos.Add(NPCID.GolemFistLeft,
@@ -1188,7 +1188,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["GolemIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         BarInfos.Add(NPCID.GolemFistRight,
@@ -1222,7 +1222,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["GolemIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         BarInfos.Add(NPCID.GolemHeadFree,
@@ -1256,7 +1256,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["GolemIcon"]
                         }
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -1289,7 +1289,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["MartianSaucerTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -1322,7 +1322,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["DukeFishronTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -1355,7 +1355,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["EmpressofLightTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion
@@ -1388,7 +1388,7 @@ internal static class BarData
                             BuildInTextures.ExtraVanilla["LunaticCultistTail"]
                         },
                     }
-                )
+                ), null
             )
         );
         #endregion

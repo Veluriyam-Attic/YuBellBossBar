@@ -16,9 +16,6 @@ public class BarPlayer : ModPlayer
 
             GlobalBar.lifemaxs.Clear();
             GlobalBar.maxlifes.Clear();
-#if DEBUG
-            //Main.NewText("Removed All Index!");
-#endif
         }
     }
 

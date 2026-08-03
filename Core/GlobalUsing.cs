@@ -21,3 +21,4 @@ global using MonoMod.Cil;
 global using Terraria.GameContent.Bestiary;
 global using YuBellBossBar.DrawMethod;
 global using System.Linq;
+global using System.Globalization;

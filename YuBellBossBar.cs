@@ -19,14 +19,14 @@ public class YuBellBossBar : Mod
 
     public override void PostSetupContent()
     {
-        Mod YuBellBossBar = ModLoader.GetMod("YuBellBossBar");
+        Mod yabhb = ModLoader.GetMod("YuBellBossBar");
         if (ModLoader.HasMod("YuBellBossBar"))
         {
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucer, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerCannon, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerCore, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerTurret, false);
-            YuBellBossBar.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MoonLordCore, false);
+            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucer, false);
+            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerCannon, false);
+            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerCore, false);
+            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerTurret, false);
+            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MoonLordCore, false);
         }
 
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded
