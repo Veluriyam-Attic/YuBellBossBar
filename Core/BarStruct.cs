@@ -4,7 +4,7 @@ internal struct BarInfo
     #region 实例构造器 Instance Constructor
     public BarInfo(BarTextures bartextures, 
         Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float,
-        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, int, float, float, float, float, NPC, BossBarDrawParams, List<int>, float>
+        Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[],float, NPC, BossBarDrawParams, List<int>, float>
         >
         drawtext, Dictionary<string, bool> fields = null,List<int> segment = null)
     {
@@ -94,9 +94,7 @@ internal struct BarInfo
     }
     #endregion
 
-    public Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, 
-        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, int, float, float, float, float, NPC, BossBarDrawParams, List<int>, float>
-        > DrawText = null;
+    public Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float,Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[],float, NPC, BossBarDrawParams, List<int>, float>> DrawText = null;
 
     public int npctype => barTextures.npctype;
     public BarTextures barTextures;

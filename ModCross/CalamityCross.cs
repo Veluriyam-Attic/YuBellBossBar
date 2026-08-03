@@ -402,29 +402,40 @@
                 {
                     spriteBatch.Draw(bt.texture.Value, position - new Vector2(28 + ((bt.texture.Value.Width + BarLength) / 2), bt.texture.Value.Height / 2), Color.White * GlobalAlpha);
 
-                    if (CalCloneAI3 > 0 && CalCloneAI2 > 0)
-                    {
-
-                        string text = Language.GetTextValue("Mods.YuBellBossBar.Info.BulletHell", string.Format("{0:f2}", (900f - CalCloneAI3) / 60));
-                        Vector2 size = FontAssets.MouseText.Value.MeasureString(text);
-                        Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
-
-                        Utils.DrawBorderString(spriteBatch, text, position - Namepostion, Color.White * GlobalAlpha);
-                    }
-                    else
-                    {
-                        
-                    }
                 }
 
                 return Vector2.Zero;
             });
 
-        public delegate void DrawTextDegelage(bool bool_invincible, bool bool_name, bool bool_life, bool bool_lifemax, bool bool_percentage, bool bool_segment, SpriteBatch spriteBatch, Vector2 position, int BarLength, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams, List<int> SegmentTypeList, float shieldpercentage);
-
-        public static DrawTextDegelage DrawText = new DrawTextDegelage((bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage) => 
+        public static Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>> DrawText = new((bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage, defaultDrawText) =>
         {
-            
+            if (CalCloneAI3 > 0 && CalCloneAI2 > 0)
+            {
+
+                string text = Language.GetTextValue("Mods.YuBellBossBar.Info.BulletHell", string.Format("{0:f2}", (900f - CalCloneAI3) / 60));
+                Vector2 size = FontAssets.MouseText.Value.MeasureString(text);
+                Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
+
+                Utils.DrawBorderString(spriteBatch, text, position - Namepostion, Color.White * GlobalAlpha);
+            }
+            else
+            {
+                if (!BrotherAlive)
+                {
+                    defaultDrawText?.Invoke(bool_invincible,
+                            bool_name,
+                            bool_life,
+                            bool_lifemax,
+                            bool_percentage,
+                            bool_segment,
+                            spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage);
+                }
+                else
+                {
+                    defaultDrawText?.Invoke(bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment,
+                        spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage);
+                }
+            }
         });
 
     }

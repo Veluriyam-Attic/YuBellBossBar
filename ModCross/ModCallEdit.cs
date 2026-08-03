@@ -179,7 +179,7 @@ namespace YuBellBossBar.ModCross
                         }
 
                         BarData.BarInfos.TryAdd((int)args[3], new BarInfo(new BarTextures((int)args[3], dict), (Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float,
-        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, int, float, float, float, float, NPC, BossBarDrawParams, List<int>, float>
+        Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[],float, NPC, BossBarDrawParams, List<int>, float>
         >)args[5], (Dictionary<string, bool>)args[6], (List<int>)args[7]));
 
                         break;
