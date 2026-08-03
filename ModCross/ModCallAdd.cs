@@ -2,7 +2,7 @@
 {
     internal class ModCallAdd
     {
-        public static string Add(params object[] args)
+        public static object Add(params object[] args)
         {
             switch (args[2])
             {
@@ -11,10 +11,10 @@
                 #region 添加BarTexture2D
                 case "Add BarTexture2D":
                     {
-                        // index,TextureType,Asset<Texture2D>,fillCutLengh = 0,fillOffset = Vector2.Zero,headOffset = Vector2.Zero
-                        // BarFillStyles = (int.MaxValue)barFillStyles.None
-                        // barFillColor = (0)BarFillColor.Vanilla ,fillColor = Color.White, barFrameStyles = (int.MaxValue)BarFrameStyles.None
-                        // framecount,TPF,customdraw = null,shieldcolor = null
+                        // index||TextureType||Asset<Texture2D>||fillCutLengh = 0||fillOffset = Vector2.Zero||headOffset = Vector2.Zero
+                        // BarFillStyles = barFillStyles.None
+                        // barFillColor = BarFillColor.Vanilla||fillColor = Color.White||barFrameStyles = BarFrameStyles.None
+                        // framecount||TPF||customdraw = null||shieldcolor = null
                         BarTexture2D barTexture2D = new BarTexture2D(args[4] switch
                         {
                             "Icon" => TextureType.Icon,
@@ -57,7 +57,7 @@
                                 fillColor = (Color)args[11];
                                 barFrameStyles = args[12] switch
                                 {
-                                    "Extend" => BarFrameStyles.None,
+                                    "Extend" => BarFrameStyles.Extend,
                                     "Dulplicate" => BarFrameStyles.Dulplicate,
 
                                     _ => BarFrameStyles.None
@@ -73,7 +73,7 @@
                         BuildInTextures.ExtraCustom.Add(
                             (string)args[3],
                             barTexture2D);
-                        return "Yet Another Mod Call: Successed!";
+                        return barTexture2D;
                     }
                 #endregion
 
@@ -100,6 +100,50 @@
                         break;
                     }
                 #endregion
+
+                // index||TextureType||Asset<Texture2D>||fillCutLengh = 0||fillOffset = Vector2.Zero||headOffset = Vector2.Zero
+                // BarFillStyles = barFillStyles.None
+                // barFillColor = BarFillColor.Vanilla||fillColor = Color.White||barFrameStyles = BarFrameStyles.None
+                // framecount||TPF||customdraw = null||shieldcolor = null
+                case "Add Head":
+                    {
+                        if (args[7] == null)
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Head", args[4], 0, args[5], args[6], "", "", Color.White, "", 1, 6, null, null);
+                        else
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Head", args[4], 0, args[5], args[6], "", "", Color.White, "", args[7], args[8], args[9], null);
+                    }
+
+                case "Add Tail":
+                    {
+                        if (args[6]==null)
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Tail", args[4], 0, args[5], Vector2.Zero, "", "", Color.White, "", 1, 6, null, null);
+                        else
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Tail", args[4], 0, args[5], Vector2.Zero, "", "", Color.White, "", args[6], args[7], args[8], null);
+                    }
+
+                case "Add Frame":
+                    {
+                        if (args[6] == null)
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Frame", args[4], 0, Vector2.Zero, Vector2.Zero, "", "", Color.White, args[5], 1, 6, null, null);
+                        else
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Frame", args[4], 0, Vector2.Zero, Vector2.Zero, "", "", Color.White, args[5], args[6], args[7], args[8], null);
+                    }
+
+                case "Add Fill":
+                    {
+                        if (args[9] == null)
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Fill", args[4], args[5], Vector2.Zero, Vector2.Zero, args[6], args[7], args[8], "", 1, 6, null, null);
+                        else
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Fill", args[4], args[5], Vector2.Zero, Vector2.Zero, args[6], args[7], args[8], "", args[9], args[10], args[11], args[12]);
+                    }
+
+                case "Add Icon":
+                    {
+                        if (args[5] == null)
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Icon", args[4], 0, Vector2.Zero, Vector2.Zero, "", "", Color.White, "", 1, 6, null, null);
+                        else
+                            return Add("YetAnotherModCall", "Add", "Add BarTexture2D", args[3], "Icon", args[4], 0, Vector2.Zero, Vector2.Zero, "", "", Color.White, "", args[5], args[6], args[7], null);
+                    }
             }
 
             return "Yet Another Mod Call: Failed!";

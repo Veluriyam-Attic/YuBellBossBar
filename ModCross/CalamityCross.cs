@@ -24,87 +24,66 @@
                     CatastropheType = calamity.Find<ModNPC>("Catastrophe").Type;
                     CataclysmType = calamity.Find<ModNPC>("Cataclysm").Type;
 
+
+                    // index||TextureType||Asset<Texture2D>||fillCutLengh = 0||fillOffset = Vector2.Zero||headOffset = Vector2.Zero
+                    // BarFillStyles = barFillStyles.None
+                    // barFillColor = BarFillColor.Vanilla||fillColor = Color.White||barFrameStyles = BarFrameStyles.None
+                    // framecount||TPF||customdraw = null||shieldcolor = null
+
                     #region 普灾Head
-                    var CalamitasCloneHead = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
-                        "普灾Head", "Head",
+                    var CalamitasCloneHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head",
+                        "普灾Head",
                         ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/普灾Head", AssetRequestMode.ImmediateLoad),
-                        0,
                         new Vector2(54, 12),
                         new Vector2(25, 26),
-                        "None",
-                        "Vanilla",
-                        Color.White,
-                        "None",
                         1,
-                        1,
+                        6,
                         DrawHead,
                         null);
                     #endregion
 
                     #region 普灾Frame
-                    var CalamitasCloneFrame = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
-                        "普灾Frame", "Frame",
+                    var CalamitasCloneFrame = yabhb.Call("YetAnotherModCall", "Add", "Add Frame",
+                        "普灾Frame",
                         ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/普灾Frame", AssetRequestMode.ImmediateLoad),
-                        0,
-                        Vector2.Zero,
-                        Vector2.Zero,
-                        "None",
-                        "Vanilla",
-                        Color.White,
                         "Dulplicate",
                         1,
-                        1,
+                        6,
                         DrawFrame,
                         null);
                     #endregion
 
                     #region 普灾Tail
-                    var CalamitasCloneTail = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
-                        "普灾Tail", "Tail",
+                    var CalamitasCloneTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail",
+                        "普灾Tail",
                         ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/普灾Tail", AssetRequestMode.ImmediateLoad),
-                        0,
                         new Vector2(36, 16),
-                        Vector2.Zero,
-                        "None",
-                        "Vanilla",
-                        Color.White,
-                        "Dulplicate",
                         1,
-                        1,
+                        6,
                         DrawTail,
                         null);
                     #endregion
 
                     #region 普灾Fill
-                    var CalamitasCloneFill = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
-                        "普灾Fill", "Fill",
+                    var CalamitasCloneFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill",
+                        "普灾Fill",
                         ModContent.Request<Texture2D>("YuBellBossBar/Texture/ExtraCalamity/普灾/普灾Fill", AssetRequestMode.ImmediateLoad),
                         0,
-                        Vector2.Zero,
-                        Vector2.Zero,
                         "Dulplicate",
                         "Custom",
                         Color.White,
-                        "None",
                         1,
-                        1,
+                        6,
                         DrawFill,
                         null);
                     #endregion
 
                     #region 普灾Icon
-                    var CalamitasCloneIcon = yabhb.Call("YetAnotherModCall", "Add", "Add BarTexture2D",
-                        "普灾Icon", "Icon",
+                    var CalamitasCloneIcon = yabhb.Call("YetAnotherModCall", "Add", "Add Icon",
+                        "普灾Icon",
                         ModContent.Request<Texture2D>("CalamityMod/NPCs/CalClone/CalamitasClone_Head_Boss", AssetRequestMode.ImmediateLoad),
-                        0,
-                        Vector2.Zero,
-                        Vector2.Zero,
-                        "None",
-                        "Vanilla",
-                        Color.White,
-                        "None",
                         1,
-                        1,
+                        6,
                         DrawIcon,
                         null);
                     #endregion
@@ -114,7 +93,7 @@
             }
         }
 
-        public override bool IsLoadingEnabled(Mod mod) => ModLoader.HasMod("CalamityMod") && !ModLoader.HasMod("InfernumMode");
+        public override bool IsLoadingEnabled(Mod mod) => ModLoader.HasMod("CalamityMod");
 
         private static Mod calamity;
 
@@ -142,6 +121,7 @@
             IL_GetNewAI_23();
         }
 
+        #region IL Modifies
         private static void IL_GetBrotherAlive()
         {
             if (!ModLoader.TryGetMod("CalamityMod", out Mod calamity))
@@ -236,6 +216,7 @@
                 }
             });
         }
+        #endregion
 
         protected override void Register() { }
 
