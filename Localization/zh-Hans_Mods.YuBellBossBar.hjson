@@ -224,6 +224,7 @@ Info: {
 	Segment: 剩余体节:{0}
 	Invincible: 无敌
 	BulletHell: "[弹幕炼狱剩余时长: {0}秒]"
+	Defeated: "{0}已被击败!"
 	OnEnterWorld:
 		'''
 
