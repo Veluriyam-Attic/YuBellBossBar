@@ -366,13 +366,13 @@
                             int 灾难count = 灾难length / (灾难Fill.Value.Width - 8);
                             int 灾难extra = 灾难length % (灾难Fill.Value.Width - 8);
 
-                            spriteBatch.Draw(灾难Fill.Value, position - new Vector2(8 + 灾难extra, 灾难Fill.Value.Height / 2), new Rectangle(8, 0, 灾难extra, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
+                            spriteBatch.Draw(灾难Fill.Value, position - new Vector2(10 + 灾难extra, 灾难Fill.Value.Height / 2), new Rectangle(8, 0, 灾难extra, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
 
                             for (int i = 0; i < 灾难count; i++)
                             {
-                                spriteBatch.Draw(灾难Fill.Value, position - new Vector2(灾难Fill.Value.Width + 灾难extra + (i * (灾难Fill.Value.Width - 8)), 灾难Fill.Value.Height / 2), new Rectangle(8, 0, 灾难Fill.Value.Width - 8, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
+                                spriteBatch.Draw(灾难Fill.Value, position - new Vector2(10 + 灾难extra + ((i+1) * (灾难Fill.Value.Width - 8)), 灾难Fill.Value.Height / 2), new Rectangle(10, 0, 灾难Fill.Value.Width - 8, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
                             }
-                            spriteBatch.Draw(灾难Fill.Value, position - new Vector2(8 + 灾难extra + (灾难count * (灾难Fill.Value.Width - 8)), 灾难Fill.Value.Height / 2), new Rectangle(0, 0, 8, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
+                            spriteBatch.Draw(灾难Fill.Value, position - new Vector2(18 + 灾难extra + (灾难count * (灾难Fill.Value.Width - 8)), 灾难Fill.Value.Height / 2), new Rectangle(0, 0, 8, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
 
                         }
                     }
