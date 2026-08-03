@@ -67,12 +67,12 @@ Configs: {
 		}
 
 		CommaGap: {
-			Label: 非中文逗号分隔数字间隙
+			Label: 逗号分隔数字间隙(非中文用户)
 			Tooltip: 默认为3，设置为0以关闭该功能，中文用户请修改中文版本
 		}
 
 		ChineseCommaGap: {
-			Label: 中文逗号分隔数字间隙
+			Label: 逗号分隔数字间隙(中文)
 			Tooltip: 默认为4，设置为0以关闭该功能，非中文用户请修改非中文版本
 		}
 

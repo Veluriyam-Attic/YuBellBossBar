@@ -15,8 +15,8 @@ Configs: {
 		}
 
 		ForceGoldenStyle: {
-			Label: 强制使用金色血条
-			Tooltip: 强制使没有专属血条的Boss使用的血条贴图类型为金色，默认关闭
+			Label: Force Golden Health Bar
+			Tooltip: Forces bosses without unique health bars to use the golden health bar texture,Disabled by default.
 		}
 
 		BarLength: {
@@ -41,7 +41,7 @@ Configs: {
 
 		#For non-Chinese text, please replace contact details with Discord: zlzhaidou_
 		EnableExtraCalamity: {
-			Label: Enable Calamity Health Bar Support(部分实现)
+			Label: Enable Calamity Health Bar Support(Partially Implemented)
 			Tooltip:
 				'''
 				When disabled, the unique health bar textures for Calamity bosses will no longer be displayed. Enabled by default.
@@ -52,8 +52,8 @@ Configs: {
 		}
 
 		EnableExtraAAClassic: {
-			Label: 启用远古觉醒经典版血条支持
-			Tooltip: 关闭后新额外添加的远古觉醒经典版Boss专属贴图将不再显示，默认开启
+			Label: Enable Ancients Awakened: Classic health bar support
+			Tooltip: When disabled, the unique health bar textures for Ancients Awakened: Classic bosses will no longer be displayed. Enabled by default.
 		}
 
 		EnableExtraInfo: {
@@ -67,13 +67,13 @@ Configs: {
 		}
 
 		CommaGap: {
-			Label: 非中文逗号分隔数字间隙
-			Tooltip: 默认为3，设置为0以关闭该功能，中文用户请修改中文版本
+			Label: Comma-separated number spacing (non-Chinese users)
+			Tooltip: Default to 3; set to 0 to disable this feature. Chinese users should modify the Chinese version.
 		}
 
 		ChineseCommaGap: {
-			Label: 中文逗号分隔数字间隙
-			Tooltip: 默认为4，设置为0以关闭该功能，非中文用户请修改非中文版本
+			Label: Comma-separated number spacing (Chinese users)
+			Tooltip: Default to 4; set to 0 to disable this feature. Non-Chinese users should modify the non-Chinese version.
 		}
 
 		PostHealthSpeed: {
@@ -228,7 +228,7 @@ Info: {
 	OnEnterWorld:
 		'''
 
-		Please select [Yet Another Boss Health Bar] under [Setting] > [Interface] > [Boss Bar Style] to activate it.
+		Please select [Yet Another Boss Health Bar] under Vanilla [Setting] > [Interface] > [Boss Bar Style] to activate it.
 		Please visit [Mod Configuration] > [Yet Another Boss Health Bar] to enable or disable specific features.
 		You can also disable this information message within [Mod Configuration].
 
