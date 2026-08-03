@@ -436,7 +436,7 @@ internal class BarDrawsMethods
                         barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax,
                         barInfo.ShowPercent && BarConfig.Instance.ShowPercent,
                         barInfo.ShowSegment && BarConfig.Instance.ShowSegment,
-                        spriteBatch, BarConfig.Instance.BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, barInfo.Segment, shieldpercentage);
+                        spriteBatch,position, BarConfig.Instance.BarLength, [life,lifemax, percentage], GlobalAlpha, npc, drawParams, barInfo.Segment, shieldpercentage);
                 }
 
                 #endregion
@@ -729,8 +729,8 @@ internal class BarDrawsMethods
             );
     }
 
-    internal static Action<bool, bool, bool, bool, bool, bool, SpriteBatch, int, float, float, float,float, NPC, BossBarDrawParams, List<int>, float> DrawText = new(
-                (bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, BarLength, life,lifemax, percentage, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage) =>
+    internal static Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[],float, NPC, BossBarDrawParams, List<int>, float> DrawText = new(
+                (bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch,position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage) =>
             {
                 string GetText(float _life, float _lifemax, float _percentage)
                 {
@@ -783,16 +783,22 @@ internal class BarDrawsMethods
                     Info = GetText(drawParams.Shield, drawParams.ShieldMax, shieldpercentage);
                 else
                 {
-                    Info = GetText(life, lifemax, percentage);
+                    Info = GetText(lifefloats[0], lifefloats[1], lifefloats[2]);
                     if (npc.dontTakeDamage && BarConfig.Instance.ShowInvincible && bool_invincible)
                         Info = "[" + Lang.GetNPCName(npc.type).ToString() + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + "]";
                 }
 
-                Vector2 size = FontAssets.MouseText.Value.MeasureString(Info);
-                Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
+               DrawBorderStringWithCenter(spriteBatch,Info,position, Color.White * GlobalAlpha);
 
-                Utils.DrawBorderString(spriteBatch, Info, position - Namepostion, Color.White * GlobalAlpha);
             });
+
+    internal static void DrawBorderStringWithCenter(SpriteBatch sb, string text, Vector2 center, Color color)
+    {
+        Vector2 size = FontAssets.MouseText.Value.MeasureString(text);
+        Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
+
+        Utils.DrawBorderString(sb, text, center - Namepostion, color);
+    }
 
     internal static string ToStringWithComma(int input)
     {

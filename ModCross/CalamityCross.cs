@@ -2,6 +2,8 @@
 {
     internal class CalamityCloneAdapt : ModType
     {
+        public static int CatastropheType = -1;
+        public static int CataclysmType = -1;
 
         public override void SetupContent()
         {
@@ -19,6 +21,9 @@
 
                 if (!ModLoader.HasMod("InfernumMode"))
                 {
+                    CatastropheType = calamity.Find<ModNPC>("Catastrophe").Type;
+                    CataclysmType = calamity.Find<ModNPC>("Cataclysm").Type;
+
                     #region 普灾Head
                     var CalamitasCloneHead = yabhb.Call("YetAnotherModCall", "Edit", "AddBarTexture2D",
                         "普灾Head", "Head",
@@ -104,7 +109,7 @@
                         null);
                     #endregion
 
-                    yabhb.Call("YetAnotherModCall", "Edit", "AddBarInfo", calamity.Find<ModNPC>("CalamitasClone").Type, new List<object> { CalamitasCloneHead, CalamitasCloneFrame, CalamitasCloneTail, CalamitasCloneFill, CalamitasCloneIcon }, DrawText, new Dictionary<string, bool> { { "ShowText", false } }, new List<int> { calamity.Find<ModNPC>("SoulSeeker").Type });
+                    yabhb.Call("YetAnotherModCall", "Edit", "AddBarInfo", calamity.Find<ModNPC>("CalamitasClone").Type, new List<object> { CalamitasCloneHead, CalamitasCloneFrame, CalamitasCloneTail, CalamitasCloneFill, CalamitasCloneIcon }, DrawText,null, new List<int> { calamity.Find<ModNPC>("SoulSeeker").Type });
                 }
             }
         }
@@ -403,7 +408,6 @@
                     spriteBatch.Draw(bt.texture.Value, position - new Vector2(28 + ((bt.texture.Value.Width + BarLength) / 2), bt.texture.Value.Height / 2), Color.White * GlobalAlpha);
 
                 }
-
                 return Vector2.Zero;
             });
 
@@ -432,11 +436,33 @@
                 }
                 else
                 {
-                    defaultDrawText?.Invoke(bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment,
-                        spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage);
+                    int 灾难index = (int)catastropheField.GetValue(null);
+                    if (灾难index != -1)
+                    {
+                        NPC 灾难 = Main.npc[灾难index];
+                        float 灾难percentage = (float)灾难.life / (float)灾难.lifeMax;
+                        defaultDrawText?.Invoke(bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment,
+                        spriteBatch, new Vector2(position.X - 10 - (BarLength / 2), position.Y), BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage);
+                    }
+                    else
+                    {
+                        BarDrawsMethods.DrawBorderStringWithCenter(spriteBatch, Language.GetTextValue("Mods.YuBellBossBar.Info.Defeated", Lang.GetNPCName(CatastropheType)), new Vector2(position.X - 10 - (BarLength / 2), position.Y), Color.White * GlobalAlpha);
+                    }
+
+                    int 灾祸index = (int)catastropheField.GetValue(null);
+                    if (灾祸index != -1)
+                    {
+                        NPC 灾祸 = Main.npc[灾祸index];
+                        float 灾难percentage = (float)灾祸.life / (float)灾祸.lifeMax;
+                        defaultDrawText?.Invoke(bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment,
+                        spriteBatch, new Vector2(position.X - 10 - (BarLength / 2), position.Y), BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage);
+                    }
+                    else
+                    {
+                        BarDrawsMethods.DrawBorderStringWithCenter(spriteBatch, Language.GetTextValue("Mods.YuBellBossBar.Info.Defeated", Lang.GetNPCName(CatastropheType)), new Vector2(position.X + 10 + (BarLength / 2), position.Y), Color.White * GlobalAlpha);
+                    }
                 }
             }
         });
-
     }
 }

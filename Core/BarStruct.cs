@@ -62,7 +62,7 @@ internal struct BarInfo
                 }
             }
 
-            DrawText = drawtext;
+        DrawText = drawtext;
 
         this.Segment = segment;
     }
