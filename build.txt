@@ -1,7 +1,7 @@
 displayName = Yet Another Boss Health Bar
 author = Flashkirby,2.85,虞悖
 contributor = Boatsoon
-version = 1.0.0.2
+version = 1.0.0.3
 side = Both
 languageVersion=14
 weakReferences = FargowiltasSouls,CalamityMod,CatalystMod,AAModClassic

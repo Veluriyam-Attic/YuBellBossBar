@@ -373,7 +373,6 @@
                                 spriteBatch.Draw(灾难Fill.Value, position - new Vector2(10 + 灾难extra + ((i+1) * (灾难Fill.Value.Width - 8)), 灾难Fill.Value.Height / 2), new Rectangle(10, 0, 灾难Fill.Value.Width - 8, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
                             }
                             spriteBatch.Draw(灾难Fill.Value, position - new Vector2(18 + 灾难extra + (灾难count * (灾难Fill.Value.Width - 8)), 灾难Fill.Value.Height / 2), new Rectangle(0, 0, 8, 灾难Fill.Value.Height), Color.White * GlobalAlpha);
-
                         }
                     }
                     int 灾祸index = (int)cataclysmField.GetValue(null);
