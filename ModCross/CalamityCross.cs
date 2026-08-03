@@ -416,8 +416,10 @@
             {
 
                 string text = Language.GetTextValue("Mods.YuBellBossBar.Info.BulletHell", string.Format("{0:f2}", (900f - CalCloneAI3) / 60));
+                Vector2 size = FontAssets.MouseText.Value.MeasureString(text);
+                Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
 
-                BarDrawsMethods.DrawBorderStringWithCenter(spriteBatch, text, position, Color.White * GlobalAlpha);
+                Utils.DrawBorderString(spriteBatch, text, position - Namepostion, Color.White * GlobalAlpha);
             }
             else
             {
@@ -439,24 +441,24 @@
                         NPC 灾难 = Main.npc[灾难index];
                         float 灾难percentage = (float)灾难.life / (float)灾难.lifeMax;
                         defaultDrawText?.Invoke(bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment,
-                        spriteBatch, new Vector2(position.X - 10 - (BarLength / 4), position.Y), BarLength, lifefloats, GlobalAlpha, 灾难, drawParams, SegmentTypeList, shieldpercentage);
+                        spriteBatch, new Vector2(position.X - 10 - (BarLength / 2), position.Y), BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage);
                     }
                     else
                     {
-                        BarDrawsMethods.DrawBorderStringWithCenter(spriteBatch, Language.GetTextValue("Mods.YuBellBossBar.Info.Defeated", Lang.GetNPCName(CatastropheType)), new Vector2(position.X - 10 - (BarLength / 4), position.Y), Color.White * GlobalAlpha);
+                        BarDrawsMethods.DrawBorderStringWithCenter(spriteBatch, Language.GetTextValue("Mods.YuBellBossBar.Info.Defeated", Lang.GetNPCName(CatastropheType)), new Vector2(position.X - 10 - (BarLength / 2), position.Y), Color.White * GlobalAlpha);
                     }
 
-                    int 灾祸index = (int)cataclysmField.GetValue(null);
+                    int 灾祸index = (int)catastropheField.GetValue(null);
                     if (灾祸index != -1)
                     {
                         NPC 灾祸 = Main.npc[灾祸index];
                         float 灾难percentage = (float)灾祸.life / (float)灾祸.lifeMax;
                         defaultDrawText?.Invoke(bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment,
-                        spriteBatch, new Vector2(position.X + 10 + (BarLength / 4), position.Y), BarLength, lifefloats, GlobalAlpha, 灾祸, drawParams, SegmentTypeList, shieldpercentage);
+                        spriteBatch, new Vector2(position.X - 10 - (BarLength / 2), position.Y), BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage);
                     }
                     else
                     {
-                        BarDrawsMethods.DrawBorderStringWithCenter(spriteBatch, Language.GetTextValue("Mods.YuBellBossBar.Info.Defeated", Lang.GetNPCName(CataclysmType)), new Vector2(position.X + 10 + (BarLength / 4), position.Y), Color.White * GlobalAlpha);
+                        BarDrawsMethods.DrawBorderStringWithCenter(spriteBatch, Language.GetTextValue("Mods.YuBellBossBar.Info.Defeated", Lang.GetNPCName(CatastropheType)), new Vector2(position.X + 10 + (BarLength / 2), position.Y), Color.White * GlobalAlpha);
                     }
                 }
             }

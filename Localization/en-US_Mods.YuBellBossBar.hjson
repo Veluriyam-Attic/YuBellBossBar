@@ -224,7 +224,6 @@ Info: {
 	Segment: Remaining Segment:{0}
 	Invincible: Invincible
 	BulletHell: "[Bullet Hell Time Remain: {0}s]"
-	Defeated: "{0} has been Defeated!"
 	OnEnterWorld:
 		'''
 

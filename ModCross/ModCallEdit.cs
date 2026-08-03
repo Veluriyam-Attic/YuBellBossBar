@@ -99,7 +99,6 @@ namespace YuBellBossBar.ModCross
                     }
                 #endregion
 
-                #region 添加BarTexture2D
                 case "AddBarTexture2D":
                     {
                         // index,TextureType,Asset<Texture2D>,fillCutLengh = 0,fillOffset = Vector2.Zero,headOffset = Vector2.Zero
@@ -166,9 +165,7 @@ namespace YuBellBossBar.ModCross
                             barTexture2D);
                         return barTexture2D;
                     }
-                #endregion
 
-                #region 添加BarInfo
                 case "AddBarInfo":
                     {
                         Dictionary<TextureType, BarTexture2D> dict = new();
@@ -187,7 +184,6 @@ namespace YuBellBossBar.ModCross
 
                         break;
                     }
-                #endregion
             }
 
             return "YetAnotherModCall:Failed!";
