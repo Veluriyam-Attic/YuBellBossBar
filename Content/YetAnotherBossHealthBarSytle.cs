@@ -24,22 +24,22 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
     public override void OnDeselected() => Selected = false;
 
-    public static NPC npc;
-    public static BossBarDrawParams drawParams;
+    public static event Action<SpriteBatch, Vector2> drawEvent;
 
     public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
     {
-        if (currentBar == null)
-            return;
-        if (npc == null)
-            return;
-        if (!EnableThisMod)
-            return;
+        Delegate[] D_array = drawEvent?.GetInvocationList();
 
-        // npc和drawParams在GlobalBar.PreDraw()中被赋值
-        if (BarDrawsMethods.PreDraw(spriteBatch, npc, drawParams))
-            if (BarDrawsMethods.Draw(spriteBatch, npc, drawParams, BarDrawsMethods.position))
-                BarDrawsMethods.PostDraw(spriteBatch, npc, drawParams);
+        int x = 0;
+        if (D_array != null)
+        {
+            foreach (Delegate D in D_array)
+            {
+                D?.DynamicInvoke(spriteBatch, new Vector2(BarDrawsMethods.position.X, BarDrawsMethods.position.Y - (x * 85)));
+                x++;
+            }
+        }
+        drawEvent = null;
     }
 }
 

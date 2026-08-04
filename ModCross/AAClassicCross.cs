@@ -67,78 +67,10 @@ internal class AAClassicCross : ModType
             #region 潭渊爪
             CripOfChaosMireType = AAClassic.Find<ModNPC>("GripOfChaosMire").Type;
 
-            var BGCBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-BGCBarHead", GetTexture("BGCBarHead"), new Vector2(54, 12), new Vector2(23, 26), 1, 6,
-                new Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2>((spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
-                {
-                    BarDrawsMethods.StandardDrawHead(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
-
-                    //if (CripOfChaosInferno != null)
-                    //{
-                    //    BarDrawsMethods.StandardDrawHead(spriteBatch, new Vector2(position.X, position.Y + 85), CripOfChaosInferno.life, CripOfChaosInferno.lifeMax, CripOfChaosInferno.life / CripOfChaosInferno.lifeMax, GlobalAlpha, CripOfChaosInferno, drawParams);
-                    //}
-
-                    return Vector2.Zero;
-                }), null);
-            var BGCBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-BGCBarTail", GetTexture("BGCBarTail"), new Vector2(30, 10), 1, 6,
-                new Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2>((spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
-                {
-                    BarDrawsMethods.StandardDrawTail(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
-
-                    //if (CripOfChaosInferno != null)
-                    //{
-                    //    BarDrawsMethods.StandardDrawTail(spriteBatch, new Vector2(position.X, position.Y + 85), CripOfChaosInferno.life, CripOfChaosInferno.lifeMax, CripOfChaosInferno.life / CripOfChaosInferno.lifeMax, GlobalAlpha, CripOfChaosInferno, drawParams);
-                    //}
-
-                    return Vector2.Zero;
-                }), null);
-            var BGCBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-BGCBarBody", GetTexture("BGCBarBody"), "Extend", 1, 6,
-                new Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2>((spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
-                {
-                    BarDrawsMethods.StandardDrawFrame(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
-
-                    //if (CripOfChaosInferno != null)
-                    //{
-                    //    BarDrawsMethods.StandardDrawFrame(spriteBatch, new Vector2(position.X, position.Y + 85), CripOfChaosInferno.life, CripOfChaosInferno.lifeMax, CripOfChaosInferno.life / CripOfChaosInferno.lifeMax, GlobalAlpha, CripOfChaosInferno, drawParams);
-                    //}
-
-                    return Vector2.Zero;
-                }), null);
-            var BGCBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-BGCBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Indigo, 1, 6,
-                new Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2>((spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
-                {
-                    float postpercentage = PostHealthSystem.GetPostHealth(npc.whoAmI, percentage);
-                    int lengthNow = (int)(percentage * BarConfig.Instance.BarLength);
-                    int lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
-                    float shieldpercentage = drawParams.Shield / drawParams.ShieldMax;
-                    int shieldlength = (int)(BarConfig.Instance.BarLength * shieldpercentage);
-
-                    BarDrawsMethods.StandardDrawFill(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams,
-                        lengthPost, lengthNow, postpercentage, shieldlength);
-                    foreach (var item in Main.npc)
-                    {
-                        if (item.type == CripOfChaosInfernoType)
-                        {
-                            //CripOfChaosInferno = item;
-                            //float _percentage = item.life / item.lifeMax;
-                            //float _postpercentage = PostHealthSystem.GetPostHealth(item.whoAmI, _percentage);
-                            //int _lengthNow = (int)(_percentage * BarLength);
-                            //int _lengthPost = (int)(postpercentage * BarLength);
-                            //float _shieldpercentage = drawParams.Shield / drawParams.ShieldMax;
-                            //int _shieldlength = (int)(BarLength * shieldpercentage);
-
-                            //BarDrawsMethods.StandardDrawFill(spriteBatch, position, item.life, item.lifeMax, _percentage, GlobalAlpha, item, drawParams,
-                            //    _lengthPost, _lengthNow, _postpercentage, _shieldlength);
-                            //break;
-
-                            BarDrawsMethods.Draw(spriteBatch, item, new BossBarDrawParams(null, Vector2.Zero, null, Rectangle.Empty, Color.White, item.life, item.lifeMax, null), new Vector2(position.X, position.Y + 85));
-                        }
-                        else
-                        {
-                            CripOfChaosInferno = null;
-                        }
-                    }
-                    return Vector2.Zero;
-                }), null);
+            var BGCBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-BGCBarHead", GetTexture("BGCBarHead"), new Vector2(54, 12), new Vector2(23, 26), null);
+            var BGCBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-BGCBarTail", GetTexture("BGCBarTail"), new Vector2(30, 10), null);
+            var BGCBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-BGCBarBody", GetTexture("BGCBarBody"), "Extend", null);
+            var BGCBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-BGCBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Indigo,null);
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", CripOfChaosMireType, new List<object> { BGCBarHead, BGCBarBody, BGCBarTail, BGCBarFill }, null, null, null);
             #endregion

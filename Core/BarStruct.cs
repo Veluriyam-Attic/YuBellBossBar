@@ -4,8 +4,8 @@ internal struct BarInfo
 {
     #region 实例构造器 Instance Constructor
     public BarInfo(BarTextures bartextures,
-        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float,
-        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>
+        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC,  List<int>, float,
+        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC,  List<int>, float>
         >
         drawtext, Dictionary<string, bool> fields = null, List<int> segment = null)
     {
@@ -95,7 +95,7 @@ internal struct BarInfo
     }
     #endregion
 
-    public Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>> DrawText = null;
+    public Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, List<int>, float>> DrawText = null;
 
     public int npctype => barTextures.npctype;
     public BarTextures barTextures;
@@ -280,14 +280,14 @@ internal struct BarTexture2D
     public Color shieldColor;
 
     // 自定义绘制事件,Vector2是血条绘制正中心位置, int是血条长度
-    public Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> CustomDrawEvent = null;
+    public Func<SpriteBatch, Vector2, int, int, int, float, float, float, float, NPC, Texture2D, Vector2> CustomDrawEvent = null;
 
     public delegate void BarTexture2DInitiator(ref int fillCutLengh, ref Vector2 fillOffset, ref Vector2 headOffset, ref BarFillStyles barFillStyles, ref BarFillColor barFillColor, ref Color fillColor, ref BarFrameStyles barFrameStyles);
 
     #region 实例构造器 Instance Constructor
 #pragma warning disable CS1573
     /// <param name="initiator">fillCutLengh,fillOffset,headOffset,barFillStyles, barFillColor, fillColor, barFrameStyles, extraStyles</param>
-    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, int framecount = 1, int TPF = 6, Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> customDraw = null, Color? shieldcolor = null)
+    public BarTexture2D(TextureType type, Asset<Texture2D> texture, TextureSource textureSource, BarTexture2DInitiator initiator = null, int framecount = 1, int TPF = 6, Func<SpriteBatch, Vector2, int, int, int, float, float,float,float, NPC, Texture2D, Vector2> customDraw = null, Color? shieldcolor = null)
     {
         this.textureType = type;
         this.texture = texture;

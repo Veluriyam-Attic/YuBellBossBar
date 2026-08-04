@@ -46,6 +46,9 @@ public class BarConfig : ModConfig
 
     [Header($"CustomHeader")]
 
+    [DefaultValue(false)]
+    public bool EnableSimultaneously;
+
     [DefaultValue(3)]
     [Range(0, int.MaxValue)]
     public int CommaGap;

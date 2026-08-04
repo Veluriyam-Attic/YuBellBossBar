@@ -14,8 +14,8 @@ public class BarPlayer : ModPlayer
             // 移除所有索引
             // Remove all indexs
 
-            GlobalBar.lifemaxs.Clear();
-            GlobalBar.maxlifes.Clear();
+            BarLifeMethods.lifemaxs.Clear();
+            BarLifeMethods.maxlifes.Clear();
         }
     }
 

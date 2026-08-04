@@ -66,7 +66,7 @@ internal class ModCallAdd
                         (int)args[13],
                         (int)args[14],
                         // sb, position, BarLength,life,lifemax,percentage,GlobalAlpha,npc,drawParams,bt without customdraw event,return the startposition
-                        (Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2>)args[15],
+                        (Func<SpriteBatch, Vector2, int, int, int, float, float, float, float, NPC, Texture2D, Vector2>)args[15],
                         (Color?)args[16]
                     );
 
@@ -91,7 +91,7 @@ internal class ModCallAdd
                     }
 
                     if (BarData.BarInfos.TryAdd((int)args[3], new BarInfo(new BarTextures((int)args[3], dict),
-                        (Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>>)args[5],
+                        (Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, List<int>, float>>)args[5],
                         (Dictionary<string, bool>)args[6], (List<int>)args[7])))
                     {
                         return "Yet Another Mod Call: Successed!";

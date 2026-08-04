@@ -211,6 +211,11 @@ Configs: {
 			Label: Use Old FillAll Logic
 			Tooltip: Disabled by default.
 		}
+
+		EnableSimultaneously: {
+			Label: Enable Simultaneously
+			Tooltip: ""
+		}
 	}
 }
 

@@ -220,8 +220,8 @@ internal class CalamityCloneAdapt : ModType
 
     protected override void Register() { }
 
-    private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawHead = new(
-        (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
+    private static Func<SpriteBatch, Vector2, int, int, int, float, float, float, float, NPC, Texture2D, Vector2> DrawHead = new(
+        (spriteBatch, position, BarLength, life, lifemax, shield, shieldmax, percentage, GlobalAlpha, npc, bt) =>
         {
             if (!BrotherAlive)
             {
@@ -238,8 +238,8 @@ internal class CalamityCloneAdapt : ModType
                 return StartPosition;
             }
         });
-    private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawFrame = new(
-        (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
+    private static Func<SpriteBatch, Vector2, int, int, int, float, float, float, float, NPC, Texture2D, Vector2> DrawFrame = new(
+        (spriteBatch, position, BarLength, life, lifemax, shield, shieldmax, percentage, GlobalAlpha, npc, bt) =>
         {
             if (!BrotherAlive)
             {
@@ -276,8 +276,8 @@ internal class CalamityCloneAdapt : ModType
 
             return Vector2.Zero;
         });
-    private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawTail = new(
-        (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
+    private static Func<SpriteBatch, Vector2, int, int, int, float, float, float, float, NPC, Texture2D, Vector2> DrawTail = new(
+        (spriteBatch, position, BarLength, life, lifemax, shield, shieldmax, percentage, GlobalAlpha, npc, bt) =>
         {
             if (!BrotherAlive)
             {
@@ -294,8 +294,8 @@ internal class CalamityCloneAdapt : ModType
                 return StartPosition;
             }
         });
-    private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawFill = new(
-        (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
+    private static Func<SpriteBatch, Vector2, int, int, int, float, float, float, float, NPC, Texture2D, Vector2> DrawFill = new(
+        (spriteBatch, position, BarLength, life, lifemax, shield, shieldmax, percentage, GlobalAlpha, npc, bt) =>
         {
             if (!BrotherAlive)
             {
@@ -328,7 +328,7 @@ internal class CalamityCloneAdapt : ModType
                 }
                 else
                 {
-                    float postpercentage = PostHealthSystem.GetPostHealth(npc.whoAmI, percentage);
+                    float postpercentage = npc.GetGlobalNPC<BarGlobalNPC>().DrawsMethods.postHealthSystem.GetPostHealth(npc.whoAmI, percentage);
 
                     DrawByPercent(postpercentage, 0.7f);
                     DrawByPercent(percentage, 1f);
@@ -380,8 +380,8 @@ internal class CalamityCloneAdapt : ModType
             }
             return Vector2.Zero;
         });
-    private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawIcon = new(
-        (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
+    private static Func<SpriteBatch, Vector2, int, int, int, float, float, float, float, NPC, Texture2D, Vector2> DrawIcon = new(
+        (spriteBatch, position, BarLength, life, lifemax, shield, shieldmax, percentage, GlobalAlpha, npc, bt) =>
         {
             if (!BrotherAlive)
             {
@@ -390,7 +390,7 @@ internal class CalamityCloneAdapt : ModType
             return Vector2.Zero;
         });
 
-    private static Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>> DrawText = new((bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage, defaultDrawText) =>
+    private static Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, List<int>, float>> DrawText = new((bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment, spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, SegmentTypeList, shieldpercentage, defaultDrawText) =>
     {
         if (CalCloneAI3 > 0 && CalCloneAI2 > 0)
         {
@@ -409,7 +409,7 @@ internal class CalamityCloneAdapt : ModType
                         bool_lifemax,
                         bool_percentage,
                         bool_segment,
-                        spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, drawParams, SegmentTypeList, shieldpercentage);
+                        spriteBatch, position, BarLength, lifefloats, GlobalAlpha, npc, SegmentTypeList, shieldpercentage);
             }
             else
             {
@@ -419,7 +419,7 @@ internal class CalamityCloneAdapt : ModType
                     NPC 灾难 = Main.npc[灾难index];
                     float 灾难percentage = (float)灾难.life / (float)灾难.lifeMax;
                     defaultDrawText?.Invoke(bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment,
-                    spriteBatch, new Vector2(position.X - 10 - (BarLength / 4), position.Y), BarLength, lifefloats, GlobalAlpha, 灾难, drawParams, SegmentTypeList, shieldpercentage);
+                    spriteBatch, new Vector2(position.X - 10 - (BarLength / 4), position.Y), BarLength, lifefloats, GlobalAlpha, 灾难, SegmentTypeList, shieldpercentage);
                 }
                 else
                 {
@@ -432,7 +432,7 @@ internal class CalamityCloneAdapt : ModType
                     NPC 灾祸 = Main.npc[灾祸index];
                     float 灾难percentage = (float)灾祸.life / (float)灾祸.lifeMax;
                     defaultDrawText?.Invoke(bool_invincible, bool_name, bool_life, bool_lifemax, bool_percentage, bool_segment,
-                    spriteBatch, new Vector2(position.X + 10 + (BarLength / 4), position.Y), BarLength, lifefloats, GlobalAlpha, 灾祸, drawParams, SegmentTypeList, shieldpercentage);
+                    spriteBatch, new Vector2(position.X + 10 + (BarLength / 4), position.Y), BarLength, lifefloats, GlobalAlpha, 灾祸, SegmentTypeList, shieldpercentage);
                 }
                 else
                 {
