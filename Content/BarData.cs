@@ -19,12 +19,12 @@ internal static class BarData
     {
         #region 默认贴图 Default Texture
         #region 金色风格 Gloden Style
-            BarInfos.Add(int.MaxValue,
-            new BarInfo(
-                new BarTextures(
-                    int.MaxValue,
-                    new Dictionary<TextureType, BarTexture2D>()
-                    {
+        BarInfos.Add(int.MaxValue,
+        new BarInfo(
+            new BarTextures(
+                int.MaxValue,
+                new Dictionary<TextureType, BarTexture2D>()
+                {
                         {
                             TextureType.Shield,
                             BuildInTextures.ExtraInfo["Shield"]
@@ -45,10 +45,10 @@ internal static class BarData
                             TextureType.Tail,
                             BuildInTextures.DefaultTexture["HealthBarTail_Exp"]
                         },
-                    }
-                ),null
-            )
-        );
+                }
+            ), null
+        )
+    );
         #endregion
 
         #region 银色风格 Silver Style
@@ -804,7 +804,7 @@ internal static class BarData
                     }
                 ), null,
                 null,
-                new List<int> { NPCID.EaterofWorldsHead,NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }
+                new List<int> { NPCID.EaterofWorldsHead, NPCID.EaterofWorldsBody, NPCID.EaterofWorldsTail }
             )
         );
         BarInfos.Add(NPCID.EaterofWorldsBody,
@@ -915,7 +915,7 @@ internal static class BarData
                     }
                 ), null,
                 null,
-                new List<int>() { NPCID.Creeper}
+                new List<int>() { NPCID.Creeper }
             )
         );
         BarInfos.Add(NPCID.Creeper,

@@ -12,7 +12,7 @@ public class BarConfig : ModConfig
     [Header($"PostionHeader")]
 
     [DefaultValue(0)]
-    [Range(int.MinValue,int.MaxValue)]
+    [Range(int.MinValue, int.MaxValue)]
     public int BarPostionX;
     [DefaultValue(0)]
     [Range(int.MinValue, int.MaxValue)]
@@ -59,10 +59,10 @@ public class BarConfig : ModConfig
     public int BarLength;
 
     [DefaultValue(4)]
-    [Range(0,int.MaxValue)]
+    [Range(0, int.MaxValue)]
     public int PostHealthSpeed;
 
-    [Range(0,int.MaxValue)]
+    [Range(0, int.MaxValue)]
     [DefaultValue(35)]
     public int PostHealthTime;
 
@@ -74,7 +74,7 @@ public class BarConfig : ModConfig
     [DefaultValue(50)]
     public int MouseAlpha;
 
-    [Range(0,255)]
+    [Range(0, 255)]
     [DefaultValue(54)]
     public int ShieldColorR;
     [Range(0, 255)]

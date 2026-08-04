@@ -56,9 +56,9 @@ public class YuBellBossBar : Mod
     {
         if (args[0].ToString() == "YetAnotherModCall")
         {
-            switch(args[1])
+            switch (args[1])
             {
-                default:break;
+                default: break;
 
                 case "Chaos":
                     {
@@ -78,7 +78,8 @@ public class YuBellBossBar : Mod
                     {
                         return ModCallAdd.Add(args);
                     }
-            };
+            }
+            ;
         }
         return "YetAnotherModCall: Failed!";
     }

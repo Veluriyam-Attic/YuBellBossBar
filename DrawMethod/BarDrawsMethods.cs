@@ -2,6 +2,18 @@
 
 internal class BarDrawsMethods
 {
+    public static List<BarTexture2D> extraBelowFill;
+    public static BarTexture2D fill;
+    public static List<BarTexture2D> extraBetweenFillAndFrame;
+    public static BarTexture2D frame;
+    public static List<BarTexture2D> extraBetweenFrameAndHeadEnd;
+    public static BarTexture2D head;
+    public static BarTexture2D tail;
+    public static List<BarTexture2D> extraBetweenHeadEndAndIcon;
+    public static BarTexture2D icon;
+    public static List<BarTexture2D> extraBetweenIconAndInfo;
+    public static List<BarTexture2D> extraUponInfo;
+
     // 位置相关
     public static Vector2[] CheckBox = new Vector2[2];
 
@@ -20,8 +32,9 @@ internal class BarDrawsMethods
         return true;
     }
 
-    public static bool Draw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams)
+    public static bool Draw(SpriteBatch spriteBatch, NPC npc, BossBarDrawParams drawParams, Vector2 position)
     {
+
         // 这个是当前绘制需要的血条信息
         BarInfo barInfo;
 
@@ -54,28 +67,52 @@ internal class BarDrawsMethods
 
             #region 声明所需局部变量
             // 血量相关
-            float life = drawParams.Life;
-            float lifemax = drawParams.LifeMax;
+            float life = 0;
+            float lifemax = 0;
+            float shieldpercentage = 0;
+
+            BigProgressBarInfo info = default;
+
+            if (npc.BossBar is ModBossBar bar)
+            {
+                bar.ValidateAndCollectNecessaryInfo(ref info);
+
+                life = bar.Life;
+                lifemax = bar.LifeMax;
+                shieldpercentage = bar.Shield / bar.ShieldMax;
+            }
+            else
+            {
+                if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar) && npc.type != NPCID.DungeonGuardian)
+                {
+                    specialbar.ValidateAndCollectNecessaryInfo(ref info);
+                    Type specialbarType = specialbar.GetType();
+                    FieldInfo _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+                    while (_cacheInfo == null)
+                    {
+                        _cacheInfo = specialbarType.BaseType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+                        specialbarType = specialbarType.BaseType;
+                    }
+                    BigProgressBarCache _cache = (BigProgressBarCache)_cacheInfo.GetValue(specialbar);
+                    life = _cache.LifeCurrent;
+                    lifemax = _cache.LifeMax;
+                    shieldpercentage = _cache.ShieldCurrent / _cache.ShieldMax;
+                }
+                else
+                {
+                    life = npc.life;
+                    lifemax = npc.lifeMax;
+                }
+            }
+
             float percentage = life / lifemax;
             float postpercentage = PostHealthSystem.GetPostHealth(npc.whoAmI, percentage);
             int lengthNow = (int)(percentage * BarConfig.Instance.BarLength);
             int lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
-            float shieldpercentage = drawParams.Shield / drawParams.ShieldMax;
             int shieldlength = (int)(BarConfig.Instance.BarLength * shieldpercentage);
 
             // 贴图相关
 #pragma warning disable IDE0018
-            List<BarTexture2D> extraBelowFill;
-            BarTexture2D fill;
-            List<BarTexture2D> extraBetweenFillAndFrame;
-            BarTexture2D frame;
-            List<BarTexture2D> extraBetweenFrameAndHeadEnd;
-            BarTexture2D head;
-            BarTexture2D tail;
-            List<BarTexture2D> extraBetweenHeadEndAndIcon;
-            BarTexture2D icon;
-            List<BarTexture2D> extraBetweenIconAndInfo;
-            List<BarTexture2D> extraUponInfo;
             #endregion
 
             #region 根据模组配置重新选择贴图
@@ -225,8 +262,14 @@ internal class BarDrawsMethods
             #endregion
 
             #region 填充相关绘制方法
-
-            StandardDrawFill(spriteBatch, position, fill, life, lifemax, percentage, GlobalAlpha, npc, drawParams, lengthPost, lengthNow, postpercentage, shieldlength);
+            if (fill.CustomDrawEvent != null)
+            {
+                fill.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, fill.texture.Value);
+            }
+            else
+            {
+                StandardDrawFill(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams, lengthPost, lengthNow, postpercentage, shieldlength);
+            }
 
             #endregion
 
@@ -238,7 +281,15 @@ internal class BarDrawsMethods
 
             #region 框架相关绘制方法
             {
-                StandardDrawFrame(spriteBatch, position, frame, life, lifemax, percentage, GlobalAlpha, npc, drawParams, head, tail);
+                if (frame.CustomDrawEvent != null)
+                {
+                    frame.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, frame.texture.Value);
+                }
+                else
+                {
+                    StandardDrawFrame(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
+
+                }
             }
             #endregion
 
@@ -250,13 +301,27 @@ internal class BarDrawsMethods
 
             #region 头部相关绘制方法
             {
-                StandardDrawHead(spriteBatch, position, head, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
+                if (head.CustomDrawEvent != null)
+                {
+                    CheckBox[0] = head.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, head.texture.Value);
+                }
+                else
+                {
+                    StandardDrawHead(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
+                }
             }
             #endregion
 
             #region 尾部相关绘制方法
             {
-                StandardDrawTail(spriteBatch, position, tail, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
+                if (tail.CustomDrawEvent != null)
+                {
+                    CheckBox[1] = tail.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, tail.texture.Value);
+                }
+                else
+                {
+                    StandardDrawTail(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
+                }
             }
             #endregion
 
@@ -270,13 +335,20 @@ internal class BarDrawsMethods
 
             if (barInfo.ShowIcon)
             {
-                StandardDrawIcon(spriteBatch, position, icon, life, lifemax, percentage, GlobalAlpha, npc, drawParams, head);
+                if (icon.CustomDrawEvent != null)
+                {
+                    icon.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, icon.texture.Value);
+                }
+                else
+                {
+                    StandardDrawIcon(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc, drawParams);
+                }
             }
 
             #endregion
 
             #region 额外绘制大头照和信息之间
-                if (extraBetweenIconAndInfo != null && !BarConfig.Instance.EnableExtraCustom)
+            if (extraBetweenIconAndInfo != null && !BarConfig.Instance.EnableExtraCustom)
                 foreach (BarTexture2D texture in extraBetweenIconAndInfo)
                     texture.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, texture.texture.Value);
             #endregion
@@ -679,161 +751,127 @@ internal class BarDrawsMethods
         });
     }
 
-    internal static void StandardDrawFill(SpriteBatch spriteBatch, Vector2 position, BarTexture2D fill, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams, int lengthPost, int lengthNow, float postpercentage, int shieldlength)
+    internal static void StandardDrawFill(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams, int lengthPost, int lengthNow, float postpercentage, int shieldlength)
     {
-        if (fill.CustomDrawEvent != null)
-            fill.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, fill.texture.Value);
-        else
-        {
-            Vector2 StartPosition = position - new Vector2(BarConfig.Instance.BarLength / 2, fill.texture.Value.Height / (2 * fill.frameCount));
-            int filllengh = (int)(BarConfig.Instance.BarLength * percentage);
+        Vector2 StartPosition = position - new Vector2(BarConfig.Instance.BarLength / 2, fill.texture.Value.Height / (2 * fill.frameCount));
+        int filllengh = (int)(BarConfig.Instance.BarLength * percentage);
 
-            #region 填充部分
+        #region 填充部分
 #pragma warning disable CS8524
-            Color fillcolor = fill.barFillColor switch
-            {
-                BarFillColor.Custom => fill.fillColor,
-                BarFillColor.Vanilla => BarFillColorMethods.GetVanillaBarColor(percentage)
-            };
+        Color fillcolor = fill.barFillColor switch
+        {
+            BarFillColor.Custom => fill.fillColor,
+            BarFillColor.Vanilla => BarFillColorMethods.GetVanillaBarColor(percentage)
+        };
 
-            switch (fill.barFillStyles)
-            {
-                case BarFillStyles.FillExtend:
-                    {
-                        FillExtend(spriteBatch, fill, StartPosition, lengthPost, percentage, postpercentage, 0.7f, GlobalAlpha);
-                        FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
-                        break;
-                    }
-                case BarFillStyles.FillAll:
-                    {
-                        FillAll(npc.type, spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
-                        break;
-                    }
-                case BarFillStyles.FillPartial:
-                    {
-                        FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
-                        break;
-                    }
-                case BarFillStyles.Dulplicate:
-                    {
-                        FillDulplicate(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
-                        break;
-                    }
-            }
-            #endregion
-
-            #region 盾条
-
-            if (drawParams.Shield > 0 && BarConfig.Instance.ShowShield)
-            {
-                BarTexture2D shield = BuildInTextures.ExtraInfo["Shield"];
-
-                int heightPF = fill.texture.Value.Height / fill.frameCount;
-
-                if (shield.adjustedtexture == null || shield.adjustedtexture?.Width != BarConfig.Instance.BarLength || shield.adjustedtexture?.Height != heightPF)
+        switch (fill.barFillStyles)
+        {
+            case BarFillStyles.FillExtend:
                 {
-                    AdjustTexture(ref shield, spriteBatch, heightPF);
-                    BuildInTextures.ExtraInfo["Shield"] = shield;
+                    FillExtend(spriteBatch, fill, StartPosition, lengthPost, percentage, postpercentage, 0.7f, GlobalAlpha);
+                    FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
+                    break;
+                }
+            case BarFillStyles.FillAll:
+                {
+                    FillAll(npc.type, spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
+                    break;
+                }
+            case BarFillStyles.FillPartial:
+                {
+                    FillExtend(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
+                    break;
+                }
+            case BarFillStyles.Dulplicate:
+                {
+                    FillDulplicate(spriteBatch, fill, StartPosition, lengthNow, percentage, postpercentage, 1f, GlobalAlpha);
+                    break;
+                }
+        }
+        #endregion
+
+        #region 盾条
+
+        if (drawParams.Shield > 0 && BarConfig.Instance.ShowShield)
+        {
+            BarTexture2D shield = BuildInTextures.ExtraInfo["Shield"];
+
+            int heightPF = fill.texture.Value.Height / fill.frameCount;
+
+            if (shield.adjustedtexture == null || shield.adjustedtexture?.Width != BarConfig.Instance.BarLength || shield.adjustedtexture?.Height != heightPF)
+            {
+                AdjustTexture(ref shield, spriteBatch, heightPF);
+                BuildInTextures.ExtraInfo["Shield"] = shield;
+            }
+
+            spriteBatch.Draw(
+                shield.adjustedtexture,
+                StartPosition,
+                new Rectangle(0, 0, shieldlength, shield.texture.Value.Height),
+                shield.shieldColor * GlobalAlpha);
+        }
+
+        #endregion
+    }
+
+    internal static void StandardDrawFrame(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams)
+    {
+        int HeightPF = frame.texture.Value.Height / frame.frameCount;
+        Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X - head.texture.Value.Width, HeightPF / 2);
+        Vector2 EndPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
+        Rectangle frameP = FrameChooser(frame, HeightPF);
+
+        switch (frame.barFrameStyles)
+        {
+            case BarFrameStyles.Extend:
+                {
+                    spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X, (int)StartPosition.Y, (int)EndPosition.X - (int)StartPosition.X, HeightPF), frameP, Color.White * GlobalAlpha);
+
+                    break;
                 }
 
-                spriteBatch.Draw(
-                    shield.adjustedtexture,
-                    StartPosition,
-                    new Rectangle(0, 0, shieldlength, shield.texture.Value.Height),
-                    shield.shieldColor * GlobalAlpha);
-            }
+            case BarFrameStyles.Dulplicate:
+                {
+                    int count = (((int)EndPosition.X - (int)StartPosition.X) / frame.texture.Value.Width);
+                    int extra = (((int)EndPosition.X - (int)StartPosition.X) % frame.texture.Value.Width);
 
-            #endregion
-
-        }
-    }
-
-    internal static void StandardDrawFrame(SpriteBatch spriteBatch, Vector2 position, BarTexture2D frame, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams, BarTexture2D head, BarTexture2D tail)
-    {
-        if (frame.CustomDrawEvent != null)
-        {
-            frame.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, frame.texture.Value);
-        }
-        else
-        {
-            int HeightPF = frame.texture.Value.Height / frame.frameCount;
-            Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X - head.texture.Value.Width, HeightPF / 2);
-            Vector2 EndPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
-            Rectangle frameP = FrameChooser(frame, HeightPF);
-
-            switch (frame.barFrameStyles)
-            {
-                case BarFrameStyles.Extend:
+                    for (int i = 0; i < count; i++)
                     {
-                        spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X, (int)StartPosition.Y, (int)EndPosition.X - (int)StartPosition.X, HeightPF), frameP, Color.White * GlobalAlpha);
-
-                        break;
+                        spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, HeightPF), frameP, Color.White * GlobalAlpha);
                     }
+                    spriteBatch.Draw(frame.texture.Value, new Vector2(EndPosition.X - extra, EndPosition.Y), new Rectangle(frame.texture.Value.Width - extra, 0, extra, frameP.Height), Color.White * GlobalAlpha);
 
-                case BarFrameStyles.Dulplicate:
-                    {
-                        int count = (((int)EndPosition.X - (int)StartPosition.X) / frame.texture.Value.Width);
-                        int extra = (((int)EndPosition.X - (int)StartPosition.X) % frame.texture.Value.Width);
-
-                        for (int i = 0; i < count; i++)
-                        {
-                            spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, HeightPF), frameP, Color.White * GlobalAlpha);
-                        }
-                        spriteBatch.Draw(frame.texture.Value, new Vector2(EndPosition.X - extra, EndPosition.Y), new Rectangle(frame.texture.Value.Width - extra, 0, extra, frameP.Height), Color.White * GlobalAlpha);
-
-                        break;
-                    }
-            }
+                    break;
+                }
         }
     }
 
-    internal static void StandardDrawHead(SpriteBatch spriteBatch, Vector2 position, BarTexture2D head, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams)
+    internal static void StandardDrawHead(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams)
     {
-        if (head.CustomDrawEvent != null)
-        {
-            CheckBox[0] = head.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, head.texture.Value);
-        }
-        else
-        {
-            int HeightPF = head.texture.Value.Height / head.frameCount;
-            Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X, HeightPF / 2);
+        int HeightPF = head.texture.Value.Height / head.frameCount;
+        Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X, HeightPF / 2);
 
-            CheckBox[0] = StartPosition;
+        CheckBox[0] = StartPosition;
 
-            spriteBatch.Draw(head.texture.Value, StartPosition, FrameChooser(head, HeightPF), Color.White * GlobalAlpha);
-        }
+        spriteBatch.Draw(head.texture.Value, StartPosition, FrameChooser(head, HeightPF), Color.White * GlobalAlpha);
     }
 
-    internal static void StandardDrawTail(SpriteBatch spriteBatch, Vector2 position, BarTexture2D tail, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams)
+    internal static void StandardDrawTail(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams)
     {
-        if (tail.CustomDrawEvent != null)
-        {
-            CheckBox[1] = tail.CustomDrawEvent.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, tail.texture.Value);
-        }
-        else
-        {
-            int HeightPF = tail.texture.Value.Height / tail.frameCount;
+        int HeightPF = tail.texture.Value.Height / tail.frameCount;
 
-            Vector2 StartPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
+        Vector2 StartPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
 
-            CheckBox[1] = StartPosition;
+        CheckBox[1] = StartPosition;
 
-            spriteBatch.Draw(tail.texture.Value, StartPosition, FrameChooser(tail, HeightPF), Color.White * GlobalAlpha);
-        }
+        spriteBatch.Draw(tail.texture.Value, StartPosition, FrameChooser(tail, HeightPF), Color.White * GlobalAlpha);
     }
 
-    internal static void StandardDrawIcon(SpriteBatch spriteBatch, Vector2 position, BarTexture2D icon, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams, BarTexture2D head)
+    internal static void StandardDrawIcon(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, BossBarDrawParams drawParams)
     {
-        if (icon.CustomDrawEvent != null)
-        {
-            icon.CustomDrawEvent?.Invoke(spriteBatch, position, BarConfig.Instance.BarLength, (int)life, (int)lifemax, percentage, GlobalAlpha, npc, drawParams, icon.texture.Value);
-        }
-        else
-        {
-            int HeightPF = icon.texture.Value.Height / icon.frameCount;
+        int HeightPF = icon.texture.Value.Height / icon.frameCount;
 
-            spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, HeightPF / 2), FrameChooser(icon, HeightPF), Color.White * GlobalAlpha);
-        }
+        spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, HeightPF / 2), FrameChooser(icon, HeightPF), Color.White * GlobalAlpha);
 
     }
 }

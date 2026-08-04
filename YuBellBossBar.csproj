@@ -13,6 +13,8 @@
 	<ItemGroup>
 	  <Compile Remove="WeakReferences.cs" />
 	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
 
 	<!-- References -->
 

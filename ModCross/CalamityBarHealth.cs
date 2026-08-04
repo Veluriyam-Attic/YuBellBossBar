@@ -16,7 +16,7 @@ internal class CalamityBarHealth
 
     public static Dictionary<int, int[]> OneToMany = null;
 
-    internal static (long?, long?, long?) DoSomeReflection(int npcIndex,int npcType)
+    internal static (long?, long?, long?) DoSomeReflection(int npcIndex, int npcType)
     {
         if (!YuBellBossBar.CalamityAdapt)
             return (null, null, null);
@@ -55,7 +55,7 @@ internal class CalamityBarHealth
 #if DEBUG
             Main.NewText("[c/FF0000:Received Params From Calamity Mod: " + combinedLife + "/" + combinedMaxLife + "---" + initialMaxLife + "]");
 #endif
-            return ((long?)combinedLife, (long?)combinedMaxLife,(long?)initialMaxLife);
+            return ((long?)combinedLife, (long?)combinedMaxLife, (long?)initialMaxLife);
         }
     }
 }

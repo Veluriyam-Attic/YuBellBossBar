@@ -749,7 +749,7 @@ internal static class BuildInTextures
         },
         {
             "GolemIcon",
-            new BarTexture2D(TextureType.Icon, 
+            new BarTexture2D(TextureType.Icon,
                 TextureAssets.NpcHeadBoss[5],
                 TextureSource.ExtraVanilla)
         },

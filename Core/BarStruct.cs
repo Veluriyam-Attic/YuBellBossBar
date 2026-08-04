@@ -1,12 +1,13 @@
 ﻿namespace YuBellBossBar.Core;
+
 internal struct BarInfo
 {
     #region 实例构造器 Instance Constructor
-    public BarInfo(BarTextures bartextures, 
+    public BarInfo(BarTextures bartextures,
         Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float,
-        Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[],float, NPC, BossBarDrawParams, List<int>, float>
+        Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>
         >
-        drawtext, Dictionary<string, bool> fields = null,List<int> segment = null)
+        drawtext, Dictionary<string, bool> fields = null, List<int> segment = null)
     {
         this.barTextures = bartextures;
 
@@ -90,11 +91,11 @@ internal struct BarInfo
         ShowTarget = other.ShowTarget;
         ShowDamage = other.ShowDamage;
         ShowIcon = other.ShowIcon;
-        DrawText = other.DrawText; 
+        DrawText = other.DrawText;
     }
     #endregion
 
-    public Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float,Action<bool, bool, bool, bool, bool, bool, SpriteBatch,Vector2, int, float[],float, NPC, BossBarDrawParams, List<int>, float>> DrawText = null;
+    public Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float, Action<bool, bool, bool, bool, bool, bool, SpriteBatch, Vector2, int, float[], float, NPC, BossBarDrawParams, List<int>, float>> DrawText = null;
 
     public int npctype => barTextures.npctype;
     public BarTextures barTextures;
@@ -237,9 +238,10 @@ internal struct BarTexture2D
     public TextureSource source = TextureSource.None;
 
     // 该来源贴图是否可以被绘制
-    public bool ConfigEnabled 
+    public bool ConfigEnabled
     {
-        get {
+        get
+        {
 #pragma warning disable CS8524
             return source switch
             {
@@ -252,7 +254,7 @@ internal struct BarTexture2D
                 TextureSource.ExtraAAClassic => BarConfig.Instance.EnableExtraAAClassic && !BarConfig.Instance.ForceDefaulTexture,
                 TextureSource.None => true,
             };
-        } 
+        }
     }
 
     // 贴图帧数
@@ -278,7 +280,7 @@ internal struct BarTexture2D
     public Color shieldColor;
 
     // 自定义绘制事件,Vector2是血条绘制正中心位置, int是血条长度
-    public Func<SpriteBatch, Vector2, int,int,int,float,float, NPC, BossBarDrawParams,Texture2D,Vector2> CustomDrawEvent = null;
+    public Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> CustomDrawEvent = null;
 
     public delegate void BarTexture2DInitiator(ref int fillCutLengh, ref Vector2 fillOffset, ref Vector2 headOffset, ref BarFillStyles barFillStyles, ref BarFillColor barFillColor, ref Color fillColor, ref BarFrameStyles barFrameStyles);
 
@@ -294,14 +296,14 @@ internal struct BarTexture2D
         this.source = textureSource;
         this.TicksPerFrame = TPF;
 
-        if(shieldcolor == null)
+        if (shieldcolor == null)
             this.shieldColor = new Color(BarConfig.Instance.ShieldColorR, BarConfig.Instance.ShieldColorG, BarConfig.Instance.ShieldColorB);
         else
             this.shieldColor = (Color)shieldcolor;
 
         // 在默认构造器逻辑之后调用,来服务委托中潜在的修改
         // Call after the default constructor logic to serve potential modifications in the delegate
-        initiator?.Invoke(ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles);
+        initiator?.Invoke(ref fillCutLengh, ref fillOffset, ref headOffset, ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles);
     }
     #endregion
 }

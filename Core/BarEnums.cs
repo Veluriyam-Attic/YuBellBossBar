@@ -22,7 +22,7 @@ internal enum BarFillStyles
     /// <br/>Simply repeat the drawing of the bar, when the health decreases, it will cancel the drawing of a part.
     /// </summary>
     Dulplicate = 3,
-    
+
     None = int.MaxValue,
 }
 
@@ -38,7 +38,7 @@ internal enum BarFrameStyles
     /// <br/>Continuously repeat a specific pattern.
     /// </summary>
     Dulplicate = 1,
-    
+
     None = int.MaxValue,
 }
 
@@ -76,7 +76,7 @@ internal enum TextureType
     ExtraBetweenHeadEndAndIcon = 9,
     ExtraBetweenIconAndInfo = 10,
     ExtraUponInfo = 11,
-    
+
     None = int.MaxValue,
 }
 
@@ -89,6 +89,6 @@ internal enum TextureSource
     ExtraInfo = 4,
     ExtraCustom = 5,
     ExtraAAClassic = 6,
-    
+
     None = int.MaxValue,
 }
