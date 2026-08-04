@@ -66,7 +66,7 @@
                             (int)args[13],
                             (int)args[14],
                             // sb, position, BarLength,life,lifemax,percentage,GlobalAlpha,npc,drawParams,bt without customdraw event,return the startposition
-                            (Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2>)args[15],
+                            (Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2>)args[15],
                             (Color?)args[16]
                         );
 

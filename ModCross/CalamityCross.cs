@@ -220,13 +220,13 @@
 
         protected override void Register() { }
 
-        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawHead = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawHead = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
                 {
-                    Vector2 StartPosition = position - new Vector2((BarLength / 2) + bt.fillOffset.X, bt.texture.Value.Height / 2);
-                    spriteBatch.Draw(bt.texture.Value, StartPosition, Color.White * GlobalAlpha);
+                    Vector2 StartPosition = position - new Vector2((BarLength / 2) + 54, bt.Height / 2);
+                    spriteBatch.Draw(bt, StartPosition, Color.White * GlobalAlpha);
                     return StartPosition;
                 }
                 else
@@ -238,19 +238,19 @@
                     return StartPosition;
                 }
             });
-        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawFrame = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawFrame = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
                 {
-                    int count = (BarLength - 72) / bt.texture.Value.Width;
-                    int extra = (BarLength - 72) % bt.texture.Value.Width;
+                    int count = (BarLength - 72) / bt.Width;
+                    int extra = (BarLength - 72) % bt.Width;
 
                     for (int i = 0; i < count; i++)
                     {
-                        spriteBatch.Draw(bt.texture.Value, new Vector2(position.X - (BarLength / 2) + 36 + (i * bt.texture.Value.Width), position.Y - (bt.texture.Value.Height / 2)), Color.White * GlobalAlpha);
+                        spriteBatch.Draw(bt, new Vector2(position.X - (BarLength / 2) + 36 + (i * bt.Width), position.Y - (bt.Height / 2)), Color.White * GlobalAlpha);
                     }
-                    spriteBatch.Draw(bt.texture.Value, new Vector2(position.X - (BarLength / 2) + 36 + (count * bt.texture.Value.Width), position.Y - (bt.texture.Value.Height / 2)), new Rectangle(0, 0, extra, bt.texture.Value.Height), Color.White * GlobalAlpha);
+                    spriteBatch.Draw(bt, new Vector2(position.X - (BarLength / 2) + 36 + (count * bt.Width), position.Y - (bt.Height / 2)), new Rectangle(0, 0, extra, bt.Height), Color.White * GlobalAlpha);
                 }
                 else
                 {
@@ -276,13 +276,13 @@
 
                 return Vector2.Zero;
             });
-        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawTail = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawTail = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
                 {
-                    Vector2 StartPosition = position + new Vector2(BarLength / 2 - bt.fillOffset.X, -bt.texture.Value.Height / 2);
-                    spriteBatch.Draw(bt.texture.Value, StartPosition, Color.White * GlobalAlpha);
+                    Vector2 StartPosition = position + new Vector2(BarLength / 2 - 36, -bt.Height / 2);
+                    spriteBatch.Draw(bt, StartPosition, Color.White * GlobalAlpha);
                     return StartPosition;
                 }
                 else
@@ -294,31 +294,31 @@
                     return StartPosition;
                 }
             });
-        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawFill = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawFill = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
                 {
                     void DrawByPercent(float percentage, float GA)
                     {
-                        Vector2 StartPostion = position - new Vector2(BarLength / 2, bt.texture.Value.Height / 2);
+                        Vector2 StartPostion = position - new Vector2(BarLength / 2, bt.Height / 2);
                         int length = (int)(percentage * BarLength);
                         if (length > 8)
                         {
-                            spriteBatch.Draw(bt.texture.Value, StartPostion, new Rectangle(0, 0, 8, bt.texture.Value.Height), Color.White * GlobalAlpha * GA);
+                            spriteBatch.Draw(bt, StartPostion, new Rectangle(0, 0, 8, bt.Height), Color.White * GlobalAlpha * GA);
 
-                            int count = length / (bt.texture.Value.Width - 8);
-                            int extra = length % (bt.texture.Value.Width - 8);
+                            int count = length / (bt.Width - 8);
+                            int extra = length % (bt.Width - 8);
 
                             for (int i = 0; i < count; i++)
                             {
-                                spriteBatch.Draw(bt.texture.Value, StartPostion + new Vector2(8 + i * (bt.texture.Value.Width - 8), 0), new Rectangle(8, 0, bt.texture.Value.Width - 8, bt.texture.Value.Height), Color.White * GlobalAlpha * GA);
+                                spriteBatch.Draw(bt, StartPostion + new Vector2(8 + i * (bt.Width - 8), 0), new Rectangle(8, 0, bt.Width - 8, bt.Height), Color.White * GlobalAlpha * GA);
                             }
-                            spriteBatch.Draw(bt.texture.Value, StartPostion + new Vector2(8 + count * (bt.texture.Value.Width - 8), 0), new Rectangle(8, 0, extra, bt.texture.Value.Height), Color.White * GlobalAlpha * GA);
+                            spriteBatch.Draw(bt, StartPostion + new Vector2(8 + count * (bt.Width - 8), 0), new Rectangle(8, 0, extra, bt.Height), Color.White * GlobalAlpha * GA);
                         }
                         else
                         {
-                            spriteBatch.Draw(bt.texture.Value, StartPostion, new Rectangle(0, 0, length, bt.texture.Value.Height), Color.White * GlobalAlpha * GA);
+                            spriteBatch.Draw(bt, StartPostion, new Rectangle(0, 0, length, bt.Height), Color.White * GlobalAlpha * GA);
                         }
                     }
 
@@ -380,12 +380,12 @@
                 }
                 return Vector2.Zero;
             });
-        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, BarTexture2D, Vector2> DrawIcon = new(
+        private static Func<SpriteBatch, Vector2, int, int, int, float, float, NPC, BossBarDrawParams, Texture2D, Vector2> DrawIcon = new(
             (spriteBatch, position, BarLength, life, lifemax, percentage, GlobalAlpha, npc, drawParams, bt) =>
             {
                 if (!BrotherAlive)
                 {
-                    spriteBatch.Draw(bt.texture.Value, position - new Vector2(28 + ((bt.texture.Value.Width + BarLength) / 2), bt.texture.Value.Height / 2), Color.White * GlobalAlpha);
+                    spriteBatch.Draw(bt, position - new Vector2(28 + ((bt.Width + BarLength) / 2), bt.Height / 2), Color.White * GlobalAlpha);
                 }
                 return Vector2.Zero;
             });
