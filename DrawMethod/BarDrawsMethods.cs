@@ -51,22 +51,6 @@ internal class BarDrawsMethods
 
         if (barInfo.ShowBar && BarConfig.Instance.ShowBar)
         {
-            #region 同步不同体节血量
-
-            if (barInfo.Segment != null && BarConfig.Instance.ImprovedLifeCalculation)
-            {
-                float max = barInfo.Segment.Max(npctype =>
-                {
-                    if (BarLifeMethods.maxlifes.ContainsKey(npctype))
-                        return BarLifeMethods.maxlifes[npctype];
-                    else
-                        return BarLifeMethods.maxlifes[npc.type];
-                });
-                foreach (int npctype in barInfo.Segment)
-                    BarLifeMethods.maxlifes[npctype] = max;
-            }
-
-            #endregion
 
             #region 声明所需局部变量
             // 血量相关
@@ -80,7 +64,6 @@ internal class BarDrawsMethods
 
             if (npc.BossBar is ModBossBar bar)
             {
-                bar.ValidateAndCollectNecessaryInfo(ref info);
 
                 life = bar.Life;
                 lifemax = bar.LifeMax;
@@ -92,7 +75,6 @@ internal class BarDrawsMethods
             {
                 if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar) && npc.type != NPCID.DungeonGuardian && npc.type != NPCID.Spazmatism && npc.type != NPCID.Retinazer)
                 {
-                    specialbar.ValidateAndCollectNecessaryInfo(ref info);
                     Type specialbarType = specialbar.GetType();
                     FieldInfo _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
                     while (_cacheInfo == null)
@@ -120,6 +102,24 @@ internal class BarDrawsMethods
             int lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
             int shieldlength = (int)(BarConfig.Instance.BarLength * shieldpercentage);
 
+            #region 同步不同体节血量
+
+            if (barInfo.Segment != null && BarConfig.Instance.ImprovedLifeCalculation)
+            {
+                BarLifeMethods.Calculation(npc, life, lifemax);
+
+                float max = barInfo.Segment.Max(npctype =>
+                {
+                    if (BarLifeMethods.maxlifes.ContainsKey(npctype))
+                        return BarLifeMethods.maxlifes[npctype];
+                    else
+                        return BarLifeMethods.maxlifes[npc.type];
+                });
+                foreach (int npctype in barInfo.Segment)
+                    BarLifeMethods.maxlifes[npctype] = max;
+            }
+
+            #endregion
             // 贴图相关
 #pragma warning disable IDE0018
             #endregion

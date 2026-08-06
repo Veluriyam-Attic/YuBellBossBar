@@ -37,6 +37,8 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
             {
                 D?.DynamicInvoke(spriteBatch, new Vector2(BarDrawsMethods.position.X, BarDrawsMethods.position.Y - (x * 85)));
                 x++;
+                if (x >= 3)
+                    break;
             }
         }
         drawEvent = null;
