@@ -4,13 +4,14 @@ namespace YuBellBossBar.ModCross;
 /// <br/>灾厄血条适配的反射桥。
 /// <br/>完全不引用 CalamityMod.dll,所有灾厄类型/成员都通过 ModLoader.GetMod("CalamityMod").Code 反射获得。
 /// <br/>只有灾厄专门适配过的Boss才会返回数据,显示信息(名字/血量/上限/百分比)全部取自灾厄自己的 BossHPUI。
+/// <br/>另外维护了世吞/石巨人/月总"只画一条血条"的过滤与drawEvent去重。
 /// </summary>
 internal class CalamityBarHealth
 {
     /// <summary>反射初始化是否成功(灾厄已加载且反射成员齐全)</summary>
     public static bool CalamityLoaded = false;
 
-    // ---- 灾厄自己的类型 ----
+    // ---- 灾厄自己的类型(Initialize时解析一次,之后复用) ----
     private static Type bossHealthBarManagerType;
     private static Type bossHPUIType;
     private static Type calamityGlobalNPCType;
@@ -33,7 +34,7 @@ internal class CalamityBarHealth
     private static MethodInfo calamityGetTextValueMethod; // CalamityUtils.GetTextValue(string)
     private static Mod calamityMod;                       // CalamityMod 的 Mod 实例,用引用比较代替每帧字符串比较
 
-    // ---- 灾厄自己维护的数据 ----
+    // ---- 灾厄自己维护的数据(反射自 BossHealthBarManager 的静态字段) ----
     public static Dictionary<int, int[]> OneToMany;
     public static List<int> BossExclusionList;
     public static List<int> MinibossHPBarList;
@@ -46,21 +47,21 @@ internal class CalamityBarHealth
     // NPC死亡时由 OnKill 主动清理,防止槽位被新Boss复用后串用旧InitialMaxLife
     private static readonly Dictionary<int, object> BossHPUICache = new();
 
-    // 每帧每个 NPC 的判定只算一次(IsCalamityAdaptedBoss / ShouldHideBar / ShouldForceDrawBar 共用)
+    // 帧缓存:每帧每个NPC的灾厄判定只算一次,三个判定方法共用同一份结果
     private struct NpcFrameState
     {
-        public ulong Frame;
-        public bool Adapted;
-        public bool Hide;
-        public bool Force;
+        public ulong Frame;    // 记录计算时的帧号,同帧命中直接复用
+        public bool Adapted;   // IsCalamityAdaptedBoss 的结果
+        public bool Hide;      // ShouldHideBar 的结果
+        public bool Force;     // ShouldForceDrawBar 的结果
     }
     private static readonly Dictionary<int, NpcFrameState> FrameStates = new();
 
-    // GetInfo 同帧只算一次,避免 Draw 覆盖和文字显示各反射一轮
+    // GetInfo 的帧缓存:同帧内 Draw 覆盖和文字显示只反射计算一轮
     private struct InfoFrame
     {
-        public ulong Frame;
-        public CalamityBarInfo Info;
+        public ulong Frame;        // 记录计算时的帧号
+        public CalamityBarInfo Info; // 缓存的计算结果
     }
     private static readonly Dictionary<int, InfoFrame> InfoCache = new();
 
@@ -211,32 +212,41 @@ internal class CalamityBarHealth
         return state;
     }
 
+    /// <summary>
+    /// <br/>实际计算一个NPC的灾厄判定结果(仅首次查询该帧时执行)。
+    /// </summary>
     private static NpcFrameState ComputeFrameState(NPC npc, ulong frame)
     {
         NpcFrameState state = new NpcFrameState { Frame = frame };
+        // 未启用灾厄适配/灾厄未加载/非活跃NPC:全部返回默认false
         if (!YuBellBossBar.CalamityAdapt || !CalamityLoaded || npc == null || !npc.active)
             return state;
 
         // 用 Mod 引用比较代替每帧字符串比较
         bool isCalamityNpc = npc.ModNPC != null && calamityMod != null && npc.ModNPC.Mod == calamityMod;
+        // 灾厄自己排除的体节/部件(BossExclusionList,已转HashSet做O(1)查找)
         bool excluded = excludedSet != null && excludedSet.Contains(npc.type);
+        // Artemis:灾厄永远不给它血条
         bool artemis = artemisType != null && npc.ModNPC != null && npc.ModNPC.GetType() == artemisType;
 
-        // 与原来的 IsCalamityAdaptedBoss 完全一致
+        // IsCalamityAdaptedBoss:灾厄本体Boss / OneToMany多体节组合(含原版世吞等) / 小Boss列表 / CanHaveBossHealthBar标记
         state.Adapted = !excluded && !artemis
             && ((npc.boss && isCalamityNpc)
                 || (OneToMany != null && OneToMany.ContainsKey(npc.type))
                 || (minibossSet != null && minibossSet.Contains(npc.type))
                 || CanHaveBossHealthBar(npc));
 
-        // 与原来的 ShouldHideBar 完全一致:非灾厄NPC恒不隐藏;Artemis隐藏;未适配且没挂灾厄ModBossBar的体节/部件隐藏
+        // ShouldHideBar:非灾厄NPC恒不隐藏;Artemis隐藏;未适配且没挂灾厄ModBossBar的体节/部件隐藏
         state.Hide = isCalamityNpc && (artemis || (!state.Adapted && !(npc.BossBar is ModBossBar)));
 
-        // 与原来的 ShouldForceDrawBar 完全一致:灾厄主Boss(本体boss或挂着灾厄ModBossBar)即使没有头贴图也放行
+        // ShouldForceDrawBar:灾厄主Boss(本体boss或挂着灾厄ModBossBar)即使没有头贴图也放行
         state.Force = isCalamityNpc && !excluded && !artemis && (npc.boss || npc.BossBar is ModBossBar);
         return state;
     }
 
+    /// <summary>
+    /// <br/>清理帧判定缓存:删除所有非当前帧的条目(仅缓存数量超限时触发,低频)。
+    /// </summary>
     private static void PruneFrameStates(ulong frame)
     {
         List<int> stale = null;
@@ -253,13 +263,16 @@ internal class CalamityBarHealth
                 FrameStates.Remove(key);
     }
 
+    /// <summary>
+    /// <br/>灾厄BossHPUI给一个NPC的显示数据快照。
+    /// </summary>
     internal readonly struct CalamityBarInfo
     {
-        public readonly long Life;
-        public readonly long LifeMax;
-        public readonly long InitialMaxLife;
-        public readonly float Ratio;
-        public readonly string Name;
+        public readonly long Life;           // CombinedNPCLife:当前合并生命
+        public readonly long LifeMax;        // CombinedNPCMaxLife:当前合并上限(部件死亡后会变小)
+        public readonly long InitialMaxLife; // InitialMaxLife:初始总上限(只增不减,灾厄血条用的上限)
+        public readonly float Ratio;         // NPCLifeRatio:生命/初始上限
+        public readonly string Name;         // OverridingName ?? FullName:显示名
 
         public CalamityBarInfo(long life, long lifeMax, long initialMaxLife, float ratio, string name)
         {
@@ -311,6 +324,9 @@ internal class CalamityBarHealth
         }
     }
 
+    /// <summary>
+    /// <br/>清理GetInfo帧缓存:删除所有非当前帧的条目(仅缓存数量超限时触发,低频)。
+    /// </summary>
     private static void PruneInfoCache(ulong frame)
     {
         List<int> stale = null;
@@ -327,6 +343,9 @@ internal class CalamityBarHealth
                 InfoCache.Remove(key);
     }
 
+    /// <summary>
+    /// <br/>获取显示名:优先灾厄BossHPUI给的OverridingName(如Apollo的"Exo Twins"),没有则用NPC原名。
+    /// </summary>
     internal static string GetDisplayName(NPC npc)
     {
         string name = GetInfo(npc).Name;
@@ -339,7 +358,7 @@ internal class CalamityBarHealth
     internal static bool IsVanillaMultiPartSideType(int npcType) => VanillaMultiPartSideTypes.Contains(npcType);
 
     /// <summary>
-    /// <br/>这三个Boss(世吞/石巨人/月总)即使灾厄启用也优先使用我们自己的多体节求和,不走灾厄BossHPUI。
+    /// <br/>标识世吞/石巨人/月总这三个Boss(只用于drawEvent去重,不参与血量计算)。
     /// </summary>
     internal static bool IsVanillaSumPriorityType(int npcType)
         => npcType == NPCID.EaterofWorldsHead || npcType == NPCID.Golem || npcType == NPCID.MoonLordCore;
@@ -405,6 +424,10 @@ internal class CalamityBarHealth
         return (info.Life, info.LifeMax, info.InitialMaxLife);
     }
 
+    /// <summary>
+    /// <br/>获取(或创建)这个NPC对应的灾厄BossHPUI实例,并调用一次Update()刷新状态。
+    /// <br/>缓存实例是为了让InitialMaxLife跨帧保持;NPC死亡时由RemoveNPC清理。
+    /// </summary>
     private static object GetOrCreateBossHPUI(NPC npc)
     {
         if (BossHPUICache.TryGetValue(npc.whoAmI, out object ui) && IsSameNPC(ui, npc))
@@ -427,6 +450,9 @@ internal class CalamityBarHealth
         return ui;
     }
 
+    /// <summary>
+    /// <br/>校验缓存的BossHPUI是否仍对应当前NPC(槽位相同且类型相同,防止whoAmI复用串数据)。
+    /// </summary>
     private static bool IsSameNPC(object ui, NPC npc)
     {
         if (associatedNPCProperty == null)
@@ -435,6 +461,9 @@ internal class CalamityBarHealth
         return assoc != null && assoc.active && assoc.whoAmI == npc.whoAmI && assoc.type == npc.type;
     }
 
+    /// <summary>
+    /// <br/>清理BossHPUI实例缓存:删除已失效(未活跃)NPC对应的条目。
+    /// </summary>
     private static void PruneCache()
     {
         List<int> dead = null;
@@ -452,6 +481,9 @@ internal class CalamityBarHealth
                 BossHPUICache.Remove(key);
     }
 
+    /// <summary>
+    /// <br/>反射读取灾厄CalamityGlobalNPC.CanHaveBossHealthBar,按NPC类型缓存结果(每类型只反射一次)。
+    /// </summary>
     private static bool CanHaveBossHealthBar(NPC npc)
     {
         if (CanHaveCache.TryGetValue(npc.type, out bool cached))

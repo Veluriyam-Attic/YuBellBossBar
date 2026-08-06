@@ -79,6 +79,9 @@ internal class PostHealthSystem
     private float Last;
     private int Timer;
 
+    /// <summary>
+    /// <br/>重置掉血延迟条状态(NPC死亡/槽位换新Boss时调用,防止延续旧Boss的显示值)。
+    /// </summary>
     public void Reset()
     {
         id = -1;
