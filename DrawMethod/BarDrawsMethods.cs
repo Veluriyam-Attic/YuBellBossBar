@@ -17,6 +17,8 @@ internal class BarDrawsMethods
     public NPC npc = new();
     public PostHealthSystem postHealthSystem = new();
 
+    internal void ResetPostHealth() => postHealthSystem.Reset();
+
     // 位置相关
     public Vector2[] CheckBox = new Vector2[2];
 
@@ -77,22 +79,50 @@ internal class BarDrawsMethods
                 {
                     Type specialbarType = specialbar.GetType();
                     FieldInfo _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
-                    while (_cacheInfo == null)
+                    while (_cacheInfo == null && specialbarType.BaseType != null)
                     {
-                        _cacheInfo = specialbarType.BaseType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
                         specialbarType = specialbarType.BaseType;
+                        _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
                     }
-                    BigProgressBarCache _cache = (BigProgressBarCache)_cacheInfo.GetValue(specialbar);
-                    life = _cache.LifeCurrent;
-                    lifemax = _cache.LifeMax;
-                    shield = _cache.ShieldCurrent;
-                    shieldmax = _cache.ShieldMax;
-                    shieldpercentage = shield / shieldmax;
+                    if (_cacheInfo != null && _cacheInfo.GetValue(specialbar) is BigProgressBarCache _cache)
+                    {
+                        life = _cache.LifeCurrent;
+                        lifemax = _cache.LifeMax;
+                        shield = _cache.ShieldCurrent;
+                        shieldmax = _cache.ShieldMax;
+                        shieldpercentage = shield / shieldmax;
+                    }
+                    else
+                    {
+                        // 找不到缓存字段或缓存为空时回退到NPC原始血量,避免NRE
+                        life = npc.life;
+                        lifemax = npc.lifeMax;
+                    }
                 }
                 else
                 {
                     life = npc.life;
                     lifemax = npc.lifeMax;
+                }
+            }
+
+            // 灾厄适配:只对灾厄专门适配过的Boss生效,血量/上限/百分比全部取自灾厄自己的BossHPUI
+            // Calamity adaptation: only affects bosses that Calamity itself adapted; all values come from Calamity's BossHPUI
+            // 世吞/月总指定走原版途径(不覆盖),石巨人走灾厄途径,其它Boss按默认(灾厄适配用灾厄)
+            bool useCalamityData = npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.MoonLordCore;
+            if (useCalamityData && YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded && CalamityBarHealth.IsCalamityAdaptedBoss(npc))
+            {
+                CalamityBarHealth.CalamityBarInfo calInfo = CalamityBarHealth.GetInfo(npc);
+                if (calInfo.Life > 0 && calInfo.InitialMaxLife > 0)
+                {
+                    life = calInfo.Life;
+                    lifemax = calInfo.InitialMaxLife;
+
+                    // 灾厄自己的血条没有护盾,清掉护盾让文字信息走血量分支
+                    // Calamity's own bar has no shield, clear it so the text uses the life branch
+                    shield = 0;
+                    shieldmax = 0;
+                    shieldpercentage = 0;
                 }
             }
 
@@ -143,10 +173,12 @@ internal class BarDrawsMethods
 
             if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Icon, out icon))
             {
-                if (npc.GetBossHeadTextureIndex() >= 0)
-                    icon = new BarTexture2D(TextureType.Icon, TextureAssets.NpcHeadBoss[npc.GetBossHeadTextureIndex()], TextureSource.None);
+                int headIndex = npc.GetBossHeadTextureIndex();
+                if (headIndex >= 0)
+                    icon = new BarTexture2D(TextureType.Icon, TextureAssets.NpcHeadBoss[headIndex], TextureSource.None);
                 else
-                    icon = new BarTexture2D(TextureType.Icon, ModContent.Request<Texture2D>("YuBellBossBar/Texture/Sweetie"), TextureSource.None);
+                    // 索引为-1(灾厄BossHeadSlot隐藏头像时):优先用BarGlobalNPC缓存的有效头像,没有再回退甜心
+                    icon = new BarTexture2D(TextureType.Icon, npc.GetGlobalNPC<BarGlobalNPC>()?.CachedBossHead ?? ModContent.Request<Texture2D>("YuBellBossBar/Texture/Sweetie"), TextureSource.None);
             }
 
             extraBetweenIconAndInfo = barInfo.barTextures.extraTexturesBetweenIconAndInfo;
@@ -377,7 +409,7 @@ internal class BarDrawsMethods
                         barInfo.ShowLifeMax && BarConfig.Instance.ShowLifeMax,
                         barInfo.ShowPercent && BarConfig.Instance.ShowPercent,
                         barInfo.ShowSegment && BarConfig.Instance.ShowSegment,
-                        spriteBatch, position, BarConfig.Instance.BarLength, [life, lifemax, percentage], GlobalAlpha, npc, barInfo.Segment, shieldpercentage, DrawText);
+                        spriteBatch, position, BarConfig.Instance.BarLength, [life, lifemax, percentage, shield, shieldmax], GlobalAlpha, npc, barInfo.Segment, shieldpercentage, DrawText);
                 }
                 else
                 {
@@ -687,7 +719,7 @@ internal class BarDrawsMethods
                     string Info = string.Empty;
                     if (bool_name)
                     {
-                        Info += Lang.GetNPCName(npc.type).ToString();
+                        Info += GetBossDisplayName(npc);
                     }
                     if (bool_life)
                     {
@@ -729,13 +761,13 @@ internal class BarDrawsMethods
                 }
 
                 string Info = string.Empty;
-                if (lifefloats[3] > 0 && BarConfig.Instance.ShowShield)
+                if (lifefloats.Length > 3 && lifefloats[3] > 0 && BarConfig.Instance.ShowShield)
                     Info = GetText(lifefloats[3], lifefloats[4], shieldpercentage);
                 else
                 {
                     Info = GetText(lifefloats[0], lifefloats[1], lifefloats[2]);
                     if (npc.dontTakeDamage && BarConfig.Instance.ShowInvincible && bool_invincible)
-                        Info = "[" + Lang.GetNPCName(npc.type).ToString() + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + "]";
+                        Info = "[" + GetBossDisplayName(npc) + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + "]";
                 }
 
                 DrawBorderStringWithCenter(spriteBatch, Info, position, Color.White * GlobalAlpha);
@@ -757,6 +789,16 @@ internal class BarDrawsMethods
             NumberGroupSizes = new[] { Language.ActiveCulture == GameCulture.FromCultureName(GameCulture.CultureName.Chinese) ? BarConfig.Instance.ChineseCommaGap : BarConfig.Instance.CommaGap },
             NumberGroupSeparator = ","
         });
+    }
+
+    /// <summary>
+    /// <br/>获取要显示的名字:灾厄适配过的Boss用灾厄BossHPUI给的显示名(OverridingName ?? FullName),其余走原来的逻辑。
+    /// </summary>
+    internal static string GetBossDisplayName(NPC npc)
+    {
+        if (YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded && CalamityBarHealth.IsCalamityAdaptedBoss(npc))
+            return CalamityBarHealth.GetDisplayName(npc);
+        return Lang.GetNPCName(npc.type).ToString();
     }
 
     internal void StandardDrawFill(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, int lengthPost, int lengthNow, float postpercentage, int shieldlength)

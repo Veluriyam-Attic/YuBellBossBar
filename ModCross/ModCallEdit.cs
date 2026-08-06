@@ -88,7 +88,9 @@ internal class ModCallEdit
                         }
                         else
                         {
-                            BarInfo bridage = new BarInfo();
+                            // 不能用 new BarInfo():struct 无参构造不执行字段初始化器,ShowBar/ShowText 等会全是 false
+                            // 复制默认银条,保留所有默认显示开关
+                            BarInfo bridage = new BarInfo(BarData.BarInfos[int.MinValue]);
                             bridage.ShowInvincible = (bool)args[4];
                             BarData.BarInfos.Add(Convert.ToInt32(args[3]), bridage);
                         }

@@ -9,12 +9,6 @@ internal static class BarData
 #pragma warning disable IDE0090,IDE0028
     public static Dictionary<int, BarInfo> BarInfos = new Dictionary<int, BarInfo>();
 
-    /// <summary>
-    /// <br/>反射拿到的原版词典
-    /// <br/>The Vanilla dictionary obtained by reflection
-    /// </summary>
-    public static Dictionary<int, IBigProgressBar> _bossBarsByNpcNetId;
-
     public static void InstantiateBuildInContent()
     {
         #region 默认贴图 Default Texture

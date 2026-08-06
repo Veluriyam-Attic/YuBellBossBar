@@ -28,20 +28,33 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
     public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
     {
-        Delegate[] D_array = drawEvent?.GetInvocationList();
-
-        int x = 0;
-        if (D_array != null)
+        try
         {
-            foreach (Delegate D in D_array)
+            Delegate[] D_array = drawEvent?.GetInvocationList();
+
+            int x = 0;
+            if (D_array != null)
             {
-                D?.DynamicInvoke(spriteBatch, new Vector2(BarDrawsMethods.position.X, BarDrawsMethods.position.Y - (x * 85)));
-                x++;
-                if (x >= 3)
-                    break;
+                foreach (Delegate D in D_array)
+                {
+                    // 直接强转调用,避免 DynamicInvoke 的反射装箱开销
+                    ((Action<SpriteBatch, Vector2>)D)?.Invoke(spriteBatch, new Vector2(BarDrawsMethods.position.X, BarDrawsMethods.position.Y - (x * 85)));
+                    x++;
+                    if (x >= 3)
+                        break;
+                }
             }
         }
-        drawEvent = null;
+        catch (Exception e)
+        {
+            // 打印异常,避免被静默吞掉后血条不显示且排查不到原因
+            Main.NewText("[Yet Another Mod Log] 血条绘制异常: " + e, Color.Red);
+        }
+        finally
+        {
+            // 无论是否异常都清空,防止 drawEvent 每帧累积导致委托爆炸
+            drawEvent = null;
+        }
     }
 }
 

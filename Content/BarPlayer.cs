@@ -21,6 +21,9 @@ public class BarPlayer : ModPlayer
 
     public override void OnEnterWorld()
     {
+        // 进入新世界清空灾厄适配的所有缓存,防止上一场战斗的InitialMaxLife等残留给同类型Boss
+        CalamityBarHealth.ClearCaches();
+
         if (BarConfig.Instance.OnEnterWorldInfo)
         {
             Main.NewText(Language.GetTextValue("Mods.YuBellBossBar.Info.OnEnterWorld"));

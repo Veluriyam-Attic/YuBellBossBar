@@ -30,24 +30,15 @@ public class YuBellBossBar : Mod
         }
 
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded
-        if (CalamityAdapt && ModLoader.HasMod("CalamityMod"))
+        if (ModLoader.HasMod("CalamityMod"))
         {
-            CalamityBarHealth.CalamityLoaded = true;
+            // 自动启用灾厄血条适配(只对灾厄专门适配过的Boss生效)
+            // Automatically enable the Calamity Mod boss bar adaptation
+            CalamityAdapt = true;
 
-            {
-                // 初始化各个值防止反射的过度调用
-                // Initialize values to prevent excessive reflection calls
-#pragma warning disable IDE0300
-                CalamityBarHealth.bossHealthBarManager = ModLoader.GetMod("CalamityMod").Code.GetType("CalamityMod.UI.BossHealthBarManager");
-                CalamityBarHealth.oneToMany = CalamityBarHealth.bossHealthBarManager.GetField("OneToMany");
-                CalamityBarHealth.OneToMany = CalamityBarHealth.oneToMany.GetValue(CalamityBarHealth.oneToMany) as Dictionary<int, int[]>;
-                CalamityBarHealth.bossHPUI = CalamityBarHealth.bossHealthBarManager.GetNestedType("BossHPUI", BindingFlags.Public);
-                CalamityBarHealth.constructor = CalamityBarHealth.bossHPUI.GetConstructor(new Type[] { typeof(int), typeof(string) });
-                CalamityBarHealth.updateMethod = CalamityBarHealth.bossHPUI.GetMethod("Update");
-            }
-
-            FieldInfo SpecialBarDic = typeof(BigProgressBarSystem).GetField("_bossBarsByNpcNetId", BindingFlags.NonPublic | BindingFlags.Instance);
-            BarData._bossBarsByNpcNetId = SpecialBarDic.GetValue(SpecialBarDic) as Dictionary<int, IBigProgressBar>;
+            // 反射初始化灾厄Boss血条相关成员(完全不引用CalamityMod.dll)
+            // Initialize reflected members of Calamity's boss health bar without referencing CalamityMod.dll at all
+            CalamityBarHealth.CalamityLoaded = CalamityBarHealth.Initialize();
         }
         #endregion
     }

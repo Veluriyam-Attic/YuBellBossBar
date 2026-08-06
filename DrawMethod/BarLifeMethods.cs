@@ -79,6 +79,13 @@ internal class PostHealthSystem
     private float Last;
     private int Timer;
 
+    public void Reset()
+    {
+        id = -1;
+        Health = 0;
+        Last = 0;
+        Timer = 0;
+    }
 
     public float GetPostHealth(int npcId, float percentage)
     {
