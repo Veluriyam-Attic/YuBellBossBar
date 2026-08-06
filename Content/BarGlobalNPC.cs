@@ -20,7 +20,8 @@ internal class BarGlobalNPC : GlobalNPC
         DrawsMethods.ResetPostHealth();
     }
 
-    public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
+
+    public override void PostAI(NPC npc)
     {
         // 头像索引有效就刷新缓存;无效时由Draw使用缓存,缓存为空才回退默认头像
         int headIndex = npc.GetBossHeadTextureIndex();
@@ -39,7 +40,5 @@ internal class BarGlobalNPC : GlobalNPC
             DrawsMethods.npc = npc;
             YAB.drawEvent += DrawsMethods.Draw;
         }
-
-        return base.PreDraw(npc, spriteBatch, screenPos, drawColor);
     }
 }
