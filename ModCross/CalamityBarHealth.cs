@@ -33,6 +33,12 @@ internal class CalamityBarHealth
     private static FieldInfo apolloExoMechdusaField;      // Apollo.exoMechdusa
     private static MethodInfo calamityGetTextValueMethod; // CalamityUtils.GetTextValue(string)
     private static Mod calamityMod;                       // CalamityMod 的 Mod 实例,用引用比较代替每帧字符串比较
+    private static int slimeGodCoreType = -1;             // 史莱姆之神本体:不显示血条
+    private static int ceaselessVoidType = -1;            // 无尽虚空:走ModBossBar途径,不走灾厄BossHPUI
+    private static int cryogenType = -1;                  // 极地之灵:走ModBossBar途径,不走灾厄BossHPUI
+
+    // 强制显示血条的灾厄NPC(即使不满足灾厄适配/没有头贴图):分裂后的圣卫(圣骑士分裂体)、噬魂幽花复制体
+    private static readonly HashSet<int> ForceShowTypes = new();
 
     // ---- 灾厄自己维护的数据(反射自 BossHealthBarManager 的静态字段) ----
     public static Dictionary<int, int[]> OneToMany;
@@ -144,6 +150,17 @@ internal class CalamityBarHealth
             Type calamityUtilsType = calamity.Code?.GetType("CalamityMod.CalamityUtils");
             calamityGetTextValueMethod = calamityUtilsType?.GetMethod("GetTextValue", BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(string) }, null);
 
+            // 史莱姆之神本体不显示血条;无尽虚空走ModBossBar途径(通过Find按名字找类型ID,不引用程序集)
+            try { slimeGodCoreType = calamity.Find<ModNPC>("SlimeGodCore").Type; } catch { slimeGodCoreType = -1; }
+            try { ceaselessVoidType = calamity.Find<ModNPC>("CeaselessVoid").Type; } catch { ceaselessVoidType = -1; }
+            try { cryogenType = calamity.Find<ModNPC>("Cryogen").Type; } catch { cryogenType = -1; }
+
+            // 分裂后的圣卫(圣骑士分裂体)与噬魂幽花复制体:强制显示血条
+            ForceShowTypes.Clear();
+            try { ForceShowTypes.Add(calamity.Find<ModNPC>("SplitEbonianPaladin").Type); } catch { }
+            try { ForceShowTypes.Add(calamity.Find<ModNPC>("SplitCrimulanPaladin").Type); } catch { }
+            try { ForceShowTypes.Add(calamity.Find<ModNPC>("PolterPhantom").Type); } catch { }
+
             return bossHPUIConstructor != null
                 && bossHPUIUpdateMethod != null
                 && combinedLifeProperty != null
@@ -228,6 +245,8 @@ internal class CalamityBarHealth
         bool excluded = excludedSet != null && excludedSet.Contains(npc.type);
         // Artemis:灾厄永远不给它血条
         bool artemis = artemisType != null && npc.ModNPC != null && npc.ModNPC.GetType() == artemisType;
+        // 强制显示:分裂后的圣卫、噬魂幽花复制体等
+        bool forceShow = ForceShowTypes.Contains(npc.type);
 
         // IsCalamityAdaptedBoss:灾厄本体Boss / OneToMany多体节组合(含原版世吞等) / 小Boss列表 / CanHaveBossHealthBar标记
         state.Adapted = !excluded && !artemis
@@ -236,11 +255,11 @@ internal class CalamityBarHealth
                 || (minibossSet != null && minibossSet.Contains(npc.type))
                 || CanHaveBossHealthBar(npc));
 
-        // ShouldHideBar:非灾厄NPC恒不隐藏;Artemis隐藏;未适配且没挂灾厄ModBossBar的体节/部件隐藏
-        state.Hide = isCalamityNpc && (artemis || (!state.Adapted && !(npc.BossBar is ModBossBar)));
+        // ShouldHideBar:非灾厄NPC恒不隐藏;Artemis/史莱姆之神本体隐藏;强制显示的NPC不隐藏;未适配且没挂灾厄ModBossBar的体节/部件隐藏
+        state.Hide = isCalamityNpc && !forceShow && (artemis || npc.type == slimeGodCoreType || (!state.Adapted && !(npc.BossBar is ModBossBar)));
 
-        // ShouldForceDrawBar:灾厄主Boss(本体boss或挂着灾厄ModBossBar)即使没有头贴图也放行
-        state.Force = isCalamityNpc && !excluded && !artemis && (npc.boss || npc.BossBar is ModBossBar);
+        // ShouldForceDrawBar:灾厄主Boss(本体boss/挂着灾厄ModBossBar/强制显示列表)即使没有头贴图也放行
+        state.Force = isCalamityNpc && !excluded && !artemis && (npc.boss || npc.BossBar is ModBossBar || forceShow);
         return state;
     }
 
@@ -362,6 +381,16 @@ internal class CalamityBarHealth
     /// </summary>
     internal static bool IsVanillaSumPriorityType(int npcType)
         => npcType == NPCID.EaterofWorldsHead || npcType == NPCID.Golem || npcType == NPCID.MoonLordCore;
+
+    /// <summary>
+    /// <br/>无尽虚空(灾厄):指定走ModBossBar途径,不覆盖灾厄BossHPUI。
+    /// </summary>
+    internal static bool IsCeaselessVoidType(int npcType) => npcType == ceaselessVoidType;
+
+    /// <summary>
+    /// <br/>极地之灵(灾厄):指定走ModBossBar途径,不覆盖灾厄BossHPUI。
+    /// </summary>
+    internal static bool IsCryogenType(int npcType) => npcType == cryogenType;
 
     /// <summary>
     /// <br/>每帧每个多体节Boss(世吞/石巨人/月总)只注册一个drawEvent,返回false表示本帧该Boss已经有血条了,跳过。

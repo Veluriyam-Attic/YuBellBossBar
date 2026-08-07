@@ -5,6 +5,9 @@ public class BarPlayer : ModPlayer
 
     public override void PostUpdate()
     {
+        // 每帧更新所有已注册血条事件的淡出:死亡/失活的NPC淡出到0后自动从事件订阅移除
+        BarGlobalNPC.UpdateFades();
+
         // 如果没有Boss在场就移除索引
         // 一定要在这里判断,要不然就会导致死的时候场上还有Boss就永远不可能运行代码了
         // if there is no boss in the field, remove all indexs

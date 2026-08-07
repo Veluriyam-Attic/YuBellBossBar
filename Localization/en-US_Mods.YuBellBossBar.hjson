@@ -216,6 +216,11 @@ Configs: {
 			Label: Enable Simultaneously
 			Tooltip: ""
 		}
+
+		MultipleBarAmount: {
+			Label: Multiple Bar Amount
+			Tooltip: ""
+		}
 	}
 }
 

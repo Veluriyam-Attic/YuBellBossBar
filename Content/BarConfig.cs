@@ -46,6 +46,10 @@ public class BarConfig : ModConfig
 
     [Header($"CustomHeader")]
 
+    [DefaultValue(3)]
+    [Range(1,int.MaxValue)]
+    public int MultipleBarAmount;
+
     [DefaultValue(false)]
     public bool EnableSimultaneously;
 

@@ -37,8 +37,11 @@ internal class BarDrawsMethods
         return true;
     }
 
-    public void Draw(SpriteBatch spriteBatch, Vector2 position)
+    public int Draw(SpriteBatch spriteBatch, Vector2 position)
     {
+        // 淡出系数:由PostAI每帧维护的FadeAlpha(最大255)决定,透明度乘 FadeAlpha/255
+        // 移除委托的动作在PostAI/OnKill里直接从事件订阅执行,不依赖本方法被调用
+        float fadeFactor = npc.GetGlobalNPC<BarGlobalNPC>()?.FadeAlpha / 255f ?? 1f;
 
         // 这个是当前绘制需要的血条信息
         BarInfo barInfo;
@@ -53,7 +56,6 @@ internal class BarDrawsMethods
 
         if (barInfo.ShowBar && BarConfig.Instance.ShowBar)
         {
-
             #region 声明所需局部变量
             // 血量相关
             float life = 0;
@@ -61,8 +63,6 @@ internal class BarDrawsMethods
             float shieldpercentage = 0;
             float shield = 0;
             float shieldmax = 0;
-
-            BigProgressBarInfo info = default;
 
             if (npc.BossBar is ModBossBar bar)
             {
@@ -108,8 +108,9 @@ internal class BarDrawsMethods
 
             // 灾厄适配:只对灾厄专门适配过的Boss生效,血量/上限/百分比全部取自灾厄自己的BossHPUI
             // Calamity adaptation: only affects bosses that Calamity itself adapted; all values come from Calamity's BossHPUI
-            // 世吞/月总指定走原版途径(不覆盖),石巨人走灾厄途径,其它Boss按默认(灾厄适配用灾厄)
-            bool useCalamityData = npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.MoonLordCore;
+            // 世吞/月总走原版途径,无尽虚空/极地之灵走ModBossBar途径(都不覆盖灾厄),石巨人走灾厄途径,其它Boss按默认
+            bool useCalamityData = npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.MoonLordCore
+                && !CalamityBarHealth.IsCeaselessVoidType(npc.type) && !CalamityBarHealth.IsCryogenType(npc.type);
             if (useCalamityData && YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded && CalamityBarHealth.IsCalamityAdaptedBoss(npc))
             {
                 CalamityBarHealth.CalamityBarInfo calInfo = CalamityBarHealth.GetInfo(npc);
@@ -293,7 +294,7 @@ internal class BarDrawsMethods
 
             #region Alpha乘数
             bool MouseAlpha = Collision.CheckAABBvAABBCollision(Main.MouseScreen, Vector2.One, new Vector2(position.X - (BarConfig.Instance.BarLength / 2) - head.fillOffset.X, position.Y - (fill.texture.Value.Height / (2 * fill.frameCount)) - head.fillOffset.Y), new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - tail.fillOffset.X + tail.texture.Value.Width, Math.Max(head.texture.Value.Height / head.frameCount, tail.texture.Value.Height / tail.frameCount)));
-            float GlobalAlpha = (MouseAlpha ? ((float)BarConfig.Instance.MouseAlpha / 100) : 1f) * ((float)BarConfig.Instance.Alpha / 100);
+            float GlobalAlpha = (MouseAlpha ? ((float)BarConfig.Instance.MouseAlpha / 100) : 1f) * ((float)BarConfig.Instance.Alpha / 100) * fadeFactor;
             #endregion
 
             #region 额外绘制填充之下
@@ -429,8 +430,6 @@ internal class BarDrawsMethods
 
             void DrawInfoWithNum(Vector2 LeftTopPosition, BarTexture2D bt, string num, int heightPF)
             {
-                Vector2 p = LeftTopPosition - new Vector2(0, heightPF + 5f);
-
                 Vector2 size = FontAssets.MouseText.Value.MeasureString(num);
                 Vector2 Namepostion = new Vector2(size.X / 2, size.Y / 3);
 
@@ -451,7 +450,7 @@ internal class BarDrawsMethods
                 {
                     frameNow.TryAdd(defense, 1);
                     int heightPF = defense.texture.Value.Height / defense.frameCount;
-                    DrawInfoWithNum(CheckBox[0] + new Vector2(head.fillOffset.X, -heightPF - 5f), defense, ToStringWithComma(npc.defense), heightPF);
+                    DrawInfoWithNum(new Vector2(position.X - (BarConfig.Instance.BarLength / 2) - head.fillOffset.X - defense.texture.Value.Width - 5,position.Y - (heightPF / 2)), defense, ToStringWithComma(npc.defense), heightPF);
                 }
             }
 
@@ -471,10 +470,11 @@ internal class BarDrawsMethods
                         string name = Main.player[npc.target].name.ToString();
                         Vector2 size = FontAssets.MouseText.Value.MeasureString(name);
 
-                        Vector2 LeftTopPosition = new Vector2(position.X - ((size.X + target.texture.Value.Width) / 2), CheckBox[0].Y - heightPF - 5f);
+                        Vector2 center = new Vector2(position.X + (BarConfig.Instance.BarLength / 2) + tail.texture.Value.Width - tail.fillOffset.X + 5, position.Y);
 
-                        spriteBatch.Draw(target.texture.Value, LeftTopPosition, Color.White * GlobalAlpha);
-                        Utils.DrawBorderString(spriteBatch, name, new Vector2(LeftTopPosition.X + target.texture.Value.Width, LeftTopPosition.Y + (size.Y / 5)), Color.White * GlobalAlpha);
+                        spriteBatch.Draw(target.texture.Value,new Vector2(center.X,center.Y - (heightPF / 2)),Color.White * GlobalAlpha);
+
+                        Utils.DrawBorderString(spriteBatch, name, new Vector2(center.X + target.texture.Value.Width +5,center.Y -(size.Y / 3)), Color.White * GlobalAlpha);
                     }
                 }
             }
@@ -490,7 +490,7 @@ internal class BarDrawsMethods
                 {
                     frameNow.TryAdd(damage, 1);
                     int heightPF = damage.texture.Value.Height / damage.frameCount;
-                    DrawInfoWithNum(CheckBox[0] + new Vector2(BarConfig.Instance.BarLength + head.fillOffset.X - damage.texture.Value.Width, -heightPF - 5f), damage, ToStringWithComma(npc.damage), heightPF);
+                    DrawInfoWithNum(new Vector2(position.X - (BarConfig.Instance.BarLength / 2) - head.fillOffset.X - ((damage.texture.Value.Width + 5)*2), position.Y - (heightPF / 2)), damage, ToStringWithComma(npc.damage), heightPF);
                 }
             }
 
@@ -506,6 +506,8 @@ internal class BarDrawsMethods
 
             #endregion
         }
+
+        return Math.Max(head.texture.Value.Height / head.frameCount, tail.texture.Value.Height / tail.frameCount) + 5;
     }
 
     public void PostDraw(SpriteBatch spriteBatch)
@@ -767,7 +769,7 @@ internal class BarDrawsMethods
                 {
                     Info = GetText(lifefloats[0], lifefloats[1], lifefloats[2]);
                     if (npc.dontTakeDamage && BarConfig.Instance.ShowInvincible && bool_invincible)
-                        Info = "[" + GetBossDisplayName(npc) + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + "]";
+                        Info = "[" + GetBossDisplayName(npc) + " : " + Language.GetTextValue("Mods.YuBellBossBar.Info.Invincible") + " : " + string.Format("{0:f2}", (lifefloats[0] / lifefloats[1]) * 100) + "%" + "]";
                 }
 
                 DrawBorderStringWithCenter(spriteBatch, Info, position, Color.White * GlobalAlpha);
@@ -922,7 +924,6 @@ internal class BarDrawsMethods
         int HeightPF = icon.texture.Value.Height / icon.frameCount;
 
         spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, HeightPF / 2), FrameChooser(icon, HeightPF), Color.White * GlobalAlpha);
-
     }
 }
 

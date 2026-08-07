@@ -24,7 +24,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
     public override void OnDeselected() => Selected = false;
 
-    public static event Action<SpriteBatch, Vector2> drawEvent;
+    public static event Func<SpriteBatch, Vector2,int> drawEvent;
 
     public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
     {
@@ -33,14 +33,15 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
             Delegate[] D_array = drawEvent?.GetInvocationList();
 
             int x = 0;
+            int count = 0;
             if (D_array != null)
             {
                 foreach (Delegate D in D_array)
                 {
                     // 直接强转调用,避免 DynamicInvoke 的反射装箱开销
-                    ((Action<SpriteBatch, Vector2>)D)?.Invoke(spriteBatch, new Vector2(BarDrawsMethods.position.X, BarDrawsMethods.position.Y - (x * 85)));
-                    x++;
-                    if (x >= 3)
+                    x += ((Func<SpriteBatch, Vector2, int>)D).Invoke(spriteBatch, new Vector2(BarDrawsMethods.position.X, BarDrawsMethods.position.Y - x));
+                    count++;
+                    if (count >= BarConfig.Instance.MultipleBarAmount)
                         break;
                 }
             }
@@ -50,11 +51,8 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
             // 打印异常,避免被静默吞掉后血条不显示且排查不到原因
             Main.NewText("[Yet Another Mod Log] 血条绘制异常: " + e, Color.Red);
         }
-        finally
-        {
-            // 无论是否异常都清空,防止 drawEvent 每帧累积导致委托爆炸
-            drawEvent = null;
-        }
+        // 注意:drawEvent不再每帧清空,改为跨帧保留;
+        // 由BarGlobalNPC按whoAmI删旧加新防止重复,由FadeAlpha淡出到0自动移除
     }
 }
 
