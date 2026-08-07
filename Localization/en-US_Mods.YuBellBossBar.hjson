@@ -213,13 +213,13 @@ Configs: {
 		}
 
 		EnableSimultaneously: {
-			Label: Enable Simultaneously
-			Tooltip: ""
+			Label: Show Health Bar When Other Styles Are Selected
+			Tooltip: Disabled by default. This option is mainly for displaying the health bar alongside Calamity's own boss bar.
 		}
 
 		MultipleBarAmount: {
-			Label: Multiple Bar Amount
-			Tooltip: ""
+			Label: Maximum Number of Health Bars
+			Tooltip: Defaults to 3.
 		}
 	}
 }

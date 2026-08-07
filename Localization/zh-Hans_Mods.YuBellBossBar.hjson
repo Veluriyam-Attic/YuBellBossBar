@@ -213,13 +213,13 @@ Configs: {
 		}
 
 		EnableSimultaneously: {
-			// Label: Enable Simultaneously
-			// Tooltip: ""
+			Label: 选择其他血条风格时仍显示血条
+			Tooltip: 默认关闭，该功能主要服务于可以与灾厄的血条同时显示
 		}
 
 		MultipleBarAmount: {
-			// Label: Multiple Bar Amount
-			// Tooltip: ""
+			Label: 多血条显示数量上限
+			Tooltip: 默认为3
 		}
 	}
 }
