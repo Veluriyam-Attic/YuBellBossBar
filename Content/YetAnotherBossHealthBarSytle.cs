@@ -26,7 +26,13 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
     public static event Func<SpriteBatch, Vector2,int> drawEvent;
 
-    public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
+    /// <summary>
+    /// <br/>触发所有已注册的NPC血条绘制委托。
+    /// <br/>既会被本模组样式选中时的 Draw 调用,也会在"同时显示"开启且选择了其他样式时
+    /// <br/>由 BarDrawSystem 挂在所有 ModBossBarStyle.Draw 上的钩子调用,
+    /// <br/>确保 PreventDraw=true 的样式也能与本模组血条并存显示。
+    /// </summary>
+    public static void DrawRegisteredBars(SpriteBatch spriteBatch)
     {
         try
         {
@@ -53,6 +59,11 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
         }
         // 注意:drawEvent不再每帧清空,改为跨帧保留;
         // 由BarGlobalNPC按whoAmI删旧加新防止重复,由FadeAlpha淡出到0自动移除
+    }
+
+    public override void Draw(SpriteBatch spriteBatch, IBigProgressBar currentBar, BigProgressBarInfo info)
+    {
+        DrawRegisteredBars(spriteBatch);
     }
 }
 

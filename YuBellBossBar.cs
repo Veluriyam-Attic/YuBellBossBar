@@ -27,6 +27,7 @@ public class YuBellBossBar : Mod
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerCore, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerTurret, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MoonLordCore, false);
+            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.BrainofCthulhu, false);
         }
 
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded

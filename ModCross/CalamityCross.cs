@@ -18,7 +18,6 @@ internal class CalamityCloneAdapt : ModType
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHeadFree, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistLeft, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistRight, false);
-            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.BrainofCthulhu, false);
 
             if (!ModLoader.HasMod("InfernumMode"))
             {

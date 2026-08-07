@@ -150,6 +150,12 @@ internal class BarDrawsMethods
                     BarLifeMethods.maxlifes[npctype] = max;
             }
 
+            if (life <= 0)
+            {
+                life = 0;
+                percentage = 0;
+            }
+
             #endregion
             // 贴图相关
 #pragma warning disable IDE0018
