@@ -19,6 +19,47 @@ internal class BarDrawsMethods
 
     internal void ResetPostHealth() => postHealthSystem.Reset();
 
+    private static FieldInfo bossBarLifeField;
+    private static FieldInfo bossBarShieldField;
+
+    /// <summary>
+    /// <br/>死亡入口调用:把本血条读取的血量数据源清零(保留上限),
+    /// <br/>让淡出期间显示空血而不是上一帧残留血量。
+    /// <br/>覆盖三条数据路径:ModBossBar / 原版特殊Boss条缓存 / NPC原始血量。
+    /// </summary>
+    internal void MarkDead(NPC npc)
+    {
+        // 普通路径:直接清空NPC血量(上限保留,文字仍显示 0/最大值)
+        npc.life = 0;
+
+        // ModBossBar路径:清空私有 life/shield 字段,保留 lifeMax/shieldMax
+        if (npc.BossBar is ModBossBar bar)
+        {
+            bossBarLifeField ??= typeof(ModBossBar).GetField("life", BindingFlags.NonPublic | BindingFlags.Instance);
+            bossBarShieldField ??= typeof(ModBossBar).GetField("shield", BindingFlags.NonPublic | BindingFlags.Instance);
+            bossBarLifeField?.SetValue(bar, 0f);
+            bossBarShieldField?.SetValue(bar, 0f);
+        }
+
+        // 原版特殊Boss条路径(世吞/月总/石巨人等):清空缓存当前值,保留上限
+        if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar))
+        {
+            Type specialbarType = specialbar.GetType();
+            FieldInfo cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+            while (cacheInfo == null && specialbarType.BaseType != null)
+            {
+                specialbarType = specialbarType.BaseType;
+                cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+            }
+            if (cacheInfo != null && cacheInfo.GetValue(specialbar) is BigProgressBarCache cache)
+            {
+                cache.LifeCurrent = 0;
+                cache.ShieldCurrent = 0;
+                cacheInfo.SetValue(specialbar, cache);
+            }
+        }
+    }
+
     // 位置相关
     public Vector2[] CheckBox = new Vector2[2];
 

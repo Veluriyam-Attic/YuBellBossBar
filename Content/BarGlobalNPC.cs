@@ -27,7 +27,10 @@ internal class BarGlobalNPC : GlobalNPC
         CalamityBarHealth.RemoveNPC(npc);
         CachedBossHead = null;
         DrawsMethods.ResetPostHealth();
-        // 死亡时不直接移除委托:由UpdateFades每帧自减FadeAlpha,淡出到0后才从事件订阅移除
+        // Boss死后AI不再调用,血量/缓存会停留在上一帧;
+        // 在死亡入口把数据源清零(保留上限),让淡出期间显示空血而不是残留血量
+        DrawsMethods.MarkDead(npc);
+        // 保留委托:由UpdateFades每帧自减FadeAlpha,淡出到0后才从事件订阅移除
     }
 
 
