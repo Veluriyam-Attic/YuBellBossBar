@@ -37,5 +37,7 @@ public class BarPlayer : ModPlayer
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsHead] = true;
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsBody] = true;
         NPCID.Sets.DangerThatPreventsOtherDangers[NPCID.EaterofWorldsTail] = true;
+
+        YAB.ClearEvent();
     }
 }

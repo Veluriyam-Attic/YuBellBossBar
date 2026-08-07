@@ -80,6 +80,7 @@ internal class BarDrawsMethods
 
     public int Draw(SpriteBatch spriteBatch, Vector2 position)
     {
+
         // 淡出系数:由PostAI每帧维护的FadeAlpha(最大255)决定,透明度乘 FadeAlpha/255
         // 移除委托的动作在PostAI/OnKill里直接从事件订阅执行,不依赖本方法被调用
         float fadeFactor = npc.GetGlobalNPC<BarGlobalNPC>()?.FadeAlpha / 255f ?? 1f;
@@ -97,111 +98,6 @@ internal class BarDrawsMethods
 
         if (barInfo.ShowBar && BarConfig.Instance.ShowBar)
         {
-            #region 声明所需局部变量
-            // 血量相关
-            float life = 0;
-            float lifemax = 0;
-            float shieldpercentage = 0;
-            float shield = 0;
-            float shieldmax = 0;
-
-            if (npc.BossBar is ModBossBar bar)
-            {
-
-                life = bar.Life;
-                lifemax = bar.LifeMax;
-                shield = bar.Shield;
-                shieldmax = bar.ShieldMax;
-                shieldpercentage = shield / shieldmax;
-            }
-            else
-            {
-                if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar) && npc.type != NPCID.DungeonGuardian && npc.type != NPCID.Spazmatism && npc.type != NPCID.Retinazer)
-                {
-                    Type specialbarType = specialbar.GetType();
-                    FieldInfo _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
-                    while (_cacheInfo == null && specialbarType.BaseType != null)
-                    {
-                        specialbarType = specialbarType.BaseType;
-                        _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
-                    }
-                    if (_cacheInfo != null && _cacheInfo.GetValue(specialbar) is BigProgressBarCache _cache)
-                    {
-                        life = _cache.LifeCurrent;
-                        lifemax = _cache.LifeMax;
-                        shield = _cache.ShieldCurrent;
-                        shieldmax = _cache.ShieldMax;
-                        shieldpercentage = shield / shieldmax;
-                    }
-                    else
-                    {
-                        // 找不到缓存字段或缓存为空时回退到NPC原始血量,避免NRE
-                        life = npc.life;
-                        lifemax = npc.lifeMax;
-                    }
-                }
-                else
-                {
-                    life = npc.life;
-                    lifemax = npc.lifeMax;
-                }
-            }
-
-            // 灾厄适配:只对灾厄专门适配过的Boss生效,血量/上限/百分比全部取自灾厄自己的BossHPUI
-            // Calamity adaptation: only affects bosses that Calamity itself adapted; all values come from Calamity's BossHPUI
-            // 世吞/月总走原版途径,无尽虚空/极地之灵走ModBossBar途径(都不覆盖灾厄),石巨人走灾厄途径,其它Boss按默认
-            bool useCalamityData = npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.MoonLordCore
-                && !CalamityBarHealth.IsCeaselessVoidType(npc.type) && !CalamityBarHealth.IsCryogenType(npc.type);
-            if (useCalamityData && YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded && CalamityBarHealth.IsCalamityAdaptedBoss(npc))
-            {
-                CalamityBarHealth.CalamityBarInfo calInfo = CalamityBarHealth.GetInfo(npc);
-                if (calInfo.Life > 0 && calInfo.InitialMaxLife > 0)
-                {
-                    life = calInfo.Life;
-                    lifemax = calInfo.InitialMaxLife;
-
-                    // 灾厄自己的血条没有护盾,清掉护盾让文字信息走血量分支
-                    // Calamity's own bar has no shield, clear it so the text uses the life branch
-                    shield = 0;
-                    shieldmax = 0;
-                    shieldpercentage = 0;
-                }
-            }
-
-            float percentage = life / lifemax;
-            float postpercentage = postHealthSystem.GetPostHealth(npc.whoAmI, percentage);
-            int lengthNow = (int)(percentage * BarConfig.Instance.BarLength);
-            int lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
-            int shieldlength = (int)(BarConfig.Instance.BarLength * shieldpercentage);
-
-            #region 同步不同体节血量
-
-            if (barInfo.Segment != null && BarConfig.Instance.ImprovedLifeCalculation)
-            {
-                BarLifeMethods.Calculation(npc, life, lifemax);
-
-                float max = barInfo.Segment.Max(npctype =>
-                {
-                    if (BarLifeMethods.maxlifes.ContainsKey(npctype))
-                        return BarLifeMethods.maxlifes[npctype];
-                    else
-                        return BarLifeMethods.maxlifes[npc.type];
-                });
-                foreach (int npctype in barInfo.Segment)
-                    BarLifeMethods.maxlifes[npctype] = max;
-            }
-
-            if (life <= 0)
-            {
-                life = 0;
-                percentage = 0;
-            }
-
-            #endregion
-            // 贴图相关
-#pragma warning disable IDE0018
-            #endregion
-
             #region 根据模组配置重新选择贴图
 
             extraBelowFill = barInfo.barTextures.extraTexturesBelowFill;
@@ -335,6 +231,116 @@ internal class BarDrawsMethods
             frameNow.TryAdd(fill, 1);
             frameNow.TryAdd(icon, 1);
 
+            #endregion
+
+            #region 声明所需局部变量
+            // 血量相关
+            float life = 0;
+            float lifemax = 0;
+            float shieldpercentage = 0;
+            float shield = 0;
+            float shieldmax = 0;
+
+            if (npc.BossBar is ModBossBar bar)
+            {
+
+                life = bar.Life;
+                lifemax = bar.LifeMax;
+                shield = bar.Shield;
+                shieldmax = bar.ShieldMax;
+                shieldpercentage = shield / shieldmax;
+                Rectangle? iconFrame = null;
+                icon.texture = bar.GetIconTexture(ref iconFrame);
+            }
+            else
+            {
+                if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar) && npc.type != NPCID.Spazmatism && npc.type != NPCID.Retinazer && npc.type != NPCID.DungeonGuardian)
+                {
+                    Type specialbarType = specialbar.GetType();
+                    FieldInfo _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+                    while (_cacheInfo == null && specialbarType.BaseType != null)
+                    {
+                        specialbarType = specialbarType.BaseType;
+                        _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+                    }
+                    if (_cacheInfo != null && _cacheInfo.GetValue(specialbar) is BigProgressBarCache _cache)
+                    {
+                        life = _cache.LifeCurrent;
+                        lifemax = _cache.LifeMax;
+                        shield = _cache.ShieldCurrent;
+                        shieldmax = _cache.ShieldMax;
+                        shieldpercentage = shield / shieldmax;
+                    }
+                    else
+                    {
+                        // 找不到缓存字段或缓存为空时回退到NPC原始血量,避免NRE
+                        life = npc.life;
+                        lifemax = npc.lifeMax;
+                    }
+                }
+                else
+                {
+                    if (npc.BossBar != Main.BigBossProgressBar.NeverValid)
+                    {
+                        life = npc.life;
+                        lifemax = npc.lifeMax;
+                    }
+                }
+            }
+
+            // 灾厄适配:只对灾厄专门适配过的Boss生效,血量/上限/百分比全部取自灾厄自己的BossHPUI
+            // Calamity adaptation: only affects bosses that Calamity itself adapted; all values come from Calamity's BossHPUI
+            // 世吞/月总走原版途径,无尽虚空/极地之灵走ModBossBar途径(都不覆盖灾厄),石巨人走灾厄途径,其它Boss按默认
+            bool useCalamityData = npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.MoonLordCore
+                && !CalamityBarHealth.IsCeaselessVoidType(npc.type) && !CalamityBarHealth.IsCryogenType(npc.type);
+            if (useCalamityData && YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded && CalamityBarHealth.IsCalamityAdaptedBoss(npc))
+            {
+                CalamityBarHealth.CalamityBarInfo calInfo = CalamityBarHealth.GetInfo(npc);
+                if (calInfo.Life > 0 && calInfo.InitialMaxLife > 0)
+                {
+                    life = calInfo.Life;
+                    lifemax = calInfo.InitialMaxLife;
+
+                    // 灾厄自己的血条没有护盾,清掉护盾让文字信息走血量分支
+                    // Calamity's own bar has no shield, clear it so the text uses the life branch
+                    shield = 0;
+                    shieldmax = 0;
+                    shieldpercentage = 0;
+                }
+            }
+
+            float percentage = life / lifemax;
+            float postpercentage = postHealthSystem.GetPostHealth(npc.whoAmI, percentage);
+            int lengthNow = (int)(percentage * BarConfig.Instance.BarLength);
+            int lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
+            int shieldlength = (int)(BarConfig.Instance.BarLength * shieldpercentage);
+
+            #region 同步不同体节血量
+
+            if (barInfo.Segment != null && BarConfig.Instance.ImprovedLifeCalculation)
+            {
+                BarLifeMethods.Calculation(npc, life, lifemax);
+
+                float max = barInfo.Segment.Max(npctype =>
+                {
+                    if (BarLifeMethods.maxlifes.ContainsKey(npctype))
+                        return BarLifeMethods.maxlifes[npctype];
+                    else
+                        return BarLifeMethods.maxlifes[npc.type];
+                });
+                foreach (int npctype in barInfo.Segment)
+                    BarLifeMethods.maxlifes[npctype] = max;
+            }
+
+            if (life <= 0)
+            {
+                life = 0;
+                percentage = 0;
+            }
+
+            #endregion
+            // 贴图相关
+#pragma warning disable IDE0018
             #endregion
 
             #region 贴图绘制方法

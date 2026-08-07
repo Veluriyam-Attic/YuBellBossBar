@@ -183,6 +183,15 @@ internal class CalamityBarHealth
     }
 
     /// <summary>
+    /// <br/>判断这个NPC是否来自灾厄模组(按 Mod 引用比较,不依赖灾厄适配/强制显示逻辑)。
+    /// <br/>灾厄未加载或未初始化时恒为false。
+    /// </summary>
+    internal static bool IsCalamityNpc(NPC npc)
+    {
+        return npc?.ModNPC != null && calamityMod != null && npc.ModNPC.Mod == calamityMod;
+    }
+
+    /// <summary>
     /// <br/>判断这个灾厄NPC是否应该完全不画血条(和灾厄自己的血条保持一致):
     /// <br/>1. Artemis:灾厄永远不给它血条(Exo Twins共用一条,由Apollo显示);
     /// <br/>2. 被灾厄排除的体节/部件(塔纳托斯体节、吞噬者体节、阿瑞斯武器等),除非挂着灾厄自己的ModBossBar(如史莱姆神核心)。

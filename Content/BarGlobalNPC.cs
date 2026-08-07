@@ -40,15 +40,20 @@ internal class BarGlobalNPC : GlobalNPC
         int headIndex = npc.GetBossHeadTextureIndex();
         if (headIndex >= 0)
             CachedBossHead = TextureAssets.NpcHeadBoss[headIndex];
+        else if (CachedBossHead == null)
+            return;
 
         bool bossLike = npc.boss
             || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail
             || npc.type == NPCID.LunarTowerSolar || npc.type == NPCID.LunarTowerVortex
             || npc.type == NPCID.LunarTowerNebula || npc.type == NPCID.LunarTowerStardust;
 
+        // 来自灾厄模组的Boss:跳过原版 BossBar 有效性检验,避免灾厄把 npc.BossBar 设为 NeverValid 时血条不注册
+        bool isCalamityNpc = CalamityBarHealth.IsCalamityNpc(npc);
         bool shouldAdd = npc.active && !CalamityBarHealth.IsVanillaMultiPartSideType(npc.type)
             && CalamityBarHealth.TryRegisterVanillaBarDraw(npc.type)
-            && (bossLike || CalamityBarHealth.ShouldForceDrawBar(npc) || headIndex >= 0) && !CalamityBarHealth.ShouldHideBar(npc);
+            && (bossLike || CalamityBarHealth.ShouldForceDrawBar(npc) || headIndex >= 0) && !CalamityBarHealth.ShouldHideBar(npc)
+            && (isCalamityNpc || npc.BossBar != Main.BigBossProgressBar.NeverValid || npc.type == NPCID.DungeonGuardian);
 
         if (shouldAdd)
         {

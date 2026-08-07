@@ -65,5 +65,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
     {
         DrawRegisteredBars(spriteBatch);
     }
+
+    public static void ClearEvent() => drawEvent = null;
 }
 
