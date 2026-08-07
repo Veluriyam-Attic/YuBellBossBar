@@ -54,6 +54,16 @@ internal class BarGlobalNPC : GlobalNPC
             // 本帧重新添加事件,淡出重置回上限255
             FadeAlpha = 255f;
 
+            // 同一个 whoAmI 槽位可能已被新NPC复用:先移除旧实例的委托,
+            // 否则旧实例会从 DrawnHandlers 中"孤儿化",淡出永远卡住、血条残留
+            if (DrawnHandlers.TryGetValue(npc.whoAmI, out BarGlobalNPC oldSlot) && oldSlot != this)
+                oldSlot.RemoveDrawHandler();
+
+            // 世吞/石巨人/月总这类多段Boss:新主实体注册时,把同组正在淡出的旧血条立即移除,
+            // 避免"旧血条淡出 + 新血条显示"同时存在,出现多根血条
+            if (CalamityBarHealth.IsVanillaSumPriorityType(npc.type))
+                RemoveSameBossGroupHandlers(npc.type);
+
             // 删旧加新(按whoAmI):先从事件订阅移除自己上次添加的委托,再添加新的,防止重复
             if (DrawHandler != null)
                 YAB.drawEvent -= DrawHandler;
@@ -128,5 +138,28 @@ internal class BarGlobalNPC : GlobalNPC
                 DrawnHandlers.Remove(key);
 
         DrawHandler = null;
+    }
+
+    /// <summary>
+    /// <br/>移除指定Boss组(世吞/石巨人/月总)的所有已注册血条委托,
+    /// <br/>保证该组同一时间只存在一根血条,防止多根血条同时淡出。
+    /// </summary>
+    private static void RemoveSameBossGroupHandlers(int npcType)
+    {
+        List<BarGlobalNPC> remove = null;
+        foreach (KeyValuePair<int, BarGlobalNPC> kv in DrawnHandlers)
+        {
+            BarGlobalNPC other = kv.Value;
+            NPC otherNpc = other?.DrawsMethods?.npc;
+            if (otherNpc != null && otherNpc.type == npcType)
+            {
+                remove ??= new List<BarGlobalNPC>();
+                remove.Add(other);
+            }
+        }
+
+        if (remove != null)
+            foreach (BarGlobalNPC other in remove)
+                other.RemoveDrawHandler();
     }
 }
