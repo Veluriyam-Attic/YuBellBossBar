@@ -14,6 +14,21 @@ internal class BarDrawsMethods
     public List<BarTexture2D> extraBetweenIconAndInfo;
     public List<BarTexture2D> extraUponInfo;
 
+    BarInfo barInfo;
+    float fadeFactor;
+
+    float life = 0;
+    float lifemax = 0;
+    float shieldpercentage = 0;
+    float shield = 0;
+    float shieldmax = 0;
+
+    float percentage = 0;
+    float postpercentage = 0;
+    int lengthNow = 0;
+    int lengthPost = 0;
+    int shieldlength = 0;
+
     public NPC npc = new();
     public PostHealthSystem postHealthSystem = new();
 
@@ -69,24 +84,16 @@ internal class BarDrawsMethods
         { return Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2(BarConfig.Instance.BarPostionX, -BarConfig.Instance.BarPostionY - 40f); }
     }
 
-    public Dictionary<int, float> postpercentage = new Dictionary<int, float>();
+    public Dictionary<int, float> postpercentages = new Dictionary<int, float>();
 
     public Dictionary<BarTexture2D, int> frameNow = new Dictionary<BarTexture2D, int>();
 
-    public bool PreDraw(SpriteBatch spriteBatch)
-    {
-        return true;
-    }
-
-    public int Draw(SpriteBatch spriteBatch, Vector2 position)
+    public int PreDraw(SpriteBatch spriteBatch)
     {
 
         // 淡出系数:由PostAI每帧维护的FadeAlpha(最大255)决定,透明度乘 FadeAlpha/255
         // 移除委托的动作在PostAI/OnKill里直接从事件订阅执行,不依赖本方法被调用
-        float fadeFactor = npc.GetGlobalNPC<BarGlobalNPC>()?.FadeAlpha / 255f ?? 1f;
-
-        // 这个是当前绘制需要的血条信息
-        BarInfo barInfo;
+        fadeFactor = npc.GetGlobalNPC<BarGlobalNPC>()?.FadeAlpha / 255f ?? 1f;
 
         // 获取对应血条信息，如果未获取到，则使用默认血条信息
         // 同时在此处选择使用金色或银色版本
@@ -95,254 +102,262 @@ internal class BarDrawsMethods
             int index = int.MinValue;
             barInfo = BarData.BarInfos[index];
         }
-
-        if (barInfo.ShowBar && BarConfig.Instance.ShowBar)
+        // 获取对应血条信息，如果未获取到，则使用默认血条信息
+        // 同时在此处选择使用金色或银色版本
+        if (!BarData.BarInfos.TryGetValue(npc.type, out barInfo))
         {
-            #region 根据模组配置重新选择贴图
+            int index = int.MinValue;
+            barInfo = BarData.BarInfos[index];
+        }
 
-            extraBelowFill = barInfo.barTextures.extraTexturesBelowFill;
+        #region 根据模组配置重新选择贴图
 
-            barInfo.barTextures.baseTextures.TryGetValue(TextureType.Fill, out fill);
+        extraBelowFill = barInfo.barTextures.extraTexturesBelowFill;
 
-            extraBetweenFillAndFrame = barInfo.barTextures.extraTexturesBetweenFillAndFrame;
-            barInfo.barTextures.baseTextures.TryGetValue(TextureType.Frame, out frame);
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Fill, out fill);
 
-            extraBetweenFrameAndHeadEnd = barInfo.barTextures.extraTexturesBetweenFrameAndHeadEnd;
+        extraBetweenFillAndFrame = barInfo.barTextures.extraTexturesBetweenFillAndFrame;
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Frame, out frame);
 
-            barInfo.barTextures.baseTextures.TryGetValue(TextureType.Head, out head);
+        extraBetweenFrameAndHeadEnd = barInfo.barTextures.extraTexturesBetweenFrameAndHeadEnd;
 
-            barInfo.barTextures.baseTextures.TryGetValue(TextureType.Tail, out tail);
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Head, out head);
 
-            extraBetweenHeadEndAndIcon = barInfo.barTextures.extraTexturesBetweenHeadEndAndIcon;
+        barInfo.barTextures.baseTextures.TryGetValue(TextureType.Tail, out tail);
 
-            if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Icon, out icon))
+        extraBetweenHeadEndAndIcon = barInfo.barTextures.extraTexturesBetweenHeadEndAndIcon;
+
+        if (!barInfo.barTextures.baseTextures.TryGetValue(TextureType.Icon, out icon))
+        {
+            int headIndex = npc.GetBossHeadTextureIndex();
+            if (headIndex >= 0)
+                icon = new BarTexture2D(TextureType.Icon, TextureAssets.NpcHeadBoss[headIndex], TextureSource.None);
+            else
+                // 索引为-1(灾厄BossHeadSlot隐藏头像时):优先用BarGlobalNPC缓存的有效头像,没有再回退甜心
+                icon = new BarTexture2D(TextureType.Icon, npc.GetGlobalNPC<BarGlobalNPC>()?.CachedBossHead ?? ModContent.Request<Texture2D>("YuBellBossBar/Texture/Sweetie"), TextureSource.None);
+        }
+
+        extraBetweenIconAndInfo = barInfo.barTextures.extraTexturesBetweenIconAndInfo;
+
+        extraUponInfo = barInfo.barTextures.extraTexturesUponInfo;
+
+
+        if (BarConfig.Instance.ForceDefaulTexture)
+        {
+            extraBelowFill.Clear();
+            extraBetweenFillAndFrame.Clear();
+            extraBetweenFrameAndHeadEnd.Clear();
+            extraBetweenHeadEndAndIcon.Clear();
+            extraBetweenIconAndInfo.Clear();
+            extraUponInfo.Clear();
+        }
+
+
+        if (!tail.ConfigEnabled)
+        {
+            tail = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Tail];
+        }
+        if (!head.ConfigEnabled)
+        {
+            head = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Head];
+        }
+        if (!frame.ConfigEnabled)
+        {
+            frame = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Frame];
+        }
+        if (!fill.ConfigEnabled)
+        {
+            fill = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Fill];
+        }
+
+        void reselectTexture(ref BarTexture2D barTexture)
+        {
+            if ((BarConfig.Instance.ForceGoldenStyle || Main.expertMode) && !barTexture.texture.Name.Contains("_Exp"))
             {
-                int headIndex = npc.GetBossHeadTextureIndex();
-                if (headIndex >= 0)
-                    icon = new BarTexture2D(TextureType.Icon, TextureAssets.NpcHeadBoss[headIndex], TextureSource.None);
-                else
-                    // 索引为-1(灾厄BossHeadSlot隐藏头像时):优先用BarGlobalNPC缓存的有效头像,没有再回退甜心
-                    icon = new BarTexture2D(TextureType.Icon, npc.GetGlobalNPC<BarGlobalNPC>()?.CachedBossHead ?? ModContent.Request<Texture2D>("YuBellBossBar/Texture/Sweetie"), TextureSource.None);
-            }
+                BarTexture2D outvalue;
 
-            extraBetweenIconAndInfo = barInfo.barTextures.extraTexturesBetweenIconAndInfo;
-
-            extraUponInfo = barInfo.barTextures.extraTexturesUponInfo;
-
-
-            if (BarConfig.Instance.ForceDefaulTexture)
-            {
-                extraBelowFill.Clear();
-                extraBetweenFillAndFrame.Clear();
-                extraBetweenFrameAndHeadEnd.Clear();
-                extraBetweenHeadEndAndIcon.Clear();
-                extraBetweenIconAndInfo.Clear();
-                extraUponInfo.Clear();
-            }
-
-
-            if (!tail.ConfigEnabled)
-            {
-                tail = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Tail];
-            }
-            if (!head.ConfigEnabled)
-            {
-                head = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Head];
-            }
-            if (!frame.ConfigEnabled)
-            {
-                frame = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Frame];
-            }
-            if (!fill.ConfigEnabled)
-            {
-                fill = BarData.BarInfos[int.MinValue].barTextures.baseTextures[TextureType.Fill];
-            }
-
-            void reselectTexture(ref BarTexture2D barTexture)
-            {
-                if ((BarConfig.Instance.ForceGoldenStyle || Main.expertMode) && !barTexture.texture.Name.Contains("_Exp"))
+                string GetLastName(string path)
                 {
-                    BarTexture2D outvalue;
+                    int index = path.LastIndexOf('\\');
 
-                    string GetLastName(string path)
-                    {
-                        int index = path.LastIndexOf('\\');
+                    return index >= 0
+                        ? path[(index + 1)..]
+                        : path;
+                }
 
-                        return index >= 0
-                            ? path[(index + 1)..]
-                            : path;
-                    }
-
-                    switch (barTexture.source)
-                    {
-                        case TextureSource.DefaultTexture:
-                            {
-                                if (BuildInTextures.DefaultTexture.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
-                                    barTexture = outvalue;
-                                break;
-                            }
-                        case TextureSource.DefaultVanilla:
-                            {
-                                if (BuildInTextures.DefaultVanilla.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
-                                    barTexture = outvalue;
-                                break;
-                            }
-                        case TextureSource.ExtraVanilla:
-                            {
-                                if (BuildInTextures.ExtraVanilla.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
-                                    barTexture = outvalue;
-                                break;
-                            }
-                        case TextureSource.ExtraCalamity:
-                            {
-                                if (BuildInTextures.ExtraCalamity.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
-                                    barTexture = outvalue;
-                                break;
-                            }
-                        case TextureSource.ExtraAAClassic:
-                            {
-                                if (BuildInTextures.ExtraAAClassic.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
-                                    barTexture = outvalue;
-                                break;
-                            }
-                        case TextureSource.ExtraCustom:
-                            {
-                                if (BuildInTextures.ExtraCustom.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
-                                    barTexture = outvalue;
-                                break;
-                            }
-                        case TextureSource.ExtraInfo:
-                            {
-                                if (BuildInTextures.DefaultTexture.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
-                                    barTexture = outvalue;
-                                break;
-                            }
-                    }
+                switch (barTexture.source)
+                {
+                    case TextureSource.DefaultTexture:
+                        {
+                            if (BuildInTextures.DefaultTexture.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                barTexture = outvalue;
+                            break;
+                        }
+                    case TextureSource.DefaultVanilla:
+                        {
+                            if (BuildInTextures.DefaultVanilla.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                barTexture = outvalue;
+                            break;
+                        }
+                    case TextureSource.ExtraVanilla:
+                        {
+                            if (BuildInTextures.ExtraVanilla.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                barTexture = outvalue;
+                            break;
+                        }
+                    case TextureSource.ExtraCalamity:
+                        {
+                            if (BuildInTextures.ExtraCalamity.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                barTexture = outvalue;
+                            break;
+                        }
+                    case TextureSource.ExtraAAClassic:
+                        {
+                            if (BuildInTextures.ExtraAAClassic.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                barTexture = outvalue;
+                            break;
+                        }
+                    case TextureSource.ExtraCustom:
+                        {
+                            if (BuildInTextures.ExtraCustom.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                barTexture = outvalue;
+                            break;
+                        }
+                    case TextureSource.ExtraInfo:
+                        {
+                            if (BuildInTextures.DefaultTexture.TryGetValue(GetLastName(barTexture.texture.Name) + "_Exp", out outvalue))
+                                barTexture = outvalue;
+                            break;
+                        }
                 }
             }
-            reselectTexture(ref head);
-            reselectTexture(ref tail);
-            reselectTexture(ref frame);
+        }
+        reselectTexture(ref head);
+        reselectTexture(ref tail);
+        reselectTexture(ref frame);
 
 
-            frameNow.TryAdd(frame, 1);
-            frameNow.TryAdd(tail, 1);
-            frameNow.TryAdd(head, 1);
-            frameNow.TryAdd(fill, 1);
-            frameNow.TryAdd(icon, 1);
+        frameNow.TryAdd(frame, 1);
+        frameNow.TryAdd(tail, 1);
+        frameNow.TryAdd(head, 1);
+        frameNow.TryAdd(fill, 1);
+        frameNow.TryAdd(icon, 1);
 
-            #endregion
+        #endregion
 
-            #region 声明所需局部变量
-            // 血量相关
-            float life = 0;
-            float lifemax = 0;
-            float shieldpercentage = 0;
-            float shield = 0;
-            float shieldmax = 0;
+        #region 声明所需局部变量
+        // 血量相关
 
-            if (npc.BossBar is ModBossBar bar)
+        if (npc.BossBar is ModBossBar bar)
+        {
+
+            life = bar.Life;
+            lifemax = bar.LifeMax;
+            shield = bar.Shield;
+            shieldmax = bar.ShieldMax;
+            shieldpercentage = shield / shieldmax;
+            Rectangle? iconFrame = null;
+            icon.texture = bar.GetIconTexture(ref iconFrame);
+        }
+        else
+        {
+            if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar) && npc.type != NPCID.Spazmatism && npc.type != NPCID.Retinazer && npc.type != NPCID.DungeonGuardian)
             {
-
-                life = bar.Life;
-                lifemax = bar.LifeMax;
-                shield = bar.Shield;
-                shieldmax = bar.ShieldMax;
-                shieldpercentage = shield / shieldmax;
-                Rectangle? iconFrame = null;
-                icon.texture = bar.GetIconTexture(ref iconFrame);
+                Type specialbarType = specialbar.GetType();
+                FieldInfo _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+                while (_cacheInfo == null && specialbarType.BaseType != null)
+                {
+                    specialbarType = specialbarType.BaseType;
+                    _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+                }
+                if (_cacheInfo != null && _cacheInfo.GetValue(specialbar) is BigProgressBarCache _cache)
+                {
+                    life = _cache.LifeCurrent;
+                    lifemax = _cache.LifeMax;
+                    shield = _cache.ShieldCurrent;
+                    shieldmax = _cache.ShieldMax;
+                    shieldpercentage = shield / shieldmax;
+                }
+                else
+                {
+                    // 找不到缓存字段或缓存为空时回退到NPC原始血量,避免NRE
+                    life = npc.life;
+                    lifemax = npc.lifeMax;
+                }
             }
             else
             {
-                if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar) && npc.type != NPCID.Spazmatism && npc.type != NPCID.Retinazer && npc.type != NPCID.DungeonGuardian)
+                if (npc.BossBar != Main.BigBossProgressBar.NeverValid)
                 {
-                    Type specialbarType = specialbar.GetType();
-                    FieldInfo _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
-                    while (_cacheInfo == null && specialbarType.BaseType != null)
-                    {
-                        specialbarType = specialbarType.BaseType;
-                        _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
-                    }
-                    if (_cacheInfo != null && _cacheInfo.GetValue(specialbar) is BigProgressBarCache _cache)
-                    {
-                        life = _cache.LifeCurrent;
-                        lifemax = _cache.LifeMax;
-                        shield = _cache.ShieldCurrent;
-                        shieldmax = _cache.ShieldMax;
-                        shieldpercentage = shield / shieldmax;
-                    }
-                    else
-                    {
-                        // 找不到缓存字段或缓存为空时回退到NPC原始血量,避免NRE
-                        life = npc.life;
-                        lifemax = npc.lifeMax;
-                    }
+                    life = npc.life;
+                    lifemax = npc.lifeMax;
                 }
+            }
+        }
+
+        // 灾厄适配:只对灾厄专门适配过的Boss生效,血量/上限/百分比全部取自灾厄自己的BossHPUI
+        // Calamity adaptation: only affects bosses that Calamity itself adapted; all values come from Calamity's BossHPUI
+        // 世吞/月总走原版途径,无尽虚空/极地之灵走ModBossBar途径(都不覆盖灾厄),石巨人走灾厄途径,其它Boss按默认
+        bool useCalamityData = npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.MoonLordCore
+            && !CalamityBarHealth.IsCeaselessVoidType(npc.type) && !CalamityBarHealth.IsCryogenType(npc.type);
+        if (useCalamityData && YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded && CalamityBarHealth.IsCalamityAdaptedBoss(npc))
+        {
+            CalamityBarHealth.CalamityBarInfo calInfo = CalamityBarHealth.GetInfo(npc);
+            if (calInfo.Life > 0 && calInfo.InitialMaxLife > 0)
+            {
+                life = calInfo.Life;
+                lifemax = calInfo.InitialMaxLife;
+
+                // 灾厄自己的血条没有护盾,清掉护盾让文字信息走血量分支
+                // Calamity's own bar has no shield, clear it so the text uses the life branch
+                shield = 0;
+                shieldmax = 0;
+                shieldpercentage = 0;
+            }
+        }
+
+        percentage = life / lifemax;
+        postpercentage = postHealthSystem.GetPostHealth(npc.whoAmI, percentage);
+        lengthNow = (int)(percentage * BarConfig.Instance.BarLength);
+        lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
+        shieldlength = (int)(BarConfig.Instance.BarLength * shieldpercentage);
+
+        #region 同步不同体节血量
+
+        if (barInfo.Segment != null && BarConfig.Instance.ImprovedLifeCalculation)
+        {
+            BarLifeMethods.Calculation(npc, life, lifemax);
+
+            float max = barInfo.Segment.Max(npctype =>
+            {
+                if (BarLifeMethods.maxlifes.ContainsKey(npctype))
+                    return BarLifeMethods.maxlifes[npctype];
                 else
-                {
-                    if (npc.BossBar != Main.BigBossProgressBar.NeverValid)
-                    {
-                        life = npc.life;
-                        lifemax = npc.lifeMax;
-                    }
-                }
-            }
+                    return BarLifeMethods.maxlifes[npc.type];
+            });
+            foreach (int npctype in barInfo.Segment)
+                BarLifeMethods.maxlifes[npctype] = max;
+        }
 
-            // 灾厄适配:只对灾厄专门适配过的Boss生效,血量/上限/百分比全部取自灾厄自己的BossHPUI
-            // Calamity adaptation: only affects bosses that Calamity itself adapted; all values come from Calamity's BossHPUI
-            // 世吞/月总走原版途径,无尽虚空/极地之灵走ModBossBar途径(都不覆盖灾厄),石巨人走灾厄途径,其它Boss按默认
-            bool useCalamityData = npc.type != NPCID.EaterofWorldsHead && npc.type != NPCID.MoonLordCore
-                && !CalamityBarHealth.IsCeaselessVoidType(npc.type) && !CalamityBarHealth.IsCryogenType(npc.type);
-            if (useCalamityData && YuBellBossBar.CalamityAdapt && CalamityBarHealth.CalamityLoaded && CalamityBarHealth.IsCalamityAdaptedBoss(npc))
-            {
-                CalamityBarHealth.CalamityBarInfo calInfo = CalamityBarHealth.GetInfo(npc);
-                if (calInfo.Life > 0 && calInfo.InitialMaxLife > 0)
-                {
-                    life = calInfo.Life;
-                    lifemax = calInfo.InitialMaxLife;
+        if (life <= 0)
+        {
+            life = 0;
+            percentage = 0;
+        }
 
-                    // 灾厄自己的血条没有护盾,清掉护盾让文字信息走血量分支
-                    // Calamity's own bar has no shield, clear it so the text uses the life branch
-                    shield = 0;
-                    shieldmax = 0;
-                    shieldpercentage = 0;
-                }
-            }
-
-            float percentage = life / lifemax;
-            float postpercentage = postHealthSystem.GetPostHealth(npc.whoAmI, percentage);
-            int lengthNow = (int)(percentage * BarConfig.Instance.BarLength);
-            int lengthPost = (int)(postpercentage * BarConfig.Instance.BarLength);
-            int shieldlength = (int)(BarConfig.Instance.BarLength * shieldpercentage);
-
-            #region 同步不同体节血量
-
-            if (barInfo.Segment != null && BarConfig.Instance.ImprovedLifeCalculation)
-            {
-                BarLifeMethods.Calculation(npc, life, lifemax);
-
-                float max = barInfo.Segment.Max(npctype =>
-                {
-                    if (BarLifeMethods.maxlifes.ContainsKey(npctype))
-                        return BarLifeMethods.maxlifes[npctype];
-                    else
-                        return BarLifeMethods.maxlifes[npc.type];
-                });
-                foreach (int npctype in barInfo.Segment)
-                    BarLifeMethods.maxlifes[npctype] = max;
-            }
-
-            if (life <= 0)
-            {
-                life = 0;
-                percentage = 0;
-            }
-
-            #endregion
-            // 贴图相关
+        #endregion
+        // 贴图相关
 #pragma warning disable IDE0018
-            #endregion
+        #endregion
 
+        return Math.Max(head.texture.Value.Height / head.frameCount, tail.texture.Value.Height / tail.frameCount)+5;
+    }
+
+    public void Draw(SpriteBatch spriteBatch, Vector2 position)
+    {
+
+        if (barInfo.ShowBar && BarConfig.Instance.ShowBar)
+        {
             #region 贴图绘制方法
 
             #region Alpha乘数
@@ -560,7 +575,6 @@ internal class BarDrawsMethods
             #endregion
         }
 
-        return Math.Max(head.texture.Value.Height / head.frameCount, tail.texture.Value.Height / tail.frameCount) + 5;
     }
 
     public void PostDraw(SpriteBatch spriteBatch)

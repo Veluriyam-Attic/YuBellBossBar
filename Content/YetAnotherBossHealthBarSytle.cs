@@ -24,7 +24,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
     public override void OnDeselected() => Selected = false;
 
-    public static event Func<SpriteBatch, Vector2,int> drawEvent;
+    public static event Func<BarDrawsMethods> drawEvent;
 
     /// <summary>
     /// <br/>触发所有已注册的NPC血条绘制委托。
@@ -39,16 +39,28 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
             Delegate[] D_array = drawEvent?.GetInvocationList();
 
             int x = 0;
-            int count = 0;
             if (D_array != null)
             {
-                foreach (Delegate D in D_array)
+                // 只取本帧实际要画的血条数量(最多 MultipleBarAmount 根)
+                int drawCount = Math.Max(0, Math.Min(D_array.Length, BarConfig.Instance.MultipleBarAmount));
+
+                // 第一遍:先调用所有要画血条的 PreDraw,拿到各自高度
+                int[] heights = new int[drawCount];
+                for (int i = 0; i < drawCount; i++)
+                    heights[i] = ((Func<BarDrawsMethods>)D_array[i])().PreDraw(spriteBatch);
+
+                // 第二遍:当前血条位置用累加前的 x,间隔取当前和下一根高度的平均值,再 Draw -> PostDraw
+                for (int i = 0; i < drawCount; i++)
                 {
-                    // 直接强转调用,避免 DynamicInvoke 的反射装箱开销
-                    x += ((Func<SpriteBatch, Vector2, int>)D).Invoke(spriteBatch, new Vector2(BarDrawsMethods.position.X, BarDrawsMethods.position.Y - x));
-                    count++;
-                    if (count >= BarConfig.Instance.MultipleBarAmount)
-                        break;
+                    BarDrawsMethods current = ((Func<BarDrawsMethods>)D_array[i])();
+                    int currentHeight = heights[i];
+                    int nextHeight = i + 1 < drawCount ? heights[i + 1] : currentHeight;
+
+                    Vector2 barPosition = new Vector2(BarDrawsMethods.position.X, BarDrawsMethods.position.Y - x);
+                    x += (currentHeight + nextHeight) / 2;
+
+                    current.Draw(spriteBatch, barPosition);
+                    current.PostDraw(spriteBatch);
                 }
             }
         }

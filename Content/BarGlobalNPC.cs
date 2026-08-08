@@ -14,7 +14,7 @@ internal class BarGlobalNPC : GlobalNPC
     public float FadeAlpha = 255f;
 
     /// <summary>本NPC当前注册到drawEvent上的委托(用于按whoAmI删旧加新和自移除)</summary>
-    public Func<SpriteBatch, Vector2,int> DrawHandler;
+    public Func<BarDrawsMethods> DrawHandler;
 
     /// <summary>whoAmI -> 当前注册的委托,用于"添加过这个NPC的事件就删旧加新"</summary>
     internal static readonly Dictionary<int, BarGlobalNPC> DrawnHandlers = new();
@@ -76,7 +76,7 @@ internal class BarGlobalNPC : GlobalNPC
             if (DrawHandler != null)
                 YAB.drawEvent -= DrawHandler;
 
-            DrawHandler = DrawsMethods.Draw;
+            DrawHandler = () => DrawsMethods;
             YAB.drawEvent += DrawHandler;
             DrawnHandlers[npc.whoAmI] = this;
         }
