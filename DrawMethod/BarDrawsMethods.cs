@@ -417,7 +417,7 @@ internal class BarDrawsMethods
                 }
                 else
                 {
-                    StandardDrawHead(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc);
+                    StandardDrawHead(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc,fill.texture.Value.Height / fill.frameCount);
                 }
             }
             #endregion
@@ -430,7 +430,8 @@ internal class BarDrawsMethods
                 }
                 else
                 {
-                    StandardDrawTail(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc);
+                    StandardDrawTail(spriteBatch, position, life, lifemax, percentage, GlobalAlpha, npc
+                        ,fill.texture.Value.Height / fill.frameCount);
                 }
             }
             #endregion
@@ -872,7 +873,7 @@ internal class BarDrawsMethods
 
     internal void StandardDrawFill(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc, int lengthPost, int lengthNow, float postpercentage, int shieldlength)
     {
-        Vector2 StartPosition = position - new Vector2(BarConfig.Instance.BarLength / 2, fill.texture.Value.Height / (2 * fill.frameCount));
+        Vector2 StartPosition = position - new Vector2(1+(BarConfig.Instance.BarLength / 2), fill.texture.Value.Height / (2 * fill.frameCount));
         int filllengh = (int)(BarConfig.Instance.BarLength * percentage);
 
         #region 填充部分
@@ -965,21 +966,21 @@ internal class BarDrawsMethods
         }
     }
 
-    internal void StandardDrawHead(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc)
+    internal void StandardDrawHead(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc,int fillHPF)
     {
         int HeightPF = head.texture.Value.Height / head.frameCount;
-        Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X, HeightPF / 2);
+        Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X, (fillHPF / 2)  + head.fillOffset.Y);
 
         CheckBox[0] = StartPosition;
 
         spriteBatch.Draw(head.texture.Value, StartPosition, FrameChooser(head, HeightPF), Color.White * GlobalAlpha);
     }
 
-    internal void StandardDrawTail(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc)
+    internal void StandardDrawTail(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc,int fillHPF)
     {
         int HeightPF = tail.texture.Value.Height / tail.frameCount;
 
-        Vector2 StartPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
+        Vector2 StartPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -(fillHPF / 2) - tail.fillOffset.Y);
 
         CheckBox[1] = StartPosition;
 

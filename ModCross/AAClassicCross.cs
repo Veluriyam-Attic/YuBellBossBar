@@ -340,19 +340,19 @@ internal class AAClassicCross : ModType
             #endregion
 
             #region 穹武鸮姬 雅典娜
-            var AthenaBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-AthenaABarHead", GetTexture("AthenaABarHead"), new Vector2(28, 28), new Vector2(14, 37), null);
-            var AthenaBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-AthenaABarBody", GetTexture("AthenaABarBody"), "Dulplicate", null);
-            var AthenaBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-AthenaABarTail", GetTexture("AthenaABarTail"), new Vector2(20, 28), null);
-            var AthenaBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-AthenaABarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Silver, null);
+            var AthenaBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-AthenaBarHead", GetTexture("AthenaBarHead"), new Vector2(28, 28), new Vector2(14, 37), null);
+            var AthenaBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-AthenaBarBody", GetTexture("AthenaBarBody"), "Dulplicate", null);
+            var AthenaBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-AthenaBarTail", GetTexture("AthenaBarTail"), new Vector2(20, 16), null);
+            var AthenaBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-AthenaBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Silver, null);
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("Athena").Type, new List<object> { AthenaBarHead, AthenaBarBody, AthenaBarTail, AthenaBarFill }, null, null, null);
             #endregion
 
             #region 觉醒之奥林匹亚女武神 雅典娜
-            var AthenaABarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-AthenaBarHead", GetTexture("AthenaBarHead"), new Vector2(28, 28), new Vector2(14, 37), null);
-            var AthenaABarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-AthenaBarBody", GetTexture("AthenaBarBody"), "Dulplicate", null);
-            var AthenaABarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-AthenaBarTail", GetTexture("AthenaBarTail"), new Vector2(20, 28), null);
-            var AthenaABarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-AthenaBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Silver, null);
+            var AthenaABarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-AthenaABarHead", GetTexture("AthenaABarHead"), new Vector2(28, 28), new Vector2(14, 37), null);
+            var AthenaABarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-AthenaABarBody", GetTexture("AthenaABarBody"), "Dulplicate", null);
+            var AthenaABarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-AthenaABarTail", GetTexture("AthenaABarTail"), new Vector2(20, 16), null);
+            var AthenaABarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-AthenaABarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Silver, null);
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("AthenaA").Type, new List<object> { AthenaABarHead, AthenaABarBody, AthenaABarTail, AthenaABarFill }, null, null, null);
             #endregion
