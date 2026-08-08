@@ -60,7 +60,6 @@ internal class AAClassicCross : ModType
             var RGCBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-RGCBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.DarkOrange, 1, 6, null, null);
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("GripOfChaosInferno").Type, new List<object> { RGCBarHead, RGCBarBody, RGCBarTail, RGCBarFill }, null, null, null);
-            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("BlazeGrip").Type, new List<object> { RGCBarHead, RGCBarBody, RGCBarTail, RGCBarFill }, null, null, null);
             #endregion
 
             #region 潭渊爪
@@ -70,7 +69,6 @@ internal class AAClassicCross : ModType
             var BGCBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-BGCBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Indigo,null);
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("GripOfChaosMire").Type, new List<object> { BGCBarHead, BGCBarBody, BGCBarTail, BGCBarFill }, null, null, null);
-            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("AbyssGrip").Type, new List<object> { BGCBarHead, BGCBarBody, BGCBarTail, BGCBarFill }, null, null, null);
             #endregion
 
             #region 育母炎龙
@@ -296,6 +294,24 @@ internal class AAClassicCross : ModType
             var ShenABarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-" + "ShenA" + "BarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Purple, null);
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("ShenDoragonA").Type, new List<object> { ShenABarHead, ShenABarBody, ShenABarTail, ShenABarFill }, null, null, null);
+            #endregion
+
+            #region 上神狱怒之爪
+            var BGBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-BGBarHead", GetTexture("BGBarHead"), new Vector2(54, 12), new Vector2(23, 26), 1, 6, null, null);
+            var BGBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-BGBarBody", GetTexture("BGBarBody"), "Extend", 1, 6, null, null);
+            var BGBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-BGBarTail", GetTexture("BGBarTail"), new Vector2(30, 10), 1, 6, null, null);
+            var BGBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-BGBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.DarkOrange, 1, 6, null, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("BlazeGrip").Type, new List<object> { BGBarHead, BGBarBody, BGBarTail, BGBarFill }, null, null, null);
+            #endregion
+
+            #region 上神渊惧之爪
+            var AGBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-AGBarHead", GetTexture("AGBarHead"), new Vector2(54, 12), new Vector2(23, 26), 1, 6, null, null);
+            var AGBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-AGBarBody", GetTexture("AGBarBody"), "Extend", 1, 6, null, null);
+            var AGBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-AGBarTail", GetTexture("AGBarTail"), new Vector2(30, 10), 1, 6, null, null);
+            var AGBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-AGBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Indigo, 1, 6, null, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("AbyssGrip").Type, new List<object> { AGBarHead, AGBarBody, AGBarTail, AGBarFill }, null, null, null);
             #endregion
 
             #region 无限零 机械恶意
