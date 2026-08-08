@@ -40,7 +40,7 @@ internal class BarGlobalNPC : GlobalNPC
         int headIndex = npc.GetBossHeadTextureIndex();
         if (headIndex >= 0)
             CachedBossHead = TextureAssets.NpcHeadBoss[headIndex];
-        else if (CachedBossHead == null)
+        else if (CachedBossHead == null && npc.type != NPCID.MoonLordCore)
             return;
 
         bool bossLike = npc.boss
