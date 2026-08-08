@@ -34,7 +34,7 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
     /// </summary>
     public static void DrawRegisteredBars(SpriteBatch spriteBatch)
     {
-        try
+        //try
         {
             Delegate[] D_array = drawEvent?.GetInvocationList();
 
@@ -64,10 +64,10 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
                 }
             }
         }
-        catch (Exception e)
+        //catch (Exception e)
         {
             // 打印异常,避免被静默吞掉后血条不显示且排查不到原因
-            Main.NewText("[Yet Another Mod Log] 血条绘制异常: " + e, Color.Red);
+            //Main.NewText("[Yet Another Mod Log] 血条绘制异常: " + e, Color.Red);
         }
         // 注意:drawEvent不再每帧清空,改为跨帧保留;
         // 由BarGlobalNPC按whoAmI删旧加新防止重复,由FadeAlpha淡出到0自动移除

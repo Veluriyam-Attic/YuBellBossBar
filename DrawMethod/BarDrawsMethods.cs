@@ -60,11 +60,11 @@ internal class BarDrawsMethods
         if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar))
         {
             Type specialbarType = specialbar.GetType();
-            FieldInfo cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
-            while (cacheInfo == null && specialbarType.BaseType != null)
+            FieldInfo cacheInfo = null;
+            while (cacheInfo == null && specialbarType != null)
             {
-                specialbarType = specialbarType.BaseType;
                 cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+                specialbarType = specialbarType.BaseType;
             }
             if (cacheInfo != null && cacheInfo.GetValue(specialbar) is BigProgressBarCache cache)
             {
@@ -264,11 +264,11 @@ internal class BarDrawsMethods
             if (Main.BigBossProgressBar.TryGetSpecialVanillaBossBar(npc.type, out IBigProgressBar specialbar) && npc.type != NPCID.Spazmatism && npc.type != NPCID.Retinazer && npc.type != NPCID.DungeonGuardian)
             {
                 Type specialbarType = specialbar.GetType();
-                FieldInfo _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
-                while (_cacheInfo == null && specialbarType.BaseType != null)
+                FieldInfo _cacheInfo = null;
+                while (_cacheInfo == null && specialbarType != null)
                 {
-                    specialbarType = specialbarType.BaseType;
                     _cacheInfo = specialbarType.GetField("_cache", BindingFlags.NonPublic | BindingFlags.Instance);
+                    specialbarType = specialbarType.BaseType;
                 }
                 if (_cacheInfo != null && _cacheInfo.GetValue(specialbar) is BigProgressBarCache _cache)
                 {
@@ -534,16 +534,16 @@ internal class BarDrawsMethods
                 {
                     frameNow.TryAdd(target, 1);
                     int heightPF = target.texture.Value.Height / target.frameCount;
-                    if (npc.target >= 0)
+                    if (npc.target >= 0 && npc.target < 256)
                     {
                         string name = Main.player[npc.target].name.ToString();
                         Vector2 size = FontAssets.MouseText.Value.MeasureString(name);
 
                         Vector2 center = new Vector2(position.X + (BarConfig.Instance.BarLength / 2) + tail.texture.Value.Width - tail.fillOffset.X + 5, position.Y);
 
-                        spriteBatch.Draw(target.texture.Value,new Vector2(center.X,center.Y - (heightPF / 2)),Color.White * GlobalAlpha);
+                        spriteBatch.Draw(target.texture.Value, new Vector2(center.X, center.Y - (heightPF / 2)), Color.White * GlobalAlpha);
 
-                        Utils.DrawBorderString(spriteBatch, name, new Vector2(center.X + target.texture.Value.Width +5,center.Y -(size.Y / 3)), Color.White * GlobalAlpha);
+                        Utils.DrawBorderString(spriteBatch, name, new Vector2(center.X + target.texture.Value.Width + 5, center.Y - (size.Y / 3)), Color.White * GlobalAlpha);
                     }
                 }
             }

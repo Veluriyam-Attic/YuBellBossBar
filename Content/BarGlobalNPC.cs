@@ -50,7 +50,10 @@ internal class BarGlobalNPC : GlobalNPC
 
         // 来自灾厄模组的Boss:跳过原版 BossBar 有效性检验,避免灾厄把 npc.BossBar 设为 NeverValid 时血条不注册
         bool isCalamityNpc = CalamityBarHealth.IsCalamityNpc(npc);
-        bool shouldAdd = npc.active && !CalamityBarHealth.IsVanillaMultiPartSideType(npc.type)
+        // 神秘传送门(旧日军团传送门)不显示任何血条
+        // Mysterious Portal (Old One's Army portal) never gets a boss bar
+        bool shouldAdd = npc.active && npc.type != NPCID.DD2LanePortal
+            && !CalamityBarHealth.IsVanillaMultiPartSideType(npc.type)
             && CalamityBarHealth.TryRegisterVanillaBarDraw(npc.type)
             && (bossLike || CalamityBarHealth.ShouldForceDrawBar(npc) || headIndex >= 0) && !CalamityBarHealth.ShouldHideBar(npc)
             && (isCalamityNpc || npc.BossBar != Main.BigBossProgressBar.NeverValid || npc.type == NPCID.DungeonGuardian);
