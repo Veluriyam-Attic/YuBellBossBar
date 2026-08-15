@@ -1,4 +1,4 @@
-namespace YuBellBossBar.Content;
+﻿namespace YuBellBossBar.Content;
 
 internal static class BuildInTextures
 {
@@ -208,7 +208,7 @@ internal static class BuildInTextures
                 (_dvpath + "MechBossHead",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { fillOffset = new Vector2(58,16);headOffset = new Vector2(29,34); }
+                { fillOffset = new Vector2(58,18);headOffset = new Vector2(29,34); }
             )
         },
         {
@@ -218,7 +218,7 @@ internal static class BuildInTextures
                 (_dvpath + "MechBossTail",AssetRequestMode.ImmediateLoad),
                 TextureSource.DefaultVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { fillOffset = new Vector2(14,16); }
+                { fillOffset = new Vector2(14,18); }
             )
         },
         {

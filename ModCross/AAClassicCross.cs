@@ -14,7 +14,7 @@ internal class AAClassicCross : ModType
 
     public override void SetupContent()
     {
-        if (ModLoader.TryGetMod("AAModClassic", out Mod AAClassic))
+        if (ModLoader.TryGetMod("AAModClassic", out Mod AAClassic) && BarConfig.Instance.EnableExtraAAClassic)
         {
             Mod yabhb = ModLoader.GetMod("YuBellBossBar");
 
@@ -355,6 +355,51 @@ internal class AAClassicCross : ModType
             var AthenaABarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-AthenaABarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Silver, null);
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("AthenaA").Type, new List<object> { AthenaABarHead, AthenaABarBody, AthenaABarTail, AthenaABarFill }, null, null, null);
+            #endregion
+
+            #region 电子化-机械松露怪
+            var TechnoTruffleBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-TechnoTruffleBarHead", GetTexture("TechnoTruffleBarHead"), new Vector2(38, 12), new Vector2(27, 26), null);
+            var TechnoTruffleBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-TechnoTruffleBarBody", GetTexture("TechnoTruffleBarBody"), "Dulplicate", null);
+            var TechnoTruffleBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-TechnoTruffleBarTail", GetTexture("TechnoTruffleBarTail"), new Vector2(10, 6), null);
+            var TechnoTruffleBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-TechnoTruffleBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.MediumPurple, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("TechnoTruffle").Type, new List<object> { TechnoTruffleBarHead, TechnoTruffleBarBody, TechnoTruffleBarTail, TechnoTruffleBarFill }, null, null, null);
+            #endregion
+
+            #region 捕猎者-电子猎犬爪
+            var RetrieverBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-RetrieverBarHead", GetTexture("RetrieverBarHead"), new Vector2(64, 14), new Vector2(53, 29), null);
+            var RetrieverBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-RetrieverBarBody", GetTexture("RetrieverBarBody"), "Dulplicate", null);
+            var RetrieverBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-RetrieverBarTail", GetTexture("RetrieverBarTail"), new Vector2(4, 6), null);
+            var RetrieverBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-RetrieverBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.MediumPurple, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("Retriever").Type, new List<object> { RetrieverBarHead, RetrieverBarBody, RetrieverBarTail, RetrieverBarFill }, null, null, null);
+            #endregion
+
+            #region 食腐者-双头狗俄耳托斯X型
+            var OrthrusXBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-OrthrusXBarHead", GetTexture("OrthrusXBarHead"), new Vector2(40, 10), new Vector2(25, 23), null);
+            var OrthrusXBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-OrthrusXBarBody", GetTexture("OrthrusXBarBody"), "Extend", null);
+            var OrthrusXBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-OrthrusXBarTail", GetTexture("OrthrusXBarTail"), new Vector2(16, 6), null);
+            var OrthrusXBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-OrthrusXBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.MediumPurple, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("OrthrusXBody").Type, new List<object> { OrthrusXBarHead, OrthrusXBarBody, OrthrusXBarTail, OrthrusXBarFill }, null, null, null);
+            #endregion
+
+            #region 侵入者-创世哺育之母
+            var RaiderUltimaBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-RaiderUltimaBarHead", GetTexture("RaiderUltimaBarHead"), new Vector2(54, 8), new Vector2(41, 21), null);
+            var RaiderUltimaBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-RaiderUltimaBarBody", GetTexture("RaiderUltimaBarBody"), "Extend", null);
+            var RaiderUltimaBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-RaiderUltimaBarTail", GetTexture("RaiderUltimaBarTail"), new Vector2(22, 10), null);
+            var RaiderUltimaBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-RaiderUltimaBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.MediumPurple, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("RaiderUltima").Type, new List<object> { RaiderUltimaBarHead, RaiderUltimaBarBody, RaiderUltimaBarTail, RaiderUltimaBarFill }, null, null, null);
+            #endregion
+
+            #region 环境原核
+            var BiomiteCoreBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-BiomiteCoreBarHead", GetTexture("BiomiteCoreBarHead"), new Vector2(50, 12), new Vector2(27, 26), null);
+            var BiomiteCoreBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-BiomiteCoreBarBody", GetTexture("BiomiteCoreBarBody"), "Extend", null);
+            var BiomiteCoreBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-BiomiteCoreBarTail", GetTexture("BiomiteCoreBarTail"), new Vector2(22, 6), null);
+            var BiomiteCoreBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-BiomiteCoreBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.LightGreen, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("BiomiteCore").Type, new List<object> { BiomiteCoreBarHead, BiomiteCoreBarBody, BiomiteCoreBarTail, BiomiteCoreBarFill }, null, null, null);
             #endregion
         }
     }

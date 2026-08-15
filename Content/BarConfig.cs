@@ -36,6 +36,7 @@ public class BarConfig : ModConfig
     public bool EnableExtraCalamity;
 
     [DefaultValue(true)]
+    [ReloadRequired]
     public bool EnableExtraAAClassic;
 
     [DefaultValue(true)]
