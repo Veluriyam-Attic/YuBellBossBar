@@ -607,7 +607,7 @@ internal class BarDrawsMethods
         }
         else
         {
-            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), new Rectangle(FillP2.X, FillP2.Y, length, FillP2.Height), color * alpha * GlobalAlpha);
+            spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), new Rectangle(fill.texture.Value.Width - length, FillP2.Y, length, FillP2.Height), color * alpha * GlobalAlpha);
         }
     }
     internal void AdjustTexture(ref BarTexture2D texture, SpriteBatch spriteBatch, int dstHeight)
@@ -989,9 +989,12 @@ internal class BarDrawsMethods
 
     internal void StandardDrawIcon(SpriteBatch spriteBatch, Vector2 position, float life, float lifemax, float percentage, float GlobalAlpha, NPC npc)
     {
-        int HeightPF = icon.texture.Value.Height / icon.frameCount;
+        if (icon.texture != null)
+        {
+            int HeightPF = icon.texture.Value.Height / icon.frameCount;
 
-        spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, HeightPF / 2), FrameChooser(icon, HeightPF), Color.White * GlobalAlpha);
+            spriteBatch.Draw(icon.texture.Value, CheckBox[0] + head.headOffset - new Vector2(icon.texture.Value.Width / 2, HeightPF / 2), FrameChooser(icon, HeightPF), Color.White * GlobalAlpha);
+        }
     }
 }
 
