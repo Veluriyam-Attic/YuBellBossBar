@@ -401,6 +401,15 @@ internal class AAClassicCross : ModType
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("BiomiteCore").Type, new List<object> { BiomiteCoreBarHead, BiomiteCoreBarBody, BiomiteCoreBarTail, BiomiteCoreBarFill }, null, null, null);
             #endregion
+
+            #region 松露蟾蜍
+            var TruffleToadBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-TruffleToadBarHead", GetTexture("TruffleToadBarHead"), new Vector2(58, 18), new Vector2(36, 32), null);
+            var TruffleToadBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-TruffleToadBarBody", GetTexture("TruffleToadBarBody"), "Extend", null);
+            var TruffleToadBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-TruffleToadBarTail", GetTexture("TruffleToadBarTail"), new Vector2(6, 18), null);
+            var TruffleToadBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-TruffleToadBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.DarkCyan, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("TruffleToad").Type, new List<object> { TruffleToadBarHead, TruffleToadBarBody, TruffleToadBarTail, TruffleToadBarFill }, null, null, null);
+            #endregion
         }
     }
 
