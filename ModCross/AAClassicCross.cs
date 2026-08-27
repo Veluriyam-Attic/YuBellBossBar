@@ -154,7 +154,7 @@ internal class AAClassicCross : ModType
 
             #region 觉醒之阿努比斯 逝落的断罪师
             var FAnuBarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-FAnuBarHead", GetTexture("FAnuBarHead"), new Vector2(44, 16), new Vector2(26, 29), null);
-            var FAnuBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-FAnuBarTail", GetTexture("FAnuBarTail"), new Vector2(20, 8), null);
+            var FAnuBarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-FAnuBarTail", GetTexture("FAnuBarTail"), new Vector2(20, 6), null);
             var FAnuBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-FAnuBarBody", GetTexture("FAnuBarBody"), "Extend", null);
             var FAnuBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-FAnuBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.MediumAquamarine, null);
 
@@ -190,7 +190,7 @@ internal class AAClassicCross : ModType
 
             #region 觉醒潭渊妖女 震惧之八歧遥香
             var HarukaBar2Head = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-HarukaBar2Head", GetTexture("HarukaBar2Head"), new Vector2(22, 6), new Vector2(9, 12), null);
-            var HarukaBar2Tail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-HarukaBar2Tail", GetTexture("HarukaBar2Tail"), new Vector2(0, 6), null);
+            var HarukaBar2Tail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-HarukaBar2Tail", GetTexture("HarukaBar2Tail"), new Vector2(0, 4), null);
             var HarukaBar2Body = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-HarukaBar2Body", GetTexture("HarukaBar2Body"), "Extend", null);
             var HarukaBar2Fill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-HarukaBar2Fill", ModContent.Request<Texture2D>("YuBellBossBar/Texture/DefaultTexture/SmallBarFill",AssetRequestMode.ImmediateLoad), 4, "FillExtend", "Custom", new Color(122, 157, 152), null);
 
