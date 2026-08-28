@@ -131,7 +131,10 @@ internal class AAClassicCross : ModType
             var AnuBarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-AnuBarBody", GetTexture("AnuBarBody"), "Extend", null);
             var AnuBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-AnuBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Cyan, null);
 
-            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("Anubis").Type, new List<object> { AnuBarHead, AnuBarBody, AnuBarTail, AnuBarFill }, null, null, null);
+            if (AAClassic.TryFind<ModNPC>("AnubisUnreleased",out ModNPC AnubisUnreleased))
+                yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AnubisUnreleased.Type, new List<object> { AnuBarHead, AnuBarBody, AnuBarTail, AnuBarFill }, null, null, null);
+            if (AAClassic.TryFind<ModNPC>("AnubisUnreleased", out ModNPC Anubis))
+                yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", Anubis.Type, new List<object> { AnuBarHead, AnuBarBody, AnuBarTail, AnuBarFill }, null, null, null);
             #endregion
 
             #region 金食饕餮
@@ -409,6 +412,15 @@ internal class AAClassicCross : ModType
             var TruffleToadBarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-TruffleToadBarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.DarkCyan, null);
 
             yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("TruffleToad").Type, new List<object> { TruffleToadBarHead, TruffleToadBarBody, TruffleToadBarTail, TruffleToadBarFill }, null, null, null);
+            #endregion
+
+            #region 觉醒之金食饕餮 鎏金万蟲王
+            var GreedABarHead = yabhb.Call("YetAnotherModCall", "Add", "Add Head", "AAC-GreedABarHead", GetTexture("GreedABarHead"), new Vector2(64, 26), new Vector2(30, 38), null);
+            var GreedABarBody = yabhb.Call("YetAnotherModCall", "Add", "Add Frame", "AAC-GreedABarBody", GetTexture("GreedABarBody"), "Dulplicate", null);
+            var GreedABarTail = yabhb.Call("YetAnotherModCall", "Add", "Add Tail", "AAC-GreedAarTail", GetTexture("GreedABarTail"), new Vector2(20, 10), null);
+            var GreedABarFill = yabhb.Call("YetAnotherModCall", "Add", "Add Fill", "AAC-GreedABarFill", GetTexture("BarFill"), 16, "FillExtend", "Custom", Color.Goldenrod, null);
+
+            yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AAClassic.Find<ModNPC>("GreedAHead").Type, new List<object> { GreedABarHead, GreedABarBody, GreedABarTail, GreedABarFill }, null, null, null);
             #endregion
         }
     }
