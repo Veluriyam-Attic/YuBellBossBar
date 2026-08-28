@@ -1,4 +1,4 @@
-namespace YuBellBossBar.ModCross;
+﻿namespace YuBellBossBar.ModCross;
 
 /// <summary>
 /// <br/>灾厄血条适配的反射桥。

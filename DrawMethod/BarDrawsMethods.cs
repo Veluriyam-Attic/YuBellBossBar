@@ -15,7 +15,7 @@ internal class BarDrawsMethods
     public List<BarTexture2D> extraUponInfo;
 
     BarInfo barInfo;
-    float fadeFactor;
+    public float fadeFactor;
 
     float life = 0;
     float lifemax = 0;
@@ -90,7 +90,6 @@ internal class BarDrawsMethods
 
     public int PreDraw(SpriteBatch spriteBatch)
     {
-
         // 淡出系数:由PostAI每帧维护的FadeAlpha(最大255)决定,透明度乘 FadeAlpha/255
         // 移除委托的动作在PostAI/OnKill里直接从事件订阅执行,不依赖本方法被调用
         fadeFactor = npc.GetGlobalNPC<BarGlobalNPC>()?.FadeAlpha / 255f ?? 1f;
@@ -343,6 +342,11 @@ internal class BarDrawsMethods
         {
             life = 0;
             percentage = 0;
+        }
+
+        if (life<=0 || lifemax <= 0)
+        {
+            return 0;
         }
 
         #endregion

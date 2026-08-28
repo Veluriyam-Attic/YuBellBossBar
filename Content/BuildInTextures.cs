@@ -713,7 +713,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { headOffset = new Vector2(26, 30); fillOffset = new Vector2(56, 20); }
+                { headOffset = new Vector2(26, 22); fillOffset = new Vector2(56, 10); }
             )
         },
         {
@@ -734,7 +734,7 @@ internal static class BuildInTextures
                 AssetRequestMode.ImmediateLoad),
                 TextureSource.ExtraVanilla,
                 (ref fillCutLengh,ref fillOffset,ref headOffset,ref barFillStyles, ref barFillColor, ref fillColor, ref barFrameStyles) =>
-                { fillOffset = new Vector2(24, 20); }
+                { fillOffset = new Vector2(24, 8); }
             )
         },
         {

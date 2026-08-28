@@ -1,4 +1,4 @@
-namespace YuBellBossBar;
+﻿namespace YuBellBossBar;
 
 public class YuBellBossBar : Mod
 {
@@ -28,6 +28,7 @@ public class YuBellBossBar : Mod
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MartianSaucerTurret, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.MoonLordCore, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.BrainofCthulhu, false);
+            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.Golem, false);
         }
 
         #region 检查灾厄是否启用了 Check if Calamity Mod is loaded

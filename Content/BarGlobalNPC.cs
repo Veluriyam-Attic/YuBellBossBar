@@ -36,11 +36,23 @@ internal class BarGlobalNPC : GlobalNPC
 
     public override void PostAI(NPC npc)
     {
+        if (npc.type == NPCID.CultistBossClone || !npc.active)
+            return;
+
+
+        // 距离条件:仅当NPC与本地玩家(客户端视角)的距离 <= 5000 像素时才显示血条。
+        // 超出范围立刻把淡出系数清零,并走下方 else 分支移除委托,血条不再显示。
+        // 使用平方距离避免每帧开方;以本地玩家为参照,多人时各客户端按自己判断。
+        const float MaxShowDistance = 5000f;
+        bool inRange = Vector2.DistanceSquared(npc.Center, Main.LocalPlayer.Center) <= MaxShowDistance * MaxShowDistance;
+        if (!inRange)
+            FadeAlpha = 0;
+
         // 头像索引有效就刷新缓存;无效时由Draw使用缓存,缓存为空才回退默认头像
         int headIndex = npc.GetBossHeadTextureIndex();
         if (headIndex >= 0)
             CachedBossHead = TextureAssets.NpcHeadBoss[headIndex];
-        else if (CachedBossHead == null && npc.type != NPCID.MoonLordCore)
+        else if (CachedBossHead == null && npc.type != NPCID.MoonLordCore && npc.type != NPCID.Golem)
             return;
 
         bool bossLike = npc.boss
@@ -53,6 +65,7 @@ internal class BarGlobalNPC : GlobalNPC
         // 神秘传送门(旧日军团传送门)不显示任何血条
         // Mysterious Portal (Old One's Army portal) never gets a boss bar
         bool shouldAdd = npc.active && npc.type != NPCID.DD2LanePortal
+            && inRange
             && !CalamityBarHealth.IsVanillaMultiPartSideType(npc.type)
             && CalamityBarHealth.TryRegisterVanillaBarDraw(npc.type)
             && (bossLike || CalamityBarHealth.ShouldForceDrawBar(npc) || headIndex >= 0) && !CalamityBarHealth.ShouldHideBar(npc)

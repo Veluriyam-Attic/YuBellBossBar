@@ -15,7 +15,6 @@ internal class CalamityCloneAdapt : ModType
 
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("SlimeGodCore").Type, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", calamity.Find<ModNPC>("RavagerBody").Type, false);
-            yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.Golem, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHead, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemHeadFree, false);
             yabhb.Call("YetAnotherModCall", "Edit", "Invincible", NPCID.GolemFistLeft, false);

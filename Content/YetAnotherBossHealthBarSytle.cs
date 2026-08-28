@@ -46,8 +46,11 @@ internal class YetAnotherBossHealthBarSytle : ModBossBarStyle
 
                 // 第一遍:先调用所有要画血条的 PreDraw,拿到各自高度
                 int[] heights = new int[drawCount];
+
                 for (int i = 0; i < drawCount; i++)
+                {
                     heights[i] = ((Func<BarDrawsMethods>)D_array[i])().PreDraw(spriteBatch);
+                }
 
                 // 第二遍:当前血条位置用累加前的 x,间隔取当前和下一根高度的平均值,再 Draw -> PostDraw
                 for (int i = 0; i < drawCount; i++)
