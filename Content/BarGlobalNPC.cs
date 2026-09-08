@@ -1,4 +1,4 @@
-namespace YuBellBossBar.Content;
+﻿namespace YuBellBossBar.Content;
 
 internal class BarGlobalNPC : GlobalNPC
 {
@@ -34,10 +34,10 @@ internal class BarGlobalNPC : GlobalNPC
     }
 
 
-    public override void PostAI(NPC npc)
+    public override void ResetEffects(NPC npc)
     {
         if (npc.type == NPCID.CultistBossClone || !npc.active)
-            return;
+            return ;
 
 
         // 距离条件:仅当NPC与本地玩家(客户端视角)的距离 <= 5000 像素时才显示血条。
@@ -53,7 +53,7 @@ internal class BarGlobalNPC : GlobalNPC
         if (headIndex >= 0)
             CachedBossHead = TextureAssets.NpcHeadBoss[headIndex];
         else if (CachedBossHead == null && npc.type != NPCID.MoonLordCore && npc.type != NPCID.Golem)
-            return;
+            return ;
 
         bool bossLike = npc.boss
             || npc.type == NPCID.EaterofWorldsHead || npc.type == NPCID.EaterofWorldsBody || npc.type == NPCID.EaterofWorldsTail
