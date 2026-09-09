@@ -39,6 +39,9 @@ internal class BarGlobalNPC : GlobalNPC
         if (npc.type == NPCID.CultistBossClone || !npc.active)
             return ;
 
+        if (npc.realLife != -1 && npc.realLife != npc.whoAmI)
+            return;
+
 
         // 距离条件:仅当NPC与本地玩家(客户端视角)的距离 <= 5000 像素时才显示血条。
         // 超出范围立刻把淡出系数清零,并走下方 else 分支移除委托,血条不再显示。

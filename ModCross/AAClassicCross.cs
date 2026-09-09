@@ -133,7 +133,7 @@ internal class AAClassicCross : ModType
 
             if (AAClassic.TryFind<ModNPC>("AnubisUnreleased",out ModNPC AnubisUnreleased))
                 yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", AnubisUnreleased.Type, new List<object> { AnuBarHead, AnuBarBody, AnuBarTail, AnuBarFill }, null, null, null);
-            if (AAClassic.TryFind<ModNPC>("AnubisUnreleased", out ModNPC Anubis))
+            if (AAClassic.TryFind<ModNPC>("Anubis", out ModNPC Anubis))
                 yabhb.Call("YetAnotherModCall", "Add", "Add BarInfo", Anubis.Type, new List<object> { AnuBarHead, AnuBarBody, AnuBarTail, AnuBarFill }, null, null, null);
             #endregion
 
