@@ -81,7 +81,13 @@ internal class BarDrawsMethods
     public static Vector2 position
     {
         get
-        { return Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2(BarConfig.Instance.BarPostionX, -BarConfig.Instance.BarPostionY - 40f); }
+        {
+            // 对齐到整数像素:血条里混用了 ((int) 截断的 Rectangle) 和 (浮点 Vector2) 两种画法,
+            // 位置带小数时(例如屏幕宽度是奇数,ScreenSize.X * 0.5f 得到 x.5)两者会错开半个像素,
+            // 于是边框和尾巴之间就会留下 1px 的缝
+            Vector2 pos = Main.ScreenSize.ToVector2() * new Vector2(0.5f, 1f) + new Vector2(BarConfig.Instance.BarPostionX, -BarConfig.Instance.BarPostionY - 40f);
+            return new Vector2(MathF.Round(pos.X), MathF.Round(pos.Y));
+        }
     }
 
     public Dictionary<int, float> postpercentages = new Dictionary<int, float>();
@@ -606,7 +612,7 @@ internal class BarDrawsMethods
 
         if (length > fill.fillCutLengh)
         {
-            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh, FillPF), FillP1, color * alpha * GlobalAlpha);
+            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh + 1, FillPF), FillP1, color * alpha * GlobalAlpha);
             spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), FillP2, color * alpha * GlobalAlpha);
         }
         else
@@ -945,25 +951,35 @@ internal class BarDrawsMethods
         Vector2 EndPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -HeightPF / 2);
         Rectangle frameP = FrameChooser(frame, HeightPF);
 
+        // 左边向下取整、右边再补 1 像素:坐标不是整数像素时,边框只会往头/尾的方向多铺 1 像素以内,
+        // 而头和尾是在边框之后绘制的,会把多出来的部分盖住,这样两端都不会再有 1px 的缝
+        int frameLeft = (int)MathF.Floor(StartPosition.X);
+        int frameRight = (int)MathF.Floor(EndPosition.X) + 1;
+        int frameTop = (int)MathF.Round(StartPosition.Y);
+        int frameSpan = frameRight - frameLeft;
+
         switch (frame.barFrameStyles)
         {
             case BarFrameStyles.Extend:
                 {
-                    spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X, (int)StartPosition.Y, (int)EndPosition.X - (int)StartPosition.X, HeightPF), frameP, Color.White * GlobalAlpha);
+                    spriteBatch.Draw(frame.texture.Value, new Rectangle(frameLeft, frameTop, frameSpan, HeightPF), frameP, Color.White * GlobalAlpha);
 
                     break;
                 }
 
             case BarFrameStyles.Dulplicate:
                 {
-                    int count = (((int)EndPosition.X - (int)StartPosition.X) / frame.texture.Value.Width);
-                    int extra = (((int)EndPosition.X - (int)StartPosition.X) % frame.texture.Value.Width);
+                    int count = frameSpan / frame.texture.Value.Width;
+                    int extra = frameSpan % frame.texture.Value.Width;
 
                     for (int i = 0; i < count; i++)
                     {
-                        spriteBatch.Draw(frame.texture.Value, new Rectangle((int)StartPosition.X + (i * frame.texture.Value.Width), (int)StartPosition.Y, frame.texture.Value.Width, HeightPF), frameP, Color.White * GlobalAlpha);
+                        spriteBatch.Draw(frame.texture.Value, new Rectangle(frameLeft + (i * frame.texture.Value.Width), frameTop, frame.texture.Value.Width, HeightPF), frameP, Color.White * GlobalAlpha);
                     }
-                    spriteBatch.Draw(frame.texture.Value, new Vector2(EndPosition.X - extra, EndPosition.Y), new Rectangle(frame.texture.Value.Width - extra, 0, extra, frameP.Height), Color.White * GlobalAlpha);
+                    if (extra > 0)
+                    {
+                        spriteBatch.Draw(frame.texture.Value, new Vector2(frameLeft + (count * frame.texture.Value.Width), frameTop), new Rectangle(frame.texture.Value.Width - extra, 0, extra, frameP.Height), Color.White * GlobalAlpha);
+                    }
 
                     break;
                 }
@@ -975,6 +991,9 @@ internal class BarDrawsMethods
         int HeightPF = head.texture.Value.Height / head.frameCount;
         Vector2 StartPosition = position - new Vector2((BarConfig.Instance.BarLength / 2) + head.fillOffset.X, (fillHPF / 2)  + head.fillOffset.Y);
 
+        // 和边框用同一套整数像素网格:自定义偏移量带小数时才不会和边框错开半个像素
+        StartPosition = new Vector2(MathF.Round(StartPosition.X), MathF.Round(StartPosition.Y));
+
         CheckBox[0] = StartPosition;
 
         spriteBatch.Draw(head.texture.Value, StartPosition, FrameChooser(head, HeightPF), Color.White * GlobalAlpha);
@@ -985,6 +1004,9 @@ internal class BarDrawsMethods
         int HeightPF = tail.texture.Value.Height / tail.frameCount;
 
         Vector2 StartPosition = position + new Vector2((BarConfig.Instance.BarLength / 2) - tail.fillOffset.X, -(fillHPF / 2) - tail.fillOffset.Y);
+
+        // 和边框用同一套整数像素网格:自定义偏移量带小数时才不会和边框错开半个像素
+        StartPosition = new Vector2(MathF.Round(StartPosition.X), MathF.Round(StartPosition.Y));
 
         CheckBox[1] = StartPosition;
 
