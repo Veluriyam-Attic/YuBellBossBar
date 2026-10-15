@@ -612,7 +612,7 @@ internal class BarDrawsMethods
 
         if (length > fill.fillCutLengh)
         {
-            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh + 1, FillPF), FillP1, color * alpha * GlobalAlpha);
+            spriteBatch.Draw(fill.texture.Value, new Rectangle((int)position.X, (int)position.Y, length - fill.fillCutLengh, FillPF), FillP1, color * alpha * GlobalAlpha);
             spriteBatch.Draw(fill.texture.Value, new Vector2(position.X + length - fill.fillCutLengh, position.Y), FillP2, color * alpha * GlobalAlpha);
         }
         else
